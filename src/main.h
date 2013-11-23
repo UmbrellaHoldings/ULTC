@@ -27,6 +27,7 @@ class CReserveKey;
 class CAddress;
 class CInv;
 class CNode;
+class CAuxPow;
 
 struct CBlockIndexWorkComparator;
 
@@ -169,6 +170,7 @@ CBlockTemplate* CreateNewBlock(
 CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey);
 /** Modify the extranonce in a block */
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
+void IncrementExtraNonceWithAux(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce, std::vector<unsigned char>& vchAux);
 /** Do mining precalculation */
 void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash1);
 /** Check mined block */
@@ -204,6 +206,7 @@ int GetNumBlocksOfPeers();
 bool IsInitialBlockDownload();
 /** Format a string that describes several potential problems detected by the core */
 std::string GetWarnings(std::string strFor);
+int GetOurChainID();
 /** Retrieve a transaction (from memory pool, or from disk, if possible) */
 bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, bool fAllowSlow = false);
 /** Connect/disconnect blocks until pindexNew is the new tip of the active block chain */
@@ -691,6 +694,28 @@ public:
 };
 
 
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionSerialize ser_action);
+  
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionUnserialize ser_action);
+  
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionGetSerializeSize ser_action);
+  
+enum
+{
+    // primary version
+    BLOCK_VERSION_DEFAULT        = (1 << 0),
+
+    // modifiers
+    BLOCK_VERSION_AUXPOW         = (1 << 8),
+
+    // bits allocated for chain ID
+    BLOCK_VERSION_CHAIN_START    = (1 << 16),
+    BLOCK_VERSION_CHAIN_END      = (1 << 30),
+};
+
 
 
 
@@ -868,28 +893,28 @@ class CDiskBlockIndex : public CBlockIndex
 public:
   uint256 hashPrev;
 
+  // if this is an aux work block
+  boost::shared_ptr<CAuxPow> auxpow;
+
   CDiskBlockIndex() {
     hashPrev = 0;
+    auxpow.reset();
   }
 
-  explicit CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
+    explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) {
     hashPrev = (pprev ? pprev->GetBlockHash() : 0);
+        this->auxpow = auxpow;
   }
 
   IMPLEMENT_SERIALIZE
   (
+        /* immutable stuff goes here, mutable stuff
+         * has SERIALIZE functions in CBlockIndex */
     if (!(nType & SER_GETHASH))
       READWRITE(VARINT(nVersion));
 
     READWRITE(VARINT(nHeight));
-    READWRITE(VARINT(nStatus));
     READWRITE(VARINT(nTx));
-    if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
-      READWRITE(VARINT(nFile));
-    if (nStatus & BLOCK_HAVE_DATA)
-      READWRITE(VARINT(nDataPos));
-    if (nStatus & BLOCK_HAVE_UNDO)
-      READWRITE(VARINT(nUndoPos));
 
     // block header
     READWRITE(this->nVersion);
@@ -898,9 +923,10 @@ public:
     READWRITE(nTime);
     READWRITE(nBits.compact);
     READWRITE(nNonce);
+        ReadWriteAuxPow(s, auxpow, nType, this->nVersion, ser_action);
   )
 
-  uint256 GetBlockHash() const
+    uint256 CalcBlockHash() const
   {
     CBlockHeader block;
     block.nVersion    = nVersion;
@@ -913,7 +939,8 @@ public:
   }
 
 
-  std::string ToString() const
+    std::string ToString() const; // moved code to main.cpp
+#if 0
   {
     std::string str = "CDiskBlockIndex(";
     str += CBlockIndex::ToString();
@@ -922,6 +949,7 @@ public:
       hashPrev.ToString().c_str());
     return str;
   }
+#endif
 
   void print() const
   {

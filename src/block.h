@@ -480,6 +480,7 @@ public:
   unsigned int nTime; //! seconds since Unix epoch
   compact_bignum_t nBits;
   unsigned int nNonce;
+  boost::shared_ptr<CAuxPow> auxpow;
 
   CBlockHeader()
   {
@@ -495,11 +496,27 @@ public:
     READWRITE(nTime);
     READWRITE(nBits.compact);
     READWRITE(nNonce);
+
+    nSerSize += ReadWriteAuxPow(s, auxpow, nType, nVersion, ser_action);
   )
+
+  int GetChainID() const
+  {
+    return nVersion / BLOCK_VERSION_CHAIN_START;
+  }
+
+  uint256 GetPoWHash() const
+  {
+    uint256 thash;
+    scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+    return thash;
+  }
+	
+  void SetAuxPow(CAuxPow* pow);
 
   void SetNull()
   {
-    nVersion = CBlockHeader::CURRENT_VERSION;
+    nVersion = CBlockHeader::CURRENT_VERSION | (GetOurChainID() * BLOCK_VERSION_CHAIN_START);
     hashPrevBlock = 0;
     hashMerkleRoot = 0;
     nTime = 0;
@@ -520,6 +537,8 @@ public:
   }
 
   coin::times::block::time_point GetTimePoint() const;
+
+  bool CheckProofOfWork(int nHeight) const;
 
   void UpdateTime(const CBlockIndex* pindexPrev);
 };
@@ -629,7 +648,8 @@ public:
   bool AddToBlockIndex(CValidationState &state, const CDiskBlockPos &pos);
 
   // Context-independent validity checks
-  bool CheckBlock(CValidationState &state, bool fCheckPOW=true, bool fCheckMerkleRoot=true) const;
+  //  nHeight is needed to see if merged mining is allowed
+  bool CheckBlock(CValidationState &state, int nHeight, bool fCheckPOW=true, bool fCheckMerkleRoot=true) const;
 
   // Store block on disk
   // if dbp is provided, the file is known to already
@@ -753,6 +773,23 @@ public:
 
   CBlockIndex();
   CBlockIndex(CBlockHeader& block);
+
+  IMPLEMENT_SERIALIZE
+  (
+    /* mutable stuff goes here, immutable stuff
+     * has SERIALIZE functions in CDiskBlockIndex */
+    if (!(nType & SER_GETHASH))
+      READWRITE(VARINT(nVersion));
+  
+    READWRITE(VARINT(nStatus));
+    if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
+      READWRITE(VARINT(nFile));
+    if (nStatus & BLOCK_HAVE_DATA)
+      READWRITE(VARINT(nDataPos));
+    if (nStatus & BLOCK_HAVE_UNDO)
+      READWRITE(VARINT(nUndoPos));
+  )
+
   CDiskBlockPos GetBlockPos() const;
   CDiskBlockPos GetUndoPos() const;
   CBlockHeader GetBlockHeader() const;

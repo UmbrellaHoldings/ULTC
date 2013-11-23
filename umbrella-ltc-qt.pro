@@ -152,6 +152,7 @@ HEADERS += \
     src/addrman.h \
     src/alert.h \
     src/allocators.h \
+    src/auxpow.h \
     src/base58.h \
     src/block.h \
     src/bignum.h \
@@ -255,6 +256,7 @@ SOURCES += \
     src/addrman.cpp \
     src/alert.cpp \
     src/allocators.cpp \
+    src/auxpow.cpp \
     src/base58.cpp \
     src/bignum.cpp \
     src/bitcoinrpc.cpp \
