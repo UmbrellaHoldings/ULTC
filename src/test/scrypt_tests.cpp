@@ -18,10 +18,10 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
         inputbytes = ParseHex(inputhex[i]);
 #if defined(USE_SSE2)
         // Test SSE2 scrypt
-        scrypt_1024_1_1_256_sp_sse2((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad);
+        scrypt_N_1_1_256_sp_sse2((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad, GetNfactor(pblock->nTime));
 #endif
         // Test generic scrypt
-        scrypt_1024_1_1_256_sp_generic((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad);
+        scrypt_N_1_1_256_sp_generic((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad, GetNfactor(pblock->nTime));
         BOOST_CHECK_EQUAL(scrypthash.ToString().c_str(), expected[i]);
     }
 }

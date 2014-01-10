@@ -1,9 +1,9 @@
-Building Litecoin
+Building Vertcoin
 
-See doc/readme-qt.rst for instructions on building Litecoin-Qt,
+See doc/readme-qt.rst for instructions on building Vertcoin-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Litecoin.
+implementation of Vertcoin.
 
-See doc/build-*.txt for instructions on building litecoind,
+See doc/build-*.txt for instructions on building vertcoind,
 the intended-for-services, no-graphical-interface, reference
-implementation of Litecoin.
+implementation of Vertcoin.

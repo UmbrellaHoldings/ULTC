@@ -243,12 +243,12 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 	B[15] += x15;
 }
 
-void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scratchpad)
+void scrypt_N_1_1_256_sp_generic(const char *input, char *output, char *scratchpad, unsigned char Nfactor)
 {
 	uint8_t B[128];
 	uint32_t X[32];
 	uint32_t *V;
-	uint32_t i, j, k;
+	uint32_t i, j, k, N;
 
 	V = (uint32_t *)(((uintptr_t)(scratchpad) + 63) & ~ (uintptr_t)(63));
 	
@@ -256,14 +256,17 @@ void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scrat
 
 	for (k = 0; k < 32; k++)
 		X[k] = le32dec(&B[4 * k]);
-
-	for (i = 0; i < 1024; i++) {
+        
+        N = (1 << (Nfactor + 1));
+        
+	for (i = 0; i < N; i++) {
 		memcpy(&V[i * 32], X, 128);
 		xor_salsa8(&X[0], &X[16]);
 		xor_salsa8(&X[16], &X[0]);
 	}
-	for (i = 0; i < 1024; i++) {
-		j = 32 * (X[16] & 1023);
+	for (i = 0; i < N; i++) {
+		//j = 32 * (X[16] & 1023);
+                j = 32 * (X[16] & (N-1));
 		for (k = 0; k < 32; k++)
 			X[k] ^= V[j + k];
 		xor_salsa8(&X[0], &X[16]);
@@ -285,39 +288,39 @@ void scrypt_detect_sse2(unsigned int cpuid_edx)
 }
 #else
 /* Detect SSE2 */
-void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
+void (*scrypt_N_1_1_256_sp)(const char *input, char *output, char *scratchpad, unsigned char Nfactor);
 
 void scrypt_detect_sse2(unsigned int cpuid_edx)
 {
     if (cpuid_edx & 1<<26)
     {
-        scrypt_1024_1_1_256_sp = &scrypt_1024_1_1_256_sp_sse2;
+        scrypt_N_1_1_256_sp = &scrypt_N_1_1_256_sp_sse2;
         printf("scrypt: using scrypt-sse2 as detected.\n");
     }
     else
     {
-        scrypt_1024_1_1_256_sp = &scrypt_1024_1_1_256_sp_generic;
+        scrypt_N_1_1_256_sp = &scrypt_N_1_1_256_sp_generic;
         printf("scrypt: using scrypt-generic, SSE2 unavailable.\n");
     }
 }
 #endif
 #endif
 
-void scrypt_1024_1_1_256(const char *input, char *output)
+void scrypt_N_1_1_256(const char *input, char *output, unsigned char Nfactor)
 {
-	char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+	char scratchpad[((1 << (Nfactor + 1)) * 128 ) + 63];
 #if defined(USE_SSE2)
         // Detection would work, but in cases where we KNOW it always has SSE2,
         // it is faster to use directly than to use a function pointer or conditional.
 #if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
         // Always SSE2: x86_64 or Intel MacOS X
-        scrypt_1024_1_1_256_sp_sse2(input, output, scratchpad);
+        scrypt_N_1_1_256_sp_sse2(input, output, scratchpad, Nfactor);
 #else
         // Detect SSE2: 32bit x86 Linux or Windows
-        scrypt_1024_1_1_256_sp(input, output, scratchpad);
+        scrypt_N_1_1_256_sp(input, output, scratchpad, Nfactor);
 #endif
 #else
         // Generic scrypt
-        scrypt_1024_1_1_256_sp_generic(input, output, scratchpad);
+        scrypt_N_1_1_256_sp_generic(input, output, scratchpad, Nfactor);
 #endif
 }
