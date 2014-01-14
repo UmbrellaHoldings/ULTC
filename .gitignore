@@ -32,3 +32,8 @@ qrc_*.cpp
 build
 
 !src/leveldb*/Makefile
+
+GPATH
+GRTAGS
+GSYMS
+GTAGS

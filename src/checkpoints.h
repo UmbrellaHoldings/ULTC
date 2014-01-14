@@ -23,7 +23,9 @@ namespace Checkpoints
     // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
 
+#ifdef USE_CHECKPOINTS
     double GuessVerificationProgress(CBlockIndex *pindex);
+#endif
 }
 
 #endif
