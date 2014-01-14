@@ -28,6 +28,7 @@ namespace Checkpoints
         double fTransactionsPerDay;
     };
 
+#ifdef USE_CHECKPOINTS
     // What makes a good checkpoint block?
     // + Is surrounded by blocks with reasonable timestamps
     //   (no blocks before with a timestamp after, none after with
@@ -63,9 +64,11 @@ namespace Checkpoints
         else
             return data;
     }
+#endif
 
     bool CheckBlock(int nHeight, const uint256& hash)
     {
+#ifdef USE_CHECKPOINTS
         if (fTestNet) return true; // Testnet has no checkpoints
         if (!GetBoolArg("-checkpoints", true))
             return true;
@@ -75,8 +78,12 @@ namespace Checkpoints
         MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
         if (i == checkpoints.end()) return true;
         return hash == i->second;
+#else
+        return true;
+#endif
     }
 
+#ifdef USE_CHECKPOINTS
     // Guess how far we are in the verification process at the given block index
     double GuessVerificationProgress(CBlockIndex *pindex) {
         if (pindex==NULL)
@@ -107,9 +114,11 @@ namespace Checkpoints
 
         return fWorkBefore / (fWorkBefore + fWorkAfter);
     }
+#endif
 
     int GetTotalBlocksEstimate()
     {
+#ifdef USE_CHECKPOINTS
         if (fTestNet) return 0; // Testnet has no checkpoints
         if (!GetBoolArg("-checkpoints", true))
             return 0;
@@ -117,10 +126,14 @@ namespace Checkpoints
         const MapCheckpoints& checkpoints = *Checkpoints().mapCheckpoints;
 
         return checkpoints.rbegin()->first;
+#else
+        return 0;
+#endif
     }
 
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex)
     {
+#ifdef USE_CHECKPOINTS
         if (fTestNet) return NULL; // Testnet has no checkpoints
         if (!GetBoolArg("-checkpoints", true))
            return NULL;
@@ -134,6 +147,8 @@ namespace Checkpoints
             if (t != mapBlockIndex.end())
                 return t->second;
         }
+#endif
         return NULL;
     }
+
 }
