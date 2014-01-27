@@ -7,3 +7,6 @@ implementation of Vertcoin.
 See doc/build-*.txt for instructions on building vertcoind,
 the intended-for-services, no-graphical-interface, reference
 implementation of Vertcoin.
+
+Further build information and documentation is available at
+the official Vertcoin website, http://www.vertcoin.org

@@ -1,3 +1,25 @@
+0.8.6.2 changes
+=============
+
+- Change N-Factor increment scheduling
+
+- Fork to Kimoto Gravity Well difficulty adjustment at block 26754 (Around midday UTC on 1st February 2014)
+
+- Update to boost 1.55 to fix Windows connectivity issue
+
+- Fix custom build on MacOS X 10.9
+
+- Fix QT5 custom build
+
+- Update Debian build instructions
+
+- Update homebrew build
+
+- DNS seeds updated to include vtc.kilovolt.co.uk and vtcpool.co.uk
+
+- Checkpoint at block 24200
+
+
 0.8.6.1 changes
 =============
 
