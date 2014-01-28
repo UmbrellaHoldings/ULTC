@@ -11,13 +11,13 @@ What is Vertcoin?
 ----------------
 
 Vertcoin is a lite version of Bitcoin using scrypt-adaptive-N as a proof-of-work algorithm.
- - Every block targets with Kimotos Gravity Well algorithm
+ - 2.5 minute block targets
  - subsidy halves in 840k blocks (~4 years)
  - ~84 million total coins
 
 The rest is the same as Bitcoin.
  - 50 coins per block
- - 2016 blocks to retarget difficulty
+ - Every block to retarget difficulty with Kimotos Gravity Well algorithm
 
 For more information, as well as an immediately useable, binary version of
 the Vertcoin client sofware, see http://www.vertcoin.org.
