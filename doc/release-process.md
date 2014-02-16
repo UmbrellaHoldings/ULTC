@@ -24,10 +24,28 @@ Release Process
 
 ##perform gitian builds
 
- From a directory containing the siliconvalley source, gitian-builder and gitian.sigs
+###Ubuntu 12.04.3 LTS amd64 prerequisities
+
+   sudo apt-get install git apache2 apt-cacher-ng python-vm-builder ruby qemu-utils
+   sudo apt-get install debootstrap lxc # for LXC mode
+	git clone git://github.com/devrandom/gitian-builder.git
+
+	cd gitian-builder
+   bin/make-base-vm --lxc --arch i386
+   bin/make-base-vm --lxc --arch amd64
+   bin/make-base-vm --lxc --arch amd64 --suite precise
+
+   # LXC network
+   sudo brctl addbr br0
+   sudo ifconfig br0 10.0.2.2/24 up
+
+###The build itself
+
+ From a directory containing the Compcoin source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
-	export VERSION=0.8.0
+	export VERSION=0.0.0
+	export USE_LXC=1
 	cd ./gitian-builder
 
  Fetch and build inputs: (first time, or when dependency versions change)
@@ -42,9 +60,10 @@ Release Process
 	wget 'http://downloads.sourceforge.net/project/boost/boost/1.50.0/boost_1_50_0.tar.bz2'
 	wget 'http://releases.qt-project.org/qt4/source/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
-	./bin/gbuild ../siliconvalley/contrib/gitian-descriptors/boost-win32.yml
-	mv build/out/boost-win32-1.50.0-gitian2.zip inputs/
-	./bin/gbuild ../siliconvalley/contrib/gitian-descriptors/qt-win32.yml
+	./bin/gbuild ../compcoin/contrib/gitian-descriptors/boost-win32.yml
+	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
+>
+	./bin/gbuild ../compcoin/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r1.zip inputs/
 	./bin/gbuild ../siliconvalley/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/siliconvalley-deps-0.0.5.zip inputs/
