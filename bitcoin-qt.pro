@@ -235,9 +235,11 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
     src/alert.cpp \
+    src/allocators.cpp \
     src/version.cpp \
     src/sync.cpp \
     src/util.cpp \
+    src/util_cmn.cpp \
     src/hash.cpp \
     src/netbase.cpp \
     src/key.cpp \
