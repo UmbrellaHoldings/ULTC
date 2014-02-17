@@ -192,6 +192,12 @@ obj/%.o: %.cpp
 litecoind: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
+KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
+              obj/allocators.o
+
+USDollarCoinKeyGen: $(KEYGENOBJS)
+	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
+
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 
 obj-test/%.o: test/%.cpp

@@ -1,6 +1,7 @@
 src/*.exe
 src/litecoin
 src/litecoind
+src/litecoinKeyGen
 src/test_litecoin
 .*.swp
 *.*~*
