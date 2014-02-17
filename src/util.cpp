@@ -1249,11 +1249,6 @@ void ShrinkDebugFile()
 
 
 
-void SetMockTime(int64 nMockTimeIn)
-{
-    nMockTime = nMockTimeIn;
-}
-
 static int64 nTimeOffset = 0;
 
 int64 GetTimeOffset()

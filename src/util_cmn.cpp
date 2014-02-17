@@ -58,3 +58,8 @@ int64 GetTime()
     return time(NULL);
 }
 
+void SetMockTime(int64 nMockTimeIn)
+{
+    nMockTime = nMockTimeIn;
+}
+
