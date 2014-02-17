@@ -113,6 +113,7 @@ xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 OBJS= \
     leveldb/libleveldb.a \
     obj/alert.o \
+    obj/allocators.o \
     obj/version.o \
     obj/checkpoints.o \
     obj/netbase.o \
@@ -136,6 +137,7 @@ OBJS= \
     obj/scrypt.o \
     obj/sync.o \
     obj/util.o \
+    obj/util_cmn.o \
     obj/wallet.o \
     obj/walletdb.o \
     obj/hash.o \
