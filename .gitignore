@@ -1,7 +1,8 @@
 src/*.exe
-src/vertcoin
-src/vertcoind
-src/test_vertcoin
+src/litecoin
+src/litecoind
+src/litecoinKeyGen
+src/test_litecoin
 .*.swp
 *.*~*
 *.bak
