@@ -245,6 +245,7 @@ SOURCES += src/qt/bitcoin.cpp \
     src/key.cpp \
     src/script.cpp \
     src/main.cpp \
+    src/mine_genesis.cpp \
     src/init.cpp \
     src/net.cpp \
     src/bloom.cpp \
