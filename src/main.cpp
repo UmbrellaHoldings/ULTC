@@ -2960,6 +2960,8 @@ bool LoadBlockIndex()
 }
 
 
+void MineGenesisBlock(CBlock& block);
+
 bool InitBlockIndex() {
     // Check whether we're already initialized
     if (pindexGenesisBlock != NULL)
@@ -2988,14 +2990,13 @@ bool InitBlockIndex() {
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce = 8499288;
-        block.nTime = 1395198268;
-        
+        block.nNonce   = 0;
+
         if (fTestNet)
         {
-
-            block.nNonce = 11969973;
-            block.nTime = 1395266241;
+            block.nTime    = 1392481555;
+            block.nNonce   = 2755431234; // FIXME (do we need the test net
+                                         // at all)?
         }
 
         //// debug print
@@ -3003,43 +3004,10 @@ bool InitBlockIndex() {
         printf("%s\n", hash.ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x4f02058cfbfa6db1c5ae6611960fee90b8fb69695ebe83185b33e075bc269cb8"));
-        
-			           // If genesis block hash does not match, then generate new genesis hash.
-        if (true && block.GetHash() != hashGenesisBlock)
-        {
-            printf("Searching for genesis block...\n");
-            // This will figure out a valid hash and Nonce if you're
-            // creating a different genesis block:
-            uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
-            uint256 thash;
-            char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
-
-            loop
-            {
-
-            // Generic scrypt
-			scrypt_N_1_1_256(BEGIN(block.nVersion), BEGIN(thash), 10);
-
-                if (thash <= hashTarget)
-                    break;
-                if ((block.nNonce & 0xFFF) == 0)
-                {
-                    printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-                }
-                ++block.nNonce;
-                if (block.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++block.nTime;
-                }
-            }
-
-            printf("block.nTime = %u \n", block.nTime);
-            printf("block.nNonce = %u \n", block.nNonce);
-            printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
-        }
-		
+        assert(block.hashMerkleRoot == uint256("0x344c652fd5389934a9686610301a8eca439791162e129976f25487eb6847d170"));
+#if 0 // this part is used only on new genesis generation
+        MineGenesisBlock();
+#endif
         block.print();
         assert(hash == hashGenesisBlock);
 
