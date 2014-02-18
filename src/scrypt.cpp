@@ -253,37 +253,59 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 	B[15] += x15;
 }
 
-void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scratchpad)
+template<
+  size_t N,   // the number of cells to ROMix (the real number of
+              // used bytes is 1024*N*r/8 = 128*N*r
+  unsigned r, // the size parameter to BlockMix (use r cells and
+              // salsa20/8 each, r = 2n, n >= 1, the BlockMix block
+              // size is 1024*r bits = 128*r bytes
+  unsigned p = 1,  // the number of parallel processes, it is hardcoded as
+                  // 1 here, you need change the program for change
+                  // this parameter, do not try pass different value as the
+                  // template argument
+  size_t input_len = 80, // passphrase/salt length (both are the same
+                      // `input` here)
+  size_t output_len = 32
+>
+void scrypt_256_sp_generic(const char *input, char *output, char *scratchpad)
 {
-	uint8_t B[128];
-	uint32_t X[32];
-	uint32_t *V;
-	uint32_t i, j, k;
+  const size_t salsa_block_size = 128; // in bytes
+  typedef uint8_t B_Type;
+  typedef uint32_t X_Type;
+  const size_t BinX = sizeof(X_Type) / sizeof(B_Type);
 
-	V = (uint32_t *)(((uintptr_t)(scratchpad) + 63) & ~ (uintptr_t)(63));
+  uint8_t B[salsa_block_size * p];
+  uint32_t X[sizeof(B) / BinX]; 
+  uint32_t *V;
+  uint32_t i, j, k;
 
-	PBKDF2_SHA256((const uint8_t *)input, 80, (const uint8_t *)input, 80, 1, B, 128);
+  V = (uint32_t *)(((uintptr_t)(scratchpad) + 63) & ~ (uintptr_t)(63));
+	
+  PBKDF2_SHA256((const uint8_t *)input, input_len, (const uint8_t *)input, input_len, p, B, salsa_block_size);
 
-	for (k = 0; k < 32; k++)
-		X[k] = le32dec(&B[4 * k]);
+  for (k = 0; k < sizeof(X); k++)
+    X[k] = le32dec(&B[BinX * k]);
 
-	for (i = 0; i < 1024; i++) {
-		memcpy(&V[i * 32], X, 128);
-		xor_salsa8(&X[0], &X[16]);
-		xor_salsa8(&X[16], &X[0]);
-	}
-	for (i = 0; i < 1024; i++) {
-		j = 32 * (X[16] & 1023);
-		for (k = 0; k < 32; k++)
-			X[k] ^= V[j + k];
-		xor_salsa8(&X[0], &X[16]);
-		xor_salsa8(&X[16], &X[0]);
-	}
+  for (i = 0; i < N; i++) {
+    memcpy(&V[i * sizeof(X)], X, salsa_block_size); //?
+    
+    
+    for (k = 0; k < 2 * r - 1; k++)
+    xor_salsa8(&X[0], &X[16]);
+    xor_salsa8(&X[16], &X[0]);
+  }
+  for (i = 0; i < 1024; i++) {
+    j = 32 * (X[16] & 1023);
+    for (k = 0; k < 32; k++)
+      X[k] ^= V[j + k];
+    xor_salsa8(&X[0], &X[16]);
+    xor_salsa8(&X[16], &X[0]);
+  }
 
-	for (k = 0; k < 32; k++)
-		le32enc(&B[4 * k], X[k]);
+  for (k = 0; k < 32; k++)
+    le32enc(&B[4 * k], X[k]);
 
-	PBKDF2_SHA256((const uint8_t *)input, 80, B, 128, 1, (uint8_t *)output, 32);
+  PBKDF2_SHA256((const uint8_t *)input, input_len, B, salsa_block_size, p, (uint8_t *)output, output_len);
 }
 
 #if defined(USE_SSE2)
