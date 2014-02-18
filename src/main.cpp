@@ -3006,7 +3006,7 @@ bool InitBlockIndex() {
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
         assert(block.hashMerkleRoot == uint256("0x344c652fd5389934a9686610301a8eca439791162e129976f25487eb6847d170"));
 #if 0 // this part is used only on new genesis generation
-        MineGenesisBlock();
+        MineGenesisBlock(block);
 #endif
         block.print();
         assert(hash == hashGenesisBlock);
