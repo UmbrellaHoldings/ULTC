@@ -31,18 +31,14 @@
 #include "util.h"
 #include <stdlib.h>
 #include <stdint.h>
-#include <string.h>
+#include <vector>
 #include <openssl/sha.h>
 
-#if defined(USE_SSE2) && !defined(USE_SSE2_ALWAYS)
-#ifdef _MSC_VER
-// MSVC 64bit is unable to use inline asm
-#include <intrin.h>
-#else
-// GCC Linux or i686-w64-mingw32
-#include <cpuid.h>
-#endif
-#endif
+void scrypt_256_sp_generic(const char *input, char *output, char* scratchpad)
+{
+  scrypt_256_sp_generic_templ<SCRYPT_N_PAR, SCRYPT_R_PAR, SCRYPT_P_PAR>
+    (input, 80, output, 32, scratchpad);
+}
 
 static inline uint32_t be32dec(const void *pp)
 {
@@ -187,7 +183,7 @@ PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
 
 #define ROTL(a, b) (((a) << (b)) | ((a) >> (32 - (b))))
 
-static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
+void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 {
 	uint32_t x00,x01,x02,x03,x04,x05,x06,x07,x08,x09,x10,x11,x12,x13,x14,x15;
 	int i;
@@ -253,61 +249,6 @@ static inline void xor_salsa8(uint32_t B[16], const uint32_t Bx[16])
 	B[15] += x15;
 }
 
-template<
-  size_t N,   // the number of cells to ROMix (the real number of
-              // used bytes is 1024*N*r/8 = 128*N*r
-  unsigned r, // the size parameter to BlockMix (use r cells and
-              // salsa20/8 each, r = 2n, n >= 1, the BlockMix block
-              // size is 1024*r bits = 128*r bytes
-  unsigned p = 1,  // the number of parallel processes, it is hardcoded as
-                  // 1 here, you need change the program for change
-                  // this parameter, do not try pass different value as the
-                  // template argument
-  size_t input_len = 80, // passphrase/salt length (both are the same
-                      // `input` here)
-  size_t output_len = 32
->
-void scrypt_256_sp_generic(const char *input, char *output, char *scratchpad)
-{
-  const size_t salsa_block_size = 128; // in bytes
-  typedef uint8_t B_Type;
-  typedef uint32_t X_Type;
-  const size_t BinX = sizeof(X_Type) / sizeof(B_Type);
-
-  uint8_t B[salsa_block_size * p];
-  uint32_t X[sizeof(B) / BinX]; 
-  uint32_t *V;
-  uint32_t i, j, k;
-
-  V = (uint32_t *)(((uintptr_t)(scratchpad) + 63) & ~ (uintptr_t)(63));
-	
-  PBKDF2_SHA256((const uint8_t *)input, input_len, (const uint8_t *)input, input_len, p, B, salsa_block_size);
-
-  for (k = 0; k < sizeof(X); k++)
-    X[k] = le32dec(&B[BinX * k]);
-
-  for (i = 0; i < N; i++) {
-    memcpy(&V[i * sizeof(X)], X, salsa_block_size); //?
-    
-    
-    for (k = 0; k < 2 * r - 1; k++)
-    xor_salsa8(&X[0], &X[16]);
-    xor_salsa8(&X[16], &X[0]);
-  }
-  for (i = 0; i < 1024; i++) {
-    j = 32 * (X[16] & 1023);
-    for (k = 0; k < 32; k++)
-      X[k] ^= V[j + k];
-    xor_salsa8(&X[0], &X[16]);
-    xor_salsa8(&X[16], &X[0]);
-  }
-
-  for (k = 0; k < 32; k++)
-    le32enc(&B[4 * k], X[k]);
-
-  PBKDF2_SHA256((const uint8_t *)input, input_len, B, salsa_block_size, p, (uint8_t *)output, output_len);
-}
-
 #if defined(USE_SSE2)
 // By default, set to generic scrypt function. This will prevent crash in case when scrypt_detect_sse2() wasn't called
 void (*scrypt_1024_1_1_256_sp_detected)(const char *input, char *output, char *scratchpad) = &scrypt_1024_1_1_256_sp_generic;
@@ -316,20 +257,14 @@ void scrypt_detect_sse2()
 {
 #if defined(USE_SSE2_ALWAYS)
     printf("scrypt: using scrypt-sse2 as built.\n");
-#else // USE_SSE2_ALWAYS
-    // 32bit x86 Linux or Windows, detect cpuid features
-    unsigned int cpuid_edx=0;
-#if defined(_MSC_VER)
-    // MSVC
-    int x86cpuid[4];
-    __cpuid(x86cpuid, 1);
-    cpuid_edx = (unsigned int)buffer[3];
-#else // _MSC_VER
-    // Linux or i686-w64-mingw32 (gcc-4.6.3)
-    unsigned int eax, ebx, ecx;
-    __get_cpuid(1, &eax, &ebx, &ecx, &cpuid_edx);
-#endif // _MSC_VER
+}
+#else
+/* Detect SSE2 */
+//void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
 
+#if 0
+void scrypt_detect_sse2(unsigned int cpuid_edx)
+{
     if (cpuid_edx & 1<<26)
     {
         scrypt_1024_1_1_256_sp_detected = &scrypt_1024_1_1_256_sp_sse2;
@@ -343,9 +278,25 @@ void scrypt_detect_sse2()
 #endif // USE_SSE2_ALWAYS
 }
 #endif
+#endif
+#endif
 
-void scrypt_1024_1_1_256(const char *input, char *output)
+void scrypt_256(const char *input, char *output)
 {
-	char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
-    scrypt_1024_1_1_256_sp(input, output, scratchpad);
+  std::vector<char> scratchpad(SCRYPT_SCRATCHPAD_SIZE);
+#if defined(USE_SSE2)
+        // Detection would work, but in cases where we KNOW it always has SSE2,
+        // it is faster to use directly than to use a function pointer or conditional.
+#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
+        // Always SSE2: x86_64 or Intel MacOS X
+        scrypt_256_sp_sse2(input, output, &scratchpad[0]);
+#else
+        // Detect SSE2: 32bit x86 Linux or Windows
+        scrypt_256_sp(input, output, &scratchpad[0]);
+#endif
+#else
+        // Generic scrypt
+        scrypt_256_sp_generic(input, output, &scratchpad[0]);
+#endif
 }
+

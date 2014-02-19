@@ -16,16 +16,18 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
 #endif
     uint256 scrypthash;
     std::vector<unsigned char> inputbytes;
-    char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+    std::vector<char> scratchpad(SCRYPT_SCRATCHPAD_SIZE);
     for (int i = 0; i < HASHCOUNT; i++) {
         inputbytes = ParseHex(inputhex[i]);
 #if defined(USE_SSE2)
         // Test SSE2 scrypt
-        scrypt_1024_1_1_256_sp_sse2((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad);
-        BOOST_CHECK_EQUAL(scrypthash.ToString().c_str(), expected[i]);
+        scrypt_256_sp_sse2_templ<1024, 1, 1>((const char*)&inputbytes[0], BEGIN(scrypthash), &scratchpad[0]);
 #endif
         // Test generic scrypt
-        scrypt_1024_1_1_256_sp_generic((const char*)&inputbytes[0], BEGIN(scrypthash), scratchpad);
+        scrypt_256_sp_generic_templ<1024, 1, 1>
+          ((const char*)&inputbytes[0], 80, 
+           BEGIN(scrypthash), 32, 
+           &scratchpad[0]);
         BOOST_CHECK_EQUAL(scrypthash.ToString().c_str(), expected[i]);
     }
 }

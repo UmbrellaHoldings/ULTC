@@ -201,7 +201,10 @@ KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
 USDollarCoinKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
-TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+#TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+TESTOBJS = \
+   obj-test/scrypt_tests.o \
+   obj-test/test_bitcoin.o
 
 obj-test/%.o: test/%.cpp
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
