@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <assert.h>
 
 const int SCRYPT_N_PAR = 1024;
 const int SCRYPT_R_PAR = 1;
@@ -81,8 +82,15 @@ void scrypt_256_sp_generic_templ
   for (int k = 0; k < x_size; k++)
     X[k] = le32dec(&B[sizeof(X[0]) * k]);
 
-  const size_t x_step = SALSA_BLOCK_SIZE / x_size;
+  const size_t x_step = SALSA_BLOCK_SIZE / sizeof(x_el_t);
   const size_t last_x = (2 * r - 1) * x_step;
+
+#if 0 // these are asserts for the case (N,r,p) = (1024,1,1)
+  assert(x_step == 16);
+  assert(x_size == 32);
+  assert(blockmix_size == 128);
+  assert(last_x == 16);
+#endif
 
   for (int i = 0; i < N; i++) {
     // Vi <- X
@@ -90,7 +98,7 @@ void scrypt_256_sp_generic_templ
 
     // X <- H(X)
     xor_salsa8(&X[0], &X[last_x]);
-    for (int l = 1; l < 2 * r - 1; l++) {
+    for (int l = 1; l <= 2 * r - 1; l++) {
       xor_salsa8(&X[l * x_step], &X[(l - 1) * x_step]);
     }
   }
@@ -103,7 +111,7 @@ void scrypt_256_sp_generic_templ
 
     // X <- H(X)
     xor_salsa8(&X[0], &X[last_x]);
-    for (int l = 1; l < 2 * r - 1; l++) {
+    for (int l = 1; l <= 2 * r - 1; l++) {
       xor_salsa8(&X[l * x_step], &X[(l - 1) * x_step]);
     }
   }
