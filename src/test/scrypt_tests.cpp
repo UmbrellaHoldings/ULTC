@@ -3,6 +3,13 @@
 #include "util.h"
 #include "scrypt.h"
 
+void scrypt_1024_1_1_256_sp_generic
+  (const char *input, 
+   const size_t input_len,
+   char *output, 
+   const size_t output_len,
+   char *scratchpad);
+
 BOOST_AUTO_TEST_SUITE(scrypt_tests)
 
 BOOST_AUTO_TEST_CASE(scrypt_hashtest)
@@ -24,7 +31,7 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
         scrypt_256_sp_sse2_templ<1024, 1, 1>((const char*)&inputbytes[0], BEGIN(scrypthash), &scratchpad[0]);
 #endif
         // Test generic scrypt
-        scrypt_256_sp_generic_templ<1024, 1, 1>
+        scrypt_1024_1_1_256_sp_generic
           ((const char*)&inputbytes[0], 80, 
            BEGIN(scrypthash), 32, 
            &scratchpad[0]);
