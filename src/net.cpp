@@ -1181,27 +1181,27 @@ void MapPort(bool)
 
 
 
-
-
-
-
-
-
 // DNS seeds
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
+    {"ams1.vertcoin.org", "ams1.vertcoin.org"},
+    {"ams2.vertcoin.org", "ams2.vertcoin.org"},
+    {"ams3.vertcoin.org", "ams3.vertcoin.org"},
+    {"ams4.vertcoin.org", "ams4.vertcoin.org"},
+    {"nl1.vertcoin.org", "nl1.vertcoin.org"},
+    {"nl2.vertcoin.org", "nl2.vertcoin.org"},
+    {"se1.vertcoin.org", "se1.vertcoin.org"},
+    {"vtc.kilovolt.co.uk", "vtc.kilovolt.co.uk"},
     {"ny.vertcoin.org", "ny.vertcoin.org"},
     {"la.vertcoin.org", "la.vertcoin.org"},
     {"eu.vertcoin.org", "eu.vertcoin.org"},
-    {"vtcpool.co.uk", "vtcpool.co.uk"},
-    {"vtc.kilovolt.co.uk", "vtc.kilovolt.co.uk"},
     {NULL, NULL}
 };
 
 static const char *strTestNetDNSSeed[][2] = {
-    {"vertcoin.org", "testnet-seed.vertcoin.org"},
+    {"testnet-seed.vertcoin.org", "testnet-seed.vertcoin.org"},
     {NULL, NULL}
 };
 
