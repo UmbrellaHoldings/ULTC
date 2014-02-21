@@ -1,33 +1,33 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-#DEB_MAKE_CHECK_TARGET = test_bitcoin
-#build/bitcoind::
-#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_bitcoin)
+#DEB_MAKE_CHECK_TARGET = test_vertcoin
+#build/vertcoind::
+#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_vertcoin)
 
-DEB_INSTALL_EXAMPLES_bitcoind += debian/examples/*
-DEB_INSTALL_MANPAGES_bitcoind += debian/manpages/*
+DEB_INSTALL_EXAMPLES_vertcoind += debian/examples/*
+DEB_INSTALL_MANPAGES_vertcoind += debian/manpages/*
 
 %:
 	dh --with bash-completion $@
 
 override_dh_auto_build:
-	cd src; $(MAKE) -f makefile.unix bitcoind
+	cd src; $(MAKE) -f makefile.unix vertcoind
 	$(MAKE)
 
 override_dh_auto_clean:
-	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f bitcoin-qt; fi
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f vertcoin-qt; fi
 	cd src; $(MAKE) -f makefile.unix clean
 
 override_dh_auto_configure:
-	qmake bitcoin-qt.pro USE_QRCODE=1
+	qmake vertcoin-qt.pro USE_QRCODE=1
 
 override_dh_auto_test:
-	cd src; $(MAKE) -f makefile.unix test_bitcoin
-	src/test_bitcoin
+	cd src; $(MAKE) -f makefile.unix test_vertcoin
+	src/test_vertcoin
 
 # Ensure wrapper is set executable
-binary-post-install/bitcoind:
-	chmod +x $(cdbs_curdestdir)usr/bin/bitcoind
-binary-post-install/bitcoin-qt:
-	chmod +x $(cdbs_curdestdir)usr/bin/bitcoin-qt
+binary-post-install/vertcoind:
+	chmod +x $(cdbs_curdestdir)usr/bin/vertcoind
+binary-post-install/vertcoin-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/vertcoin-qt
