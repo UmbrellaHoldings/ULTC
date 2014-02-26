@@ -34,6 +34,8 @@ Release Process
    bin/make-base-vm --lxc --arch i386
    bin/make-base-vm --lxc --arch amd64
    bin/make-base-vm --lxc --arch amd64 --suite precise
+   # to create Ubunty precise with g++-4.8 compilator, use this
+   ../USDollarCoin/contrib/gitian-bin/make-base-vm --lxc --arch amd64 --suite precise
 
    # LXC network (may be need run each time or add the device to /etc/networks/interface)
    sudo brctl addbr br0
