@@ -1,7 +1,7 @@
 ---
 name: "litecoin"
 suites:
-- "saucy"
+- "precise"
 architectures:
 - "amd64"
 packages: 
