@@ -1,13 +1,14 @@
 ---
-name: "litecoin"
+name: "USDollarCoin"
 suites:
 - "saucy"
 architectures:
 - "amd64"
 packages: 
+- "sudo brctl addbr br0 
+   sudo ifconfig br0 10.0.2.2/24 up"
 - "libdb5.1++-dev"
 - "qt4-qmake"
-- "libminiupnpc-dev"
 - "libqt4-dev"
 - "libboost-system-dev"
 - "libboost-filesystem-dev"
@@ -18,17 +19,21 @@ packages:
 - "unzip"
 - "pkg-config"
 - "libpng12-dev"
-- "libz-dev"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
 - "url": "git:/USDollarCoin"
-  "dir": "compcoin"
+  "dir": "USDollarCoin"
 files:
 - "miniupnpc-1.6.tar.gz"
 - "qrencode-3.2.0.tar.bz2"
 script: |
   INSTDIR="$HOME/install"
   export LIBRARY_PATH="$INSTDIR/lib"
+  #
+  tar xzf miniupnpc-1.6.tar.gz
+  cd miniupnpc-1.6
+  INSTALLPREFIX=$INSTDIR make $MAKEOPTS install
+  cd ..
   #
   tar xjf qrencode-3.2.0.tar.bz2
   cd qrencode-3.2.0
