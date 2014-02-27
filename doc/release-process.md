@@ -31,9 +31,6 @@ Release Process
 	git clone git://github.com/devrandom/gitian-builder.git
 
 	cd gitian-builder
-   bin/make-base-vm --lxc --arch i386
-   bin/make-base-vm --lxc --arch amd64
-   bin/make-base-vm --lxc --arch amd64 --suite precise
    # to create Ubunty precise with g++-4.8 compilator, use this
    ../USDollarCoin/contrib/gitian-bin/make-base-vm --lxc --arch amd64 --suite precise
 
@@ -68,6 +65,8 @@ Release Process
 	cd ..
 	./bin/gbuild ../compcoin/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
+	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost.yml
+        mv build/out/boost-linux64-1.54.0-gitian-r6.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/qt-win32.yml
