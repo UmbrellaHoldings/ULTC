@@ -1,21 +1,23 @@
 ---
 name: "siliconvalley"
 suites:
-- "precise"
+- "saucy"
 architectures:
-- "i386"
 - "amd64"
 packages: 
+- "libdb5.1++-dev"
 - "qt4-qmake"
+- "libminiupnpc-dev"
 - "libqt4-dev"
 - "git-core"
 - "unzip"
 - "pkg-config"
 - "libpng12-dev"
+- "libz-dev"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "https://github.com/siliconvalley/siliconvalley.git"
-  "dir": "siliconvalley"
+- "url": "git:/USDollarCoin"
+  "dir": "compcoin"
 files:
 - "vertcoin-deps-linux32-gitian-r1.zip"
 - "vertcoin-deps-linux64-gitian-r1.zip"
@@ -24,12 +26,6 @@ files:
 script: |
   INSTDIR="$HOME/install"
   export LIBRARY_PATH="$INSTDIR/lib"
-  #
-  mkdir -p $INSTDIR
-  cd $INSTDIR
-  unzip ../build/vertcoin-deps-linux${GBUILD_BITS}-gitian-r1.zip
-  unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
-  cd ..
   #
   tar xjf qrencode-3.2.0.tar.bz2
   cd qrencode-3.2.0
