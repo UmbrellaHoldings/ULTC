@@ -39,9 +39,7 @@ script: |
 
   ./bootstrap.sh --without-icu
 
-  export MAKEOPTS='--std=c++11'
-
-  ./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
+  ./bjam toolset=gcc cxxflags='--std=c++11' threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
 
   # post-process all generated libraries to be deterministic
   # extract them to a temporary directory then re-build them deterministically
