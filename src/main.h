@@ -1366,7 +1366,7 @@ public:
     uint256 GetPoWHash() const
     {
         uint256 thash;
-        scrypt_256(BEGIN(nVersion), BEGIN(thash));
+        scrypt::usdollarcoin::scrypt_256(BEGIN(nVersion), thash);
         return thash;
     }
 

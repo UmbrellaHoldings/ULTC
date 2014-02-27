@@ -15,6 +15,8 @@ extern uint256 hashGenesisBlock;
 // If genesis block hash does not match, then generate new genesis hash.
 void MineGenesisBlock(CBlock& block)
 {
+  using namespace scrypt::usdollarcoin;
+
   block.nNonce = 0;
 
   if (block.GetHash() != hashGenesisBlock)
@@ -24,7 +26,7 @@ void MineGenesisBlock(CBlock& block)
     // creating a different genesis block:
     uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
     uint256 thash;
-    std::vector<char> scratchpad(SCRYPT_SCRATCHPAD_SIZE);
+    Scratchpad scratchpad;
      
     loop
     {
@@ -33,14 +35,14 @@ void MineGenesisBlock(CBlock& block)
 // it is faster to use directly than to use a function pointer or conditional.
 #if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
 // Always SSE2: x86_64 or Intel MacOS X
-      scrypt_256_sp_sse2(BEGIN(block.nVersion), BEGIN(thash), &scratchpad[0]);
+      scrypt_256_sp_sse2(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
 #else
 // Detect SSE2: 32bit x86 Linux or Windows
-      scrypt_256_sp(BEGIN(block.nVersion), BEGIN(thash), &scratchpad[0]);
+      scrypt_256_sp(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
 #endif
 #else
 // Generic scrypt
-      scrypt_256_sp_generic(BEGIN(block.nVersion), BEGIN(thash), &scratchpad[0]);
+      scrypt_256_sp_generic(BEGIN(block.nVersion), thash, scratchpad);
 #endif
       if (thash <= hashTarget)
         break;
