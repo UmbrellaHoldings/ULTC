@@ -1188,7 +1188,8 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %" PRI64d "  before bounds\n", nActualTimespan);
-#if 0 // disabled in XSV (vertcoin?)
+
+#if 0 // disabled in XSV
     if (nActualTimespan < nTargetTimespan/4)
         nActualTimespan = nTargetTimespan/4;
     if (nActualTimespan > nTargetTimespan*4)

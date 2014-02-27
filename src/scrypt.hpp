@@ -115,6 +115,18 @@ void romix
   // The current SSE2 salsa20 implementation needs word rearrangement
   rearrange_before<r>(x);
 
+//! It is the Colin Percival's ROMix implementation
+template<
+  uint32_t N,
+  unsigned r,
+  unsigned p,
+  std::array<SalsaBlock, 2*r> (*H)(const std::array<SalsaBlock, 2*r>& b)
+>
+void romix
+  (std::array<SalsaBlock, 2*r>& x,    //< the input/output vector
+   std::array<std::array<SalsaBlock, 2*r>, N>& v   //< the work area
+   )
+{
   for (int i = 0; i < N; i++) {
     v[i] = x;
     x = H(x);
@@ -126,6 +138,33 @@ void romix
     const uint32_t j = integerify(x[2*r-1][0]) % N;
     x = H(x ^= v[j]);
   }
+}
+
+template<
+  size_t N,   //< the number of cells to ROMix (the real number of
+              //< used bytes is 1024*N*r/8 = 128*N*r.
+              //< See (*) below. Due to this line N must be pow of 2
+              //< and <= 2^32
+  unsigned r, //< the size parameter to BlockMix (use r cells and
+              //< salsa20/8 each, r = 2n, n >= 1, the BlockMix block
+              //< size is 1024*r bits = 128*r bytes
+  unsigned p = 1,  //< the number of parallel processes, it is hardcoded as
+                   //< 1 here, you need change the program for change
+                   //< this parameter, do not try pass different value as the
+                   //< template argument
+  class Password, //< the input sequence - password
+  class Salt, //< the input sequence - salt
+  class Output //< the output sequence
+>
+void scrypt_256_sp_generic_templ
+  (
+   const Password& password, 
+   const Salt& salt,
+         Output& output, 
+         Scratchpad<N, r, p>& scratchpad
+  )
+{
+  std::array<std::array<SalsaBlock, 2*r>, p> B;
 
   rearrange_after<r>(x);
 }
