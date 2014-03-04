@@ -68,7 +68,7 @@ void romix
     x = H(x);
   }
   for (int i = 0; i < N; i++) {
-    const uint32_t j = x[0][0] % N;
+    const uint32_t j = x[2*r-1][0] % N;
     x = H(x ^= v[j]);
   }
 }
