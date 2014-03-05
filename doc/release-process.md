@@ -60,7 +60,12 @@ Release Process
 	wget 'http://fukuchi.org/works/qrencode/qrencode-3.2.0.tar.bz2'
 	wget 'http://downloads.sourceforge.net/project/boost/boost/1.54.0/boost_1_54_0.tar.bz2'
 	wget 'https://svn.boost.org/trac/boost/raw-attachment/ticket/7262/boost-mingw.patch'
-	mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
+	wget 'http://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2'
+	wget 'http://gcc.fyxm.net/releases/gcc-4.8.1/gcc-4.8.1.tar.bz2'	
+	wget 'http://netcologne.dl.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v3.1.0.tar.bz2'
+	wget 'http://isl.gforge.inria.fr/isl-0.12.2.tar.gz'
+	wget 'http://www.bastoul.net/cloog/pages/download/cloog-0.18.1.tar.gz'
+        mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
    wget 'http://download.qt-project.org/archive/qt/4.8/4.8.3/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
 	./bin/gbuild ../compcoin/contrib/gitian-descriptors/boost-win32.yml
