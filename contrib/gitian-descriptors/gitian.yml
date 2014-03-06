@@ -50,6 +50,6 @@ script: |
   install -s USDollarCoind $OUTDIR/bin/$GBUILD_BITS
   cd ..
   qmake INCLUDEPATH="$INSTDIR/include" LIBS="-L$INSTDIR/lib" RELEASE=1 USE_QRCODE=1 USE_SSE2=1
-  make $MAKEOPTS CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs'
+  make $MAKEOPTS
   install USDollarCoin-qt $OUTDIR/bin/$GBUILD_BITS
      
