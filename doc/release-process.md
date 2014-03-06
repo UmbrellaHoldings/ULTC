@@ -28,7 +28,7 @@ Release Process
 
    sudo apt-get install git apache2 apt-cacher-ng python-vm-builder ruby qemu-utils
    sudo apt-get install debootstrap lxc # for LXC mode
-	git clone git://github.com/devrandom/gitian-builder.git
+	git clone git://btc.kogorta.dp.ua:/gitian-builder
 
 	cd gitian-builder
    # to create Ubunty precise with g++-4.8 compilator, use this
@@ -46,6 +46,7 @@ Release Process
 	export VERSION=0.0.0
 	export USE_LXC=1
 	cd ./gitian-builder
+	git checkout cohorta
 
  Fetch and build inputs: (first time, or when dependency versions change)
 
@@ -60,15 +61,17 @@ Release Process
 	wget 'http://fukuchi.org/works/qrencode/qrencode-3.2.0.tar.bz2'
 	wget 'http://downloads.sourceforge.net/project/boost/boost/1.54.0/boost_1_54_0.tar.bz2'
 	wget 'https://svn.boost.org/trac/boost/raw-attachment/ticket/7262/boost-mingw.patch'
+	mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
 	wget 'http://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2'
 	wget 'http://gcc.fyxm.net/releases/gcc-4.8.1/gcc-4.8.1.tar.bz2'	
 	wget 'http://netcologne.dl.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v3.1.0.tar.bz2'
-	wget 'http://isl.gforge.inria.fr/isl-0.12.2.tar.gz'
+	wget 'http://isl.gforge.inria.fr/isl-0.11.1.tar.gz'
 	wget 'http://www.bastoul.net/cloog/pages/download/cloog-0.18.1.tar.gz'
-        mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
-   wget 'http://download.qt-project.org/archive/qt/4.8/4.8.3/qt-everywhere-opensource-src-4.8.3.tar.gz'
+	wget 'http://download.qt-project.org/archive/qt/4.8/4.8.3/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
-	./bin/gbuild ../compcoin/contrib/gitian-descriptors/boost-win32.yml
+	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/mingw-w64.yml
+        mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
+	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost.yml
         mv build/out/boost-linux64-1.54.0-gitian-r6.zip inputs/
