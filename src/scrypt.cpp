@@ -29,9 +29,9 @@
 
 #include "scrypt.hpp"
 #include "util.h"
-#include <stdlib.h>
-#include <stdint.h>
-#include <vector>
+//#include <stdlib.h>
+//#include <stdint.h>
+//#include <vector>
 #include <openssl/sha.h>
 
 namespace scrypt {
@@ -179,7 +179,7 @@ PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
 
 #define ROTL(a, b) (((a) << (b)) | ((a) >> (32 - (b))))
 
-void xor_salsa8(SalsaBlock& B, const SalsaBlock& Bx)
+void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx)
 {
 	uint32_t x00,x01,x02,x03,x04,x05,x06,x07,x08,x09,x10,x11,x12,x13,x14,x15;
 	int i;
@@ -245,73 +245,8 @@ void xor_salsa8(SalsaBlock& B, const SalsaBlock& Bx)
 	B[15] += x15;
 }
 
-namespace usdollarcoin {
-
-void scrypt_256_sp_generic
-  (const char* input, 
-   uint256& output, 
-   Scratchpad& scratchpad)
-{
-  std::string in(input, 80);
-  scrypt_256_sp_generic_templ<pars::n, pars::r, pars::p>
-    (in, output, scratchpad);
 }
 
-}
 
-#if defined(USE_SSE2)
-// By default, set to generic scrypt function. This will prevent crash in case when scrypt_detect_sse2() wasn't called
-void (*scrypt_1024_1_1_256_sp_detected)(const char *input, char *output, char *scratchpad) = &scrypt_1024_1_1_256_sp_generic;
 
-void scrypt_detect_sse2()
-{
-#if defined(USE_SSE2_ALWAYS)
-    printf("scrypt: using scrypt-sse2 as built.\n");
-}
-#else
-/* Detect SSE2 */
-//void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
 
-#if 0
-void scrypt_detect_sse2(unsigned int cpuid_edx)
-{
-    if (cpuid_edx & 1<<26)
-    {
-        scrypt_1024_1_1_256_sp_detected = &scrypt_1024_1_1_256_sp_sse2;
-        printf("scrypt: using scrypt-sse2 as detected.\n");
-    }
-    else
-    {
-        scrypt_1024_1_1_256_sp_detected = &scrypt_1024_1_1_256_sp_generic;
-        printf("scrypt: using scrypt-generic, SSE2 unavailable.\n");
-    }
-#endif // USE_SSE2_ALWAYS
-}
-#endif
-#endif
-#endif
-
-namespace usdollarcoin {
-
-void scrypt_256(const char *input, uint256& output)
-{
-  Scratchpad scratchpad;
-#if defined(USE_SSE2)
-        // Detection would work, but in cases where we KNOW it always has SSE2,
-        // it is faster to use directly than to use a function pointer or conditional.
-#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
-        // Always SSE2: x86_64 or Intel MacOS X
-        scrypt_256_sp_sse2(input, output, scratchpad);
-#else
-        // Detect SSE2: 32bit x86 Linux or Windows
-        scrypt_256_sp(input, output, scratchpad);
-#endif
-#else
-        // Generic scrypt
-        scrypt_256_sp_generic(input, output, scratchpad);
-#endif
-}
-
-}
-
-}

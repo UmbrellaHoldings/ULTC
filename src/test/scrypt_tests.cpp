@@ -4,12 +4,42 @@
 #include "scrypt.hpp"
 
 using namespace scrypt;
-//using namespace scrypt::pars;
 
 BOOST_AUTO_TEST_SUITE(scrypt_tests)
 
+#if 0
+BOOST_AUTO_TEST_CASE(salsa_test)
+{
+  using namespace std;
+
+  const uint8_t a2v[512/8] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  const uint8_t b2v[512/8] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  base_uint<512> a1v;
+  base_uint<512> b1v;
+
+  generic::SalsaBlock a1, a2;
+  sse2::SalsaBlock b1, b2;
+
+  memcpy(&a2, a2v, 512/8);
+  memset(&a1, 0, 512/8);
+  memcpy(&b2, b2v, 512/8);
+  memset(&b1, 0, 512/8);
+
+  xor_salsa8(a1, a2);
+  xor_salsa8(b1, b2);
+
+  memcpy(a1v.data(), &a1, 512/8);
+  memcpy(b1v.data(), &b1, 512/8);
+
+  BOOST_CHECK_EQUAL(a1v.ToString().c_str(), b1v.ToString().c_str());
+}
+#endif
+
 BOOST_AUTO_TEST_CASE(scrypt_hashtest)
 {
+    using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+
     // 1. The 1024x1x1 80 in 32 out case
 
     {
@@ -20,19 +50,14 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
 
       uint256 scrypthash;
       std::vector<unsigned char> inputbytes;
-      std::unique_ptr<Scratchpad<1024,1,1>> scratchpad
-        (new Scratchpad<1024, 1, 1>);
+      std::unique_ptr<Scratchpad<1024,1,1, SB>> scratchpad
+        (new Scratchpad<1024, 1, 1, SB>);
       for (int i = 0; i < HASHCOUNT; i++) {
         inputbytes = ParseHex(inputhex[i]);
-#if defined(USE_SSE2)
-        // Test SSE2 scrypt
-        scrypt_256_sp_sse2_templ<1024, 1, 1>(inputbytes, scrypthash, *scratchpad);
-#endif
-        // Test generic scrypt
-        scrypt_256_sp_generic_templ<1024, 1, 1>
-          (inputbytes, 
-           scrypthash, 
-           *scratchpad);
+
+      scrypt_256_sp_templ<1024, 1, 1, SB>
+        (inputbytes, inputbytes, scrypthash, *scratchpad);
+
         BOOST_CHECK_EQUAL(scrypthash.ToString().c_str(), expected[i]);
       }
     }
@@ -52,15 +77,9 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
       std::reverse(expected.begin(), expected.end());
 
       base_uint<512> scrypthash;
-      Scratchpad<16, 1, 1> scratchpad;
-#if defined(USE_SSE2)
-      // Test SSE2 scrypt
-      scrypt_256_sp_sse2_templ<16, 1, 1>
-        (input, scrypthash, scratchpad);
-#endif
-        // Test generic scrypt
-      scrypt_256_sp_generic_templ<16, 1, 1>
-        (input, scrypthash, scratchpad);
+      Scratchpad<16, 1, 1, SB> scratchpad;
+      scrypt_256_sp_templ<16, 1, 1, SB>
+        (input, input, scrypthash, scratchpad);
 
       BOOST_CHECK_EQUAL(scrypthash.ToString().c_str(), expected.ToString().c_str());
     }
@@ -86,15 +105,9 @@ BOOST_AUTO_TEST_CASE(scrypt_hashtest)
       std::reverse(expected.begin(), expected.end());
 
       base_uint<512> scrypthash;
-      std::unique_ptr<Scratchpad<16384, 8, 1>> scratchpad
-        (new Scratchpad<16384, 8, 1>);
-#if defined(USE_SSE2)
-      // Test SSE2 scrypt
-      scrypt_256_sp_sse2_templ<16384, 8, 1>
-        (input, scrypthash, *scratchpad);
-#endif
-        // Test generic scrypt
-      scrypt_256_sp_generic_templ<16384, 8, 1>
+      std::unique_ptr<Scratchpad<16384, 8, 1, SB>> scratchpad
+        (new Scratchpad<16384, 8, 1, SB>);
+      scrypt_256_sp_templ<16384, 8, 1, SB>
         (password, 
          salt,
          scrypthash, 

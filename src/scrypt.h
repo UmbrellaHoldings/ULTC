@@ -13,22 +13,50 @@
 
 #include <array>
 #include <cstdint>
+#include <emmintrin.h>
 #include "uint256.h"
 
 namespace scrypt {
 
 //! One block for salsa20/8
-class SalsaBlock : public std::array<uint32_t, 64/sizeof(uint32_t)>
+template<class Base>
+class SalsaBlock : public std::array<Base, 64/sizeof(Base)>
 {
 public:
+  using Parent = std::array<Base, 64/sizeof(Base)>;
+
   SalsaBlock operator ^= (const SalsaBlock& b)
   {
-    for(size_type i = 0; i < size(); i++)
+    for(typename Parent::size_type i = 0; i < Parent::size(); i++)
       (*this)[i] ^= b[i];
     return *this;
   }
 };
+
+//! The dynamic-allocated memory for scrypt
+template<uint32_t N, unsigned r, unsigned p, class SalsaBlockT>
+using Scratchpad alignas(64) = 
+  std::array<std::array<std::array<SalsaBlockT, 2*r>, N>, p>;
+
+namespace generic {
+
+using SalsaBlock = scrypt::SalsaBlock<uint32_t>;
 static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
+
+//template<uint32_t N, unsigned r, unsigned p>
+//using Scratchpad = scrypt::Scratchpad<N, r, p, SalsaBlock>;
+
+}
+
+namespace sse2 {
+
+using SalsaBlock = scrypt::SalsaBlock<__m128i>;
+static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
+
+//template<uint32_t N, unsigned r, unsigned p>
+//using Scratchpad = scrypt::Scratchpad<N, r, p, SalsaBlock>;
+
+}
 
 //! It's bit XOR for arrays
 template<class T, size_t n>
@@ -38,11 +66,6 @@ std::array<T, n>& operator ^= (std::array<T, n>& a, const std::array<T, n>& b)
     a[i] ^= b[i];
   return a;
 }
-
-//! The dynamic-allocated memory for scrypt
-template<uint32_t N, unsigned r, unsigned p>
-using Scratchpad alignas(64) = 
-  std::array<std::array<std::array<SalsaBlock, 2*r>, N>, p>;
 
 namespace usdollarcoin {
 
@@ -60,28 +83,50 @@ constexpr unsigned output_len = 256 / 8;
 
 }
 
-using Scratchpad = scrypt::Scratchpad<pars::n, pars::r, pars::p>;
-
-void scrypt_256_sp_generic
-  (const char* input, 
-   uint256& output, 
-   Scratchpad& scratchpad);
-
-void scrypt_256(const char *input, uint256& output);
+template<class SalsaBlockT>
+using Scratchpad = scrypt::Scratchpad<pars::n, pars::r, pars::p, SalsaBlockT>;
 
 }
 
-void
-PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
-    size_t saltlen, uint64_t c, uint8_t *buf, size_t dkLen);
-
-void xor_salsa8(SalsaBlock& B, const SalsaBlock& Bx);
+void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
+void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
 
 #if defined(USE_SSE2)
 extern void scrypt_detect_sse2(unsigned int cpuid_edx);
 //void scrypt_1024_1_1_256_sp_sse2(const char *input, char *output, char *scratchpad);
 //extern void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
 #endif
+
+#if defined(USE_SSE2)
+#  define SSE2_OR_GENERIC sse2
+#else
+#  define SSE2_OR_GENERIC generic
+#endif
+
+template<
+  size_t N,   //< the number of cells to ROMix (the real number of
+              //< used bytes is 1024*N*r/8 = 128*N*r.
+              //< See (*) below. Due to this line N must be pow of 2
+              //< and <= 2^32
+  unsigned r, //< the size parameter to BlockMix (use r cells and
+              //< salsa20/8 each, r = 2n, n >= 1, the BlockMix block
+              //< size is 1024*r bits = 128*r bytes
+  unsigned p = 1,  //< the number of parallel processes, it is hardcoded as
+                   //< 1 here, you need change the program for change
+                   //< this parameter, do not try pass different value as the
+                   //< template argument
+  class SalsaBlockT,
+  class Password, //< the input sequence - password
+  class Salt, //< the input sequence - salt
+  class Output //< the output sequence
+>
+void scrypt_256_sp_templ
+  (
+   const Password& password, 
+   const Salt& salt,
+         Output& output, 
+         Scratchpad<N, r, p, SalsaBlockT>& scratchpad
+  );
 
 }
 

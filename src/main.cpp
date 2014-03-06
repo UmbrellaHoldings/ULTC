@@ -11,6 +11,7 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
+#include "scrypt.hpp"
 #include <vector>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
@@ -4609,36 +4610,26 @@ void static LitecoinMiner(CWallet *pwallet)
 
             uint256 thash;
             using namespace scrypt::usdollarcoin;
-            std::unique_ptr<Scratchpad> scratchpad(new Scratchpad);
+            using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+            const std::unique_ptr<Scratchpad<SB>> scratchpad(new Scratchpad<SB>);
             loop
             {
-#if defined(USE_SSE2)
-                // Detection would work, but in cases where we KNOW it always has SSE2,
-                // it is faster to use directly than to use a function pointer or conditional.
-#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
-                // Always SSE2: x86_64 or Intel MacOS X
-                scrypt_256_sp_sse2(BEGIN(pblock->nVersion), BEGIN(thash), *scratchpad);
-#else
-                // Detect SSE2: 32bit x86 Linux or Windows
-                scrypt_256_sp(BEGIN(pblock->nVersion), BEGIN(thash), *scratchpad);
-#endif
-#else
-                // Generic scrypt
-                scrypt_256_sp_generic(BEGIN(pblock->nVersion), thash, *scratchpad);
-#endif
+              const std::string in(BEGIN(pblock->nVersion), 80);
+              scrypt::scrypt_256_sp_templ<pars::n, pars::r, pars::p, SB> 
+                (in, in, thash, *scratchpad);
 
-                if (thash <= hashTarget)
-                {
-                    // Found a solution
-                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                    CheckWork(pblock, *pwallet, reservekey);
-                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-                    break;
-                }
-                pblock->nNonce += 1;
-                nHashesDone += 1;
-                if ((pblock->nNonce & 0xFF) == 0)
-                    break;
+              if (thash <= hashTarget)
+              {
+                // Found a solution
+                SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                CheckWork(pblock, *pwallet, reservekey);
+                SetThreadPriority(THREAD_PRIORITY_LOWEST);
+                break;
+              }
+              pblock->nNonce += 1;
+              nHashesDone += 1;
+              if ((pblock->nNonce & 0xFF) == 0)
+                break;
             }
 
             // Meter hashes/sec

@@ -1365,8 +1365,16 @@ public:
 
     uint256 GetPoWHash() const
     {
+        using namespace scrypt;
+        using namespace scrypt::usdollarcoin;
+
+        using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+        std::string in(BEGIN(nVersion), 80);
         uint256 thash;
-        scrypt::usdollarcoin::scrypt_256(BEGIN(nVersion), thash);
+        std::unique_ptr<scrypt::usdollarcoin::Scratchpad<SB>> 
+          scratchpad (new(scrypt::usdollarcoin::Scratchpad<SB>));
+        scrypt::scrypt_256_sp_templ<pars::n, pars::r, pars::p, SB>
+          (in, in, thash, *scratchpad);
         return thash;
     }
 
