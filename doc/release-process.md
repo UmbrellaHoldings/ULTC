@@ -31,7 +31,6 @@ Release Process
 	git clone git://btc.kogorta.dp.ua:/gitian-builder
 
 	cd gitian-builder
-   # to create Ubunty precise with g++-4.8 compilator, use this
    bin/make-base-vm --lxc --arch amd64 --suite precise
 
    # LXC network (may be need run each time or add the device to /etc/networks/interface)
