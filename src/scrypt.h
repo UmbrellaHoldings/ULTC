@@ -43,18 +43,12 @@ namespace generic {
 using SalsaBlock = scrypt::SalsaBlock<uint32_t>;
 static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
 
-//template<uint32_t N, unsigned r, unsigned p>
-//using Scratchpad = scrypt::Scratchpad<N, r, p, SalsaBlock>;
-
 }
 
 namespace sse2 {
 
 using SalsaBlock = scrypt::SalsaBlock<__m128i>;
 static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
-
-//template<uint32_t N, unsigned r, unsigned p>
-//using Scratchpad = scrypt::Scratchpad<N, r, p, SalsaBlock>;
 
 }
 
@@ -72,14 +66,22 @@ namespace usdollarcoin {
 namespace pars {
 
 // The USDollarCoin specific scrypt parameters
+// The amount of used memory is 2 * r * n * p *
+// sizeof(SalsaBlock) = 128*r*n*p
 
-constexpr size_t n = 1024;
-constexpr unsigned r = 1;
+constexpr size_t mem_amount = 128 * 1024 * 1024; 
+
+constexpr unsigned r = 8;
 constexpr unsigned p = 1; // you must change scrypt_xxx algo to use
-                          // threads if you want change this
+                          // threads if you want change
+                          // this
+
+static_assert(sizeof(generic::SalsaBlock) == sizeof(sse2::SalsaBlock),
+              "Invalid types definition");
+constexpr size_t n = mem_amount / (2 * r * p * sizeof(generic::SalsaBlock));
 
 //! The output length of scrypt hash in bytes (32)
-constexpr unsigned output_len = 256 / 8; 
+//constexpr unsigned output_len = 256 / 8; 
 
 }
 
@@ -93,8 +95,6 @@ void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
 
 #if defined(USE_SSE2)
 extern void scrypt_detect_sse2(unsigned int cpuid_edx);
-//void scrypt_1024_1_1_256_sp_sse2(const char *input, char *output, char *scratchpad);
-//extern void (*scrypt_1024_1_1_256_sp)(const char *input, char *output, char *scratchpad);
 #endif
 
 #if defined(USE_SSE2)
