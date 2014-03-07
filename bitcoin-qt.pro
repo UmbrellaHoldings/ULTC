@@ -9,7 +9,7 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 
-QMAKE_CXXFLAGS += --std=c++11 -Wno-unused-local-typedefs
+QMAKE_CXXFLAGS += --std=c++11 -Wno-unused-local-typedefs -msse -msse2
 
 BOOST_LIB_SUFFIX=-mt
 
