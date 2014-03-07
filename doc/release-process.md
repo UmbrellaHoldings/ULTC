@@ -45,7 +45,6 @@ Release Process
 	export VERSION=0.0.0
 	export USE_LXC=1
 	cd ./gitian-builder
-	git checkout cohorta
 
  Fetch and build inputs: (first time, or when dependency versions change)
 
