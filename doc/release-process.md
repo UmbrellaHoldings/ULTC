@@ -70,7 +70,9 @@ Release Process
 	wget 'http://download.qt-project.org/archive/qt/4.8/4.8.3/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/gcc-4.8.1.yml
- 	mv build/out/gcc-4.8.1.zip inputs/
+ 	mv build/out/gcc-4.8.1-linux64.zip inputs/
+	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/qt.yml
+	mv build/out/qt-4.8.3-linux64.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/mingw-w64.yml
         mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost-win32.yml
