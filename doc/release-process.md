@@ -63,11 +63,14 @@ Release Process
 	mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
 	wget 'http://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2'
 	wget 'http://gcc.fyxm.net/releases/gcc-4.8.1/gcc-4.8.1.tar.bz2'	
+	wget 'http://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2'
 	wget 'http://netcologne.dl.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v3.1.0.tar.bz2'
 	wget 'http://isl.gforge.inria.fr/isl-0.11.1.tar.gz'
 	wget 'http://www.bastoul.net/cloog/pages/download/cloog-0.18.1.tar.gz'
 	wget 'http://download.qt-project.org/archive/qt/4.8/4.8.3/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
+	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/gcc-4.8.1.yml
+ 	mv build/out/gcc-4.8.1.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/mingw-w64.yml
         mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost-win32.yml

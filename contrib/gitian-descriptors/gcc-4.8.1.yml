@@ -1,0 +1,55 @@
+---
+name: "gcc-4.8.1"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "libgmp-dev"
+- "libmpfr-dev"
+- "libmpc-dev"
+- "zlib1g-dev"
+- "libc6-dev-i386"
+- "zip"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "gcc-4.8.1.tar.bz2"
+- "isl-0.11.1.tar.gz"
+- "cloog-0.18.1.tar.gz"
+script: |
+  # Defines
+  INSTDIR="$HOME/install"
+  rm -rf $INSTDIR && mkdir $INSTDIR
+  # Input Integrity Check
+  echo "4e655032cda30e1928fcc3f00962f4238b502169  gcc-4.8.1.tar.bz2" | shasum -c
+  echo "f44035e0c77c9dbf6a4db7142cae0bb601958b98  isl-0.11.1.tar.gz" | shasum -c
+  echo "2dc70313e8e2c6610b856d627bce9c9c3f848077  cloog-0.18.1.tar.gz" | shasum -c
+  tar -jxf gcc-4.8.1.tar.bz2
+  tar -xf isl-0.11.1.tar.gz
+  tar -xf cloog-0.18.1.tar.gz
+  # Install ISL
+  mkdir isl-build && cd isl-build
+  ../isl-0.11.1/configure --prefix=$INSTDIR/ --without-piplib --disable-shared
+  make $MAKEOPTS
+  make $MAKEOPTS install
+  cd ..
+  # Install Cloog
+  mkdir cloog-build && cd cloog-build
+  ../cloog-0.18.1/configure --prefix=$INSTDIR/ --with-isl-prefix=$INSTDIR/ --disable-shared
+  make $MAKEOPTS
+  make $MAKEOPTS install
+  cd ..
+  # Build GCC itself
+  export LIBRARY_PATH=/usr/lib/$(gcc -print-multiarch)
+  export C_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)
+  export CPLUS_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)	 
+  mkdir gcc-4.8.1-build && cd gcc-4.8.1-build
+  ../gcc-4.8.1/configure --prefix=$INSTDIR/ --disable-checking --enable-languages=c,c++ --enable-multiarch --enable-shared --enable-threads=posix --program-suffix=4.8 --with-gmp=/usr/local/lib --with-mpc=/usr/lib --with-mpfr=/usr/lib --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --without-included-gettext --with-system-zlib --with-tune=generic
+  make $MAKEOPTS 
+  make $MAKEOPTS install
+  # Done
+  cd "$INSTDIR"
+  zip -r gcc-4.8.1.zip *
+  cp gcc-4.8.1.zip $OUTDIR
+  exit
