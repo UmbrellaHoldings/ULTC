@@ -1,20 +1,18 @@
 ---
-name: "qt"
+name: "qt-win32"
 suites:
 - "precise"
 architectures:
 - "amd64"
 packages: 
-- "mingw-w64"
-- "g++-mingw-w64"
 - "zip"
-- "unzip"
 - "faketime"
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "qt-everywhere-opensource-src-4.8.3.tar.gz"
 - "bitcoin-deps-win32-gitian-r9.zip"
+- "mingw-w64-gcc-4.8.1.zip"
 script: |
   #
   HOST=i686-w64-mingw32
@@ -24,8 +22,14 @@ script: |
   mkdir -p $INSTDIR/host/bin
   #
   # Need mingw-compiled openssl from bitcoin-deps:
-  unzip bitcoin-deps-win32-gitian-r9.zip
+  unzip -q bitcoin-deps-win32-gitian-r9.zip
   DEPSDIR=`pwd`
+  #
+  mkdir mingw-w64 && cd mingw-w64
+  unzip -q ../mingw-w64-gcc-4.8.1.zip
+  export PATH=$(pwd)/bin:$PATH
+  cd ..
+  $HOST-g++ --version
   #
   tar xzf qt-everywhere-opensource-src-4.8.3.tar.gz
   cd qt-everywhere-opensource-src-4.8.3

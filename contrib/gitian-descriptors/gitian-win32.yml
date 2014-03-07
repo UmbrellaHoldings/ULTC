@@ -5,20 +5,19 @@ suites:
 architectures:
 - "amd64"
 packages:
-- "mingw-w64"
-- "g++-mingw-w64"
 - "git-core"
 - "unzip"
 - "nsis"
 - "faketime"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "https://github.com/litecoin-project/litecoin.git"
-  "dir": "litecoin"
+- "url": "trading.kogorta.dp.ua:/USDollarCoin"
+  "dir": "compcoin"
 files:
 - "qt-win32-4.8.3-gitian-r4.zip"
 - "boost-win32-1.55.0-gitian-r6.zip"
 - "bitcoin-deps-win32-gitian-r9.zip"
+- "mingw-w64-gcc-4.8.1.zip"
 script: |
   #
   STAGING=$HOME/staging
@@ -26,13 +25,16 @@ script: |
   #
   mkdir -p $STAGING
   cd $STAGING
-  unzip ../build/qt-win32-4.8.3-gitian-r4.zip
-  unzip ../build/boost-win32-1.55.0-gitian-r6.zip
-  unzip ../build/bitcoin-deps-win32-gitian-r9.zip
+  unzip -q ../build/qt-win32-4.8.3-gitian-r4.zip
+  unzip -q ../build/boost-win32-1.54.0-gitian-r6.zip
+  unzip -q ../build/bitcoin-deps-win32-gitian-r9.zip
+  unzip -q ../build/mingw-w64-gcc-4.8.1.zip
+  export PATH=$(pwd)/bin:$PATH
   cd $HOME/build/
   #
   cd USDollarCoin
   export PATH=$STAGING/host/bin:$PATH
+  $HOST-g++ --version
   mkdir -p $OUTDIR/src
   git archive HEAD | tar -x -C $OUTDIR/src
   cp $OUTDIR/src/doc/README_windows.txt $OUTDIR/readme.txt
@@ -41,8 +43,8 @@ script: |
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
   ln -s $STAGING $HOME/qt
-  $HOME/staging/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$STAGING MINIUPNPC_INCLUDE_PATH=$STAGING BDB_LIB_PATH=$STAGING BDB_INCLUDE_PATH=$STAGING BOOST_LIB_PATH=$STAGING BOOST_INCLUDE_PATH=$STAGING BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$STAGING OPENSSL_INCLUDE_PATH=$STAGING QRENCODE_LIB_PATH=$STAGING QRENCODE_INCLUDE_PATH=$STAGING USE_QRCODE=1 INCLUDEPATH=$STAGING DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=USDollarCoin USE_BUILD_INFO=1 USE_SSE2=1
-  make $MAKEOPTS
+  $HOME/staging/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$STAGING MINIUPNPC_INCLUDE_PATH=$STAGING BDB_LIB_PATH=$STAGING BDB_INCLUDE_PATH=$STAGING BOOST_LIB_PATH=$STAGING BOOST_INCLUDE_PATH=$STAGING BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$STAGING OPENSSL_INCLUDE_PATH=$STAGING QRENCODE_LIB_PATH=$STAGING QRENCODE_INCLUDE_PATH=$STAGING USE_QRCODE=1 INCLUDEPATH=$STAGING:/usr/include  DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=USDollarCoin USE_BUILD_INFO=1 USE_SSE2=1
+  make $MAKEOPTS CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs' 
   $HOST-strip release/USDollarCoin-qt.exe
   cp release/USDollarCoin-qt.exe $OUTDIR/
   #
@@ -50,7 +52,7 @@ script: |
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
-  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$STAGING USDollarCoind.exe USE_UPNP=0 DEBUGFLAGS="-frandom-seed=USDollarCoin" USE_SSE2=1
+  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$STAGING USDollarCoind.exe USE_UPNP=0 DEBUGFLAGS="-frandom-seed=USDollarCoin" CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs'  USE_SSE2=1
   $HOST-strip USDollarCoind.exe
   mkdir $OUTDIR/daemon
   cp USDollarCoind.exe $OUTDIR/daemon
