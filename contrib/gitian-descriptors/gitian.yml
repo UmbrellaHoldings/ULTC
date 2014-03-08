@@ -8,10 +8,6 @@ packages:
 - "libdb5.1++-dev"
 - "qt4-qmake"
 - "libqt4-dev"
-- "libboost-system-dev"
-- "libboost-filesystem-dev"
-- "libboost-program-options-dev"
-- "libboost-thread-dev"
 - "libssl-dev"
 - "git-core"
 - "unzip"
@@ -19,12 +15,21 @@ packages:
 - "libpng12-dev"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "git:/USDollarCoin"
+- "url": "trading.kogorta.dp.ua:USDollarCoin"
   "dir": "compcoin"
 files:
 - "miniupnpc-1.6.tar.gz"
 - "qrencode-3.2.0.tar.bz2"
+- "gcc-4.8.1-linux64.zip"
+- "boost-linux64-1.54.0-gitian-r6.zip"
 script: |
+  #
+  STAGING=$HOME/staging
+  mkdir -p $STAGING
+  pushd $STAGING
+  unzip -q ../build/boost-linux64-1.54.0-gitian-r6.zip
+  popd
+  #
   INSTDIR="$HOME/install"
   export LIBRARY_PATH="$INSTDIR/lib"
   #
@@ -39,17 +44,27 @@ script: |
   make $MAKEOPTS install
   cd ..
   #
+  mkdir gcc
+  cd gcc
+  unzip -q ../gcc-4.8.1-linux64.zip
+  ln -s gcc4.8 bin/gcc
+  ln -s g++4.8 bin/g++
+  export PATH=$(pwd)/bin:$PATH
+  cd ..
+  #
+  GCCVERSION=$(g++ -E -dM $(mktemp --suffix=.h) | grep __VERSION__ | cut -d ' ' -f 3 | cut -d '"' -f 2)
+  #
   cd USDollarCoin
   mkdir -p $OUTDIR/src
   git archive HEAD | tar -x -C $OUTDIR/src
   cp $OUTDIR/src/doc/README.md $OUTDIR
   cp $OUTDIR/src/COPYING $OUTDIR
   cd src
-  make -f makefile.unix STATIC=1 OPENSSL_INCLUDE_PATH="$INSTDIR/include" OPENSSL_LIB_PATH="$INSTDIR/lib" $MAKEOPTS USDollarCoind USE_UPNP=0 DEBUGFLAGS= CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs' BOOST_LIB_SUFFIX='-mt' USE_SSE2=1
+  make -f makefile.unix STATIC=1 OPENSSL_INCLUDE_PATH="$INSTDIR/include" OPENSSL_LIB_PATH="$INSTDIR/lib" $MAKEOPTS USDollarCoind USE_UPNP=0 DEBUGFLAGS= CXXFLAGS='-lrt --std=c++11 -Wno-unused-local-typedefs' BOOST_INCLUDE_PATH=$STAGING/include BOOST_LIB_PATH=$STAGING/lib BOOST_LIB_SUFFIX='-mt' USE_SSE2=1 DEPSDIR=$STAGING
   mkdir -p $OUTDIR/bin/$GBUILD_BITS
   install -s USDollarCoind $OUTDIR/bin/$GBUILD_BITS
   cd ..
-  qmake INCLUDEPATH="$INSTDIR/include" LIBS="-L$INSTDIR/lib" RELEASE=1 USE_QRCODE=1 USE_SSE2=1
+  qmake INCLUDEPATH="$INSTDIR/include" LIBS="-L$INSTDIR/lib" RELEASE=1 USE_QRCODE=1 USE_SSE2=1 BOOST_LIB_PATH=$STAGING/lib BOOST_INCLUDE_PATH=$STAGING/include BOOST_LIB_SUFFIX=-mt BOOST_THREAD_LIB_SUFFIX=-mt
   make $MAKEOPTS
   install USDollarCoin-qt $OUTDIR/bin/$GBUILD_BITS
      
