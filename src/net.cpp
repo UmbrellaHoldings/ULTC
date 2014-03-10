@@ -1193,7 +1193,6 @@ static const char *strMainNetDNSSeed[][2] = {
     {"nl1.vertcoin.org", "nl1.vertcoin.org"},
     {"nl2.vertcoin.org", "nl2.vertcoin.org"},
     {"se1.vertcoin.org", "se1.vertcoin.org"},
-    {"vtc.kilovolt.co.uk", "vtc.kilovolt.co.uk"},
     {"ny.vertcoin.org", "ny.vertcoin.org"},
     {"la.vertcoin.org", "la.vertcoin.org"},
     {"eu.vertcoin.org", "eu.vertcoin.org"},
