@@ -3,7 +3,7 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-ifneq ($(wildcard "/usr/local/lib/db48"), "")
+ifeq ("$(wildcard /usr/local/lib/db48)", "")
     BDB_LIB_PATH=/usr/local/lib/db5
     BDB_INCLUDE_PATH=/usr/local/include/db5
 else
