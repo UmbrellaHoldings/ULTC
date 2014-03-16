@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Generate pnSeed[] from Pieter's DNS seeder
+# Generate pnSeed[] from Bengt's DNS seeder
 #
 
 NSEEDS=600
@@ -25,8 +25,8 @@ def main():
             continue
         ips.append(ip)
 
-    for row in range(0, min(NSEEDS,len(ips)), 8):
-        print "    " + ", ".join([ "0x%08x"%i for i in ips[row:row+8] ]) + ","
+    for row in range(0, min(NSEEDS,len(ips)), 6):
+        print "    " + ", ".join([ "0x%08x"%i for i in ips[row:row+6] ]) + ","
 
 if __name__ == '__main__':
     main()

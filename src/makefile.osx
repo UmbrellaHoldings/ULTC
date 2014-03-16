@@ -7,17 +7,25 @@
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
 
 CXX=llvm-g++
-DEPSDIR=/opt/local
+ifeq ("$(shell port)", "") # homebrew
+    DEPSDIR=/usr/local
+    BDB_LIB_PATH=$(DEPSDIR)/Cellar/berkeley-db4/4.8.30/lib
+    BDB_INCLUDE_PATH=$(DEPSDIR)/Cellar/berkeley-db4/4.8.30/include
+else # macports
+    DEPSDIR=/opt/local
+    BDB_LIB_PATH=$(DEPSDIR)/lib/db48
+    BDB_INCLUDE_PATH=$(DEPSDIR)/include/db48
+endif
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
  -I"$(DEPSDIR)/include" \
- -I"$(DEPSDIR)/include/db48"
+ -I"$(BDB_INCLUDE_PATH)"
 
 LIBPATHS= \
  -L"$(DEPSDIR)/lib" \
- -L"$(DEPSDIR)/lib/db48"
+ -L"$(BDB_LIB_PATH)"
 
 USE_UPNP:=1
 USE_IPV6:=1
@@ -72,7 +80,7 @@ CFLAGS += -stdlib=libstdc++
 
 # ppc doesn't work because we don't support big-endian
 CFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
-    $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+    $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS) -Wno-deprecated
 
 OBJS= \
     leveldb/libleveldb.a \
@@ -130,10 +138,10 @@ ifneq (${USE_IPV6}, -)
 	DEFS += -DUSE_IPV6=$(USE_IPV6)
 endif
 
-all: litecoind
+all: vertcoind
 
-test check: test_litecoin FORCE
-	./test_litecoin
+test check: test_vertcoin FORCE
+	./test_vertcoin
 
 #
 # LevelDB support
@@ -167,7 +175,7 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-litecoind: $(OBJS:obj/%=obj/%)
+vertcoind: $(OBJS:obj/%=obj/%)
 	$(CXX) $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -179,11 +187,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_litecoin: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_vertcoin: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS) $(TESTLIBS)
 
 clean:
-	-rm -f litecoind test_litecoin
+	-rm -f vertcoind test_vertcoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P
