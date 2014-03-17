@@ -9,11 +9,10 @@ ifeq ("$(wildcard /usr/local/lib/db48)", "")
 else
     BDB_LIB_PATH=/usr/local/lib/db48
     BDB_INCLUDE_PATH=/usr/local/include/db48
+endif
 
-BDB_LIB_PATH=/usr/local/lib/db5
-BDB_INCLUDE_PATH=/usr/local/include/db5
-BOOST_LIB_PATH=/usr/local/lib
-BOOST_INCLUDE_PATH=/usr/local/include
+BOOST_INCLUDE_PATH = /usr/local/include
+BOOST_LIB_PATH = /usr/local/lib
 
 # :=0 --> UPnP support turned off by default at runtime
 # :=1 --> UPnP support turned on by default at runtime
