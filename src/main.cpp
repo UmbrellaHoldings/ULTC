@@ -1101,8 +1101,8 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 	
 	if(nHeight == 1)
 		nSubsidy = 16800000 * COIN; //For Silicon Valley Mail Drop [48%]
-	else if(nHeight <= 11)
-		nSubsidy = 70000 * COIN;   //For Silicon Valley Mail Drop Costs / Development Costs [2%]
+	else if(nHeight == 2)
+		nSubsidy = 700000 * COIN;   //For Silicon Valley Mail Drop Costs / Development Costs [2%]
 
     // Subsidy is cut in half every 75000 blocks, which will occur approximately every year
     nSubsidy >>= (nHeight / 75000); // Silicon Valley: 75000k blocks in ~1 years
