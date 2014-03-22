@@ -34,14 +34,15 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-static inline uint32_t be32dec(const void *pp)
+
+static inline uint32_t scrypt_be32dec(const void *pp)
 {
 	const uint8_t *p = (uint8_t const *)pp;
 	return ((uint32_t)(p[3]) + ((uint32_t)(p[2]) << 8) +
 	    ((uint32_t)(p[1]) << 16) + ((uint32_t)(p[0]) << 24));
 }
 
-static inline void be32enc(void *pp, uint32_t x)
+static inline void scrypt_be32enc(void *pp, uint32_t x)
 {
 	uint8_t *p = (uint8_t *)pp;
 	p[3] = x & 0xff;
@@ -255,7 +256,7 @@ void scrypt_N_1_1_256_sp_generic(const char *input, char *output, char *scratchp
 	PBKDF2_SHA256((const uint8_t *)input, 80, (const uint8_t *)input, 80, 1, B, 128);
 
 	for (k = 0; k < 32; k++)
-		X[k] = le32dec(&B[4 * k]);
+		X[k] = scrypt_le32dec(&B[4 * k]);
         
         N = (1 << (Nfactor + 1));
         
@@ -274,7 +275,7 @@ void scrypt_N_1_1_256_sp_generic(const char *input, char *output, char *scratchp
 	}
 
 	for (k = 0; k < 32; k++)
-		le32enc(&B[4 * k], X[k]);
+		scrypt_le32enc(&B[4 * k], X[k]);
 
 	PBKDF2_SHA256((const uint8_t *)input, 80, B, 128, 1, (uint8_t *)output, 32);
 }
