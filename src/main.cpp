@@ -1118,7 +1118,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 }
 
 
-static int64 nDiffChangeTarget = 280; // Patch effective @ block 280
+static int64 nDiffChangeTarget = 290; // Patch effective @ block 290
 static const int64 nTargetTimespan = 8 * 60; // Silicon Valley: 8 minutes
 static const int64 nTargetSpacing = 8 * 60; // Silicon Valley: 8 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
