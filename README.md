@@ -1,7 +1,7 @@
 Silicon Valley integration/staging tree
 ================================
 
-http://www.siliconvalleycoin.org
+http://www.siliconvalleycoin.com
 
 Copyright (c) 2009-2013 Bitcoin Developers
 Copyright (c) 2011-2013 Litecoin Developers
@@ -16,10 +16,10 @@ Silicon Valley is a lite version of Vertcoin using scrypt-adaptive-N as a proof-
  - block value halves in 75k blocks (~1 years)
  - 35 million total coins
  - 35 coins per block
- - Every block to retarget difficulty with Kimotos Gravity Well algorithm
+ - Every block to retarget difficulty with DigiShield algorithm
 
 For more information, as well as an immediately useable, binary version of
-the Silicon Valley client sofware, see http://www.siliconvalleycoin.org.
+the Silicon Valley client sofware, see http://www.siliconvalleycoin.com.
 
 License
 -------
