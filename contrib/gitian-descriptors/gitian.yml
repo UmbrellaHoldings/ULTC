@@ -1,7 +1,7 @@
 ---
 name: "siliconvalley"
 suites:
-- "precise"
+- "saucy"
 architectures:
 - "amd64"
 packages: 
