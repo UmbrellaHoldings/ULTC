@@ -6,8 +6,8 @@ SetCompressor /SOLID lzma
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 0.8.6.2
-!define COMPANY "Litecoin project"
-!define URL http://www.litecoin.org/
+!define COMPANY "Cohorta LLC"
+!define URL http://cohors.bz/
 
 # MUI Symbol Definitions
 !define MUI_ICON "../share/pixmaps/bitcoin.ico"
@@ -87,7 +87,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Litecoin.lnk" $INSTDIR\litecoin-qt.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Litecoin.lnk" $INSTDIR\litecoin-qt.exe -gen
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Litecoin.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
