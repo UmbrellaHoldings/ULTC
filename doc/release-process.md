@@ -28,9 +28,9 @@ Release Process
 
    sudo apt-get install git apache2 apt-cacher-ng python-vm-builder ruby qemu-utils
    sudo apt-get install debootstrap lxc # for LXC mode
-	git clone git://btc.kogorta.dp.ua:/gitian-builder
+   git clone https://github.com/devrandom/gitian-builder.git
 
-	cd gitian-builder
+   cd gitian-builder
    bin/make-base-vm --lxc --arch amd64 --suite precise
 
    # LXC network (may be need run each time or add the device to /etc/networks/interface)
@@ -54,15 +54,14 @@ Release Process
 	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.6.tar.gz' -O miniupnpc-1.6.tar.gz
 	wget 'http://www.openssl.org/source/openssl-1.0.1c.tar.gz'
 	wget 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-	wget 'http://zlib.net/zlib-1.2.6.tar.gz'
-	wget 'ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.5.9.tar.gz'
+	wget 'http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz'
+        wget 'http://downloads.sourceforge.net/project/libpng/libpng15/older-releases/1.5.9/libpng-1.5.9.tar.gz'
 	wget 'http://fukuchi.org/works/qrencode/qrencode-3.2.0.tar.bz2'
-	wget 'http://downloads.sourceforge.net/project/boost/boost/1.54.0/boost_1_54_0.tar.bz2'
+	wget 'http://downloads.sourceforge.net/project/boost/boost/1.55.0/boost_1_55_0.tar.bz2'
 	wget 'https://svn.boost.org/trac/boost/raw-attachment/ticket/7262/boost-mingw.patch'
 	mv boost-mingw.patch boost-mingw-gas-cross-compile-2013-03-03.patch
 	wget 'http://ftp.gnu.org/gnu/binutils/binutils-2.23.1.tar.bz2'
-	wget 'http://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2'	
-	wget 'http://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2'
+	wget 'http://ftp.gnu.org/gnu/gcc/gcc-4.8.1/gcc-4.8.1.tar.bz2'	
 	wget 'http://netcologne.dl.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v3.1.0.tar.bz2'
 	wget 'http://isl.gforge.inria.fr/isl-0.11.1.tar.gz'
 	wget 'http://www.bastoul.net/cloog/pages/download/cloog-0.18.1.tar.gz'
@@ -75,7 +74,7 @@ Release Process
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/qt.yml
 	mv build/out/qt-4.8.3-linux64.zip inputs/
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost.yml
-   mv build/out/boost-linux64-1.54.0-gitian-r6.zip inputs/
+        mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
 	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/mingw-w64.yml
