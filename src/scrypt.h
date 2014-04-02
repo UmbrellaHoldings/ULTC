@@ -93,8 +93,10 @@ using Scratchpad = scrypt::Scratchpad<pars::n, pars::r, pars::p, SalsaBlockT>;
 void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
 
+#if 0
 #if defined(USE_SSE2)
 extern void scrypt_detect_sse2(unsigned int cpuid_edx);
+#endif
 #endif
 
 #if defined(USE_SSE2)

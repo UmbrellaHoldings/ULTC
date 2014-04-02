@@ -669,8 +669,10 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     int64 nStart;
 
+#if 0
 #if defined(USE_SSE2)
     scrypt_detect_sse2();
+#endif
 #endif
 
     // ********************************************************* Step 5: verify wallet database integrity
