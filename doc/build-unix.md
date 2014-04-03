@@ -46,9 +46,9 @@ Licenses of statically linked libraries:
 
 - Versions used in this release:
 -  GCC           4.3.3
--  OpenSSL       1.0.1c
+-  OpenSSL       1.0.1e
 -  Berkeley DB   4.8.30.NC
--  Boost         1.37
+-  Boost         1.55
 -  miniupnpc     1.6
 
 Dependency Build Instructions: Ubuntu & Debian
@@ -77,6 +77,11 @@ for other Ubuntu & Debian:
 Optional:
 
 	sudo apt-get install libminiupnpc-dev (see USE_UPNP compile flag)
+
+Level Db
+--------
+Make sure to use +x for compilation of leveldb libraries.
+chmod +x src/leveldb/build_detect_platform
 
 
 Notes
