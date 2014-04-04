@@ -1238,6 +1238,7 @@ void ThreadDNSAddressSeed()
 
 unsigned int pnSeed[] =
 {
+  0x1a5713c1, // mercury
 };
 
 void DumpAddresses()
