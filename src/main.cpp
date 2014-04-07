@@ -1109,6 +1109,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 static const int64 nTargetTimespan = 3.5 * 24 * 60 * 60; // Vertcoin: 3.5 days
 static const int64 nTargetSpacing = 2.5 * 60; // Vertcoin: 2.5 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+static const int nKGWInterval = 12; // Timewarp fix - retargets every 12 blocks
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -1227,7 +1228,7 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBloc
         double                                EventHorizonDeviationSlow;
         
     if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || (uint64)BlockLastSolved->nHeight < PastBlocksMin) { return bnProofOfWorkLimit.GetCompact(); }
-        
+    
         for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
                 if (PastBlocksMax > 0 && i > PastBlocksMax) { break; }
                 PastBlocksMass++;
@@ -1281,7 +1282,23 @@ unsigned int static GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const 
         int64                                PastSecondsMax                                = TimeDaySeconds * 7;
         uint64                                PastBlocksMin                                = PastSecondsMin / BlocksTargetSpacing;
         uint64                                PastBlocksMax                                = PastSecondsMax / BlocksTargetSpacing;        
-        
+
+
+        if (fTestNet)
+        {
+        	if (pindexLast->nHeight+1 >= 6400)	 //hardfork testnet to 12 block difficulty adjustment interval
+        	{
+    	    	    
+        		if ((pindexLast->nHeight+1) % nKGWInterval != 0) 
+        		{ 
+        		CBigNum bnNew;
+        		bnNew.SetCompact(pindexLast->nBits);
+        		if (bnNew > bnProofOfWorkLimit) { bnNew = bnProofOfWorkLimit; }
+        		return bnNew.GetCompact();
+        		}
+        	}
+        }
+                
         return KimotoGravityWell(pindexLast, pblock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
 }
 
