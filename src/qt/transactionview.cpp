@@ -25,6 +25,8 @@
 #include <QMenu>
 #include <QLabel>
 #include <QDateTimeEdit>
+#include <QDesktopServices>
+#include <QUrl>
 
 TransactionView::TransactionView(QWidget *parent) :
     QWidget(parent), model(0), transactionProxyModel(0),
@@ -126,6 +128,7 @@ TransactionView::TransactionView(QWidget *parent) :
     QAction *copyTxIDAction = new QAction(tr("Copy transaction ID"), this);
     QAction *editLabelAction = new QAction(tr("Edit label"), this);
     QAction *showDetailsAction = new QAction(tr("Show transaction details"), this);
+    QAction *viewOnVertExplorerAction = new QAction(tr("View on VertExplorer"), this);
 
     contextMenu = new QMenu();
     contextMenu->addAction(copyAddressAction);
@@ -134,6 +137,7 @@ TransactionView::TransactionView(QWidget *parent) :
     contextMenu->addAction(copyTxIDAction);
     contextMenu->addAction(editLabelAction);
     contextMenu->addAction(showDetailsAction);
+    contextMenu->addAction(viewOnVertExplorerAction);
 
     // Connect actions
     connect(dateWidget, SIGNAL(activated(int)), this, SLOT(chooseDate(int)));
@@ -150,6 +154,7 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
+    connect(viewOnVertExplorerAction, SIGNAL(triggered()), this, SLOT(viewOnVertExplorer()));
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -376,6 +381,18 @@ void TransactionView::showDetails()
     {
         TransactionDescDialog dlg(selection.at(0));
         dlg.exec();
+    }
+}
+
+void TransactionView::viewOnVertExplorer()
+{
+    QModelIndexList selection = transactionView->selectionModel()->selectedRows();
+    if(!selection.isEmpty())
+    {
+        QString format("http://vertexplorer.com/tx/");
+        format += selection.at(0).data(TransactionTableModel::TxIDRole).toString();
+
+        QDesktopServices::openUrl(QUrl(format));
     }
 }
 
