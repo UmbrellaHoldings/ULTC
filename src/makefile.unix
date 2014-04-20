@@ -62,6 +62,7 @@ LIBS+= \
  -Wl,-B$(LMODE2) \
    -l z \
    -l dl \
+   -l rt \
    -l pthread
 
 
