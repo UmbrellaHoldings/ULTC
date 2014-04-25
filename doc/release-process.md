@@ -89,6 +89,7 @@ Release Process
  Build xxxxxxxd and xxxxxxx-qt on Linux32, Linux64, and Win32:
   
 	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
+	../xxxxxxx/create-deb.sh build/out/bin/64/
 	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
 	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *
