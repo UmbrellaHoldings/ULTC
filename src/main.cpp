@@ -1215,8 +1215,6 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBloc
         /* current difficulty formula - kimoto gravity well */
         const CBlockIndex *BlockLastSolved                                = pindexLast;
         const CBlockIndex *BlockReading                                = pindexLast;
-        const CBlockHeader *BlockCreating                                = pblock;
-                                                BlockCreating                                = BlockCreating;
         uint64                                PastBlocksMass                                = 0;
         int64                                PastRateActualSeconds                = 0;
         int64                                PastRateTargetSeconds                = 0;
