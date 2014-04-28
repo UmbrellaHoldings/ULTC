@@ -6,26 +6,18 @@
 # Mac OS X makefile for bitcoin
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
 
-CXX=llvm-g++
-ifeq ("$(shell port)", "") # homebrew
-    DEPSDIR=/usr/local
-    BDB_LIB_PATH=$(DEPSDIR)/Cellar/berkeley-db4/4.8.30/lib
-    BDB_INCLUDE_PATH=$(DEPSDIR)/Cellar/berkeley-db4/4.8.30/include
-else # macports
-    DEPSDIR=/opt/local
-    BDB_LIB_PATH=$(DEPSDIR)/lib/db48
-    BDB_INCLUDE_PATH=$(DEPSDIR)/include/db48
-endif
+#CXX=llvm-g++
+DEPSDIR=/opt/local
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
  -I"$(DEPSDIR)/include" \
- -I"$(BDB_INCLUDE_PATH)"
+ -I/opt/local/include
 
 LIBPATHS= \
  -L"$(DEPSDIR)/lib" \
- -L"$(BDB_LIB_PATH)"
+ -L/opt/local/lib
 
 USE_UPNP:=1
 USE_IPV6:=1
@@ -39,7 +31,7 @@ ifdef STATIC
 TESTLIBS += \
  $(DEPSDIR)/lib/libboost_unit_test_framework-mt.a
 LIBS += \
- $(DEPSDIR)/lib/db48/libdb_cxx-4.8.a \
+ $(DEPSDIR)/lib/libdb_cxx-4.8.a \
  $(DEPSDIR)/lib/libboost_system-mt.a \
  $(DEPSDIR)/lib/libboost_filesystem-mt.a \
  $(DEPSDIR)/lib/libboost_program_options-mt.a \
@@ -70,21 +62,23 @@ ifdef RELEASE
 # Compile for maximum compatibility and smallest size.
 # This requires that dependencies are compiled
 # the same way.
-CFLAGS = -mmacosx-version-min=10.5 -arch i386 -O3
+CFLAGS = -mmacosx-version-min=10.5 -arch x86_64 -O3
 else
 DEBUGFLAGS = -g
 endif
 
 # osx 10.9 has changed the stdlib default to libc++. To prevent some link error, you may need to use libstdc++
-CFLAGS += -stdlib=libstdc++
+#CFLAGS += -stdlib=libstdc++
+CFLAGS += -stdlib=libc++
 
 # ppc doesn't work because we don't support big-endian
-CFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
-    $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS) -Wno-deprecated
+CFLAGS += -std=c++11 -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
+    $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 
 OBJS= \
     leveldb/libleveldb.a \
     obj/alert.o \
+    obj/allocators.o \
     obj/version.o \
     obj/checkpoints.o \
     obj/netbase.o \
@@ -108,6 +102,7 @@ OBJS= \
     obj/scrypt.o \
     obj/sync.o \
     obj/util.o \
+    obj/util_cmn.o \
     obj/wallet.o \
     obj/walletdb.o \
     obj/hash.o \

@@ -41,8 +41,9 @@ public:
 
 //! The dynamic-allocated memory for scrypt
 template<uint32_t N, unsigned r, unsigned p, class SalsaBlockT>
-using Scratchpad alignas(64) = 
-  std::array<std::array<std::array<SalsaBlockT, 2*r>, N>, p>;
+struct alignas(64) Scratchpad  
+  : std::array<std::array<std::array<SalsaBlockT, 2*r>, N>, p>
+{};
 
 namespace generic {
 
