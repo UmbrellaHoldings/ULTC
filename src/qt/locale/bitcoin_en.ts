@@ -17,7 +17,7 @@
     <message>
         <location line="+57"/>
         <source>
-This is experimental software.
+This is experimental hay software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

@@ -32,5 +32,6 @@ qrc_*.cpp
 build
 Info
 Vertcoin-Qt.xcodeproj
+Vertcoin-Qt.dmg
 
 !src/leveldb-*/Makefile
