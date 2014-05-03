@@ -1,3 +1,34 @@
+
+0.8.6.4 changes
+===============
+
+- Updated QT and rebuilt against OpenSSL 1.0.1g
+
+- Added "view on VertExplorer" link to transaction details view
+
+
+0.8.6.3 changes
+===============
+
+- Fix heartbleed OpenSSL vulnerability
+
+- Changed splash image
+
+- Added fixed change addresses via -change=address option
+
+- Fixed unit tests
+
+- Fixed compilation on FreeBSD
+
+- Updated seednodes
+
+- Updated pnSeed
+
+- Changed testnet difficulty interval
+
+- Checkpointed mainnet at block 65000
+
+
 0.8.6.2 changes
 =============
 

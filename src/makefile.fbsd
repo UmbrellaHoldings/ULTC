@@ -1,11 +1,23 @@
 # Copyright (c) 2009-2010 Satoshi Nakamoto
+# Copyright (c) 2014- Vertcoin Developers
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+CXX=clang++
+ifeq ("$(wildcard /usr/local/lib/db48)", "")
+    BDB_LIB_PATH=/usr/local/lib/db5
+    BDB_INCLUDE_PATH=/usr/local/include/db5
+else
+    BDB_LIB_PATH=/usr/local/lib/db48
+    BDB_INCLUDE_PATH=/usr/local/include/db48
+endif
+
+BOOST_INCLUDE_PATH = /usr/local/include
+BOOST_LIB_PATH = /usr/local/lib
 
 # :=0 --> UPnP support turned off by default at runtime
 # :=1 --> UPnP support turned on by default at runtime
 # :=- --> No UPnP support - miniupnp not required
-USE_UPNP:=0
+USE_UPNP:=1
 
 # :=1 --> Enable IPv6 support
 # :=0 --> Disable IPv6 support
@@ -39,6 +51,7 @@ LIBS += \
    -l boost_program_options$(BOOST_LIB_SUFFIX) \
    -l boost_thread$(BOOST_LIB_SUFFIX) \
    -l db_cxx$(BDB_LIB_SUFFIX) \
+   -l boost_chrono \
    -l ssl \
    -l crypto
 
@@ -61,8 +74,6 @@ endif
 LIBS+= \
  -Wl,-B$(LMODE2) \
    -l z \
-   -l dl \
-   -l rt \
    -l pthread
 
 
@@ -152,10 +163,10 @@ OBJS_SSE2= obj/scrypt-sse2.o
 OBJS += $(OBJS_SSE2)
 endif
 
-all: siliconvalleyd
+all: vertcoind
 
-test check: test_siliconvalley FORCE
-	./test_siliconvalley
+test check: test_vertcoin FORCE
+	./test_vertcoin
 
 #
 # LevelDB support
@@ -190,7 +201,7 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-siliconvalleyd: $(OBJS:obj/%=obj/%)
+vertcoind: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -202,11 +213,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_siliconvalley: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_vertcoin: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f siliconvalleyd test_siliconvalley
+	-rm -f vertcoind test_vertcoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P

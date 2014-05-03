@@ -18,7 +18,7 @@ remotes:
 files:
 - "qt-win32-4.8.3-gitian-r4.zip"
 - "boost-win32-1.55.0-gitian-r6.zip"
-- "bitcoin-deps-win32-gitian-r9.zip"
+- "vertcoin-deps-win32-gitian-r1.zip"
 script: |
   #
   STAGING=$HOME/staging
@@ -28,7 +28,7 @@ script: |
   cd $STAGING
   unzip ../build/qt-win32-4.8.3-gitian-r4.zip
   unzip ../build/boost-win32-1.55.0-gitian-r6.zip
-  unzip ../build/bitcoin-deps-win32-gitian-r9.zip
+  unzip ../build/vertcoin-deps-win32-gitian-r1.zip
   cd $HOME/build/
   #
   cd siliconvalley
