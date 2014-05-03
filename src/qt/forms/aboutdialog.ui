@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
+    <width>620</width>
     <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About Vertcoin</string>
+   <string>About Crypto Currencies</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
@@ -37,39 +37,14 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>40</height>
+         <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;b&gt;Vertcoin&lt;/b&gt; version</string>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="versionLabel">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string notr="true">0.3.666-beta</string>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-         </property>
-        </widget>
-       </item>
+
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -85,35 +60,38 @@
        </item>
       </layout>
      </item>
-     <item>
-      <widget class="QLabel" name="copyrightLabel">
-       <property name="cursor">
-        <cursorShape>IBeamCursor</cursorShape>
-       </property>
-       <property name="text">
-        <string notr="true">Copyright &amp;copy; 2009-YYYY The Bitcoin developers
-Copyright &amp;copy; 2011-YYYY The Vertcoin developers</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::RichText</enum>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-       </property>
-      </widget>
-     </item>
+	 
      <item>
       <widget class="QLabel" name="label_2">
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
        </property>
+	   <property name="textFormat">
+       <enum>Qt::RichText</enum>
+       </property>
        <property name="text">
-        <string>
-This is experimental software.
-
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</string>
+        <string>&lt;b&gt;What is Bitcoin?&lt;/b&gt;&lt;br&gt;
+Bitcoin is a &lt;i&gt;Peer to Peer Payment Network&lt;/i&gt; that allows instant payments to anywhere in the world. This Network is not governed by any central body or authority. Bitcoin is a &lt;i&gt;Crypto Currency.&lt;/i&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;What are Crypto Currencies?&lt;/b&gt;"&lt;br&gt;
+&lt;i&gt;Crypto Currencies&lt;/i&gt; are modified copies of the original Bitcoin Source Code. Each &lt;i&gt;Currency&lt;/i&gt; is valued by its importance in the &lt;i&gt;Crypto &lt;b&gt;Trading/Mining&lt;/b&gt; Community&lt;/i&gt;.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;What is Silicon Valley Coin?&lt;/b&gt;"&lt;br&gt;
+Silicon Valley Coin is a variation of &lt;i&gt;Vertcoin&lt;/i&gt; eliminating Scrypt ASICS with N-Factor. Its purpose is to connect people to the world of &lt;i&gt;Cypto Currencies&lt;/i&gt;.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;How are we connecting people?&lt;/b&gt;&lt;br&gt;
+Our &lt;i&gt;Mail Drop&lt;/i&gt; system is designed to distribute the original &lt;i&gt;16,800,000 XSV&lt;/i&gt; to selected &lt;i&gt;Silicon Valley Zip Codes&lt;/i&gt;. There will be &lt;b&gt;5 to 500&lt;/b&gt; coins given away per selected mailing address.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;What can I do with Silicon Valley Coins?&lt;/b&gt;&lt;br&gt;
+You can exchange on a trading site, hold to Multiply Investment, buy more to Increase Profits, or Purchase Goods Online.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Support The Network&lt;/b&gt;&lt;br&gt;
+Spread the Word! The Stronger the &lt;i&gt;Community&lt;/i&gt;, the Stronger the &lt;i&gt;Economy&lt;/i&gt;.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Copyright 2014&lt;/b&gt; - &lt;i&gt;The Bitcoin, Litecoin, Vertcoin, and Silicon Valley Developers&lt;/i&gt;&lt;br&gt;
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Distributed under MIT/X11&lt;/b&gt; - &lt;i&gt;http://www.opensource.org/licenses/mit-license.php&lt;/i&gt;</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -131,7 +109,7 @@ This product includes software developed by the OpenSSL Project for use in the O
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>40</height>
+         <height>20</height>
         </size>
        </property>
       </spacer>

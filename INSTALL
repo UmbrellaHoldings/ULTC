@@ -1,12 +1,12 @@
-Building Vertcoin
+Building Silicon Valley
 
-See doc/readme-qt.rst for instructions on building Vertcoin-Qt,
+See doc/readme-qt.rst for instructions on building Silicon Valley-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Vertcoin.
+implementation of Silicon Valley.
 
-See doc/build-*.txt for instructions on building vertcoind,
+See doc/build-*.txt for instructions on building siliconvalleyd,
 the intended-for-services, no-graphical-interface, reference
-implementation of Vertcoin.
+implementation of Silicon Valley.
 
 Further build information and documentation is available at
-the official Vertcoin website, http://www.vertcoin.org
+the official Silicon Valley website, http://www.siliconvalley.org

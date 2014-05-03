@@ -6,13 +6,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Vertcoin</source>
-        <translation>About Vertcoin</translation>
+        <source>About Silicon Valley</source>
+        <translation>About Silicon Valley</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Vertcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Vertcoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;Silicon Valley&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Silicon Valley&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -36,8 +36,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Vertcoin developers</source>
-        <translation>The Vertcoin developers</translation>
+        <source>The Silicon Valley developers</source>
+        <translation>The Silicon Valley developers</translation>
     </message>
 </context>
 <context>
@@ -69,8 +69,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Vertcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your Vertcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your Silicon Valley addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your Silicon Valley addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -84,8 +84,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Vertcoin address</source>
-        <translation>Sign a message to prove you own a Vertcoin address</translation>
+        <source>Sign a message to prove you own a Silicon Valley address</source>
+        <translation>Sign a message to prove you own a Silicon Valley address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -109,8 +109,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Vertcoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified Vertcoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified Silicon Valley address</source>
+        <translation>Verify a message to ensure it was signed with a specified Silicon Valley address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -124,8 +124,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Vertcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your Vertcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <source>These are your Silicon Valley addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>These are your Silicon Valley addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -277,8 +277,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Vertcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your vertcoins from being stolen by malware infecting your computer.</source>
-        <translation>Vertcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your vertcoins from being stolen by malware infecting your computer.</translation>
+        <source>Silicon Valley will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your siliconvalleys from being stolen by malware infecting your computer.</source>
+        <translation>Silicon Valley will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your siliconvalleys from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -376,8 +376,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Vertcoin</source>
-        <translation>Show information about Vertcoin</translation>
+        <source>Show information about Silicon Valley</source>
+        <translation>Show information about Silicon Valley</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -421,13 +421,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Vertcoin address</source>
-        <translation>Send coins to a Vertcoin address</translation>
+        <source>Send coins to a Silicon Valley address</source>
+        <translation>Send coins to a Silicon Valley address</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Vertcoin</source>
-        <translation>Modify configuration options for Vertcoin</translation>
+        <source>Modify configuration options for Silicon Valley</source>
+        <translation>Modify configuration options for Silicon Valley</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -457,8 +457,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Vertcoin</source>
-        <translation>Vertcoin</translation>
+        <source>Silicon Valley</source>
+        <translation>Silicon Valley</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -482,8 +482,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Vertcoin</source>
-        <translation>&amp;About Vertcoin</translation>
+        <source>&amp;About Silicon Valley</source>
+        <translation>&amp;About Silicon Valley</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -502,13 +502,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Vertcoin addresses to prove you own them</source>
-        <translation>Sign messages with your Vertcoin addresses to prove you own them</translation>
+        <source>Sign messages with your Silicon Valley addresses to prove you own them</source>
+        <translation>Sign messages with your Silicon Valley addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Vertcoin addresses</source>
-        <translation>Verify messages to ensure they were signed with specified Vertcoin addresses</translation>
+        <source>Verify messages to ensure they were signed with specified Silicon Valley addresses</source>
+        <translation>Verify messages to ensure they were signed with specified Silicon Valley addresses</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -538,15 +538,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Vertcoin client</source>
-        <translation>Vertcoin client</translation>
+        <source>Silicon Valley client</source>
+        <translation>Silicon Valley client</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Vertcoin network</source>
+        <source>%n active connection(s) to Silicon Valley network</source>
         <translation>
-            <numerusform>%n active connection to Vertcoin network</numerusform>
-            <numerusform>%n active connections to Vertcoin network</numerusform>
+            <numerusform>%n active connection to Silicon Valley network</numerusform>
+            <numerusform>%n active connections to Silicon Valley network</numerusform>
         </translation>
     </message>
     <message>
@@ -670,8 +670,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Vertcoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid Vertcoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Silicon Valley address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid Silicon Valley address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -685,8 +685,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Vertcoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. Vertcoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. Silicon Valley can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. Silicon Valley can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -751,8 +751,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Vertcoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid Vertcoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Silicon Valley address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid Silicon Valley address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -770,8 +770,8 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Vertcoin-Qt</source>
-        <translation>Vertcoin-Qt</translation>
+        <source>Silicon Valley-Qt</source>
+        <translation>Silicon Valley-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -833,13 +833,13 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Vertcoin after logging in to the system.</source>
-        <translation>Automatically start Vertcoin after logging in to the system.</translation>
+        <source>Automatically start Silicon Valley after logging in to the system.</source>
+        <translation>Automatically start Silicon Valley after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Vertcoin on system login</source>
-        <translation>&amp;Start Vertcoin on system login</translation>
+        <source>&amp;Start Silicon Valley on system login</source>
+        <translation>&amp;Start Silicon Valley on system login</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -858,8 +858,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Vertcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Vertcoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Silicon Valley client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Silicon Valley client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -868,8 +868,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Vertcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the Vertcoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the Silicon Valley network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the Silicon Valley network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -943,8 +943,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Vertcoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting Vertcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Silicon Valley.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting Silicon Valley.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -958,8 +958,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Vertcoin addresses in the transaction list or not.</source>
-        <translation>Whether to show Vertcoin addresses in the transaction list or not.</translation>
+        <source>Whether to show Silicon Valley addresses in the transaction list or not.</source>
+        <translation>Whether to show Silicon Valley addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1010,8 +1010,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Vertcoin.</source>
-        <translation>This setting will take effect after restarting Vertcoin.</translation>
+        <source>This setting will take effect after restarting Silicon Valley.</source>
+        <translation>This setting will take effect after restarting Silicon Valley.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1029,8 +1029,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Vertcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Vertcoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Silicon Valley network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Silicon Valley network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1083,8 +1083,8 @@ Address: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start vertcoin: click-to-pay handler</source>
-        <translation>Cannot start vertcoin: click-to-pay handler</translation>
+        <source>Cannot start siliconvalley: click-to-pay handler</source>
+        <translation>Cannot start siliconvalley: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1233,8 +1233,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Vertcoin-Qt help message to get a list with possible Vertcoin command-line options.</source>
-        <translation>Show the Vertcoin-Qt help message to get a list with possible Vertcoin command-line options.</translation>
+        <source>Show the Silicon Valley-Qt help message to get a list with possible Silicon Valley command-line options.</source>
+        <translation>Show the Silicon Valley-Qt help message to get a list with possible Silicon Valley command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1253,13 +1253,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Vertcoin - Debug window</source>
-        <translation>Vertcoin - Debug window</translation>
+        <source>Silicon Valley - Debug window</source>
+        <translation>Silicon Valley - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Vertcoin Core</source>
-        <translation>Vertcoin Core</translation>
+        <source>Silicon Valley Core</source>
+        <translation>Silicon Valley Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1268,8 +1268,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Vertcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the Vertcoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the Silicon Valley debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the Silicon Valley debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1278,8 +1278,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Vertcoin RPC console.</source>
-        <translation>Welcome to the Vertcoin RPC console.</translation>
+        <source>Welcome to the Silicon Valley RPC console.</source>
+        <translation>Welcome to the Silicon Valley RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1462,8 +1462,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Vertcoin address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</source>
-        <translation>Enter a Vertcoin address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</translation>
+        <source>Enter a Silicon Valley address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</source>
+        <translation>Enter a Silicon Valley address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</translation>
     </message>
 </context>
 <context>
@@ -1527,8 +1527,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Vertcoin address</source>
-        <translation>Sign the message to prove you own this Vertcoin address</translation>
+        <source>Sign the message to prove you own this Silicon Valley address</source>
+        <translation>Sign the message to prove you own this Silicon Valley address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1563,8 +1563,8 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Vertcoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified Vertcoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified Silicon Valley address</source>
+        <translation>Verify the message to ensure it was signed with the specified Silicon Valley address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1579,8 +1579,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Vertcoin address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</source>
-        <translation>Enter a Vertcoin address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</translation>
+        <source>Enter a Silicon Valley address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</source>
+        <translation>Enter a Silicon Valley address (e.g. VsPMGuDYWdibQQ1Hbwpbq3pDHmGY12F2wd)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1589,8 +1589,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Vertcoin signature</source>
-        <translation>Enter Vertcoin signature</translation>
+        <source>Enter Silicon Valley signature</source>
+        <translation>Enter Silicon Valley signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1663,8 +1663,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Vertcoin developers</source>
-        <translation>The Vertcoin developers</translation>
+        <source>The Silicon Valley developers</source>
+        <translation>The Silicon Valley developers</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2216,8 +2216,8 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Vertcoin version</source>
-        <translation>Vertcoin version</translation>
+        <source>Silicon Valley version</source>
+        <translation>Silicon Valley version</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2226,8 +2226,8 @@ Address: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or vertcoind</source>
-        <translation>Send command to -server or vertcoind</translation>
+        <source>Send command to -server or siliconvalleyd</source>
+        <translation>Send command to -server or siliconvalleyd</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2246,13 +2246,13 @@ Address: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: vertcoin.conf)</source>
-        <translation>Specify configuration file (default: vertcoin.conf)</translation>
+        <source>Specify configuration file (default: siliconvalley.conf)</source>
+        <translation>Specify configuration file (default: siliconvalley.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: vertcoind.pid)</source>
-        <translation>Specify pid file (default: vertcoind.pid)</translation>
+        <source>Specify pid file (default: siliconvalleyd.pid)</source>
+        <translation>Specify pid file (default: siliconvalleyd.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2329,24 +2329,24 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vertcoinrpc
+rpcuser=siliconvalleyrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Silicon Valley Alert&quot; admin@foo.com
 </source>
         <translation>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vertcoinrpc
+rpcuser=siliconvalleyrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Silicon Valley Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2361,8 +2361,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Vertcoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. Vertcoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s. Silicon Valley is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. Silicon Valley is probably already running.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2406,8 +2406,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Vertcoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Vertcoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Silicon Valley will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Silicon Valley will not work properly.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2656,8 +2656,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Vertcoin Wiki for SSL setup instructions)</source>
-        <translation>SSL options: (see the Vertcoin Wiki for SSL setup instructions)</translation>
+        <source>SSL options: (see the Silicon Valley Wiki for SSL setup instructions)</source>
+        <translation>SSL options: (see the Silicon Valley Wiki for SSL setup instructions)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2846,13 +2846,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Vertcoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of Vertcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Silicon Valley</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of Silicon Valley</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Vertcoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart Vertcoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart Silicon Valley to complete</source>
+        <translation>Wallet needed to be rewritten: restart Silicon Valley to complete</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2911,8 +2911,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Vertcoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Vertcoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. Vertcoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. Silicon Valley is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. Silicon Valley is probably already running.</translation>
     </message>
     <message>
         <location line="+64"/>

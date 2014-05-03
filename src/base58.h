@@ -272,9 +272,9 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 71, // Vertcoin addresses start with V
+        PUBKEY_ADDRESS = 76, // Silicon Valley addresses start with X
         SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 74,
+        PUBKEY_ADDRESS_TEST = 75,
         SCRIPT_ADDRESS_TEST = 196,
     };
 

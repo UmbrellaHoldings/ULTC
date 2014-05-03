@@ -3,7 +3,7 @@
 <plist version="0.9">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>vertcoin.icns</string>
+	<string>siliconvalley.icns</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleGetInfoString</key>
@@ -15,19 +15,19 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>
-	<string>Vertcoin-Qt</string>
+	<string>Silicon Valley-Qt</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.vertcoin.Vertcoin-Qt</string>
+	<string>org.siliconvalley.Silicon Valley-Qt</string>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLName</key>
-            <string>org.vertcoin.VertcoinPayment</string>
+            <string>org.siliconvalley.Silicon ValleyPayment</string>
             <key>CFBundleURLSchemes</key>
             <array>
-              <string>vertcoin</string>
+              <string>siliconvalley</string>
             </array>
           </dict>
         </array>

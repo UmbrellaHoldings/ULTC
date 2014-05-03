@@ -24,7 +24,7 @@ if cmd == "backupwallet":
 
 elif cmd == "getaccount":
 	try:
-		addr = raw_input("Enter a Vertcoin address: ")
+		addr = raw_input("Enter a Silicon Valley address: ")
 		print access.getaccount(addr)
 	except:
 		print "\n---An error occurred---\n"
