@@ -1235,7 +1235,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
 
-#if 0 // Disabled in ZYZ (xxxxxxx?)
+#if 0 // Disabled in XSV (vertcoin?)
     /// debug print
     printf("GetNextWorkRequired RETARGET\n");
     printf("nTargetTimespan = %" PRI64d "    nActualTimespan = %" PRI64d "\n", nTargetTimespan, nActualTimespan);
@@ -4830,11 +4830,11 @@ void static XxxxxxxMiner(CWallet *pwallet)
           
         if (thash <= hashTarget)
         {
-        // Found a solution
-        SetThreadPriority(THREAD_PRIORITY_NORMAL);
-        CheckWork(pblock, *pwallet, reservekey);
-        SetThreadPriority(THREAD_PRIORITY_LOWEST);
-        break;
+          // Found a solution
+          SetThreadPriority(THREAD_PRIORITY_NORMAL);
+          CheckWork(pblock, *pwallet, reservekey);
+          SetThreadPriority(THREAD_PRIORITY_LOWEST);
+          break;
         }
         pblock->nNonce += 1;
         nHashesDone += 1;
