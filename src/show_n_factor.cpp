@@ -6,32 +6,43 @@
 */
 
 #include <iostream>
-#include <chrono>
 #include <cmath>
+#include <tuple>
 #include "types/time.h"
+#include "btc_time.h"
 
 using namespace std;
 using namespace std::chrono;
 using namespace curr;
 
-int GetNfactor(int64_t nTimestamp);
+std::tuple<size_t, unsigned, unsigned> 
+GetNfactor(coin::time::block::time_point block_time);
+
+using namespace coin::time::block;
+
+void show(coin::time::block::time_point now)
+{
+  size_t N = 0;
+  unsigned r = 0, p = 0;
+  tie(N, r, p) = GetNfactor(now);
+  std::cout << put_time(clock::to_system_clock(now), "%c")
+    << "\t<" << N << ", " << r << ", " << p << ">\t"
+    << (size_t) 128 * N * r * p / (1024 * 1024) << "MiB"
+    << std::endl;
+}
 
 int main(int argc, char* argv[])
 {
-  const auto now = system_clock::now();
-  const auto avg_year = 365 * hours(24);
-  static const int n_years = 50;
+  auto now = clock::now();
   std::cout << "Date\tGetNfactor result" << std::endl;
-  for (int i = 0; i <= n_years; i++)
-  {
-    const auto p = now + i * avg_year;
-    const auto N = GetNfactor(
-       duration_cast<seconds>(p.time_since_epoch())
-       . count()
-    );
-    std::cout << put_time(p, "%c") << '\t' 
-      << N << '\t'
-      << pow(2, N) 
-      << std::endl;
+
+  show(now);
+  auto last_factor = GetNfactor(now);
+  for (int k = 0; k < 600; k++) {
+    while (GetNfactor(now) == last_factor) 
+      now += hours(24);
+    last_factor = GetNfactor(now);
+
+    show(now);
   }
 }

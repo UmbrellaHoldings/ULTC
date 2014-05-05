@@ -198,7 +198,7 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 SHOWNFACTOROBJS := obj/show_n_factor.o obj/n_factor.o
 
 show_n_factor: $(SHOWNFACTOROBJS)
-	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
+	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) 
 
 obj-test/%.o: test/%.cpp
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
