@@ -1,7 +1,7 @@
 #!/bin/bash
 # The script for safe priv/pub key generation.
 
-prog=USDollarCoinKeyGen
+prog=xxxxxxxKeyGen
 
 # these names are defined in $prog
 pub=pub.key

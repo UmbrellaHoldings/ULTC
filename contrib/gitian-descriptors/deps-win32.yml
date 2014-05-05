@@ -1,5 +1,5 @@
 ---
-name: "vertcoin-deps"
+name: "xxxxxxx-deps"
 suites:
 - "precise"
 architectures:
@@ -94,4 +94,4 @@ script: |
   cd ..
   #
   cd $INSTALLPREFIX
-  zip -r $OUTDIR/vertcoin-deps-win32-gitian-r1.zip include lib
+  zip -r $OUTDIR/xxxxxxx-deps-win32-gitian-r1.zip include lib

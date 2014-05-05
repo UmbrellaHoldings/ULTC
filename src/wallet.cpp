@@ -31,13 +31,13 @@ struct CompareValueOnly
 CPubKey CWallet::GenerateNewKey()
 {
     bool fCompressed = CanSupportFeature(FEATURE_COMPRPUBKEY); 
-    // default to compressed public keys if we want litecoin 0.6.0 wallets
+    // default to compressed public keys if we want xxxxxxx 0.6.0 wallets
 
     RandAddSeedPerfmon();
     CKey secret;
     secret.MakeNewKey(fCompressed);
 
-    // Compressed public keys were introduced in version litecoin 0.6.0
+    // Compressed public keys were introduced in version xxxxxxx 0.6.0
     if (fCompressed)
         SetMinVersion(FEATURE_COMPRPUBKEY);
 
@@ -274,7 +274,7 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
             exit(1); //We now probably have half of our keys encrypted in memory, and half not...die and let the user reload their unencrypted wallet.
         }
 
-        // Encryption was introduced in litecoin version 0.4.0
+        // Encryption was introduced in xxxxxxx version 0.4.0
         SetMinVersion(FEATURE_WALLETCRYPT, pwalletdbEncryption, true);
 
         if (fFileBacked)

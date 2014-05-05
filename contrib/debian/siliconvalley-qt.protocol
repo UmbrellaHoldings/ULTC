@@ -1,6 +1,6 @@
 [Protocol]
-exec=siliconvalley-qt '%u'
-protocol=siliconvalley
+exec=xxxxxxx-qt '%u'
+protocol=xxxxxxx
 input=none
 output=none
 helper=true

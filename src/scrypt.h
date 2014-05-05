@@ -75,7 +75,7 @@ namespace usdollarcoin {
 
 namespace pars {
 
-// The USDollarCoin specific scrypt parameters
+// The xxxxxxx specific scrypt parameters
 // The amount of used memory is 2 * r * n * p *
 // sizeof(SalsaBlock) = 128*r*n*p
 
@@ -104,7 +104,7 @@ namespace usdollarcoin {
 
 namespace pars {
 
-// The USDollarCoin specific scrypt parameters
+// The xxxxxxx specific scrypt parameters
 // The amount of used memory is 2 * r * n * p *
 // sizeof(SalsaBlock) = 128*r*n*p
 

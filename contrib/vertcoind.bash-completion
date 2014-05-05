@@ -1,13 +1,13 @@
-# bash programmable completion for siliconvalleyd(1)
+# bash programmable completion for xxxxxxxd(1)
 # Copyright (c) 2012 Christian von Roques <roques@mti.ag>
-# Copyright (c) 2014 Silicon Valley Developers
+# Copyright (c) 2014 Xxxxxxx Developers
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-have siliconvalleyd && {
+have xxxxxxxd && {
 
-# call $siliconvalleyd for RPC
-_siliconvalley_rpc() {
+# call $xxxxxxxd for RPC
+_xxxxxxx_rpc() {
     # determine already specified args necessary for RPC
     local rpcargs=()
     for i in ${COMP_LINE}; do
@@ -17,23 +17,23 @@ _siliconvalley_rpc() {
                 ;;
         esac
     done
-    $siliconvalleyd "${rpcargs[@]}" "$@"
+    $xxxxxxxd "${rpcargs[@]}" "$@"
 }
 
-# Add siliconvalley accounts to COMPREPLY
-_siliconvalley_accounts() {
+# Add xxxxxxx accounts to COMPREPLY
+_xxxxxxx_accounts() {
     local accounts
-    accounts=$(_siliconvalley_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
+    accounts=$(_xxxxxxx_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
     COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "$accounts" -- "$cur" ) )
 }
 
-_siliconvalleyd() {
+_xxxxxxxd() {
     local cur prev words=() cword
-    local siliconvalleyd
+    local xxxxxxxd
 
-    # save and use original argument to invoke siliconvalleyd
-    # siliconvalleyd might not be in $PATH
-    siliconvalleyd="$1"
+    # save and use original argument to invoke xxxxxxxd
+    # xxxxxxxd might not be in $PATH
+    xxxxxxxd="$1"
 
     COMPREPLY=()
     _get_comp_words_by_ref -n = cur prev words cword
@@ -45,7 +45,7 @@ _siliconvalleyd() {
                 return 0
                 ;;
             move|setaccount)
-                _siliconvalley_accounts
+                _xxxxxxx_accounts
                 return 0
                 ;;
         esac
@@ -61,7 +61,7 @@ _siliconvalleyd() {
             return 0
             ;;
         getaccountaddress|getaddressesbyaccount|getbalance|getnewaddress|getreceivedbyaccount|listtransactions|move|sendfrom|sendmany)
-            _siliconvalley_accounts
+            _xxxxxxx_accounts
             return 0
             ;;
     esac
@@ -85,12 +85,12 @@ _siliconvalleyd() {
 
             # only parse --help if senseful
             if [[ -z "$cur" || "$cur" =~ ^- ]]; then
-                helpopts=$($siliconvalleyd --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
+                helpopts=$($xxxxxxxd --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
             fi
 
             # only parse help if senseful
             if [[ -z "$cur" || "$cur" =~ ^[a-z] ]]; then
-                commands=$(_siliconvalley_rpc help 2>/dev/null | awk '{ print $1; }')
+                commands=$(_xxxxxxx_rpc help 2>/dev/null | awk '{ print $1; }')
             fi
 
             COMPREPLY=( $( compgen -W "$helpopts $commands" -- "$cur" ) )
@@ -104,7 +104,7 @@ _siliconvalleyd() {
     esac
 }
 
-complete -F _siliconvalleyd siliconvalleyd
+complete -F _xxxxxxxd xxxxxxxd
 }
 
 # Local variables:

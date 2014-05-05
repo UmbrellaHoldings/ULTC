@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Jonas Schnelli, 2013
-# make sure the Silicon Valley-Qt.app contains the right plist (including the right version)
+# make sure the Xxxxxxx-Qt.app contains the right plist (including the right version)
 # fix made because of serval bugs in Qt mac deployment (https://bugreports.qt-project.org/browse/QTBUG-21267)
 
 from string import Template
@@ -9,10 +9,10 @@ from datetime import date
 bitcoinDir = "./";
 
 inFile     = bitcoinDir+"/share/qt/Info.plist"
-outFile    = "Silicon Valley-Qt.app/Contents/Info.plist"
+outFile    = "Xxxxxxx-Qt.app/Contents/Info.plist"
 version    = "unknown";
 
-fileForGrabbingVersion = bitcoinDir+"vertcoin-qt.pro"
+fileForGrabbingVersion = bitcoinDir+"xxxxxxx-qt.pro"
 for line in open(fileForGrabbingVersion):
 	lineArr = line.replace(" ", "").split("=");
 	if lineArr[0].startswith("VERSION"):

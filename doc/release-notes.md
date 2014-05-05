@@ -49,7 +49,7 @@
 
 - Checkpoint at block 24200
 
-Litecoin-0.8.6.2 changes
+Xxxxxxx-0.8.6.2 changes
 =============
 
 - Windows only: Fixes issue where network connectivity can fail.
@@ -57,7 +57,7 @@ Litecoin-0.8.6.2 changes
 - Cleanup of SSE2 scrypt detection.
 
 - Minor fixes:
-  - s/Bitcoin/Litecoin/ in the Coin Control example
+  - s/Bitcoin/Xxxxxxx/ in the Coin Control example
   - Fix custom build on MacOS X 10.9
   - Fix QT5 custom build
   - Update Debian build instructions
@@ -76,7 +76,7 @@ Litecoin-0.8.6.2 changes
 
 - Peers older than protocol version 70002 are disconnected.  0.8.3.7 is the oldest compatible client.
 
-- Internal miner added back to Silicon Valley.  setgenerate now works, although it is generally a bad idea as it is significantly slower than external CPU miners.
+- Internal miner added back to Xxxxxxx.  setgenerate now works, although it is generally a bad idea as it is significantly slower than external CPU miners.
 
 - New RPC commands: getbestblockhash and verifychain
 
@@ -101,13 +101,13 @@ Litecoin-0.8.6.2 changes
 
 Workaround negative version numbers serialization bug.
 
-Fix out-of-bounds check (Silicon Valley currently does not use this codepath, but we apply this
+Fix out-of-bounds check (Xxxxxxx currently does not use this codepath, but we apply this
 patch just to match Bitcoin 0.8.5.)
 
 0.8.4.1 changes
 ===============
 
-CVE-2013-5700 Bloom: filter crash issue - Silicon Valley 0.8.3.7 disabled bloom by default so was 
+CVE-2013-5700 Bloom: filter crash issue - Xxxxxxx 0.8.3.7 disabled bloom by default so was 
 unaffected by this issue, but we include their patches anyway just in case folks want to 
 enable bloomfilter=1.
 
@@ -118,7 +118,7 @@ CVE-2013-4627: Better fix for the fill-memory-with-orphaned-tx attack
 Fix multi-block reorg transaction resurrection.
 
 Fix non-standard disconnected transactions causing mempool orphans.  This bug could cause 
-nodes running with the -debug flag to crash, although it was lot less likely on Silicon Valley 
+nodes running with the -debug flag to crash, although it was lot less likely on Xxxxxxx 
 as we disabled IsDust() in 0.8.3.x.
 
 Mac OSX: use 'FD_FULLSYNC' with LevelDB, which will (hopefully!) prevent the database 

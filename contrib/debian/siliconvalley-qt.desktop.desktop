@@ -1,11 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Silicon Valley
-Comment=Silicon Valley P2P Cryptocurrency
-Exec=/usr/bin/siliconvalley-qt %u
+Name=Xxxxxxx
+Comment=Xxxxxxx P2P Cryptocurrency
+Exec=/usr/bin/xxxxxxx-qt %u
 Terminal=false
 Type=Application
-Icon=/usr/share/pixmaps/siliconvalley128.png
+Icon=/usr/share/pixmaps/xxxxxxx128.png
 MimeType=x-scheme-handler/bitcoin;
 Categories=Office;
-Name[en_US]=siliconvalley-qt.desktop
+Name[en_US]=xxxxxxx-qt.desktop

@@ -6,7 +6,7 @@ Release Process
 ###update (commit) version in sources
 
 
-	siliconvalley-qt.pro
+	xxxxxxx-qt.pro
 	contrib/verifysfbinaries/verify.sh
 	doc/README*
 	share/setup.nsi
@@ -69,65 +69,65 @@ Release Process
 	cd ..
 
 	#Linux
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/gcc-4.8.1.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/gcc-4.8.1.yml
  	mv build/out/gcc-4.8.1-linux64.zip inputs/
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/qt.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt.yml
 	mv build/out/qt-4.8.3-linux64.zip inputs/
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost.yml
         mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/mingw-w64.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64.yml
    mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/boost-win32.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/deps-win32.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
-	./bin/gbuild ../USDollarCoin/contrib/gitian-descriptors/qt-win32.yml
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r4.zip inputs/
 >
 
- Build siliconvalleyd and siliconvalley-qt on Linux32, Linux64, and Win32:
+ Build xxxxxxxd and xxxxxxx-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit siliconvalley=v${VERSION} ../siliconvalley/contrib/gitian-descriptors/gitian.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../siliconvalley/contrib/gitian-descriptors/gitian.yml
+	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
-	zip -r siliconvalley-${VERSION}-linux-gitian.zip *
-	mv siliconvalley-${VERSION}-linux-gitian.zip ../../
+	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *
+	mv xxxxxxx-${VERSION}-linux-gitian.zip ../../
 	popd
-	./bin/gbuild --commit siliconvalley=v${VERSION} ../siliconvalley/contrib/gitian-descriptors/gitian-win32.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../siliconvalley/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian-win32.yml
 	pushd build/out
-	zip -r siliconvalley-${VERSION}-win32-gitian.zip *
-	mv siliconvalley-${VERSION}-win32-gitian.zip ../../
+	zip -r xxxxxxx-${VERSION}-win32-gitian.zip *
+	mv xxxxxxx-${VERSION}-win32-gitian.zip ../../
 	popd
 
   Build output expected:
 
-  1. linux 32-bit and 64-bit binaries + source (siliconvalley-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit binary, installer + source (siliconvalley-${VERSION}-win32-gitian.zip)
+  1. linux 32-bit and 64-bit binaries + source (xxxxxxx-${VERSION}-linux-gitian.zip)
+  2. windows 32-bit binary, installer + source (xxxxxxx-${VERSION}-win32-gitian.zip)
   3. Gitian signatures (in gitian.sigs/${VERSION}[-win32]/(your gitian key)/
 
 repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 **Linux .tar.gz:**
 
-	unzip siliconvalley-${VERSION}-linux-gitian.zip -d siliconvalley-${VERSION}-linux
-	tar czvf siliconvalley-${VERSION}-linux.tar.gz siliconvalley-${VERSION}-linux
-	rm -rf siliconvalley-${VERSION}-linux
+	unzip xxxxxxx-${VERSION}-linux-gitian.zip -d xxxxxxx-${VERSION}-linux
+	tar czvf xxxxxxx-${VERSION}-linux.tar.gz xxxxxxx-${VERSION}-linux
+	rm -rf xxxxxxx-${VERSION}-linux
 
 **Windows .zip and setup.exe:**
 
-	unzip siliconvalley-${VERSION}-win32-gitian.zip -d siliconvalley-${VERSION}-win32
-	mv siliconvalley-${VERSION}-win32/siliconvalley-*-setup.exe .
-	zip -r siliconvalley-${VERSION}-win32.zip bitcoin-${VERSION}-win32
-	rm -rf siliconvalley-${VERSION}-win32
+	unzip xxxxxxx-${VERSION}-win32-gitian.zip -d xxxxxxx-${VERSION}-win32
+	mv xxxxxxx-${VERSION}-win32/xxxxxxx-*-setup.exe .
+	zip -r xxxxxxx-${VERSION}-win32.zip bitcoin-${VERSION}-win32
+	rm -rf xxxxxxx-${VERSION}-win32
 
 **Perform Mac build:**
 
   OSX binaries are created by Gavin Andresen on a 32-bit, OSX 10.6 machine.
 
-	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 siliconvalley-qt.pro
+	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 xxxxxxx-qt.pro
 	make
 	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
 	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
@@ -145,14 +145,14 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 * create SHA256SUMS for builds, and PGP-sign it
 
-* update siliconvalley.org version
+* update xxxxxxx.org version
   make sure all OS download links go to the right versions
 
 * update forum version
 
 * update wiki download links
 
-* update wiki changelog: [https://en.siliconvalley.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
+* update wiki changelog: [https://en.xxxxxxx.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
 
 Commit your signature to gitian.sigs:
 
@@ -167,32 +167,32 @@ Commit your signature to gitian.sigs:
 
 ### After 3 or more people have gitian-built, repackage gitian-signed zips:
 
-From a directory containing siliconvalley source, gitian.sigs and gitian zips
+From a directory containing xxxxxxx source, gitian.sigs and gitian zips
 
 	export VERSION=0.5.1
-	mkdir siliconvalley-${VERSION}-linux-gitian
-	pushd siliconvalley-${VERSION}-linux-gitian
-	unzip ../siliconvalley-${VERSION}-linux-gitian.zip
+	mkdir xxxxxxx-${VERSION}-linux-gitian
+	pushd xxxxxxx-${VERSION}-linux-gitian
+	unzip ../xxxxxxx-${VERSION}-linux-gitian.zip
 	mkdir gitian
-	cp ../siliconvalley/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../xxxxxxx/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}/); do
-	 cp ../gitian.sigs/${VERSION}/${signer}/siliconvalley-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}/${signer}/siliconvalley-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}/${signer}/xxxxxxx-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}/${signer}/xxxxxxx-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r siliconvalley-${VERSION}-linux-gitian.zip *
-	cp siliconvalley-${VERSION}-linux-gitian.zip ../
+	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *
+	cp xxxxxxx-${VERSION}-linux-gitian.zip ../
 	popd
-	mkdir siliconvalley-${VERSION}-win32-gitian
-	pushd siliconvalley-${VERSION}-win32-gitian
-	unzip ../siliconvalley-${VERSION}-win32-gitian.zip
+	mkdir xxxxxxx-${VERSION}-win32-gitian
+	pushd xxxxxxx-${VERSION}-win32-gitian
+	unzip ../xxxxxxx-${VERSION}-win32-gitian.zip
 	mkdir gitian
-	cp ../siliconvalley/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../xxxxxxx/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}-win32/); do
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/siliconvalley-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/siliconvalley-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/xxxxxxx-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/xxxxxxx-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r siliconvalley-${VERSION}-win32-gitian.zip *
-	cp siliconvalley-${VERSION}-win32-gitian.zip ../
+	zip -r xxxxxxx-${VERSION}-win32-gitian.zip *
+	cp xxxxxxx-${VERSION}-win32-gitian.zip ../
 	popd
 
 - Upload gitian zips to SourceForge

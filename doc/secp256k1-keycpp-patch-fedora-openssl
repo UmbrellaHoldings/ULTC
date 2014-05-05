@@ -63,7 +63,7 @@ index 1ab4c62..2b4dd78 100644
 +//     <(grep -A121 'static EC_GROUP \*ec_group_new_from_data
 +//         openssl-1.0.1f/crypto/ec/ec_curve.c | indent)
 +//     <(grep -A85 'static EC_GROUP \*ec_group_new_from_data'
-+//         siliconvalley/src/key.cpp | indent)
++//         xxxxxxx/src/key.cpp | indent)
 +static EC_GROUP *ec_group_new_from_data(const EC_CURVE_DATA *data)
 +{
 +    EC_GROUP *group=NULL;
@@ -179,7 +179,7 @@ index 1ab4c62..2b4dd78 100644
 +//    <(grep -A12 '\*EC_KEY_new_by_curve_name'
 +//       openssl-1.0.1f/crypto/ec/ec_key.c | indent)
 +//    <(grep -A16 '\*EC_KEY_new_by_curve_name'
-+//       siliconvalley/src/key.cpp | indent)
++//       xxxxxxx/src/key.cpp | indent)
 +EC_KEY *EC_KEY_new_by_curve_name_NID_secp256k1(void)
 +{
 +    EC_KEY *ret = NULL;

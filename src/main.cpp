@@ -34,7 +34,7 @@ unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
 uint256 hashGenesisBlock("0x5268a8ce4f763dce9a5c303ed04c0363dede8b8b41c370d2f94411df14fb5bd0");
-static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Silicon Valley Main Net: starting difficulty is 1 / 2^12
+static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Xxxxxxx Main Net: starting difficulty is 1 / 2^12
 	
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -67,7 +67,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Silicon Valley Signed Message:\n";
+const string strMessageMagic = "Xxxxxxx Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -358,7 +358,7 @@ unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans)
 
 bool CTxOut::IsDust() const
 {
-    // Silicon Valley: IsDust() detection disabled, allows any valid dust to be relayed.
+    // Xxxxxxx: IsDust() detection disabled, allows any valid dust to be relayed.
     // The fees imposed on each dust txo is considered sufficient spam deterrant. 
     return false;
 }
@@ -615,7 +615,7 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
             nMinFee = 0;
     }
 
-    // Silicon Valley
+    // Xxxxxxx
     // To limit dust spam, add nBaseFee for each output less than DUST_SOFT_LIMIT
     BOOST_FOREACH(const CTxOut& txout, vout)
         if (txout.nValue < DUST_SOFT_LIMIT)
@@ -1070,9 +1070,9 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     int64 nSubsidy = 35 * COIN;
 	
 	if(nHeight == 1)
-		nSubsidy = 16800000 * COIN; //For Silicon Valley Mail Drop [48%]
+		nSubsidy = 16800000 * COIN; //For Xxxxxxx Mail Drop [48%]
 	else if(nHeight == 2)
-		nSubsidy = 700000 * COIN;   //For Silicon Valley Mail Drop Costs / Development Costs [2%]
+		nSubsidy = 700000 * COIN;   //For Xxxxxxx Mail Drop Costs / Development Costs [2%]
 	
 	if (fTestNet && nHeight % 10 == 0 && nHeight >= 70 && nHeight <= 100)
 		nSubsidy = 350 * COIN; 	    //Coin Bonus Check for Testnet
@@ -1082,15 +1082,15 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 
 
     // Subsidy is cut in half every 75000 blocks, which will occur approximately every year
-    nSubsidy >>= (nHeight / 75000); // Silicon Valley: 75000k blocks in ~1 years
+    nSubsidy >>= (nHeight / 75000); // Xxxxxxx: 75000k blocks in ~1 years
 
     return nSubsidy + nFees;
 }
 
 
 static int64 nDiffChangeTarget = 290; // Patch effective @ block 290
-static const int64 nTargetTimespan = 8 * 60; // Silicon Valley: 8 minutes
-static const int64 nTargetSpacing = 8 * 60; // Silicon Valley: 8 minutes
+static const int64 nTargetTimespan = 8 * 60; // Xxxxxxx: 8 minutes
+static const int64 nTargetSpacing = 8 * 60; // Xxxxxxx: 8 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 static const int nKGWInterval = 12; // Timewarp fix - retargets every 12 blocks
 
@@ -1235,7 +1235,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
 
-#if 0 // Disabled in XSV (vertcoin?)
+#if 0 // Disabled in ZYZ (xxxxxxx?)
     /// debug print
     printf("GetNextWorkRequired RETARGET\n");
     printf("nTargetTimespan = %" PRI64d "    nActualTimespan = %" PRI64d "\n", nTargetTimespan, nActualTimespan);
@@ -1344,10 +1344,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 {
         int DiffMode = 1; // legacy diff-mode
         if (fTestNet) {
-                if (pindexLast->nHeight+1 >= 2116) { DiffMode = 2; } // vertcoin, 100 blocks after first legacy diff adjustment
+                if (pindexLast->nHeight+1 >= 2116) { DiffMode = 2; } // xxxxxxx, 100 blocks after first legacy diff adjustment
         }
         else {         
-        	if (pindexLast->nHeight+1 >= 26754) { DiffMode = 2; }  //vertcoin, 5 days after 27/01/2014 12:00 UTC
+        	if (pindexLast->nHeight+1 >= 26754) { DiffMode = 2; }  //xxxxxxx, 5 days after 27/01/2014 12:00 UTC
         }
         
         if                (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock); } //legacy diff mode
@@ -2291,7 +2291,7 @@ bool CBlock::CheckBlock(CValidationState &state, bool fCheckPOW, bool fCheckMerk
     if (vtx.empty() || vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
         return state.DoS(100, error("CheckBlock() : size limits failed"));
 
-    // Silicon Valley: Special short-term limits to avoid 10,000 BDB lock limit:
+    // Xxxxxxx: Special short-term limits to avoid 10,000 BDB lock limit:
     if (GetBlockTime() < 1376568000)  // stop enforcing 15 August 2013 00:00:00
     {
         // Rule is: #unique txids referenced <= 4,500
@@ -2453,7 +2453,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
 
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
 {
-    // Silicon Valley: temporarily disable v2 block lockin until we are ready for v2 transition
+    // Xxxxxxx: temporarily disable v2 block lockin until we are ready for v2 transition
     return false;
     unsigned int nFound = 0;
     for (unsigned int i = 0; i < nToCheck && nFound < nRequired && pstart != NULL; i++)
@@ -2977,7 +2977,7 @@ bool InitBlockIndex() {
     if (!fReindex) {
 
         // Genesis block
-        const char* pszTimestamp = "01.15.14: Silicon Valley VC Thinks a Single Bitcoin Will Be Worth $100,000";
+        const char* pszTimestamp = "01.15.14: Xxxxxxx VC Thinks a Single Bitcoin Will Be Worth $100,000";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -3281,7 +3281,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfa, 0xbf, 0xb5, 0xda }; // Silicon Valley: increase each by adding 1 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xfa, 0xbf, 0xb5, 0xda }; // Xxxxxxx: increase each by adding 1 to bitcoin's value.
 
 
 void static ProcessGetData(CNode* pfrom)
@@ -4323,7 +4323,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// SiliconValleyMiner
+// XxxxxxxMiner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -4736,7 +4736,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         return false;
 
     //// debug print
-    printf("SiliconValleyMiner:\n");
+    printf("XxxxxxxMiner:\n");
     printf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex().c_str(), hashTarget.GetHex().c_str());
     pblock->print();
     printf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue).c_str());
@@ -4745,7 +4745,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != hashBestChain)
-            return error("SiliconValleyMiner : generated block is stale");
+            return error("XxxxxxxMiner : generated block is stale");
 
         // Remove key from key pool
         reservekey.KeepKey();
@@ -4759,17 +4759,17 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         // Process this block the same as if we had received it from another node
         CValidationState state;
         if (!ProcessBlock(state, NULL, pblock))
-            return error("SiliconValleyMiner : ProcessBlock, block not accepted");
+            return error("XxxxxxxMiner : ProcessBlock, block not accepted");
     }
 
     return true;
 }
 
-void static SiliconValleyMiner(CWallet *pwallet)
+void static XxxxxxxMiner(CWallet *pwallet)
 {
-  printf("SiliconValleyMiner started\n");
+  printf("XxxxxxxMiner started\n");
   SetThreadPriority(THREAD_PRIORITY_LOWEST);
-  RenameThread("siliconvalley-miner");
+  RenameThread("xxxxxxx-miner");
 
   // Each thread has its own key and counter
   CReserveKey reservekey(pwallet);
@@ -4791,7 +4791,7 @@ void static SiliconValleyMiner(CWallet *pwallet)
     CBlock *pblock = &pblocktemplate->block;
     IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-    printf("Running SiliconValleyMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
+    printf("Running XxxxxxxMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
          ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
     //
@@ -4895,7 +4895,7 @@ void static SiliconValleyMiner(CWallet *pwallet)
   } }
   catch (boost::thread_interrupted)
   {
-    printf("SiliconValleyMiner terminated\n");
+    printf("XxxxxxxMiner terminated\n");
     throw;
   }
 }
@@ -4920,7 +4920,7 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet)
 
     minerThreads = new boost::thread_group();
     for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&SiliconValleyMiner, pwallet));
+        minerThreads->create_thread(boost::bind(&XxxxxxxMiner, pwallet));
 }
 
 // Amount compression:

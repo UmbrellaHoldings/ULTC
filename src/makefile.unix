@@ -155,10 +155,10 @@ OBJS_SSE2= obj/scrypt-sse2.o
 OBJS += $(OBJS_SSE2)
 endif
 
-all: siliconvalleyd
+all: xxxxxxxd
 
-test check: test_siliconvalley FORCE
-	./test_siliconvalley
+test check: test_xxxxxxx FORCE
+	./test_xxxxxxx
 
 #
 # LevelDB support
@@ -193,19 +193,19 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-siliconvalleyd: $(OBJS:obj/%=obj/%)
+xxxxxxxd: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
               obj/allocators.o
 
-USDollarCoinKeyGen: $(KEYGENOBJS)
+xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
               obj/allocators.o
 
-USDollarCoinKeyGen: $(KEYGENOBJS)
+xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 #TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -220,11 +220,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_siliconvalley: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_xxxxxxx: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f siliconvalleyd test_siliconvalley
+	-rm -f xxxxxxxd test_xxxxxxx
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P

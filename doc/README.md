@@ -1,9 +1,9 @@
-Silicon Valley 0.8.x BETA
+Xxxxxxx 0.8.x BETA
 ====================
 
 Copyright (c) 2009-2013 Bitcoin Developers
-Copyright (c) 2011-2013 Litecoin Developers
-Copyright (c) 2014 Silicon Valley Developers
+Copyright (c) 2011-2013 Xxxxxxx Developers
+Copyright (c) 2014 Xxxxxxx Developers
 
 Distributed under the MIT/X11 software license, see the accompanying
 file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -13,7 +13,7 @@ cryptographic software written by Eric Young ([eay@cryptsoft.com](mailto:eay@cry
 
 Intro
 ---------------------
-Silicon Valley is a free open source peer-to-peer electronic cash system that is
+Xxxxxxx is a free open source peer-to-peer electronic cash system that is
 completely decentralized, without the need for a central server or trusted
 parties.  Users hold the crypto keys to their own money and transact directly
 with each other, with the help of a P2P network to check for double-spending.
@@ -21,17 +21,17 @@ with each other, with the help of a P2P network to check for double-spending.
 
 Setup
 ---------------------
-You need the Qt4 run-time libraries to run Silicon Valley-Qt. On Debian or Ubuntu:
+You need the Qt4 run-time libraries to run Xxxxxxx-Qt. On Debian or Ubuntu:
 	`sudo apt-get install libqtgui4`
 
 Unpack the files into a directory and run:
 
-- bin/32/siliconvalley-qt (GUI, 32-bit)
-- bin/32/siliconvalleyd (headless, 32-bit)
-- bin/64/siliconvalley-qt (GUI, 64-bit)
-- bin/64/siliconvalleyd (headless, 64-bit)
+- bin/32/xxxxxxx-qt (GUI, 32-bit)
+- bin/32/xxxxxxxd (headless, 32-bit)
+- bin/64/xxxxxxx-qt (GUI, 64-bit)
+- bin/64/xxxxxxxd (headless, 64-bit)
 
-See the documentation at the [Silicon Valley Wiki](http://siliconvalley.org)
+See the documentation at the [Xxxxxxx Wiki](http://xxxxxxx.org)
 for help and more information.
 
 

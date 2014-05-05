@@ -25,8 +25,8 @@ class COutput;
 class CCoinControl;
 
 /** (client) version numbers for particular wallet features 
-  It was inherited from litecoin > 0.6.0, so, all features are
-  available in USDollarcoin v0.0.0
+  It was inherited from xxxxxxx > 0.6.0, so, all features are
+  available in xxxxxxx v0.0.0
 */
 enum WalletFeature
 {
