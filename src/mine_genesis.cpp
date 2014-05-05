@@ -4,6 +4,8 @@
   It was shared for everyone's profit by elbandi at https://bitcointalk.org/index.php?topic=391983.0
 */
 
+#include <vector>
+#include <memory>
 #include "uint256.h"
 #include "bignum.h"
 #include "main.h"
@@ -14,6 +16,9 @@ extern uint256 hashGenesisBlock;
 // If genesis block hash does not match, then generate new genesis hash.
 void MineGenesisBlock(CBlock& block)
 {
+  using namespace scrypt::usdollarcoin;
+  using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+
   block.nNonce = 0;
 
   if (block.GetHash() != hashGenesisBlock)
@@ -23,24 +28,10 @@ void MineGenesisBlock(CBlock& block)
     // creating a different genesis block:
     uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
     uint256 thash;
-    char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+    std::unique_ptr<Scratchpad<SB>> scratchpad(new Scratchpad<SB>);
      
     loop
     {
-#if defined(USE_SSE2)
-// Detection would work, but in cases where we KNOW it always has SSE2,
-// it is faster to use directly than to use a function pointer or conditional.
-#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
-// Always SSE2: x86_64 or Intel MacOS X
-      scrypt_1024_1_1_256_sp_sse2(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
-#else
-// Detect SSE2: 32bit x86 Linux or Windows
-      scrypt_1024_1_1_256_sp(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
-#endif
-#else
-// Generic scrypt
-      scrypt_1024_1_1_256_sp_generic(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
-#endif
       if (thash <= hashTarget)
         break;
       if ((block.nNonce & 0xFFF) == 0)

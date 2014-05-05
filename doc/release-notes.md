@@ -1,4 +1,3 @@
-
 0.8.6.4 changes
 ===============
 
@@ -50,6 +49,19 @@
 
 - Checkpoint at block 24200
 
+Litecoin-0.8.6.2 changes
+=============
+
+- Windows only: Fixes issue where network connectivity can fail.
+
+- Cleanup of SSE2 scrypt detection.
+
+- Minor fixes:
+  - s/Bitcoin/Litecoin/ in the Coin Control example
+  - Fix custom build on MacOS X 10.9
+  - Fix QT5 custom build
+  - Update Debian build instructions
+  - Update Homebrew build 
 
 0.8.6.1 changes
 =============

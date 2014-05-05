@@ -24,15 +24,18 @@ class CReserveKey;
 class COutput;
 class CCoinControl;
 
-/** (client) version numbers for particular wallet features */
+/** (client) version numbers for particular wallet features 
+  It was inherited from litecoin > 0.6.0, so, all features are
+  available in USDollarcoin v0.0.0
+*/
 enum WalletFeature
 {
-    FEATURE_BASE = 10500, // the earliest version new wallets supports (only useful for getinfo's clientversion output)
+    FEATURE_BASE = 0, // the earliest version new wallets supports (only useful for getinfo's clientversion output)
 
-    FEATURE_WALLETCRYPT = 40000, // wallet encryption
-    FEATURE_COMPRPUBKEY = 60000, // compressed public keys
+    FEATURE_WALLETCRYPT = 0, // wallet encryption
+    FEATURE_COMPRPUBKEY = 0, // compressed public keys
 
-    FEATURE_LATEST = 60000
+    FEATURE_LATEST = 0
 };
 
 

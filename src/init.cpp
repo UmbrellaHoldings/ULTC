@@ -22,18 +22,6 @@
 #include <signal.h>
 #endif
 
-#if defined(USE_SSE2)
-#if !defined(MAC_OSX) && (defined(_M_IX86) || defined(__i386__) || defined(__i386))
-#ifdef _MSC_VER
-// MSVC 64bit is unable to use inline asm
-#include <intrin.h>
-#else
-// GCC Linux or i686-w64-mingw32
-#include <cpuid.h>
-#endif
-#endif
-#endif
-
 using namespace std;
 using namespace boost;
 
@@ -513,23 +501,6 @@ bool AppInit2(boost::thread_group& threadGroup)
     sigaction(SIGHUP, &sa_hup, NULL);
 #endif
 
-#if defined(USE_SSE2)
-    unsigned int cpuid_edx=0;
-#if !defined(MAC_OSX) && (defined(_M_IX86) || defined(__i386__) || defined(__i386))
-    // 32bit x86 Linux or Windows, detect cpuid features
-#if defined(_MSC_VER)
-    // MSVC
-    int x86cpuid[4];
-    __cpuid(x86cpuid, 1);
-    cpuid_edx = (unsigned int)buffer[3];
-#else
-    // Linux or i686-w64-mingw32 (gcc-4.6.3)
-    unsigned int eax, ebx, ecx;
-    __get_cpuid(1, &eax, &ebx, &ecx, &cpuid_edx);
-#endif
-#endif
-#endif
-
     // ********************************************************* Step 2: parameter interactions
 
     fTestNet = GetBoolArg("-testnet");
@@ -699,6 +670,12 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     int64 nStart;
 
+#if 0
+#if defined(USE_SSE2)
+    scrypt_detect_sse2();
+#endif
+#endif
+
     // ********************************************************* Step 5: verify wallet database integrity
 
     if (!fDisableWallet) {
@@ -708,7 +685,7 @@ bool AppInit2(boost::thread_group& threadGroup)
         {
             // try moving the database env out of the way
             boost::filesystem::path pathDatabase = GetDataDir() / "database";
-            boost::filesystem::path pathDatabaseBak = GetDataDir() / strprintf("database.%"PRI64d".bak", GetTime());
+            boost::filesystem::path pathDatabaseBak = GetDataDir() / strprintf("database.%" PRI64d ".bak", GetTime());
             try {
                 boost::filesystem::rename(pathDatabase, pathDatabaseBak);
                 printf("Moved old %s to %s. Retrying.\n", pathDatabase.string().c_str(), pathDatabaseBak.string().c_str());
@@ -847,8 +824,10 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // ********************************************************* Step 7: load block chain
 
+#if 0 // we use SSE2 based on the compilation option only
 #if defined(USE_SSE2)
     scrypt_detect_sse2(cpuid_edx);
+#endif
 #endif
 
     fReindex = GetBoolArg("-reindex");
@@ -976,7 +955,7 @@ bool AppInit2(boost::thread_group& threadGroup)
         printf("Shutdown requested. Exiting.\n");
         return false;
     }
-    printf(" block index %15"PRI64d"ms\n", GetTimeMillis() - nStart);
+    printf(" block index %15" PRI64d "ms\n", GetTimeMillis() - nStart);
 
     if (GetBoolArg("-printblockindex") || GetBoolArg("-printblocktree"))
     {
@@ -1073,7 +1052,7 @@ bool AppInit2(boost::thread_group& threadGroup)
         }
 
         printf("%s", strErrors.str().c_str());
-        printf(" wallet      %15"PRI64d"ms\n", GetTimeMillis() - nStart);
+        printf(" wallet      %15" PRI64d "ms\n", GetTimeMillis() - nStart);
 
         RegisterWallet(pwalletMain);
 
@@ -1095,7 +1074,7 @@ bool AppInit2(boost::thread_group& threadGroup)
             printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
             nStart = GetTimeMillis();
             pwalletMain->ScanForWalletTransactions(pindexRescan, true);
-            printf(" rescan      %15"PRI64d"ms\n", GetTimeMillis() - nStart);
+            printf(" rescan      %15" PRI64d "ms\n", GetTimeMillis() - nStart);
             pwalletMain->SetBestChain(CBlockLocator(pindexBest));
             nWalletDBUpdated++;
         }
@@ -1128,7 +1107,7 @@ bool AppInit2(boost::thread_group& threadGroup)
             printf("Invalid or missing peers.dat; recreating\n");
     }
 
-    printf("Loaded %i addresses from peers.dat  %"PRI64d"ms\n",
+    printf("Loaded %i addresses from peers.dat  %" PRI64d "ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 
     // ********************************************************* Step 11: start node
@@ -1142,11 +1121,11 @@ bool AppInit2(boost::thread_group& threadGroup)
     RandAddSeedPerfmon();
 
     //// debug print
-    printf("mapBlockIndex.size() = %"PRIszu"\n",   mapBlockIndex.size());
+    printf("mapBlockIndex.size() = %" PRIszu "\n",   mapBlockIndex.size());
     printf("nBestHeight = %d\n",                   nBestHeight);
-    printf("setKeyPool.size() = %"PRIszu"\n",      pwalletMain ? pwalletMain->setKeyPool.size() : 0);
-    printf("mapWallet.size() = %"PRIszu"\n",       pwalletMain ? pwalletMain->mapWallet.size() : 0);
-    printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain ? pwalletMain->mapAddressBook.size() : 0);
+    printf("setKeyPool.size() = %" PRIszu "\n",      pwalletMain ? pwalletMain->setKeyPool.size() : 0);
+    printf("mapWallet.size() = %" PRIszu "\n",       pwalletMain ? pwalletMain->mapWallet.size() : 0);
+    printf("mapAddressBook.size() = %" PRIszu "\n",  pwalletMain ? pwalletMain->mapAddressBook.size() : 0);
 
     StartNode(threadGroup);
 

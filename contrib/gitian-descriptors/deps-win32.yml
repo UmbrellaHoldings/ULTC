@@ -5,15 +5,14 @@ suites:
 architectures:
 - "amd64"
 packages:
-- "mingw-w64"
-- "g++-mingw-w64"
-- "git-core"
+- "unzip"
 - "zip"
 - "faketime"
 - "psmisc"
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
+- "mingw-w64-gcc-4.8.1.zip"
 - "openssl-1.0.1g.tar.gz"
 - "db-4.8.30.NC.tar.gz"
 - "miniupnpc-1.6.tar.gz"
@@ -29,7 +28,12 @@ script: |
   export HOST=i686-w64-mingw32
   #
   mkdir -p $INSTALLPREFIX
-
+  #
+  mkdir mingw-w64 && cd mingw-w64
+  unzip -q ../mingw-w64-gcc-4.8.1.zip
+  export PATH=$(pwd)/bin:$PATH
+  cd ..
+  #
   tar xzf openssl-1.0.1g.tar.gz
   cd openssl-1.0.1g
   ./Configure --cross-compile-prefix=$HOST- mingw --openssldir=$INSTALLPREFIX

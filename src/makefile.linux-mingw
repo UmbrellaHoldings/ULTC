@@ -32,7 +32,7 @@ LIBS= \
 
 DEFS=-D_MT -DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 DEBUGFLAGS=-g
-xCXXFLAGS=-O2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS) $(CXXFLAGS)
+xCXXFLAGS=-O2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -msse -msse2 $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS) $(CXXFLAGS)
 # enable: ASLR, DEP and large address aware
 xLDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat -Wl,--large-address-aware -static-libgcc -static-libstdc++ $(LDFLAGS)
 
@@ -59,6 +59,7 @@ HEADERS = $(wildcard *.h)
 OBJS= \
     leveldb/libleveldb.a \
     obj/alert.o \
+	 obj/allocators.o \
     obj/version.o \
     obj/checkpoints.o \
     obj/netbase.o \
@@ -69,6 +70,7 @@ OBJS= \
     obj/init.o \
     obj/keystore.o \
     obj/main.o \
+	 obj/mine_genesis.o \
     obj/net.o \
     obj/protocol.o \
     obj/bitcoinrpc.o \
@@ -82,6 +84,7 @@ OBJS= \
     obj/scrypt.o \
     obj/sync.o \
     obj/util.o \
+	 obj/util_cmn.o \
     obj/wallet.o \
     obj/walletdb.o \
     obj/noui.o \

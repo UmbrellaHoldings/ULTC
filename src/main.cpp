@@ -11,6 +11,8 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
+#include "scrypt.hpp"
+#include <vector>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -48,7 +50,6 @@ bool fReindex = false;
 bool fBenchmark = false;
 bool fTxIndex = false;
 unsigned int nCoinCacheSize = 5000;
-int64 nChainStartTime = 1395198268; // Line: 2815
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
 int64 CTransaction::nMinTxFee = 100000;
@@ -309,7 +310,7 @@ bool AddOrphanTx(const CTransaction& tx)
     BOOST_FOREACH(const CTxIn& txin, tx.vin)
         mapOrphanTransactionsByPrev[txin.prevout.hash].insert(hash);
 
-    printf("stored orphan tx %s (mapsz %"PRIszu")\n", hash.ToString().c_str(),
+    printf("stored orphan tx %s (mapsz %" PRIszu ")\n", hash.ToString().c_str(),
         mapOrphanTransactions.size());
     return true;
 }
@@ -755,7 +756,7 @@ bool CTxMemPool::accept(CValidationState &state, CTransaction &tx, bool fCheckIn
         // Don't accept it if it can't get into a block
         int64 txMinFee = tx.GetMinFee(1000, true, GMF_RELAY);
         if (fLimitFree && nFees < txMinFee)
-            return error("CTxMemPool::accept() : not enough fees %s, %"PRI64d" < %"PRI64d,
+            return error("CTxMemPool::accept() : not enough fees %s, %" PRI64d " < %" PRI64d,
                          hash.ToString().c_str(),
                          nFees, txMinFee);
 
@@ -1063,37 +1064,6 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
     return pblock->GetHash();
 }
 
-// yacoin: increasing Nfactor gradually
-const unsigned char minNfactor = 10;
-const unsigned char maxNfactor = 30;
-
-unsigned char GetNfactor(int64 nTimestamp) {
-    int l = 0;
-
-    if (nTimestamp <= nChainStartTime)
-        return minNfactor;
-
-    int64 s = nTimestamp - nChainStartTime;
-    while ((s >> 1) > 3) {
-      l += 1;
-      s >>= 1;
-    }
-
-    s &= 3;
-
-    int n = (l * 158 + s * 28 - 2670) / 100;
-
-    if (n < 0) n = 0;
-
-    if (n > 255)
-        printf( "GetNfactor(%lld) - something wrong(n == %d)\n", nTimestamp, n );
-
-    unsigned char N = (unsigned char) n;
-    //printf("GetNfactor: %d -> %d %d : %d / %d\n", nTimestamp - nChainStartTime, l, s, n, min(max(N, minNfactor), maxNfactor));
-
-    return min(max(N, minNfactor), maxNfactor);
-}
-
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
@@ -1216,7 +1186,13 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-    printf(" nActualTimespan = %"PRI64d" before bounds\n", nActualTimespan);
+    printf("  nActualTimespan = %" PRI64d "  before bounds\n", nActualTimespan);
+#if 0 // disabled in XSV (vertcoin?)
+    if (nActualTimespan < nTargetTimespan/4)
+        nActualTimespan = nTargetTimespan/4;
+    if (nActualTimespan > nTargetTimespan*4)
+        nActualTimespan = nTargetTimespan*4;
+#endif
 
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
@@ -1258,6 +1234,14 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     
     if (bnNew > bnProofOfWorkLimit)
         bnNew = bnProofOfWorkLimit;
+
+#if 0 // Disabled in XSV (vertcoin?)
+    /// debug print
+    printf("GetNextWorkRequired RETARGET\n");
+    printf("nTargetTimespan = %" PRI64d "    nActualTimespan = %" PRI64d "\n", nTargetTimespan, nActualTimespan);
+    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+#endif
 
     return bnNew.GetCompact();
 }
@@ -1503,7 +1487,24 @@ void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
     //    nBits = GetNextWorkRequired(pindexPrev, this);
 }
 
+uint256 CBlockHeader::GetPoWHash() const
+{
+//        using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+//        std::string in(BEGIN(nVersion), 80);
+//        uint256 thash;
 
+        return scrypt::hash(
+          BEGIN(nVersion),
+          GetNfactor(nTime)
+        );
+
+/*
+        std::unique_ptr<scrypt::usdollarcoin::Scratchpad<SB>> 
+          scratchpad (new(scrypt::usdollarcoin::Scratchpad<SB>));
+        scrypt::scrypt_256_sp_templ<pars::n, pars::r, pars::p, SB>
+          (in, in, thash, *scratchpad);
+*/
+}
 
 
 
@@ -1901,7 +1902,7 @@ bool CBlock::ConnectBlock(CValidationState &state, CBlockIndex* pindex, CCoinsVi
         printf("- Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin)\n", (unsigned)vtx.size(), 0.001 * nTime, 0.001 * nTime / vtx.size(), nInputs <= 1 ? 0 : 0.001 * nTime / (nInputs-1));
 
     if (vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees))
-        return state.DoS(100, error("ConnectBlock() : coinbase pays too much (actual=%"PRI64d" vs limit=%"PRI64d")", vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees)));
+        return state.DoS(100, error("ConnectBlock() : coinbase pays too much (actual=%" PRI64d " vs limit=%" PRI64d ")", vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees)));
 
     if (!control.Wait())
         return state.DoS(100, false);
@@ -1981,8 +1982,8 @@ bool SetBestChain(CValidationState &state, CBlockIndex* pindexNew)
     reverse(vConnect.begin(), vConnect.end());
 
     if (vDisconnect.size() > 0) {
-        printf("REORGANIZE: Disconnect %"PRIszu" blocks; %s..\n", vDisconnect.size(), pfork->GetBlockHash().ToString().c_str());
-        printf("REORGANIZE: Connect %"PRIszu" blocks; ..%s\n", vConnect.size(), pindexNew->GetBlockHash().ToString().c_str());
+        printf("REORGANIZE: Disconnect %" PRIszu " blocks; %s..\n", vDisconnect.size(), pfork->GetBlockHash().ToString().c_str());
+        printf("REORGANIZE: Connect %" PRIszu " blocks; ..%s\n", vConnect.size(), pindexNew->GetBlockHash().ToString().c_str());
     }
 
     // Disconnect shorter branch
@@ -3077,7 +3078,7 @@ void PrintBlockTree()
         // print item
         CBlock block;
         block.ReadFromDisk(pindex);
-        printf("%d (blk%05u.dat:0x%x)  %s  tx %"PRIszu"",
+        printf("%d (blk%05u.dat:0x%x)  %s  tx %" PRIszu "",
             pindex->nHeight,
             pindex->GetBlockPos().nFile, pindex->GetBlockPos().nPos,
             DateTimeStrFormat("%Y-%m-%d %H:%M:%S", block.GetBlockTime()).c_str(),
@@ -3170,7 +3171,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
         AbortNode(_("Error: system error: ") + e.what());
     }
     if (nLoaded > 0)
-        printf("Loaded %i blocks from external file in %"PRI64d"ms\n", nLoaded, GetTimeMillis() - nStart);
+        printf("Loaded %i blocks from external file in %" PRI64d "ms\n", nLoaded, GetTimeMillis() - nStart);
     return nLoaded > 0;
 }
 
@@ -3422,7 +3423,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {
     RandAddSeedPerfmon();
     if (fDebug)
-        printf("received: %s (%"PRIszu" bytes)\n", strCommand.c_str(), vRecv.size());
+        printf("received: %s (%" PRIszu " bytes)\n", strCommand.c_str(), vRecv.size());
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
     {
         printf("dropmessagestest DROPPING RECV MESSAGE\n");
@@ -3561,7 +3562,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vAddr.size() > 1000)
         {
             pfrom->Misbehaving(20);
-            return error("message addr size() = %"PRIszu"", vAddr.size());
+            return error("message addr size() = %" PRIszu "", vAddr.size());
         }
 
         // Store the new addresses
@@ -3624,7 +3625,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vInv.size() > MAX_INV_SZ)
         {
             pfrom->Misbehaving(20);
-            return error("message inv size() = %"PRIszu"", vInv.size());
+            return error("message inv size() = %" PRIszu "", vInv.size());
         }
 
         // find last block in inv vector
@@ -3673,11 +3674,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (vInv.size() > MAX_INV_SZ)
         {
             pfrom->Misbehaving(20);
-            return error("message getdata size() = %"PRIszu"", vInv.size());
+            return error("message getdata size() = %" PRIszu "", vInv.size());
         }
 
         if (fDebugNet || (vInv.size() != 1))
-            printf("received getdata (%"PRIszu" invsz)\n", vInv.size());
+            printf("received getdata (%" PRIszu " invsz)\n", vInv.size());
 
         if ((fDebugNet && vInv.size() > 0) || (vInv.size() == 1))
             printf("received getdata for: %s\n", vInv[0].ToString().c_str());
@@ -3778,7 +3779,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             vWorkQueue.push_back(inv.hash);
             vEraseQueue.push_back(inv.hash);
 
-            printf("AcceptToMemoryPool: %s %s : accepted %s (poolsz %"PRIszu")\n",
+            printf("AcceptToMemoryPool: %s %s : accepted %s (poolsz %" PRIszu ")\n",
                 pfrom->addr.ToString().c_str(), pfrom->cleanSubVer.c_str(),
                 tx.GetHash().ToString().c_str(),
                 mempool.mapTx.size());
@@ -4627,7 +4628,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
 
         nLastBlockTx = nBlockTx;
         nLastBlockSize = nBlockSize;
-        printf("CreateNewBlock(): total size %"PRI64u"\n", nBlockSize);
+        printf("CreateNewBlock(): total size %" PRI64u "\n", nBlockSize);
 
         pblock->vtx[0].vout[0].nValue = GetBlockValue(pindexPrev->nHeight+1, nFees);
         pblocktemplate->vTxFees[0] = -nFees;
@@ -4766,144 +4767,137 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
 void static SiliconValleyMiner(CWallet *pwallet)
 {
-    printf("SiliconValleyMiner started\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("siliconvalley-miner");
+  printf("SiliconValleyMiner started\n");
+  SetThreadPriority(THREAD_PRIORITY_LOWEST);
+  RenameThread("siliconvalley-miner");
 
-    // Each thread has its own key and counter
-    CReserveKey reservekey(pwallet);
-    unsigned int nExtraNonce = 0;
+  // Each thread has its own key and counter
+  CReserveKey reservekey(pwallet);
+  unsigned int nExtraNonce = 0;
 
-    try { loop {
-        while (vNodes.empty())
-            MilliSleep(1000);
+  try { loop {
+    while (vNodes.empty())
+      MilliSleep(1000);
 
-        //
-        // Create new block
-        //
-        unsigned int nTransactionsUpdatedLast = nTransactionsUpdated;
-        CBlockIndex* pindexPrev = pindexBest;
+    //
+    // Create new block
+    //
+    unsigned int nTransactionsUpdatedLast = nTransactionsUpdated;
+    CBlockIndex* pindexPrev = pindexBest;
 
-        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
-        if (!pblocktemplate.get())
-            return;
-        CBlock *pblock = &pblocktemplate->block;
-        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+    auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
+    if (!pblocktemplate.get())
+      return;
+    CBlock *pblock = &pblocktemplate->block;
+    IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        printf("Running SiliconValleyMiner with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
-               ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
+    printf("Running SiliconValleyMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
+         ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
-        //
-        // Pre-build hash buffers
-        //
-        char pmidstatebuf[32+16]; char* pmidstate = alignup<16>(pmidstatebuf);
-        char pdatabuf[128+16];    char* pdata     = alignup<16>(pdatabuf);
-        char phash1buf[64+16];    char* phash1    = alignup<16>(phash1buf);
+    //
+    // Pre-build hash buffers
+    //
+    char pmidstatebuf[32+16]; char* pmidstate = alignup<16>(pmidstatebuf);
+    char pdatabuf[128+16];  char* pdata   = alignup<16>(pdatabuf);
+    char phash1buf[64+16];  char* phash1  = alignup<16>(phash1buf);
 
-        FormatHashBuffers(pblock, pmidstate, pdata, phash1);
+    FormatHashBuffers(pblock, pmidstate, pdata, phash1);
 
-        unsigned int& nBlockTime = *(unsigned int*)(pdata + 64 + 4);
-        unsigned int& nBlockBits = *(unsigned int*)(pdata + 64 + 8);
-        //unsigned int& nBlockNonce = *(unsigned int*)(pdata + 64 + 12);
-
-
-        //
-        // Search
-        //
-        int64 nStart = GetTime();
-        uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
-        loop
-        {
-            unsigned int nHashesDone = 0;
-
-            uint256 thash;
-            
-            unsigned long int scrypt_scratpad_size_current_block = ((1 << (GetNfactor(pblock->nTime) + 1)) * 128 ) + 63;
-            
-            char scratchpad[scrypt_scratpad_size_current_block];
-            
-            /*printf("nTime -> %d", pblock->nTime);
-            printf("scrypt_scratpad_size_current_block -> %ld", sizeof(scrypt_scratpad_size_current_block));
-            printf("scratchpad -> %d", sizeof(scratchpad));*/
-            
-            loop
-            {
-
-                // Generic scrypt
-                scrypt_N_1_1_256_sp_generic(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad, GetNfactor(pblock->nTime));
+    unsigned int& nBlockTime = *(unsigned int*)(pdata + 64 + 4);
+    unsigned int& nBlockBits = *(unsigned int*)(pdata + 64 + 8);
+    //unsigned int& nBlockNonce = *(unsigned int*)(pdata + 64 + 12);
 
 
-                if (thash <= hashTarget)
-                {
-                    // Found a solution
-                    printf("Entering to found a solution section");
-                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                    CheckWork(pblock, *pwallet, reservekey);
-                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-                    break;
-                }
-                pblock->nNonce += 1;
-                nHashesDone += 1;
-                if ((pblock->nNonce & 0xFF) == 0)
-                    break;
-            }
-
-            // Meter hashes/sec
-            static int64 nHashCounter;
-            if (nHPSTimerStart == 0)
-            {
-                nHPSTimerStart = GetTimeMillis();
-                nHashCounter = 0;
-            }
-            else
-                nHashCounter += nHashesDone;
-            if (GetTimeMillis() - nHPSTimerStart > 4000)
-            {
-                static CCriticalSection cs;
-                {
-                    LOCK(cs);
-                    if (GetTimeMillis() - nHPSTimerStart > 4000)
-                    {
-                        dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
-                        nHPSTimerStart = GetTimeMillis();
-                        nHashCounter = 0;
-                        static int64 nLogTime;
-                        if (GetTime() - nLogTime > 30 * 60)
-                        {
-                            nLogTime = GetTime();
-                            printf("hashmeter %6.0f khash/s\n", dHashesPerSec/1000.0);
-                        }
-                    }
-                }
-            }
-
-            // Check for stop or if block needs to be rebuilt
-            boost::this_thread::interruption_point();
-            if (vNodes.empty())
-                break;
-            if (pblock->nNonce >= 0xffff0000)
-                break;
-            if (nTransactionsUpdated != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                break;
-            if (pindexPrev != pindexBest)
-                break;
-
-            // Update nTime every few seconds
-            pblock->UpdateTime(pindexPrev);
-            nBlockTime = ByteReverse(pblock->nTime);
-            if (fTestNet)
-            {
-                // Changing pblock->nTime can change work required on testnet:
-                nBlockBits = ByteReverse(pblock->nBits);
-                hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
-            }
-        }
-    } }
-    catch (boost::thread_interrupted)
+    //
+    // Search
+    //
+    int64 nStart = GetTime();
+    uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+    loop
     {
-        printf("SiliconValleyMiner terminated\n");
-        throw;
+      unsigned int nHashesDone = 0;
+
+      uint256 thash;
+      const auto n_factor = GetNfactor(pblock->nTime);
+      auto scratchpad = scrypt::get_scratchpad(n_factor);
+      loop
+      {
+        thash = scrypt::hash(
+          BEGIN(pblock->nVersion), 
+          n_factor, 
+          scratchpad
+        );
+          
+        if (thash <= hashTarget)
+        {
+        // Found a solution
+        SetThreadPriority(THREAD_PRIORITY_NORMAL);
+        CheckWork(pblock, *pwallet, reservekey);
+        SetThreadPriority(THREAD_PRIORITY_LOWEST);
+        break;
+        }
+        pblock->nNonce += 1;
+        nHashesDone += 1;
+        if ((pblock->nNonce & 0xFF) == 0)
+        break;
+      }
+
+      // Meter hashes/sec
+      static int64 nHashCounter;
+      if (nHPSTimerStart == 0)
+      {
+        nHPSTimerStart = GetTimeMillis();
+        nHashCounter = 0;
+      }
+      else
+        nHashCounter += nHashesDone;
+      if (GetTimeMillis() - nHPSTimerStart > 4000)
+      {
+        static CCriticalSection cs;
+        {
+          LOCK(cs);
+          if (GetTimeMillis() - nHPSTimerStart > 4000)
+          {
+            dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
+            nHPSTimerStart = GetTimeMillis();
+            nHashCounter = 0;
+            static int64 nLogTime;
+            if (GetTime() - nLogTime > 30 * 60)
+            {
+              nLogTime = GetTime();
+              printf("hashmeter %6.0f khash/s\n", dHashesPerSec/1000.0);
+            }
+          }
+        }
+      }
+
+      // Check for stop or if block needs to be rebuilt
+      boost::this_thread::interruption_point();
+      if (vNodes.empty())
+        break;
+      if (pblock->nNonce >= 0xffff0000)
+        break;
+      if (nTransactionsUpdated != nTransactionsUpdatedLast && GetTime() - nStart > 60)
+        break;
+      if (pindexPrev != pindexBest)
+        break;
+
+      // Update nTime every few seconds
+      pblock->UpdateTime(pindexPrev);
+      nBlockTime = ByteReverse(pblock->nTime);
+      if (fTestNet)
+      {
+        // Changing pblock->nTime can change work required on testnet:
+        nBlockBits = ByteReverse(pblock->nBits);
+        hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+      }
     }
+  } }
+  catch (boost::thread_interrupted)
+  {
+    printf("SiliconValleyMiner terminated\n");
+    throw;
+  }
 }
 
 void GenerateBitcoins(bool fGenerate, CWallet* pwallet)

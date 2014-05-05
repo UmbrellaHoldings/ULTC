@@ -31,6 +31,9 @@ protected:
     uint32_t pn[WIDTH];
 public:
 
+    void* data() { return pn; }
+    const void* data() const { return pn; }
+
     bool operator!() const
     {
         for (int i = 0; i < WIDTH; i++)
