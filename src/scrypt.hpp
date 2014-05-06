@@ -44,10 +44,9 @@ uint32_t integerify(__m128i a);
 // The current SSE2 salsa20 implementation needs word
 // rearrangement
 
-using namespace std::experimental;
-
+template<unsigned r>
 inline void rearrange_before(
-  dynarray<generic::SalsaBlock, 2*r>& x)
+  std::array<generic::SalsaBlock, 2*r>& x)
 {
 }
 

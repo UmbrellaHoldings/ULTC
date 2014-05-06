@@ -113,40 +113,42 @@ xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 
 OBJS= \
     leveldb/libleveldb.a \
+    obj/addrman.o \
     obj/alert.o \
     obj/allocators.o \
-    obj/version.o \
+    obj/bitcoinrpc.o \
+    obj/bloom.o \
     obj/checkpoints.o \
-    obj/netbase.o \
-    obj/addrman.o \
     obj/crypter.o \
-    obj/key.o \
     obj/db.o \
+    obj/hash.o \
     obj/init.o \
+    obj/key.o \
     obj/keystore.o \
+    obj/leveldb.o \
     obj/main.o \
     obj/mine_genesis.o \
+    obj/n_factor.o \
     obj/net.o \
+    obj/netbase.o \
+    obj/noui.o \
     obj/protocol.o \
-    obj/bitcoinrpc.o \
-    obj/rpcdump.o \
-    obj/rpcnet.o \
-    obj/rpcmining.o \
-    obj/rpcwallet.o \
     obj/rpcblockchain.o \
+    obj/rpcdump.o \
+    obj/rpcmining.o \
+    obj/rpcnet.o \
     obj/rpcrawtransaction.o \
+    obj/rpcwallet.o \
     obj/script.o \
     obj/scrypt.o \
+    obj/scrypt_generated.o \
     obj/sync.o \
+    obj/txdb.o \
     obj/util.o \
     obj/util_cmn.o \
+    obj/version.o \
     obj/wallet.o \
-    obj/walletdb.o \
-    obj/hash.o \
-    obj/bloom.o \
-    obj/noui.o \
-    obj/leveldb.o \
-    obj/txdb.o
+    obj/walletdb.o 
 
 
 ifdef USE_SSE2
@@ -194,12 +196,6 @@ obj/%.o: %.cpp
 	  rm -f $(@:%.o=%.d)
 
 xxxxxxxd: $(OBJS:obj/%=obj/%)
-	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
-
-KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
-              obj/allocators.o
-
-xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \

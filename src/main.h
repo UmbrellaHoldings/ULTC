@@ -10,6 +10,7 @@
 #include "net.h"
 #include "script.h"
 #include "scrypt.h"
+#include "btc_time.h"
 
 #include <list>
 
@@ -193,7 +194,7 @@ bool VerifySignature(const CCoins& txFrom, const CTransaction& txTo, unsigned in
 bool AbortNode(const std::string &msg);
 
 
-unsigned char GetNfactor(int64 nTimestamp);
+
 
 
 
@@ -1326,6 +1327,8 @@ public:
     {
         return (int64)nTime;
     }
+
+    coin::time::block::time_point GetTimePoint() const;
 
     void UpdateTime(const CBlockIndex* pindexPrev);
 };

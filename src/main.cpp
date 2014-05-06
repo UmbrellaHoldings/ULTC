@@ -12,6 +12,7 @@
 #include "ui_interface.h"
 #include "checkqueue.h"
 #include "scrypt.hpp"
+#include "n_factor.h"
 #include <vector>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
@@ -1228,7 +1229,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
 	else
 		printf("GetNextWorkRequired [Legacy] RETARGET \n");
 		
-    printf("retargetTimespan = %"PRI64d" nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
+    printf("retargetTimespan = %" PRI64d " nActualTimespan = %" PRI64d "\n", retargetTimespan, nActualTimespan);
     printf("Before: %08x %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
     printf("After: %08x %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
     
@@ -1478,6 +1479,14 @@ bool ConnectBestBlock(CValidationState &state) {
     } while(true);
 }
 
+coin::time::block::time_point CBlockHeader
+::GetTimePoint() const
+{
+  using namespace coin::time::block;
+  return time_point(std::chrono::seconds(nTime));
+}
+
+
 void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
 {
     nTime = max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
@@ -1487,32 +1496,13 @@ void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
     //    nBits = GetNextWorkRequired(pindexPrev, this);
 }
 
-uint256 CBlockHeader::GetPoWHash() const
+uint256 CBlock::GetPoWHash() const
 {
-//        using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
-//        std::string in(BEGIN(nVersion), 80);
-//        uint256 thash;
+  const auto n_factor = GetNfactor(GetTimePoint());
+  auto scratchpad = scrypt::get_scratchpad(n_factor);
 
-        return scrypt::hash(
-          BEGIN(nVersion),
-          GetNfactor(nTime)
-        );
-
-/*
-        std::unique_ptr<scrypt::usdollarcoin::Scratchpad<SB>> 
-          scratchpad (new(scrypt::usdollarcoin::Scratchpad<SB>));
-        scrypt::scrypt_256_sp_templ<pars::n, pars::r, pars::p, SB>
-          (in, in, thash, *scratchpad);
-*/
+  return scrypt::hash(*this, n_factor, scratchpad);
 }
-
-
-
-
-
-
-
-
 
 const CTxOut &CTransaction::GetOutputFor(const CTxIn& input, CCoinsViewCache& view)
 {
@@ -4818,15 +4808,12 @@ void static XxxxxxxMiner(CWallet *pwallet)
       unsigned int nHashesDone = 0;
 
       uint256 thash;
-      const auto n_factor = GetNfactor(pblock->nTime);
+      const auto n_factor = GetNfactor
+        (pblock->GetTimePoint());
       auto scratchpad = scrypt::get_scratchpad(n_factor);
       loop
       {
-        thash = scrypt::hash(
-          BEGIN(pblock->nVersion), 
-          n_factor, 
-          scratchpad
-        );
+        thash = scrypt::hash(*pblock, n_factor, scratchpad);
           
         if (thash <= hashTarget)
         {

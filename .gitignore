@@ -1,8 +1,9 @@
 src/*.exe
-src/litecoin
-src/litecoind
-src/litecoinKeyGen
-src/test_litecoin
+src/xxxxxxx
+src/xxxxxxxd
+src/xxxxxxxKeyGen
+src/test_xxxxxxx
+src/show_n_factor
 .*.swp
 *.*~*
 *.bak
@@ -10,17 +11,17 @@ src/test_litecoin
 *.orig
 *.o
 *.patch
-.litecoin
+.xxxxxxx
 
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-vertcoin-qt
-Vertcoin-Qt.app
+xxxxxxx-qt
+Xxxxxxx-Qt.app
 
 # Unit-tests
 Makefile.test
-vertcoin-qt_test
+xxxxxxx-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -32,8 +33,8 @@ qrc_*.cpp
 .DS_Store
 build
 Info
-Vertcoin-Qt.xcodeproj
-Vertcoin-Qt.dmg
+Xxxxxxx-Qt.xcodeproj
+Xxxxxxx-Qt.dmg
 
 !src/leveldb*/Makefile
 

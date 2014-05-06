@@ -1,18 +1,17 @@
 // -*-coding: mule-utf-8-unix; fill-column: 58; -*-
 /**
  * @file
- * Calculate the "N-factor", it is yacoin/vertcoin concept
+ * Calculates the "N-factor", it is yacoin/vertcoin concept
  * originally, see 
  * http://www.followthecoin.com/interview-creator-vertcoin/
  *
  * @author Sergei Lodyagin
  */
 
-#include <tuple>
 #include <chrono>
 #include <cmath>
 #include "types/time.h"
-#include "btc_time.h"
+#include "n_factor.h"
 
 //! Returns tuple with scrypt N,r,p parameters.
 //! It differs from vertcoin. The assumption is doubling
@@ -76,10 +75,10 @@ GetNfactor(coin::time::block::time_point block_time)
   // today min amount of CPU cores
   constexpr int birth_cores = 2;
 
-  // assume memory access speed is not increasing, so
-  // limit block load time to 2.5 mins 
+  // assume memory access speed will be not increased
+  // much, so limit block load time to 2.5 mins
   constexpr size_t max_mem = 
-    (size_t) 256 * 1024 * 1024 * 1024;
+    (size_t) 8 * 1024 * 1024 * 1024;
   if (mem > max_mem) mem = max_mem;
 
   size_t moore_cores = (birth_cores << moore_steps);

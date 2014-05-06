@@ -10,15 +10,14 @@
 #include "bignum.h"
 #include "main.h"
 #include "scrypt.h"
+#include "n_factor.h"
 
 extern uint256 hashGenesisBlock;
 
-// If genesis block hash does not match, then generate new genesis hash.
+// If genesis block hash does not match, then generate new
+// genesis hash.
 void MineGenesisBlock(CBlock& block)
 {
-  using namespace scrypt::usdollarcoin;
-  using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
-
   block.nNonce = 0;
 
   if (block.GetHash() != hashGenesisBlock)
@@ -28,10 +27,13 @@ void MineGenesisBlock(CBlock& block)
     // creating a different genesis block:
     uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
     uint256 thash;
-    std::unique_ptr<Scratchpad<SB>> scratchpad(new Scratchpad<SB>);
+    const auto n_factor = GetNfactor(block.GetTimePoint());
+    auto scratchpad = scrypt::get_scratchpad(n_factor);
      
     loop
     {
+      thash = scrypt::hash(block, n_factor, scratchpad);
+
       if (thash <= hashTarget)
         break;
       if ((block.nNonce & 0xFFF) == 0)

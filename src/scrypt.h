@@ -13,8 +13,12 @@
 
 #include <array>
 #include <cstdint>
+#include <memory>
 #include <emmintrin.h>
 #include "uint256.h"
+#include "n_factor.h"
+
+class CBlock;
 
 namespace scrypt {
 
@@ -71,58 +75,6 @@ void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
 
 #if 0
-namespace usdollarcoin {
-
-namespace pars {
-
-// The xxxxxxx specific scrypt parameters
-// The amount of used memory is 2 * r * n * p *
-// sizeof(SalsaBlock) = 128*r*n*p
-
-constexpr size_t mem_amount = 128 * 1024 * 1024; 
-
-constexpr unsigned r = 8;
-constexpr unsigned p = 1; // you must change scrypt_xxx algo to use
-                          // threads if you want change
-                          // this
-
-constexpr size_t n = mem_amount / (2 * r * p * sizeof(generic::SalsaBlock));
-
-//! The output length of scrypt hash in bytes (32)
-//constexpr unsigned output_len = 256 / 8; 
-
-}
-
-template<class SalsaBlockT>
-using Scratchpad = scrypt::Scratchpad<pars::n, pars::r, pars::p, SalsaBlockT>;
-
-}
-#endif
-
-#if 0
-namespace usdollarcoin {
-
-namespace pars {
-
-// The xxxxxxx specific scrypt parameters
-// The amount of used memory is 2 * r * n * p *
-// sizeof(SalsaBlock) = 128*r*n*p
-
-constexpr size_t mem_amount = 128 * 1024 * 1024; 
-
-constexpr unsigned r = 8;
-constexpr unsigned p = 1; // you must change scrypt_xxx algo to use
-                          // threads if you want change
-                          // this
-
-constexpr size_t n = mem_amount / (2 * r * p * sizeof(generic::SalsaBlock));
-
-//! The output length of scrypt hash in bytes (32)
-//constexpr unsigned output_len = 256 / 8; 
-
-}
-
-#if 0
 #if defined(USE_SSE2)
 extern void scrypt_detect_sse2(unsigned int cpuid_edx);
 #endif
@@ -159,6 +111,31 @@ void scrypt_256_sp_templ
          Scratchpad<N, r, p, SalsaBlockT>& scratchpad
   );
 
-}
+struct scratchpad_base
+{
+  virtual ~scratchpad_base() {}
+};
+
+template<
+  size_t N,
+  unsigned r,
+  unsigned p
+>
+struct scratchpad : scratchpad_base
+{
+  Scratchpad<N, r, p, SSE2_OR_GENERIC::SalsaBlock> pad;
+};
+
+using scratchpad_ptr = std::shared_ptr<scratchpad_base>;
+
+scratchpad_ptr get_scratchpad(n_factor_t n_factor);
+
+uint256 hash(
+  const CBlock& blk,
+  n_factor_t n_factor,
+  scratchpad_ptr scratchpad
+);
+
+} // scrypt
 
 #endif
