@@ -20,6 +20,11 @@ GetNfactor(coin::time::block::time_point block_time);
 
 using namespace coin::time::block;
 
+using days = duration<clock::rep, ratio<3600 * 24>>;
+using common_years = 
+  duration<clock::rep, ratio<3600 * 24 * 365>>;
+
+//! shows n_factor for the specified time point
 void show(coin::time::block::time_point now)
 {
   size_t N = 0;
@@ -31,18 +36,27 @@ void show(coin::time::block::time_point now)
     << std::endl;
 }
 
-int main(int argc, char* argv[])
+//! shows n_factor for the specified period
+void show(
+  const coin::time::block::time_point from, 
+  const coin::time::block::time_point to
+)
 {
-  auto now = clock::now();
-  std::cout << "Date\tGetNfactor result" << std::endl;
-
+  auto now = from;
   show(now);
   auto last_factor = GetNfactor(now);
-  for (int k = 0; k < 600; k++) {
+  while (now <= to) {
     while (GetNfactor(now) == last_factor) 
       now += hours(24);
     last_factor = GetNfactor(now);
 
     show(now);
   }
+}
+
+int main(int argc, char* argv[])
+{
+  auto now = clock::now();
+  std::cout << "Date\tGetNfactor result" << std::endl;
+  show(now, now + common_years(21));
 }
