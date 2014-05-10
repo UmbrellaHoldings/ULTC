@@ -44,7 +44,7 @@ LIBS += \
 
 TESTLIBS += \
  -Wl,-B$(LMODE) \
-   -l boost_unit_test_framework$(BOOST_LIB_SUFFIX)
+   -l boost_unit_test_framework$(BOOST_LIB_SUFFIX) 
 
 ifndef USE_UPNP
 	override USE_UPNP = -
@@ -204,10 +204,10 @@ KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
 xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
-#TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
-TESTOBJS = \
-   obj-test/scrypt_tests.o \
-   obj-test/test_bitcoin.o
+TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+#TESTOBJS = \
+#   obj-test/scrypt_tests.o \
+#   obj-test/test_bitcoin.o
 
 SHOWNFACTOROBJS := obj/show_n_factor.o obj/n_factor.o
 
@@ -222,7 +222,7 @@ obj-test/%.o: test/%.cpp
 	  rm -f $(@:%.o=%.d)
 
 test_xxxxxxx: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
-	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(TESTLIBS) $(xLDFLAGS) $(LIBS)
+	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ $(xLDFLAGS) $(LIBS) $(TESTLIBS) 
 
 clean:
 	-rm -f xxxxxxxd test_xxxxxxx
