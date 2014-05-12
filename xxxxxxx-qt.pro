@@ -1,13 +1,17 @@
 TEMPLATE = app
 TARGET = xxxxxxx-qt
 macx:TARGET = "Xxxxxxx-Qt"
-VERSION = 0.8.6.4
+VERSION = 1.0.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
+
+QMAKE_CXXFLAGS += --std=c++11 -Wno-unused-local-typedefs -msse -msse2
+
+BOOST_LIB_SUFFIX=-mt
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -131,10 +135,7 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
-
-macx:QMAKE_CXXFLAGS_WARN_ON += -Wno-deprecated
-
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector -Wno-deprecated
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -238,14 +239,17 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
     src/alert.cpp \
+    src/allocators.cpp \
     src/version.cpp \
     src/sync.cpp \
     src/util.cpp \
+    src/util_cmn.cpp \
     src/hash.cpp \
     src/netbase.cpp \
     src/key.cpp \
     src/script.cpp \
     src/main.cpp \
+    src/mine_genesis.cpp \
     src/init.cpp \
     src/net.cpp \
     src/bloom.cpp \
@@ -361,7 +365,7 @@ OTHER_FILES += README.md \
     doc/*.rst \
     doc/*.txt \
     doc/*.md \
-    src/qt/res/xxxxxxx-qt.rc \
+    src/qt/res/bitcoin-qt.rc \
     src/test/*.cpp \
     src/test/*.h \
     src/qt/test/*.cpp \
@@ -398,7 +402,7 @@ isEmpty(BOOST_INCLUDE_PATH) {
 }
 
 win32:DEFINES += WIN32
-win32:RC_FILE = src/qt/res/xxxxxxx-qt.rc
+win32:RC_FILE = src/qt/res/bitcoin-qt.rc
 
 win32:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
