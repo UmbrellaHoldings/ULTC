@@ -172,8 +172,6 @@ void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash
 bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey);
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
-/** Calculate the minimum amount of work a received block needs, without knowing its direct parent */
-unsigned int ComputeMinWork(unsigned int nBase, int64 nTime);
 /** Get the number of active peers */
 int GetNumBlocksOfPeers();
 /** Check whether we are doing an initial block download (synchronizing from disk or network) */
@@ -192,16 +190,6 @@ CBlockIndex * InsertBlockIndex(uint256 hash);
 bool VerifySignature(const CCoins& txFrom, const CTransaction& txTo, unsigned int nIn, unsigned int flags, int nHashType);
 /** Abort with a message */
 bool AbortNode(const std::string &msg);
-
-
-
-
-
-
-
-
-
-
 
 bool GetWalletFile(CWallet* pwallet, std::string &strWalletFileOut);
 
@@ -1748,6 +1736,8 @@ public:
     {
         return (int64)nTime;
     }
+
+    coin::time::block::time_point GetTimePoint() const;
 
     CBigNum GetBlockWork() const
     {

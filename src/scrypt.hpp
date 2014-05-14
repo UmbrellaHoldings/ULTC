@@ -84,7 +84,7 @@ std::array<SalsaBlockT, 2*r> block_mix(const std::array<SalsaBlockT, 2*r>& b)
 
   // X <- B[2r-1]
   SalsaBlockT x(b[2*r - 1]);
-  for (int i = 0; i < r; i++) {
+  for (unsigned i = 0; i < r; i++) {
     // X <- H(X (+) B[2i])
     xor_salsa8(x, b[2*i]);
     // B'[i] <- X
@@ -115,23 +115,11 @@ void romix
   // The current SSE2 salsa20 implementation needs word rearrangement
   rearrange_before<r>(x);
 
-//! It is the Colin Percival's ROMix implementation
-template<
-  uint32_t N,
-  unsigned r,
-  unsigned p,
-  std::array<SalsaBlock, 2*r> (*H)(const std::array<SalsaBlock, 2*r>& b)
->
-void romix
-  (std::array<SalsaBlock, 2*r>& x,    //< the input/output vector
-   std::array<std::array<SalsaBlock, 2*r>, N>& v   //< the work area
-   )
-{
-  for (int i = 0; i < N; i++) {
+  for (unsigned i = 0; i < N; i++) {
     v[i] = x;
     x = H(x);
   }
-  for (int i = 0; i < N; i++) {
+  for (unsigned i = 0; i < N; i++) {
     static_assert(pow2x<log2x<N>::value>::value == N, "N must be pow of 2");
     // NB is N is pow 2 than we can integrify in mod 2^32-1
     // and then mod N

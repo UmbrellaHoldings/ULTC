@@ -36,8 +36,8 @@ GetNfactor(coin::time::block::time_point block_time)
   using namespace std::chrono;
   using namespace std;
 
-  using days = duration<clock::rep, ratio<3600 * 24>>;
-  using avg_months = duration
+  using days = chrono::duration<clock::rep, ratio<3600 * 24>>;
+  using avg_months = chrono::duration
     <clock::rep, ratio<3600 * 24 * 30>>;
 
   constexpr size_t MiB = 1024 * 1024;

@@ -10,18 +10,31 @@
 #ifndef BITCOIN_TIME_H
 #define BITCOIN_TIME_H
 
+#include <ostream>
 #include <chrono>
 #include <ratio>
+#include "types/fixed.h"
 
 namespace coin {
 namespace time {
+
 namespace block {
+
+using duration = std::chrono::duration<
+  std::chrono::system_clock::rep,
+  std::ratio<1>
+>;
+
+using seconds = std::chrono::duration<duration::rep, std::ratio<1>>;
+using minutes = std::chrono::duration<duration::rep, std::ratio<60>>;
+using hours = std::chrono::duration<duration::rep, std::ratio<60 * 60>>;
+using days = std::chrono::duration<duration::rep, std::ratio<60*60*24>>;
 
 struct clock
 {
-  using rep = std::chrono::system_clock::rep;
-  using period = std::ratio<1>;
-  using duration = std::chrono::duration<rep, period>;
+  using duration   = coin::time::block::duration;
+  using rep        = duration::rep;
+  using period     = duration::period;
   using time_point = std::chrono::time_point<clock>;
   
   static constexpr bool is_steady = false;
@@ -52,9 +65,43 @@ struct clock
 };
 
 using time_point = clock::time_point;
+//using duration = clock::duration;
+#if 0
+std::ostream& 
+//
+operator<<( 
+  std::ostream& out,
+  duration dur
+)
+{
+  return out << types::fixed_t<duration::rep, duration::period>(dur);
+}
+#else
+#endif
 
 } // block
 } // time
 } // coin
+
+namespace std { namespace chrono {
+
+template<
+  class CharT, 
+  class Rep,
+  class Ratio,
+  class Traits = std::char_traits<CharT>
+>
+std::basic_ostream<CharT, Traits>& 
+//
+operator<<( 
+  std::basic_ostream<CharT, Traits>& out,
+  duration<Rep, Ratio> dur
+)
+{
+  return out << types::fixed_t<Rep, Ratio>(dur);
+}
+
+} // chrono
+} // std
 
 #endif
