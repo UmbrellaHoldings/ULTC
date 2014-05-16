@@ -20,12 +20,8 @@ template<uint16_t max_len>
 class exception_string : public virtual std::exception
 {
 public:
-#if 1
-  using string = auto_string<max_len>;
-#else
   using stringbuf = auto_stringbuf<max_len>;
   using string = typename stringbuf::string;
-#endif
 
   exception_string() {}
 
@@ -38,7 +34,7 @@ public:
     typename string::const_iterator end
   )
   {
-    std::copy(begin, end, msg.begin());
+    std::copy(begin, end, msg.s.begin());
   }
 
   const char* what() const noexcept override
@@ -47,7 +43,7 @@ public:
   }
 
 protected:
-  string msg;
+  stringbuf msg;
 };
 
 namespace exception_ {
@@ -96,7 +92,7 @@ public:
     : exception_base(), message(pars...)
   {
     message.stringify(
-      std::ostreambuf_iterator<char>(&this->msg),
+      std::ostreambuf_iterator<char>(&exception_base.msg),
       exception_::the_ostream
     );
   }

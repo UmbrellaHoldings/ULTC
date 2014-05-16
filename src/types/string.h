@@ -149,6 +149,11 @@ public:
     traits_type::copy(m.data(), str, N);
   }
 
+  void swap(basic_auto_string& o) noexcept
+  {
+    m.swap(o.m);
+  }
+
   iterator begin() noexcept
   {
     return iterator(m.data(), iterators_::begin_t());
@@ -204,6 +209,8 @@ template <
 class basic_auto_stringbuf 
   : public std::basic_streambuf<CharT, Traits>
 {
+  typedef std::basic_streambuf<CharT, Traits> parent;
+
 public:
   typedef CharT char_type;
   typedef Traits traits_type;
@@ -222,6 +229,24 @@ public:
   {
     this->setg(s.data(), s.data(), s.data() + N);
     this->setp(s.data(), s.data(), s.data() + N);
+  }
+
+  basic_auto_stringbuf(const basic_auto_stringbuf& o)
+    : parent(o), s(o.s)
+  {}
+
+  basic_auto_stringbuf& operator=(
+    const basic_auto_stringbuf& o
+  )
+  {
+    static_cast<parent&>(*this).operator=(o);
+    s = o.s;
+  }
+
+  void swap(basic_auto_stringbuf& o)
+  {
+    static_cast<parent&>(*this).swap(o);
+    s.swap();
   }
 
   string s;
