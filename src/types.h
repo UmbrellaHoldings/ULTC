@@ -20,7 +20,8 @@ using percent_t = types::percent_t<intmax_t>;
 inline percent_t operator""_pct(long double p)
 {
   bool lost;
-  const auto res = percent_t::from_long_double(p, &lost);
+  const auto res = 
+    percent_t::from_long_double(p, &lost) / 100;
 
   if (lost)
     throw types::exception<types::precision_lost>(

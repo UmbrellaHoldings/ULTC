@@ -20,8 +20,7 @@ template<uint16_t max_len>
 class exception_string : public virtual std::exception
 {
 public:
-  using stringbuf = auto_stringbuf<max_len>;
-  using string = typename stringbuf::string;
+  using string = auto_string<max_len>;
 
   exception_string() {}
 
@@ -34,7 +33,7 @@ public:
     typename string::const_iterator end
   )
   {
-    std::copy(begin, end, msg.s.begin());
+    std::copy(begin, end, msg.begin());
   }
 
   const char* what() const noexcept override
@@ -43,7 +42,7 @@ public:
   }
 
 protected:
-  stringbuf msg;
+  string msg;
 };
 
 namespace exception_ {
@@ -53,19 +52,28 @@ template<
   class CharT, 
   class Traits = std::char_traits<CharT>
 >
-class basic_ostream : public std::ios_base//<CharT, Traits>
+class basic_ostream : public std::ios_base
 {
 public:
-  using parent = std::ios_base; //<CharT, Traits>;
+  using parent = std::ios_base; 
   basic_ostream()
   {
+    using namespace std;
     // always use C locale for excpetion messages
-    imbue(std::locale::classic());
+    imbue(
+      locale(
+        locale::classic(), 
+        new num_put<
+          char, 
+          std::back_insert_iterator<auto_string>
+        >
+      )
+    );
   }
 };
 
 namespace {
-
+// TODO single instance
 basic_ostream<char> the_ostream;
 
 }
@@ -78,23 +86,25 @@ class exception_compound_message
       compound_message_max_length<Pars...>() + 1
     >
 {
-public:
-  using exception_base = exception_string<
+  using parent = exception_string<
     compound_message_max_length<Pars...>() + 1
   >;
 
+public:
   const compound_message_t<
-    std::ostreambuf_iterator<char>,
+    std::back_insert_iterator<typename parent::string>,
     Pars...
   > message;
 
   explicit exception_compound_message(Pars... pars)
-    : exception_base(), message(pars...)
+    : parent(), message(pars...)
   {
+    auto it = std::back_inserter(this->msg);
     message.stringify(
-      std::ostreambuf_iterator<char>(&exception_base.msg),
+      it,
       exception_::the_ostream
     );
+    *it = '\0';
   }
 };
 

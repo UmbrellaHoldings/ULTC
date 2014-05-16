@@ -16,6 +16,7 @@
 #include <array>
 #include <cstdint>
 #include <iterator>
+#include <assert.h>
 
 namespace types {
 
@@ -26,23 +27,23 @@ struct end_t {};
 
 template<
   class CharT, 
-  size_t N, 
+//  size_t N, 
   class Pointer, 
   class Reference
 >
 class safe_string
 {
-  template<class, uint16_t, class>
+  template<class, int16_t, class>
   friend class basic_auto_string;
 
 public:
   using iterator_category = std::random_access_iterator_tag;
   using value_type = CharT;
   using difference_type = int16_t;
-  static_assert(
+  /*static_assert(
     N <= std::numeric_limits<difference_type>::max(),
     "types::iterators_::safe_string N is to high"
-  );
+  );*/
   using size_type = uint16_t;
   using pointer = Pointer;
   using reference = Reference;
@@ -61,7 +62,7 @@ public:
 
   safe_string& operator++() noexcept
   {
-    if (__builtin_expect(idx++ >= N, 0))
+    if (__builtin_expect(idx++ >= n, 0))
     {
       idx = 0;
       ++ovf;
@@ -69,18 +70,30 @@ public:
     return *this;
   }
 
+  safe_string operator++(int) noexcept
+  {
+    safe_string copy(*this);
+    ++(*this);
+    return copy;
+  }
+
 protected:
-  safe_string(pointer base_, begin_t) noexcept 
-    : idx(0), ovf(0), base(base_) 
-  {}
+  safe_string(pointer base_, int16_t n_, begin_t) noexcept 
+    : base(base_), idx(0), ovf(0), n(n_) 
+  {
+    assert(n >= 0);
+  }
 
-  safe_string(pointer base_, end_t) noexcept 
-    : idx(0), ovf(1), base(base_) 
-  {}
+  safe_string(pointer base_, int16_t n_, end_t) noexcept 
+    : base(base_), idx(0), ovf(1), n(n_)
+  {
+    assert(n >= 0);
+  }
 
+  pointer base;
   size_type idx;
   int16_t ovf;
-  pointer base;
+  int16_t n;
 };
 
 } // iterators_
@@ -119,6 +132,22 @@ private:
 typedef constexpr_basic_string<char> constexpr_string;
 typedef constexpr_basic_string<wchar_t> constexpr_wstring;
 
+template<
+  class CharT,
+  class Traits = std::char_traits<CharT>
+>
+struct basic_auto_string_traits
+{
+  using iterator = iterators_::safe_string
+    <CharT, CharT*, CharT&>;
+  using const_iterator = iterators_::safe_string
+    <CharT, const CharT*, const CharT&>;
+};
+
+using auto_string_traits = basic_auto_string_traits<char>;
+using auto_wstring_traits = 
+  basic_auto_string_traits<wchar_t>;
+
 //! A string in an automatic storage
 template <
   class CharT,
@@ -128,8 +157,8 @@ template <
 class basic_auto_string 
 {
   static_assert(
-    N >= 0, 
-    "types::basic_auto_string: negative size"
+    N > 0, 
+    "types::basic_auto_string: invalid size"
   );
 
 public:
@@ -137,14 +166,15 @@ public:
   using value_type = CharT;
   using size_type = uint16_t;
   using difference_type = int16_t;
-  using iterator = iterators_::safe_string
-    <CharT, N, CharT*, CharT&>;
-  using const_iterator = iterators_::safe_string
-    <CharT, N, const CharT*, const CharT&>;
+  using iterator = typename 
+    basic_auto_string_traits<CharT, Traits>::iterator;
+  using const_iterator = typename 
+   basic_auto_string_traits<CharT, Traits>::const_iterator;
 
-  basic_auto_string() noexcept {}
+  basic_auto_string() noexcept : cur_end(begin()) {}
 
   basic_auto_string(const CharT(&str)[N]) noexcept
+    : cur_end(end())
   {
     traits_type::copy(m.data(), str, N);
   }
@@ -156,22 +186,26 @@ public:
 
   iterator begin() noexcept
   {
-    return iterator(m.data(), iterators_::begin_t());
+    return iterator(m.data(), N-1, iterators_::begin_t());
   }
 
   const_iterator begin() const noexcept
   {
-    return const_iterator(m.data(), iterators_::begin_t());
+    return const_iterator(
+      m.data(), N-1, iterators_::begin_t()
+    );
   }
 
   iterator end() noexcept 
   {
-    return iterator(m.data(), iterators_::end_t());
+    return iterator(m.data(), N-1, iterators_::end_t());
   }
 
   const_iterator end() const noexcept
   {
-    return const_iterator(m.data(), iterators_::end_t());
+    return const_iterator(
+      m.data(), N-1, iterators_::end_t()
+    );
   }
 
   const value_type* data() const
@@ -184,8 +218,14 @@ public:
     return data();
   }
 
+  void push_back(value_type ch) noexcept
+  {
+    *cur_end++ = ch;
+  }
+
 protected:
   std::array<CharT, N> m;
+  iterator cur_end;
 };
 
 // TODO
@@ -221,14 +261,14 @@ public:
 
   basic_auto_stringbuf() 
   {
-    this->setg(s.data(), s.data(), s.data() + N);
-    this->setp(s.data(), s.data(), s.data() + N);
+    this->setg(s.data(), s.data(), s.data() + N - 1);
+    this->setp(s.data(), s.data(), s.data() + N - 1);
   }
 
   basic_auto_stringbuf(const CharT(&str)[N]) : s(str) 
   {
-    this->setg(s.data(), s.data(), s.data() + N);
-    this->setp(s.data(), s.data(), s.data() + N);
+    this->setg(s.data(), s.data(), s.data() + N - 1);
+    this->setp(s.data(), s.data(), s.data() + N - 1);
   }
 
   basic_auto_stringbuf(const basic_auto_stringbuf& o)
@@ -350,13 +390,11 @@ struct len_t<const CharT(&)[N]>
 template<class OutIt, size_t N>
 class stringifier_t<
   OutIt,
-  const typename OutIt::char_type(&)[N]
+  const char(&)[N]
 >
 {
 public:
-  using char_type = typename OutIt::char_type;
-
-  stringifier_t(const char_type(&s)[N]) noexcept
+  stringifier_t(const char(&s)[N]) noexcept
     : ptr(s) 
   {}
 
@@ -366,7 +404,7 @@ public:
   }
 
 protected:
-  const char_type *const ptr;
+  const char *const ptr;
 };
 
 // for long double
@@ -383,8 +421,6 @@ template<class OutIt>
 class stringifier_t<OutIt, long double&>
 {
 public:
-  using char_type = typename OutIt::value_type;
-
   stringifier_t(long double v) noexcept : val(v) {}
 
   void stringify(OutIt out, std::ios_base& st) 
@@ -394,7 +430,7 @@ public:
     // TODO check noexcept 
     // & no memory allocation condition
     const auto& np = 
-      use_facet<num_put<char_type, OutIt>>(st.getloc());
+      use_facet<num_put<char, OutIt>>(st.getloc());
     
     np.put(out, st, ' ', val);
   }
