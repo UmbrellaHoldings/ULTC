@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <vector>
 #include <openssl/bn.h>
+#include <types/fixed.h>
 
 #include "util.h" // for uint64
 
@@ -44,6 +45,16 @@ public:
   BN_CTX& operator*() { return *pctx; }
   BN_CTX** operator&() { return &pctx; }
   bool operator!() { return (pctx == NULL); }
+};
+
+//! A compact number format, see CBigNum::SetCompact.
+//! Use struct type to not mix with integers.
+struct compact_bignum_t
+{
+  unsigned int compact;
+
+  compact_bignum_t() : compact(0) {}
+  compact_bignum_t(unsigned int c) : compact(c) {}
 };
 
 
@@ -95,6 +106,11 @@ public:
   {
     BN_init(this);
     setvch(vch);
+  }
+
+  CBigNum(compact_bignum_t n) : CBigNum()
+  {
+    SetCompact(n);
   }
 
   void setulong(unsigned long n)
@@ -286,11 +302,11 @@ public:
   //
   // This implementation directly uses shifts instead of going
   // through an intermediate MPI representation.
-  CBigNum& SetCompact(unsigned int nCompact)
+  CBigNum& SetCompact(compact_bignum_t n)
   {
-    unsigned int nSize = nCompact >> 24;
-    bool fNegative   =(nCompact & 0x00800000) != 0;
-    unsigned int nWord = nCompact & 0x007fffff;
+    unsigned int nSize = n.compact >> 24;
+    bool fNegative   =(n.compact & 0x00800000) != 0;
+    unsigned int nWord = n.compact & 0x007fffff;
     if (nSize <= 3)
     {
       nWord >>= 8*(3-nSize);
@@ -305,7 +321,7 @@ public:
     return *this;
   }
 
-  unsigned int GetCompact() const
+  compact_bignum_t GetCompact() const
   {
     unsigned int nSize = BN_num_bytes(this);
     unsigned int nCompact = 0;
@@ -326,7 +342,7 @@ public:
     }
     nCompact |= nSize << 24;
     nCompact |= (BN_is_negative(this) ? 0x00800000 : 0);
-    return nCompact;
+    return compact_bignum_t{nCompact};
   }
 
   void SetHex(const std::string& str)
@@ -433,6 +449,30 @@ public:
     CAutoBN_CTX pctx;
     if (!BN_mul(this, this, &b, pctx))
       throw bignum_error("CBigNum::operator*= : BN_mul failed");
+    return *this;
+  }
+
+  //! Multiplies by a fixed_t and truncates to an integer.
+  //! @author Sergei Lodyagin
+  template<class Rep, class Ratio>
+  CBigNum& operator*=(types::fixed_t<Rep, Ratio> b)
+  {
+    using fixed = types::fixed_t<Rep, Ratio>;
+    *this *= (b / fixed::bit()).truncate();
+    *this *= fixed::num;
+    *this /= fixed::den;
+    return *this;
+  }
+
+  //! Divides by a fixed_t and truncates to an integer.
+  //! @author Sergei Lodyagin
+  template<class Rep, class Ratio>
+  CBigNum& operator/=(types::fixed_t<Rep, Ratio> b)
+  {
+    using fixed = types::fixed_t<Rep, Ratio>;
+    *this *= fixed::den;
+    *this /= (b / fixed::bit()).truncate();
+    *this /= fixed::num;
     return *this;
   }
 
@@ -586,5 +626,7 @@ inline bool operator<=(const CBigNum& a, const CBigNum& b) { return (BN_cmp(&a, 
 inline bool operator>=(const CBigNum& a, const CBigNum& b) { return (BN_cmp(&a, &b) >= 0); }
 inline bool operator<(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) < 0); }
 inline bool operator>(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) > 0); }
+
+//! 
 
 #endif

@@ -1,8 +1,9 @@
-// -*-coding: mule-utf-8-unix; fill-column: 59; -*-
+// -*-coding: mule-utf-8-unix; fill-column: 58; -*-
 /**
  * @file
  *
  * @author Anastasia Kurbatova
+ * @author Sergei Lodyagin
  * @copyright Copyright (C) 2013 Cohors LLC 
  */
 
@@ -17,10 +18,16 @@
 #include <ratio>
 #include <chrono>
 #include <locale>
-//#include "types/conversion.h"
+#include <exception>
 #include "types/safe.h"
+#include "types/exception.h"
 
 namespace types {
+
+//! Unable represent the number 
+//! with the actual fixed_t type.
+//! E.g., it can be used in operator"".
+struct precision_lost : virtual std::exception {};
 
 /**
  * A fixed point type.
@@ -31,6 +38,18 @@ namespace types {
 template<class Rep, class Ratio>
 class fixed_t
 {
+  template<class Re, class Ra>
+  friend fixed_t operator*(Rep a, fixed_t b) noexcept;
+
+  template<class Int, class Re, class Ra>
+  friend fixed_t operator*
+    (const types::safe<Int>& a, fixed_t b) noexcept;
+
+  template <class, class, class, class>
+  friend class fixed_put;
+
+//  friend fixed_t operator "" _fx (long double p);
+
 public:
   typedef Rep modular_type;
   typedef Ratio ratio_type;
@@ -55,18 +74,6 @@ public:
     ratio_type::num != 0,
     "fixed_t::ratio_type::num == 0"
   );
-
-  template<class Re, class Ra>
-  friend fixed_t operator*(modular_type a, fixed_t b) 
-    noexcept;
-
-  template<class Int, class Re, class Ra>
-  friend fixed_t operator*
-    (const types::safe<Int>& a, fixed_t b) 
-      noexcept;
-
-  template <class, class, class, class>
-  friend class fixed_put;
 
   constexpr fixed_t() : rep(0) {}
 
@@ -100,6 +107,15 @@ public:
   static constexpr fixed_t zero()
   {
     return fixed_t(0);
+  }
+
+  //! Returns the smallest absolute value.
+  //! 
+  //! (fixed / fixed_t::bit()).truncate()
+  //! gives the modular value.
+  static constexpr fixed_t bit()
+  {
+    return fixed_t(1);
   }
 
   //! Convert to long double.
@@ -248,15 +264,11 @@ public:
     return fixed_t(rep / p);
   }
 
-  //! NB Division by zero is represented as an internal 
-  //! overflow
   fixed_t operator % (fixed_t b) const noexcept
   {
     // Alex Stepanov's explains the proper sign
     // of % operation, C++-11 do according to it.
-    return fixed_t(
-      rep % b.rep * ratio_type::num % ratio_type::den
-    );
+    return fixed_t(rep % b.rep);
   }
 
   //! Check an overflow occurence in the past
@@ -265,8 +277,14 @@ public:
     return (bool) rep;
   }
 
+  //! Truncates to an integer
+  safe<modular_type> truncate() const noexcept
+  {
+    return rep * ratio_type::num / ratio_type::den;
+  }
+
 protected:
-  types::safe<modular_type> rep;
+  safe<modular_type> rep;
 
   // TODO make protected
   explicit constexpr fixed_t
@@ -295,72 +313,13 @@ fixed_t<Re, Ra> operator*(
   return b.operator*(a);
 }
 
-#if 0
-namespace fmt {
-
-//! A fixed_t formatter. You can query a number of frac
-//! digits, you can pass it to get_facet static method -
-//! you will get the
-//! locate facet to work with which destroy itself when
-//! the locale becomes out of usage in C++ lib.
-class fixed_t
+template<class Rep, class Ratio>
+constexpr fixed_t<Rep, Ratio> 
+//
+to_fixed(std::chrono::duration<Rep, Ratio> dur)
 {
-public:
-#if 0
-  template<class CharT>
-  class numpunct : public std::numpunct<CharT>
-  {
-  public:
-    numpunct(int f) : frac(f) {}
-
-  protected:
-    int frac;
-
-    /* Format definitions */
-
-    int do_frac_digits() const override
-    {
-      assert(frac > 0); // need to call set_frac first
-      return frac;
-    }
-
-    std::num_base::pattern do_pos_format() const override
-    {
-      using namespace std;
-      return { { num_base::value, num_base::none, 
-            num_base::none, num_base::none } };
-    }
-
-    std::num_base::pattern do_neg_format() const override
-    {
-      using namespace std;
-      return { { num_base::sign, num_base::value, 
-            num_base::none, num_base::none } };
-    }
-  };
-#endif
-
-  //! the default value -1 means "all digits"
-  fixed_t(int ap = -1) : fdigits(ap) {}
-
-#if 0
-  template<class CharT>
-  static numpunct<CharT>* get_facet(int frac)
-  {
-    return new numpunct<CharT>(frac);
-  }
-#endif
-
-  int frac_digits() const { return fdigits; }
-
-protected:
-  //! it is a number of fraction points or -1 (a special
-  //! value) 
-  int fdigits;
-};
-
-} // fmt
-#endif
+  return fixed_t<Rep, Ratio>(dur);
+}
 
 template <
   class CharT,
@@ -578,6 +537,9 @@ operator >>
   return in;
 }
 #endif
+
+template<class Rep>
+using percent_t = fixed_t<Rep, std::ratio<1, 100>>;
 
 } // types
 

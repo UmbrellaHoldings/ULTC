@@ -20,21 +20,11 @@ namespace time {
 
 namespace block {
 
-using duration = std::chrono::duration<
-  std::chrono::system_clock::rep,
-  std::ratio<1>
->;
-
-using seconds = std::chrono::duration<duration::rep, std::ratio<1>>;
-using minutes = std::chrono::duration<duration::rep, std::ratio<60>>;
-using hours = std::chrono::duration<duration::rep, std::ratio<60 * 60>>;
-using days = std::chrono::duration<duration::rep, std::ratio<60*60*24>>;
-
 struct clock
 {
-  using duration   = coin::time::block::duration;
-  using rep        = duration::rep;
-  using period     = duration::period;
+  using rep        = std::chrono::system_clock::rep;
+  using period     = std::ratio<1>;
+  using duration   = std::chrono::duration<rep, period>;
   using time_point = std::chrono::time_point<clock>;
   
   static constexpr bool is_steady = false;
@@ -64,7 +54,18 @@ struct clock
   }
 };
 
+using seconds = 
+  std::chrono::duration<clock::rep, std::ratio<1>>;
+using minutes = 
+  std::chrono::duration<clock::rep, std::ratio<60>>;
+using hours = 
+  std::chrono::duration<clock::rep, std::ratio<60 * 60>>;
+using days = 
+  std::chrono::duration<clock::rep, std::ratio<60*60*24>>;
+
 using time_point = clock::time_point;
+
+
 //using duration = clock::duration;
 #if 0
 std::ostream& 

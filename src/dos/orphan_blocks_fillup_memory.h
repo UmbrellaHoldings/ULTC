@@ -15,9 +15,10 @@ namespace dos {
 
 namespace orphan_blocks_fillup_memory {
 
-//! Suppose we are nTime after the last checkpoint. Compute min
-//! difficulty allowed based on the last checkpointed block difficulty
-//! which is nBase. It is nBase *= adjustment * nTime / nTargetTime
+//! Suppose we are nTime after the last
+//! checkpoint. Compute min difficulty allowed based on
+//! the last checkpointed block difficulty which is
+//! nBase. It is nBase *= adjustment * nTime / nTargetTime
 template<fixed_t adjustment>
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {

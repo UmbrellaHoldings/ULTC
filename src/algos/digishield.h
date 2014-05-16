@@ -14,79 +14,61 @@
 
 #include "types/fixed.h"
 #include "btc_time.h"
+#include "types.h"
 
 namespace DigiByte {
 
-template<
-  const coin::time::block::duration& block_period,
-  const uint256& min_difficulty_
->
-unsigned int GetNextWorkRequired(
-  const CBlockIndex* pindexLast, 
-  const CBlock *pblock
-)
+// TODO singleton
+class difficulty
 {
-  const CBigNum min_difficulty(min_difficulty_);
+public:
+  using duration = coin::time::block::clock::duration;
 
-  // Genesis block
-  if (!pindexLast) 
-    return min_difficulty.GetCompact();
-  
-  // Limit adjustment step
-  const auto pindexFirst = pindexLast->pprev;
-  if (!pindexFirst)
-    return pindexLast->nBits; // slod
-
-  auto nActualTimespan = pindexLast->GetTimePoint() 
-    - pindexFirst->GetTimePoint();
-
-  std::cout << "  nActualTimespan = " 
-            << nActualTimespan
-            << "  before bounds\n";
-
-  CBigNum bnNew;
-  bnNew.SetCompact(pindexLast->nBits);
-  
-  // thanks to RealSolid & WDC for this code 
-
-  //Amplitude Filter by daft27
-  nActualTimespan = block_period 
-    + (nActualTimespan - block_period)/8;
-    
-  //Guts of DigiShield Retarget
-  if (nActualTimespan < block_period * 3/4)
-    nActualTimespan = block_period * 3/4;
-      
-  if (nActualTimespan > block_period * 3/2) 
-    nActualTimespan = block_period * 3/2;
-
-  // Retarget
-  bnNew *= nActualTimespan;
-  bnNew /= block_period;
-  
-  /// debug print
-  std::cout 
-    << "GetNextWorkRequired [DigiShield] RETARGET \n"
-    << "retargetTimespan = " << block_period
-    << " nActualTimespan = " << nActualTimespan << '\n';
-  printf(
-    "Before: %08x %s\n", 
-    pindexLast->nBits, 
-    CBigNum().SetCompact(pindexLast->nBits).getuint256()
-      . ToString().c_str()
+  //! Calculates a target difficulty for the next block
+  compact_bignum_t GetNextWorkRequired(
+    const CBlockIndex* pindexLast
   );
-  printf(
-    "After: %08x %s\n", 
-    bnNew.GetCompact(), 
-    bnNew.getuint256().ToString().c_str()
-  );
-  
-  if (bnNew > min_difficulty)
-    bnNew = min_difficulty;
 
-  return bnNew.GetCompact();
-}
+  //! Checks the difficulty is in implementation defined
+  //! range.
+  // TODO ComputeMinWork?
+  template<class Block>
+  bool is_valid(const Block& block);
 
-}
+  //! Do not accept blocks with too low difficulty.
+  //! See also 
+  //! https://bitcointalk.org/index.php?topic=23266.0
+  //!
+  //! Computes min difficulty allowed based on
+  //! the last reliable block difficulty.
+  //!
+  //! @author Gavin Andresen <gavinandresen@gmail.com>
+  //! @author Sergei Lodyagin <serg@kogorta.dp.ua>
+  template<class Block>
+  compact_bignum_t dos_min_difficulty(
+    const Block& block
+  ) const;
+
+protected:
+  //TODO make the _by_design parameters as a template
+  //parameters 
+
+  //! The greater numeric value is the lower difficulty
+  const compact_bignum_t min_difficulty_by_design = 
+    CBigNum(~uint256(0) >> 18).GetCompact();
+
+  //! An average planned block period
+  const duration block_period_by_design = 
+    coin::time::block::minutes(8);
+
+  //! The limit parameter for dos_min_difficulty()
+  const coin::percent_t adjustment_by_design = 
+    coin::operator""_pct(110);
+
+  //! Returns the last block which can't be faked
+  static const CBlockIndex* dos_last_reliable_block();
+};
+
+} // DigiByte
 
 #endif

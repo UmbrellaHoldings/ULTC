@@ -204,9 +204,10 @@ KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
 xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
-TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
-#TESTOBJS = \
-#   obj-test/scrypt_tests.o \
+#TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+TESTOBJS = \
+   obj-test/scrypt_tests.o \
+   obj-test/constexpr_int_tests.o
 #   obj-test/test_bitcoin.o
 
 SHOWNFACTOROBJS := obj/show_n_factor.o obj/n_factor.o
