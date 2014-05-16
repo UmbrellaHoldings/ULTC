@@ -45,6 +45,9 @@ class fixed_t
   friend fixed_t operator*
     (const types::safe<Int>& a, fixed_t b) noexcept;
 
+  template<class Re, class Ra>
+  friend fixed_t operator/(fixed_t a, fixed_t b) noexcept;
+
   template <class, class, class, class>
   friend class fixed_put;
 
@@ -54,8 +57,13 @@ public:
   typedef Rep modular_type;
   typedef Ratio ratio_type;
 
+  static constexpr auto num = ratio_type::num;
+  static constexpr auto den = ratio_type::den;
+
   static constexpr double ratio_as_long_double = 
     (double) ratio_type::num / ratio_type::den;
+  static constexpr double rev_ratio_as_long_double = 
+    (double) ratio_type::den / ratio_type::num;
 
   static_assert( 
     std::is_signed<modular_type>::value, 
@@ -110,9 +118,6 @@ public:
   }
 
   //! Returns the smallest absolute value.
-  //! 
-  //! (fixed / fixed_t::bit()).truncate()
-  //! gives the modular value.
   static constexpr fixed_t bit()
   {
     return fixed_t(1);
@@ -128,11 +133,12 @@ public:
   void to_long_double
     (long double& val, bool* lost_precision) const
   {
-    val = (long double) rep / ratio_as_long_double;
+    val = (long double) rep * ratio_as_long_double;
     if (lost_precision) // a recursion guard
       *lost_precision = 
         *this != from_long_double(val, nullptr)
-        || rep.lost_precision (); // as a result of division
+        || rep.lost_precision (); 
+           // as a result of division
   }
 
   //! Construct fixed_t from a long double value.
@@ -143,7 +149,7 @@ public:
   static fixed_t from_long_double
     (long double d, bool* lost_precision) 
   {
-    fixed_t p(d * ratio_as_long_double);
+    fixed_t p(d * rev_ratio_as_long_double);
     if (lost_precision) { // a recursion guard
       long double d2;
       p.to_long_double(d2, nullptr);
@@ -223,6 +229,12 @@ public:
     (const types::safe<Int>& p) noexcept
   {
     rep /= p;
+    return *this;
+  }
+
+  fixed_t& operator/=(fixed_t o) noexcept
+  {
+    rep /= o.rep;
     return *this;
   }
 
@@ -313,6 +325,15 @@ fixed_t<Re, Ra> operator*(
   return b.operator*(a);
 }
 
+template<class Re, class Ra>
+fixed_t<Re,Ra> operator/(
+  fixed_t<Re,Ra> a, 
+  fixed_t<Re,Ra> b
+) noexcept
+{
+  return a /= b;
+}
+
 template<class Rep, class Ratio>
 constexpr fixed_t<Rep, Ratio> 
 //
@@ -374,11 +395,7 @@ protected:
       return out;
     }
 
-#if 0
-    int frac = v.fmt.frac_digits();
-#else
     int frac = -1;
-#endif
 
     // count the number of frac digits needed to represent
     // without any loss
@@ -422,6 +439,15 @@ protected:
     return out;
   }
 };
+
+template <
+  class CharT,
+  class Rep,
+  class Ratio,
+  class OutputIt
+>
+std::locale::id fixed_put<CharT, Rep, Ratio, OutputIt>
+::id;
 
 template<
   class CharT, 

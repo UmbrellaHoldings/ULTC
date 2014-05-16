@@ -5,6 +5,7 @@
 #ifndef BITCOIN_BIGNUM_H
 #define BITCOIN_BIGNUM_H
 
+#include <iostream>
 #include <stdexcept>
 #include <vector>
 #include <openssl/bn.h>
@@ -49,14 +50,27 @@ public:
 
 //! A compact number format, see CBigNum::SetCompact.
 //! Use struct type to not mix with integers.
+//! @author Sergei Loadyagin
 struct compact_bignum_t
 {
   unsigned int compact;
 
-  compact_bignum_t() : compact(0) {}
-  compact_bignum_t(unsigned int c) : compact(c) {}
+  constexpr compact_bignum_t() : compact(0) {}
+  constexpr compact_bignum_t(unsigned int c) 
+    : compact(c) 
+  {}
+
+  //! Returns true if this has lower difficulty than o
+  //! (lower difficulty corresponds 
+  //! to higher numeric values)
+  constexpr bool lower_difficulty(compact_bignum_t o) const
+  {
+    return compact > o.compact;
+  }
 };
 
+std::ostream&
+operator<<(std::ostream& out, compact_bignum_t c);
 
 /** C++ wrapper for BIGNUM (OpenSSL bignum) */
 class CBigNum : public BIGNUM
@@ -448,7 +462,9 @@ public:
   {
     CAutoBN_CTX pctx;
     if (!BN_mul(this, this, &b, pctx))
-      throw bignum_error("CBigNum::operator*= : BN_mul failed");
+      throw bignum_error(
+        "CBigNum::operator*= : BN_mul failed"
+      );
     return *this;
   }
 
@@ -458,7 +474,7 @@ public:
   CBigNum& operator*=(types::fixed_t<Rep, Ratio> b)
   {
     using fixed = types::fixed_t<Rep, Ratio>;
-    *this *= (b / fixed::bit()).truncate();
+    *this *= (Rep) b.truncate();
     *this *= fixed::num;
     *this /= fixed::den;
     return *this;
@@ -471,7 +487,7 @@ public:
   {
     using fixed = types::fixed_t<Rep, Ratio>;
     *this *= fixed::den;
-    *this /= (b / fixed::bit()).truncate();
+    *this /= (Rep) (b / fixed::bit()).truncate();
     *this /= fixed::num;
     return *this;
   }
@@ -578,22 +594,56 @@ inline const CBigNum operator-(const CBigNum& a)
   return r;
 }
 
-inline const CBigNum operator*(const CBigNum& a, const CBigNum& b)
+inline const CBigNum operator*(
+  const CBigNum& a, 
+  const CBigNum& b
+)
 {
   CAutoBN_CTX pctx;
   CBigNum r;
   if (!BN_mul(&r, &a, &b, pctx))
-    throw bignum_error("CBigNum::operator* : BN_mul failed");
+    throw bignum_error(
+      "CBigNum::operator* : BN_mul failed"
+    );
   return r;
 }
 
-inline const CBigNum operator/(const CBigNum& a, const CBigNum& b)
+//! Multiplies by a fixed_t and truncates to an integer.
+//! @author Sergei Lodyagin
+template<class Rep, class Ratio>
+CBigNum operator*(CBigNum a, types::fixed_t<Rep, Ratio> b)
+{
+  return a *= b;
+}
+
+//! Multiplies by a fixed_t and truncates to an integer.
+//! @author Sergei Lodyagin
+template<class Rep, class Ratio>
+CBigNum operator*(types::fixed_t<Rep, Ratio> a, CBigNum b)
+{
+  return b *= a;
+}
+
+inline const CBigNum operator/(
+  const CBigNum& a, 
+  const CBigNum& b
+)
 {
   CAutoBN_CTX pctx;
   CBigNum r;
   if (!BN_div(&r, NULL, &a, &b, pctx))
-    throw bignum_error("CBigNum::operator/ : BN_div failed");
+    throw bignum_error(
+      "CBigNum::operator/ : BN_div failed"
+    );
   return r;
+}
+
+//! Divides by a fixed_t and truncates to an integer.
+//! @author Sergei Lodyagin
+template<class Rep, class Ratio>
+CBigNum& operator/(CBigNum a, types::fixed_t<Rep, Ratio> b)
+{
+  return a /= b;
 }
 
 inline const CBigNum operator%(const CBigNum& a, const CBigNum& b)

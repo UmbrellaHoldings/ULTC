@@ -23,10 +23,10 @@ double GetDifficulty(const CBlockIndex* blockindex)
             blockindex = pindexBest;
     }
 
-    int nShift = (blockindex->nBits >> 24) & 0xff;
+    int nShift = (blockindex->nBits.compact >> 24) & 0xff;
 
     double dDiff =
-        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(blockindex->nBits.compact & 0x00ffffff);
 
     while (nShift < 29)
     {
@@ -60,7 +60,7 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
     result.push_back(Pair("tx", txs));
     result.push_back(Pair("time", (boost::int64_t)block.GetBlockTime()));
     result.push_back(Pair("nonce", (boost::uint64_t)block.nNonce));
-    result.push_back(Pair("bits", HexBits(block.nBits)));
+    result.push_back(Pair("bits", HexBits(block.nBits.compact)));
     result.push_back(Pair("difficulty", GetDifficulty(blockindex)));
 
     if (blockindex->pprev)

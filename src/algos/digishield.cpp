@@ -9,14 +9,22 @@
  * @author Sergei Lodyagin <serg@kogorta.dp.ua>
  */
 
+#include <iostream>
+#include <map>
+#include "uint256.h"
 #include "digishield.hpp"
 #include "main.h"
+#include "checkpoints.h"
+#include "bignum.h"
+
+extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 
 namespace DigiByte {
 
 compact_bignum_t difficulty
-::GetNextWorkRequired(const CBlockIndex* pindexLast)
+::next_block_difficulty(const CBlockIndex* pindexLast)
 {
+//  using namespace std;
   using namespace types;
 
   // Genesis block
@@ -32,43 +40,36 @@ compact_bignum_t difficulty
     - pindexFirst->GetTimePoint();
 
   std::cout << "  nActualTimespan = " 
-            << nActualTimespan
-            << "  before bounds\n";
+       << nActualTimespan
+       << "  before bounds\n";
 
   // thanks to RealSolid & WDC for this code 
 
   //Amplitude Filter by daft27
-  nActualTimespan = block_period 
-    + (nActualTimespan - block_period)/8;
+  nActualTimespan = block_period_by_design 
+    + (nActualTimespan - block_period_by_design)/8;
     
   //Guts of DigiShield Retarget
-  if (nActualTimespan < block_period * 3/4)
-    nActualTimespan = block_period * 3/4;
+  if (nActualTimespan < block_period_by_design * 3/4)
+    nActualTimespan = block_period_by_design * 3/4;
       
-  if (nActualTimespan > block_period * 3/2) 
-    nActualTimespan = block_period * 3/2;
+  if (nActualTimespan > block_period_by_design * 3/2) 
+    nActualTimespan = block_period_by_design * 3/2;
 
   // Retarget
   CBigNum bnNew = pindexLast->nBits;
   bnNew *= to_fixed(nActualTimespan);
-  bnNew /= to_fixed(block_period);
+  bnNew /= to_fixed(block_period_by_design);
   
   /// debug print
   std::cout 
     << "GetNextWorkRequired [DigiShield] RETARGET \n"
-    << "retargetTimespan = " << block_period
-    << " nActualTimespan = " << nActualTimespan << '\n';
-  printf(
-    "Before: %08x %s\n", 
-    pindexLast->nBits, 
-    CBigNum(pindexLast->nBits).getuint256()
-    . ToString().c_str()
-    );
-  printf(
-    "After: %08x %s\n", 
-    bnNew.GetCompact(), 
-    bnNew.getuint256().ToString().c_str()
-    );
+    << "retargetTimespan = " << block_period_by_design
+    << " nActualTimespan = " << nActualTimespan
+    << "\nBefore: " << pindexLast->nBits 
+    << CBigNum(pindexLast->nBits).getuint256()
+    << "\nAfter: " << bnNew.GetCompact()
+    << bnNew.getuint256() << '\n';
   
   if (bnNew > min_difficulty_by_design)
     bnNew = min_difficulty_by_design;
@@ -76,19 +77,19 @@ compact_bignum_t difficulty
   return bnNew.GetCompact();
 }
 
-  const CBlockIndex* difficulty
-  ::dos_last_reliable_block()
-  {
-    static const CBlockIndex* last_checkpointed_block =
-      Checkpoints::GetLastCheckpoint();
+const CBlockIndex* difficulty
+::dos_last_reliable_block()
+{
+  static const CBlockIndex* last_checkpointed_block =
+    Checkpoints::GetLastCheckpoint(mapBlockIndex);
 
-    if (last_checkpointed_block)
-      return last_chekpointed_block;
-    else
-    {
-      assert(pindexGenesisBlock);
-      return pindexGenesisBlock;
-    }
+  if (last_checkpointed_block)
+    return last_checkpointed_block;
+  else
+  {
+    assert(pindexGenesisBlock);
+    return pindexGenesisBlock;
   }
+}
 
 } // DigiByte

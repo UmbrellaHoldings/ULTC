@@ -65,20 +65,7 @@ using days =
 
 using time_point = clock::time_point;
 
-
-//using duration = clock::duration;
-#if 0
-std::ostream& 
-//
-operator<<( 
-  std::ostream& out,
-  duration dur
-)
-{
-  return out << types::fixed_t<duration::rep, duration::period>(dur);
-}
-#else
-#endif
+constexpr clock::duration zero = clock::duration::zero();
 
 } // block
 } // time

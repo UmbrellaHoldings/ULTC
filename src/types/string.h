@@ -11,6 +11,7 @@
 #define COHORS_TYPES_STRING_H
 
 #include <ios>
+#include <streambuf>
 #include <string>
 #include <array>
 #include <cstdint>
@@ -19,6 +20,9 @@
 namespace types {
 
 namespace iterators_ {
+
+struct begin_t {};
+struct end_t {};
 
 template<
   class CharT, 
@@ -45,15 +49,38 @@ public:
   using const_pointer = const CharT*;
   using const_reference = const CharT&;
 
-protected:
-  struct begin_t {};
-  struct end_t {};
+  reference operator*() noexcept
+  {
+    return base[idx];
+  }
 
-  safe_string(begin_t) noexcept : idx(0), ovf(0) {}
-  safe_string(end_t) noexcept : idx(0), ovf(1) {}
+  const_reference operator*() const noexcept
+  {
+    return base[idx];
+  }
+
+  safe_string& operator++() noexcept
+  {
+    if (__builtin_expect(idx++ >= N, 0))
+    {
+      idx = 0;
+      ++ovf;
+    }
+    return *this;
+  }
+
+protected:
+  safe_string(pointer base_, begin_t) noexcept 
+    : idx(0), ovf(0), base(base_) 
+  {}
+
+  safe_string(pointer base_, end_t) noexcept 
+    : idx(0), ovf(1), base(base_) 
+  {}
 
   size_type idx;
   int16_t ovf;
+  pointer base;
 };
 
 } // iterators_
@@ -95,11 +122,16 @@ typedef constexpr_basic_string<wchar_t> constexpr_wstring;
 //! A string in an automatic storage
 template <
   class CharT,
-  uint16_t N,
+  int16_t N,
   class Traits = std::char_traits<CharT>
 > 
 class basic_auto_string 
 {
+  static_assert(
+    N >= 0, 
+    "types::basic_auto_string: negative size"
+  );
+
 public:
   using traits_type = Traits;
   using value_type = CharT;
@@ -110,6 +142,8 @@ public:
   using const_iterator = iterators_::safe_string
     <CharT, N, const CharT*, const CharT&>;
 
+  basic_auto_string() noexcept {}
+
   basic_auto_string(const CharT(&str)[N]) noexcept
   {
     traits_type::copy(m.data(), str, N);
@@ -117,22 +151,22 @@ public:
 
   iterator begin() noexcept
   {
-    return iterator(iterator::begin_t());
+    return iterator(m.data(), iterators_::begin_t());
   }
 
   const_iterator begin() const noexcept
   {
-    return const_iterator(const_iterator::begin_t());
+    return const_iterator(m.data(), iterators_::begin_t());
   }
 
   iterator end() noexcept 
   {
-    return iterator(iterator::end_t());
+    return iterator(m.data(), iterators_::end_t());
   }
 
   const_iterator end() const noexcept
   {
-    return const_iterator(const_iterator::end_t());
+    return const_iterator(m.data(), iterators_::end_t());
   }
 
   const value_type* data() const
@@ -161,6 +195,102 @@ using auto_string = basic_auto_string<char, N>;
 
 template<int16_t N>
 using auto_wstring = basic_auto_string<wchar_t, N>;
+
+template <
+  class CharT,
+  int16_t N,
+  class Traits = std::char_traits<CharT>
+>
+class basic_auto_stringbuf 
+  : public std::basic_streambuf<CharT, Traits>
+{
+public:
+  typedef CharT char_type;
+  typedef Traits traits_type;
+  typedef typename Traits::int_type int_type;
+  typedef typename Traits::pos_type pos_type;
+  typedef typename Traits::off_type off_type;
+  typedef basic_auto_string<CharT, N, Traits> string;
+
+  basic_auto_stringbuf() 
+  {
+    this->setg(s.data(), s.data(), s.data() + N);
+    this->setp(s.data(), s.data(), s.data() + N);
+  }
+
+  basic_auto_stringbuf(const CharT(&str)[N]) : s(str) 
+  {
+    this->setg(s.data(), s.data(), s.data() + N);
+    this->setp(s.data(), s.data(), s.data() + N);
+  }
+
+  string s;
+
+protected:
+  std::streamsize showmanyc() override
+  {
+    return this->egptr() - this->gptr();
+  }
+
+  int_type underflow() override
+  {
+    return (showmanyc()) 
+      ? Traits::to_int_type(*this->gptr()) 
+      : Traits::eof();
+  }
+
+  pos_type seekoff
+    ( 
+      off_type off, 
+      std::ios_base::seekdir dir,
+      std::ios_base::openmode which = std::ios_base::in
+     ) override
+  {
+    using namespace std;
+    const pos_type end_pos = this->egptr() - this->eback();
+    safe<off_type> abs_pos(0);
+
+    switch((uint32_t)dir) {
+      case ios_base::beg: 
+        abs_pos = off;
+        break;
+      case ios_base::end:
+        abs_pos = end_pos + off;
+        break;
+      case ios_base::cur:
+        abs_pos = this->gptr() - this->eback() + off;
+        break;
+    }
+
+    if (!(bool) abs_pos || abs_pos < safe<off_type>(0)) 
+      // the rest will be checked in seekpos
+      return pos_type(off_type(-1));
+    
+    return seekpos((off_type) abs_pos);
+  }
+
+  pos_type seekpos
+    ( 
+      pos_type pos, 
+      std::ios_base::openmode which = std::ios_base::in
+     ) override
+  {
+    const pos_type end_pos = this->egptr() - this->eback();
+
+    if (pos > end_pos || which & std::ios_base::out)
+      return pos_type(off_type(-1));
+
+    this->setg
+      (this->eback(), this->eback() + pos, this->egptr());
+    return pos;
+  }
+};
+
+template<int16_t N>
+using auto_stringbuf = basic_auto_stringbuf<char, N>;
+
+template<int16_t N>
+using auto_wstringbuf = basic_auto_stringbuf<wchar_t, N>;
 
 namespace compound_message_ {
 
@@ -195,11 +325,11 @@ struct len_t<const CharT(&)[N]>
 template<class OutIt, size_t N>
 class stringifier_t<
   OutIt,
-  const typename OutIt::value_type(&)[N]
+  const typename OutIt::char_type(&)[N]
 >
 {
 public:
-  using char_type = typename OutIt::value_type;
+  using char_type = typename OutIt::char_type;
 
   stringifier_t(const char_type(&s)[N]) noexcept
     : ptr(s) 
@@ -217,7 +347,7 @@ protected:
 // for long double
 // TODO enable_if(type class)
 template<>
-struct len_t<long double>
+struct len_t<long double&>
 {
   static constexpr size_t max_length = 
     std::numeric_limits<long double>::digits // mantissa
@@ -225,7 +355,7 @@ struct len_t<long double>
 };
 
 template<class OutIt>
-class stringifier_t<OutIt, long double>
+class stringifier_t<OutIt, long double&>
 {
 public:
   using char_type = typename OutIt::value_type;
@@ -241,7 +371,7 @@ public:
     const auto& np = 
       use_facet<num_put<char_type, OutIt>>(st.getloc());
     
-    np(out, st, ' ', val);
+    np.put(out, st, ' ', val);
   }
 
 protected:

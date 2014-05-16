@@ -18,21 +18,84 @@
 
 namespace types {
 
-//! Calculate the number of highest bit in i starting from
-//! 1. Return 0 if i == 0.
-template <
-  class UInt,
-  // have no sence for signed, 
-  // its disabled to catch logic error in your program
-  bool = std::is_unsigned<UInt>::value 
->
-int highest_bit1(UInt i)
+//namespace bits_ {
+
+template<class UInt, class = void>
+struct bits;
+
+template<>
+struct bits<unsigned int>
 {
+  //! Calculate the number of highest bit in i starting from
+  //! 1. Return 0 if i == 0.
+  static unsigned highest_1(unsigned i)
+  {
+    return i
+      ? sizeof(i) * 8 - __builtin_clz(i)
+      : 0;
+  }
+};
+
+template<>
+struct bits<unsigned long>
+{
+  //! Calculate the number of highest bit in i starting from
+  //! 1. Return 0 if i == 0.
+  static unsigned highest_1(unsigned long i)
+  {
+    return i
+      ? sizeof(i) * 8 - __builtin_clzl(i)
+      : 0;
+  }
+};
+
+template<>
+struct bits<unsigned long long>
+{
+  //! Calculate the number of highest bit in i starting from
+  //! 1. Return 0 if i == 0.
+  static unsigned highest_1(unsigned long long i)
+  {
+    return i
+      ? sizeof(i) * 8 - __builtin_clzll(i)
+      : 0;
+  }
+};
+
+#if 0
+template<>
+struct bits<
+  UInt,
+  typename std::enable_if<
+    std::is_integral<UInt>::value, 
+    // have no sence for signed, and so
+    // disabled to catch logic error in your program
+    std::is_unsigned<UInt>::value
+  >::type
+>
+{
+  //! Calculate the number of highest bit in i starting from
+  //! 1. Return 0 if i == 0.
+  static unsigned highest_1(UInt i)
+  {
+  }
+}
+#endif
+
+//} // bits_
+
+template <class UInt>
+unsigned highest_bit1(UInt i)
+{
+#if 1 // using GCC builtin
+  return bits<UInt>::highest_1(i);
+#else
   int res;
   // TODO check with assembly
   for (res = 0; i != 0; i >>= 1, ++res)
     ;
   return res;
+#endif
 }
 
 //! Not defined for not integral and unsigned integral types
@@ -135,11 +198,16 @@ public:
   {
     // TODO check what is faster
 #if 1
-    const Int ua = std::abs(v);
-    const Int2 ub = std::abs(b.v);
+    const typename std::make_unsigned<Int>::type ua = 
+      std::abs(v);
+    const typename std::make_unsigned<Int2>::type ub = 
+      std::abs(b.v);
 
-    if (__builtin_expect
-          (highest_bit1(ua) + highest_bit1(ub) > sizeof(Int)*8/2-1, 0))
+    if (__builtin_expect(
+          highest_bit1(ua) + highest_bit1(ub) > 
+          sizeof(Int)*8/2-1, 
+          0
+        ))
       no_ovf = false;
     else {
       v *= b.v;

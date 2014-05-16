@@ -116,6 +116,7 @@ OBJS= \
     obj/addrman.o \
     obj/alert.o \
     obj/allocators.o \
+    obj/bignum.o \
     obj/bitcoinrpc.o \
     obj/bloom.o \
     obj/checkpoints.o \
@@ -144,12 +145,13 @@ OBJS= \
     obj/scrypt_generated.o \
     obj/sync.o \
     obj/txdb.o \
+    obj/uint256.o \
     obj/util.o \
     obj/util_cmn.o \
     obj/version.o \
     obj/wallet.o \
-    obj/walletdb.o 
-
+    obj/walletdb.o \
+    obj/digishield.o
 
 ifdef USE_SSE2
 DEFS += -DUSE_SSE2
@@ -175,6 +177,7 @@ leveldb/libleveldb.a:
 # auto-generated dependencies:
 -include obj/*.P
 -include obj-test/*.P
+#-include obj-algos/*.P
 
 obj/build.h: FORCE
 	/bin/sh ../share/genbuild.sh obj/build.h
@@ -183,6 +186,13 @@ DEFS += -DHAVE_BUILD_INFO
 
 obj/%-sse2.o: %-sse2.cpp
 	$(CXX) -c $(xCXXFLAGS) -msse2 -MMD -MF $(@:%.o=%.d) -o $@ $<
+	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
+	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
+	  rm -f $(@:%.o=%.d)
+
+obj/%.o: algos/%.cpp
+	$(CXX) -c $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
@@ -204,10 +214,10 @@ KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
 xxxxxxxKeyGen: $(KEYGENOBJS)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
-#TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
-TESTOBJS = \
-   obj-test/scrypt_tests.o \
-   obj-test/constexpr_int_tests.o
+TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+#TESTOBJS = \
+#   obj-test/scrypt_tests.o \
+#   obj-test/constexpr_int_tests.o
 #   obj-test/test_bitcoin.o
 
 SHOWNFACTOROBJS := obj/show_n_factor.o obj/n_factor.o

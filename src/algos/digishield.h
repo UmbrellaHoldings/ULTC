@@ -15,6 +15,9 @@
 #include "types/fixed.h"
 #include "btc_time.h"
 #include "types.h"
+#include "bignum.h"
+
+class CBlockIndex;
 
 namespace DigiByte {
 
@@ -25,7 +28,7 @@ public:
   using duration = coin::time::block::clock::duration;
 
   //! Calculates a target difficulty for the next block
-  compact_bignum_t GetNextWorkRequired(
+  compact_bignum_t next_block_difficulty(
     const CBlockIndex* pindexLast
   );
 
@@ -41,6 +44,7 @@ public:
   //!
   //! Computes min difficulty allowed based on
   //! the last reliable block difficulty.
+  //! @exception coin::except::invalid_timestamp
   //!
   //! @author Gavin Andresen <gavinandresen@gmail.com>
   //! @author Sergei Lodyagin <serg@kogorta.dp.ua>
@@ -48,6 +52,13 @@ public:
   compact_bignum_t dos_min_difficulty(
     const Block& block
   ) const;
+
+  //! Call dos_min_difficulty() and throw exception if it
+  //! is lower for the block.
+  //! @exception coin::except::invalid_difficulty
+  //! @exception coin::except::invalid_timestamp
+  template<class Block>
+  void dos_check_min_difficulty(const Block& block) const;
 
 protected:
   //TODO make the _by_design parameters as a template

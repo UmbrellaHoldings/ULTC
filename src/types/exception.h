@@ -11,6 +11,7 @@
 
 #include <tuple>
 #include <algorithm>
+#include <iterator>
 #include "types/string.h"
 
 namespace types {
@@ -19,7 +20,12 @@ template<uint16_t max_len>
 class exception_string : public virtual std::exception
 {
 public:
+#if 1
   using string = auto_string<max_len>;
+#else
+  using stringbuf = auto_stringbuf<max_len>;
+  using string = typename stringbuf::string;
+#endif
 
   exception_string() {}
 
@@ -82,7 +88,7 @@ public:
   >;
 
   const compound_message_t<
-    typename exception_base::string::iterator,
+    std::ostreambuf_iterator<char>,
     Pars...
   > message;
 
@@ -90,7 +96,7 @@ public:
     : exception_base(), message(pars...)
   {
     message.stringify(
-      exception_base::msg.begin(),
+      std::ostreambuf_iterator<char>(&this->msg),
       exception_::the_ostream
     );
   }
@@ -113,7 +119,7 @@ template<class Exception, class... Args>
 auto exception(Args&&... args)
   -> formatted_::exception<Exception, Args&&...>
 {
-  return exception<Exception, Args&&...>
+  return formatted_::exception<Exception, Args&&...>
     (std::forward<Args>(args)...);
 }
 

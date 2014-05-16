@@ -18,11 +18,13 @@
 #include "checkqueue.h"
 #include "scrypt.hpp"
 #include "n_factor.h"
-#include "algos/digishield.h"
+#include "algos/digishield.hpp"
 #include "btc_time.h"
+#include "block.h"
 
 using namespace std;
 using namespace boost;
+using namespace coin;
 
 //
 // Global smake -f makefile.unix USE_UPNP=-tate
@@ -2027,7 +2029,7 @@ bool CBlock::CheckBlock(CValidationState &state, bool fCheckPOW, bool fCheckMerk
   }
 
   // Check proof of work matches claimed amount
-  if (fCheckPOW && !CheckProofOfWork(GetPoWHash(), *this))
+  if (fCheckPOW && !CheckProofOfWork(*this))
     return state.DoS(50, error("CheckBlock() : proof of work failed"));
 
   // Check timestamp
@@ -2093,8 +2095,13 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
     nHeight = pindexPrev->nHeight+1;
 
     // Check proof of work
-    if (nBits != the_difficulty.GetNextWorkRequired(pindexPrev))
-      return state.DoS(100, error("AcceptBlock() : incorrect proof of work"));
+    if (nBits != the_difficulty.next_block_difficulty
+        (pindexPrev)
+        )
+      return state.DoS(
+        100, 
+        error("AcceptBlock() : incorrect proof of work")
+      );
 
     // Check timestamp against prev
     if (GetBlockTime() <= pindexPrev->GetMedianTimePast())
@@ -2195,25 +2202,19 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
   if (!pblock->CheckBlock(state))
     return error("ProcessBlock() : CheckBlock FAILED");
 
-  CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
-  if (pcheckpoint && pblock->hashPrevBlock != hashBestChain)
+  if (pblock->hashPrevBlock != hashBestChain)
   {
-    // Extra checks to prevent "fill up memory by spamming with bogus blocks"
-    int64 deltaTime = pblock->GetBlockTime() - pcheckpoint->nTime;
-    if (0deltaTime < 0)
-    {
-      return state.DoS(100, error("ProcessBlock() : block with timestamp before last checkpoint"));
+    // Extra checks to prevent "fill up memory by spamming
+    // with bogus blocks"
+    try {
+      the_difficulty.dos_check_min_difficulty(*pblock);
     }
-    CBigNum bnNewBlock;
-    bnNewBlock.SetCompact(pblock->nBits);
-    CBigNum bnRequired;
-    bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime));
-    if (bnNewBlock > bnRequired)
-    {
-      return state.DoS(100, error("ProcessBlock() : block with too little proof-of-work"));
+    catch(const except::dos& ex) {
+      std::cout << "ProcessBlock() : " 
+                << ex.what() << std::endl;
+      return state.DoS(100);
     }
   }
-
 
   // If we don't already have its previous block, shunt it off to holding area until we get it
   if (pblock->hashPrevBlock != 0 && !mapBlockIndex.count(pblock->hashPrevBlock))
@@ -4343,7 +4344,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     pblock->UpdateTime(pindexPrev);
-    pblock->nBits      = GetNextWorkRequired(pindexPrev, pblock);
+    pblock->nBits = 
+      the_difficulty.next_block_difficulty(pindexPrev);
     pblock->nNonce     = 0;
     pblock->vtx[0].vin[0].scriptSig = CScript() << OP_0 << OP_0;
     pblocktemplate->vTxSigOps[0] = pblock->vtx[0].GetLegacySigOpCount();
@@ -4401,7 +4403,7 @@ void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash
       uint256 hashPrevBlock;
       uint256 hashMerkleRoot;
       unsigned int nTime;
-      unsigned int nBits;
+      compact_bignum_t nBits;
       unsigned int nNonce;
     }
     block;
@@ -4591,8 +4593,9 @@ void static CompcoinMiner(CWallet *pwallet)
     nBlockTime = ByteReverse(pblock->nTime);
     if (fTestNet)
     {
-    // Changing pblock->nTime can change work required on testnet:
-    nBlockBits = ByteReverse(pblock->nBits);
+    // Changing pblock->nTime can change work required on
+    // testnet:
+    nBlockBits = ByteReverse(pblock->nBits.compact);
     hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
     }
   }
