@@ -96,6 +96,10 @@ public:
     // msg.str() is a cycled buffer, if it overrun it can
     // contain '\0' in the middle. We need clean it out to
     // not lost the exception information.
+    // TODO better start from the end and go while nonzero
+    // found, then replace 0->? starting from this place
+    // to the begin (it will keep rubbish if any for
+    // analize). 
     std::replace( 
       msg.str().begin(), 
       std::min(msg.str().end(), msg.str().buf_end()), 
