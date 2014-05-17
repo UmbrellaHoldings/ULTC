@@ -935,7 +935,7 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
   if (!IsCoinBase())
     return 0;
-  return max(0, (COINBASE_MATURITY+20) - GetDepthInMainChain());
+  return std::max(0, (COINBASE_MATURITY+20) - GetDepthInMainChain());
 }
 
 
@@ -1218,7 +1218,7 @@ coin::time::block::time_point CBlockIndex
 
 void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
 {
-  nTime = max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
+  nTime = std::max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
 
   // Updating time can change work required on testnet:
   //if (fTestNet)
@@ -3203,7 +3203,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     // Change version
     pfrom->PushMessage("verack");
-    pfrom->ssSend.SetVersion(min(pfrom->nVersion, PROTOCOL_VERSION));
+    pfrom->ssSend.SetVersion(std::min(pfrom->nVersion, PROTOCOL_VERSION));
 
     if (!pfrom->fInbound)
     {
@@ -3255,7 +3255,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
   else if (strCommand == "verack")
   {
-    pfrom->SetRecvVersion(min(pfrom->nVersion, PROTOCOL_VERSION));
+    pfrom->SetRecvVersion(std::min(pfrom->nVersion, PROTOCOL_VERSION));
   }
 
 

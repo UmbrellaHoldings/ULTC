@@ -1,4 +1,4 @@
-// -*-coding: mule-utf-8-unix; fill-column: 58; -*-
+//-*-coding: mule-utf-8-unix; fill-column: 58; -*-
 /**
  * @file
  *
@@ -17,18 +17,57 @@
 
 namespace types {
 
-template<uint16_t max_len>
+//! An std::exception descendant wich holds a string
+//! buffer. It relaxes dynamic storage requirements in the
+//! time of throwing the exception.  
+//!
+//! Itanium C++ ABI: Exception Handling 
+//! 3.3.1 Exception Storage
+//!
+//! The C++ runtime library shall allocate a static
+//! emergency buffer of at least 4K bytes per potential
+//! task, up to 64KB. This buffer shall be used only in
+//! cases where dynamic allocation of exception objects
+//! fails. It shall be allocated in 1KB chunks. At most 16
+//! tasks may use the emergency buffer at any time, for at
+//! most 4 nested exceptions, with each exception object
+//! (including header) of size at most 1KB. Additional
+//! threads are blocked until one of the 16 de-allocates
+//! its emergency buffer storage.  
+//!
+//! @tparam the size of the string buffer 
+//!         (including ending 0) 
+//! @tparam the maximal size of the string lower than the
+//!         the minimal size of an emergency biffer
+template<
+  uint16_t max_len,
+  uint16_t emergency_string_limit = 512
+  //< If I had more time, I would have written 
+  //< a shorter letter. M. Twain
+>
 class exception_string : public virtual std::exception
 {
 public:
-  using stringbuf = auto_stringbuf<max_len>;
+  static constexpr uint16_t buf_len = 
+    types::min(max_len, emergency_string_limit);
+
+  using stringbuf = auto_stringbuf<buf_len>;
   using string = typename stringbuf::string;
 
-  exception_string() {}
+  exception_string() 
+  {
+    std::fill(msg.str().begin(), msg.str().buf_end(), 0);
+  }
 
   explicit exception_string(const char(&message)[max_len]) 
-    : msg(message) 
-  {}
+    : exception_string()
+  {
+    std::copy( 
+      message, 
+      message + buf_len, // limit the message size
+      msg.str().begin()
+    );
+  }
 
   exception_string(const exception_string& o)
     : exception_string()
@@ -40,51 +79,35 @@ public:
     typename string::const_iterator begin,
     typename string::const_iterator end
   )
+    : exception_string()
   {
     std::copy(begin, end, msg.str().begin());
   }
 
   exception_string& operator=(const exception_string& o)
   {
+    std::fill(msg.str().begin(), msg.str().buf_end(), 0);
     msg.str(o.msg.str());
     return *this;
   }
 
   const char* what() const noexcept override
   {
-    return msg.str().data();
+    // msg.str() is a cycled buffer, if it overrun it can
+    // contain '\0' in the middle. We need clean it out to
+    // not lost the exception information.
+    std::replace( 
+      msg.str().begin(), 
+      std::min(msg.str().end(), msg.str().buf_end()), 
+      '\0',
+      '?'
+    ); 
+    return msg.str().c_str();
   }
 
 protected:
-  stringbuf msg;
+  mutable stringbuf msg;
 };
-
-#if 0
-namespace exception_ {
-
-//! The ostream for exception message formatting
-template<
-  class CharT, 
-  class Traits = std::char_traits<CharT>
->
-class basic_ostream : public std::ios_base
-{
-public:
-  basic_ostream()
-  {
-    // always use C locale for excpetion messages
-    imbue(std::locale::classic());
-  }
-};
-
-namespace {
-// TODO single instance
-basic_ostream<char> the_ostream;
-
-}
-
-} // exception_
-#endif
 
 template<class... Pars>
 class exception_compound_message 
@@ -110,7 +133,9 @@ public:
       it,
       std::cout //exception_::the_ostream
     );
-    *it = '\0';
+    //*it = '\0';
+    // the stream iterator does not include ending 0,
+    // it is the part of the underlaying auto_string
   }
 };
 

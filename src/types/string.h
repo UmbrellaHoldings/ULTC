@@ -20,6 +20,19 @@
 
 namespace types {
 
+// TODO move to some right place
+template<class T>
+constexpr const T& min(const T& a, const T& b)
+{
+  return (b < a) ? b : a;
+}
+
+template<class T>
+constexpr const T& max(const T& a, const T& b)
+{
+  return (b > a) ? b : a;
+}
+
 namespace iterators_ {
 
 struct begin_t {};
@@ -27,28 +40,58 @@ struct end_t {};
 
 template<
   class CharT, 
-//  size_t N, 
   class Pointer, 
   class Reference
 >
 class safe_string
 {
-  template<class, int16_t, class>
-  friend class basic_auto_string;
-
 public:
-  using iterator_category = std::random_access_iterator_tag;
+  using iterator_category = 
+    std::random_access_iterator_tag;
   using value_type = CharT;
   using difference_type = int16_t;
-  /*static_assert(
-    N <= std::numeric_limits<difference_type>::max(),
-    "types::iterators_::safe_string N is to high"
-  );*/
   using size_type = uint16_t;
   using pointer = Pointer;
   using reference = Reference;
   using const_pointer = const CharT*;
   using const_reference = const CharT&;
+
+  template<class, int16_t, class>
+  friend class basic_auto_string;
+
+  template<class C, class P, class R>
+  friend class safe_string;
+
+  bool operator==(safe_string o) const noexcept
+  {
+    assert(base == o.base);
+    return virtual_ptr() == o.virtual_ptr();
+  }
+
+  bool operator!=(safe_string o) const noexcept
+  {
+    return !this->operator==(o);
+  }
+
+  bool operator<(safe_string o) const noexcept
+  {
+    return *this - o < 0;
+  }
+
+  bool operator>=(safe_string o) const noexcept
+  {
+    return *this - o >= 0;
+  }
+
+  bool operator>(safe_string o) const noexcept
+  {
+    return *this - o > 0;
+  }
+
+  bool operator<=(safe_string o) const noexcept
+  {
+    return *this - o <= 0;
+  }
 
   reference operator*() noexcept
   {
@@ -65,7 +108,7 @@ public:
     if (__builtin_expect(idx++ >= n, 0))
     {
       idx = 0;
-      ++ovf;
+      ovf += n;
     }
     return *this;
   }
@@ -77,18 +120,50 @@ public:
     return copy;
   }
 
+  difference_type operator-(safe_string o) const noexcept
+  {
+    assert(base == o.base);
+    return virtual_ptr() - o.virtual_ptr();
+  }
+
+  // cast to const_iterator
+  operator 
+  safe_string<CharT, const_pointer, const_reference>() const 
+    noexcept
+  {
+    using const_iterator = 
+      safe_string<CharT, const_pointer, const_reference>;
+    return const_iterator(base, n, idx, ovf);
+  }
+
+  static_assert(
+    sizeof(size_type) < sizeof(size_t),
+    "unable to correctly implement virtual_ptr()"
+  );
+  const_pointer virtual_ptr() const noexcept
+  {
+    return base + idx + ovf;
+  }
+
 protected:
-  safe_string(pointer base_, int16_t n_, begin_t) noexcept 
-    : base(base_), idx(0), ovf(0), n(n_) 
+  safe_string(
+    pointer base_, 
+    int16_t n_, 
+    size_type idx_, 
+    int16_t ovf_
+  )  noexcept 
+    : base(base_), idx(idx_), ovf(ovf_), n(n_) 
   {
     assert(n >= 0);
   }
 
+  safe_string(pointer base_, int16_t n_, begin_t) noexcept 
+    : safe_string(base_, n_, 0, 0)
+  {}
+
   safe_string(pointer base_, int16_t n_, end_t) noexcept 
-    : base(base_), idx(0), ovf(1), n(n_)
-  {
-    assert(n >= 0);
-  }
+    : safe_string(base_, n_, 0, n_)
+  {}
 
   pointer base;
   size_type idx;
@@ -121,8 +196,16 @@ public:
   }
 
   constexpr size_type size() const { return len; }
-  constexpr const value_type* data() const { return arr; }
-  constexpr const value_type* c_str() const { return arr; }
+
+  constexpr const value_type* data() const 
+  { 
+    return arr; 
+  }
+
+  constexpr const value_type* c_str() const 
+  { 
+    return arr; 
+  }
 
 private:
   const size_type len;
@@ -148,7 +231,13 @@ using auto_string_traits = basic_auto_string_traits<char>;
 using auto_wstring_traits = 
   basic_auto_string_traits<wchar_t>;
 
-//! A string in an automatic storage
+//! A string with an automatic (cycled) storage.
+//! It maintains two sizes: size of the buffer and size of
+//! the string (the used part of the buffer). 
+//! So, size() == end() - begin()
+//! buf_size() - 1 = buf_end() - begin()
+//! end() can be greater than buf_end() (it's cycled).
+
 template <
   class CharT,
   int16_t N,
@@ -169,9 +258,13 @@ public:
   using iterator = typename 
     basic_auto_string_traits<CharT, Traits>::iterator;
   using const_iterator = typename 
-   basic_auto_string_traits<CharT, Traits>::const_iterator;
+   basic_auto_string_traits<CharT, Traits>
+     ::const_iterator;
 
-  basic_auto_string() noexcept : cur_end(begin()) {}
+  basic_auto_string() noexcept : cur_end(begin()) 
+  {
+    m[N-1] = 0;
+  }
 
   basic_auto_string(const CharT(&str)[N]) noexcept
     : cur_end(end())
@@ -182,6 +275,17 @@ public:
   void swap(basic_auto_string& o) noexcept
   {
     m.swap(o.m);
+  }
+
+  //! Returns the size of buffer with ending 0, so
+  constexpr size_type buf_size() const { 
+    assert (N == buf_end() - begin() + 1);
+    return N; 
+  }
+
+  size_type size() const 
+  {
+    return end() - begin();
   }
 
   iterator begin() noexcept
@@ -198,10 +302,21 @@ public:
 
   iterator end() noexcept 
   {
-    return iterator(m.data(), N-1, iterators_::end_t());
+    return cur_end;
   }
 
   const_iterator end() const noexcept
+  {
+    return cur_end;
+  }
+
+  //! Returns the end of buffer, not only filled size
+  iterator buf_end() noexcept 
+  {
+    return iterator(m.data(), N-1, iterators_::end_t());
+  }
+
+  const_iterator buf_end() const noexcept
   {
     return const_iterator(
       m.data(), N-1, iterators_::end_t()
@@ -210,11 +325,20 @@ public:
 
   const value_type* data() const
   {
+    assert(m[N-1] == 0);
+    m[N-1] = 0; // for sure
     return m.data();
+
+    // assert(*end() == 0);
+    // *end() = 0;
+    // Don't do it, you can break a message which overruns
+    // the buffer.
   }
 
   const value_type* c_str() const
   {
+    assert(m[N-1] == 0);
+    m[N-1] = 0; // for sure
     return data();
   }
 
@@ -224,7 +348,9 @@ public:
   }
 
 protected:
-  std::array<CharT, N> m;
+  // it is mutable - padding with '\0' is allowed
+  mutable std::array<CharT, N> m;
+
   iterator cur_end;
 };
 
@@ -259,55 +385,68 @@ public:
   typedef typename Traits::off_type off_type;
   typedef basic_auto_string<CharT, N, Traits> string;
 
+  // TODO open modes
   basic_auto_stringbuf() 
   {
     auto* p = const_cast<char_type*>(s.data());
-    this->setg(p, p, p + N - 1);
-    this->setp(p, p + N - 1);
+    this->setg(p, p, p + s.size());
+    this->setp(p, p + s.size());
   }
 
-  basic_auto_stringbuf(const CharT(&str)[N]) : s(str) 
+  // TODO open modes
+  basic_auto_stringbuf(const CharT(&str)[N]) 
+    : s(str) 
   {
     auto* p = const_cast<char_type*>(s.data());
-    this->setg(p, p, p + N - 1);
-    this->setp(p, p + N - 1);
+    this->setg(p, p, p + s.size());
+    this->setp(p, p + s.size());
   }
   
+  // TODO open modes
   basic_auto_stringbuf(const string& s_) 
-    : basic_auto_stringbuf()
   {
     str(s_);
+    auto* p = const_cast<char_type*>(s.data());
+    this->setg(p, p, p + s.size());
+    this->setp(p, p + s.size());
   }
 
-#if 0
-  basic_auto_stringbuf(const basic_auto_stringbuf& o)
-    : basic_auto_stringbuf(o.str())
+  string& str() noexcept 
   {
-    imbue(o.getloc());
+    return s; 
   }
 
-  basic_auto_stringbuf& operator=(
-    const basic_auto_stringbuf& o
-  )
-  {
-    str(o.str());
-    imbue(o.getloc());
+  const string& str() const noexcept 
+  { 
+    return s; 
   }
-#endif
-
-  string& str() noexcept { return s; }
-
-  const string& str() const noexcept { return s; }
 
   void str(const string& s_) noexcept 
   {
     s = s_;
     auto* p = const_cast<char_type*>(s.data());
-    this->setg(p, p, p + N - 1);
-    this->setp(p, p + N - 1);
+    this->setg(p, p, p + s.size()); // open modes ?
+    this->setp(p, p + s.size());
   }
 
 protected:
+  // put area
+
+  int_type overflow(int_type ch = Traits::eof()) override
+  {
+    if (Traits::eq_int_type(ch, Traits::eof()))
+      return ch;
+
+    if (s.end() < s.buf_end()) {
+      s.push_back(ch);
+      return ch;
+    }
+    else
+      return Traits::eof();
+  }
+
+  // get area
+
   std::streamsize showmanyc() override
   {
     return this->egptr() - this->gptr();
@@ -320,6 +459,8 @@ protected:
       : Traits::eof();
   }
 
+  // positioning
+
   pos_type seekoff
     ( 
       off_type off, 
@@ -328,7 +469,7 @@ protected:
      ) override
   {
     using namespace std;
-    const pos_type end_pos = this->egptr() - this->eback();
+    const pos_type end_pos = this->egptr()- this->eback();
     safe<off_type> abs_pos(0);
 
     switch((uint32_t)dir) {
@@ -356,7 +497,7 @@ protected:
       std::ios_base::openmode which = std::ios_base::in
      ) override
   {
-    const pos_type end_pos = this->egptr() - this->eback();
+    const pos_type end_pos = this->egptr()- this->eback();
 
     if (pos > end_pos || which & std::ios_base::out)
       return pos_type(off_type(-1));
@@ -420,7 +561,12 @@ public:
 
   void stringify(OutIt out, std::ios_base&) const noexcept
   {
-    std::copy(ptr, ptr + N - 1, out);
+    try {
+      std::copy(ptr, ptr + N - 1, out);
+    }
+    catch(...) {
+      *out++ = '*';
+    }
   }
 
 protected:
@@ -448,13 +594,14 @@ public:
   void stringify(OutIt out, std::ios_base& st) 
     const noexcept
   {
-    using namespace std;
-    // TODO check noexcept 
-    // & no memory allocation condition
-    const auto& np = 
-      use_facet<num_put<char_type, OutIt>>(st.getloc());
-    
-    np.put(out, st, ' ', val);
+    try {
+      using namespace std;
+      use_facet<num_put<char_type, OutIt>>(st.getloc())
+        . put(out, st, ' ', val);
+    }
+    catch (...) {
+      *out++ = '*';
+    }
   }
 
 protected:
@@ -501,30 +648,9 @@ constexpr size_t compound_message_max_length()
   return compound_message_::len_t<Args...>::max_length;
 }
 
-#if 1
 template<class OutIt, class... Args>
 using compound_message_t = 
   compound_message_::stringifier_t<OutIt, Args...>;
-#else
-// TODO the same as stringifier_t ?
-template<class OutIt, class... Args>
-class compound_message_t 
-{
-public:
-  using stringifier_t = compound_message_::stringifier_t<
-    std::ostreambuf_iterator<char>,
-    Args...
-  >;
-
-  static constexpr typename string::size_type max_length = 
-    stringifier_t::max_length;
-
-  explicit compound_message_t(OutIt out, Args... args) 
-    noexcept
-    : stringifier_t(out, args...)
-  {}
-};
-#endif
 
 } // types
 

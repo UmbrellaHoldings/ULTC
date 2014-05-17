@@ -145,6 +145,7 @@ OBJS= \
     obj/scrypt_generated.o \
     obj/sync.o \
     obj/txdb.o \
+    obj/types.o \
     obj/uint256.o \
     obj/util.o \
     obj/util_cmn.o \

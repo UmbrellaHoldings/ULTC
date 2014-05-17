@@ -11,27 +11,12 @@
 
 #include <cstdint>
 #include "types/fixed.h"
-#include "types/exception.h"
 
 namespace coin {
 
 using percent_t = types::percent_t<intmax_t>;
 
-inline percent_t operator""_pct(long double p)
-{
-  bool lost;
-  const auto res = 
-    percent_t::from_long_double(p, &lost) / 100;
-
-  if (lost)
-    throw types::exception<types::precision_lost>(
-      "Unable to represent ", p, 
-      "_pct as a fixed point type coin::percent_t"
-      " (lost precision)"
-    );
-
-  return res;
-}
+percent_t operator""_pct(long double p);
 
 }
 
