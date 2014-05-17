@@ -248,3 +248,6 @@ void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx)
 
 
 
+}
+
+}

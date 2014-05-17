@@ -39,8 +39,8 @@
 #include <iomanip>
 #include <tuple>
 
-#ifndef CONCURRO_TYPES_TIME_H_
-#define CONCURRO_TYPES_TIME_H_
+#ifndef COHORS_TYPES_TIME_H_
+#define COHORS_TYPES_TIME_H_
 
 namespace curr {
 

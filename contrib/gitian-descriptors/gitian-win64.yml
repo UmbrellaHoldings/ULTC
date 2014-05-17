@@ -16,7 +16,7 @@ remotes:
   "dir": "xxxxxxx"
 files:
 - "qt-win32-4.8.3-gitian-r4.zip"
-- "boost-win32-1.55.0-gitian-r6.zip"
+- "boost-win32-1.55.0.zip"
 - "bitcoin-deps-win32-gitian-r9.zip"
 - "mingw-w64-gcc-4.8.1.zip"
 script: |
@@ -27,7 +27,7 @@ script: |
   mkdir -p $STAGING
   cd $STAGING
   unzip -q ../build/qt-win32-4.8.3-gitian-r4.zip
-  unzip -q ../build/boost-win32-1.55.0-gitian-r6.zip
+  unzip -q ../build/boost-win32-1.55.0.zip
   unzip -q ../build/bitcoin-deps-win32-gitian-r9.zip
   unzip -q ../build/mingw-w64-gcc-4.8.1.zip
   export PATH=$(pwd)/bin:$PATH

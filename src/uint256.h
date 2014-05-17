@@ -5,6 +5,7 @@
 #ifndef BITCOIN_UINT256_H
 #define BITCOIN_UINT256_H
 
+#include <iostream>
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
@@ -403,6 +404,13 @@ public:
     friend class uint256;
     friend inline int Testuint256AdHoc(std::vector<std::string> vArg);
 };
+
+template<unsigned int BITS>
+std::ostream& 
+operator<<(std::ostream& out, const base_uint<BITS>& i)
+{
+  return out << i.ToString();
+}
 
 typedef base_uint<160> base_uint160;
 typedef base_uint<256> base_uint256;

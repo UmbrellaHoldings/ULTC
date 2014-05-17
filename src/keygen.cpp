@@ -8,8 +8,11 @@
 #include <fstream>
 #include "util.h"
 #include "key.h"
+#include "base58.h"
 
 using namespace std;
+
+bool fTestNet = false;
 
 int main(int argc, char* argv[])
 {
@@ -22,6 +25,7 @@ int main(int argc, char* argv[])
   const CPubKey pub = secret.GetPubKey();
   const CPrivKey priv = secret.GetPrivKey();
 
+#if 0
   {
     ofstream fpub(fpub_name);
     fpub << HexStr(pub.begin(), pub.end());
@@ -31,4 +35,12 @@ int main(int argc, char* argv[])
     ofstream fpriv(fpriv_name);
     fpriv << HexStr(priv.begin(), priv.end());
   }
+#else
+  CKey secretC; // compressed 
+  secretC.Set(secret.begin(), secret.end(), true);
+  std::cout << CBitcoinSecret(secret).ToString()  << std::endl;
+  std::cout << CBitcoinSecret(secretC).ToString()  << std::endl;
+  std::cout << CBitcoinAddress(pub.GetID()).ToString() << std::endl;
+  std::cout << CBitcoinAddress(secretC.GetPubKey().GetID()).ToString() << std::endl;
+#endif
 }
