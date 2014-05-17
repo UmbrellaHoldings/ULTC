@@ -475,7 +475,7 @@ public:
   {
     using fixed = types::fixed_t<Rep, Ratio>;
     *this *= (Rep) b.truncate();
-    *this *= fixed::num;
+    static_assert(fixed::num == 1, "CBigNum: fixed::num != 1");
     *this /= fixed::den;
     return *this;
   }
@@ -488,7 +488,7 @@ public:
     using fixed = types::fixed_t<Rep, Ratio>;
     *this *= fixed::den;
     *this /= (Rep) (b / fixed::bit()).truncate();
-    *this /= fixed::num;
+    static_assert(fixed::num == 1, "CBigNum: fixed::num != 1");
     return *this;
   }
 

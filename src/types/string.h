@@ -261,35 +261,51 @@ public:
 
   basic_auto_stringbuf() 
   {
-    this->setg(s.data(), s.data(), s.data() + N - 1);
-    this->setp(s.data(), s.data(), s.data() + N - 1);
+    auto* p = const_cast<char_type*>(s.data());
+    this->setg(p, p, p + N - 1);
+    this->setp(p, p + N - 1);
   }
 
   basic_auto_stringbuf(const CharT(&str)[N]) : s(str) 
   {
-    this->setg(s.data(), s.data(), s.data() + N - 1);
-    this->setp(s.data(), s.data(), s.data() + N - 1);
+    auto* p = const_cast<char_type*>(s.data());
+    this->setg(p, p, p + N - 1);
+    this->setp(p, p + N - 1);
+  }
+  
+  basic_auto_stringbuf(const string& s_) 
+    : basic_auto_stringbuf()
+  {
+    str(s_);
   }
 
+#if 0
   basic_auto_stringbuf(const basic_auto_stringbuf& o)
-    : parent(o), s(o.s)
-  {}
+    : basic_auto_stringbuf(o.str())
+  {
+    imbue(o.getloc());
+  }
 
   basic_auto_stringbuf& operator=(
     const basic_auto_stringbuf& o
   )
   {
-    static_cast<parent&>(*this).operator=(o);
-    s = o.s;
+    str(o.str());
+    imbue(o.getloc());
   }
+#endif
 
-  void swap(basic_auto_stringbuf& o)
+  string& str() noexcept { return s; }
+
+  const string& str() const noexcept { return s; }
+
+  void str(const string& s_) noexcept 
   {
-    static_cast<parent&>(*this).swap(o);
-    s.swap();
+    s = s_;
+    auto* p = const_cast<char_type*>(s.data());
+    this->setg(p, p, p + N - 1);
+    this->setp(p, p + N - 1);
   }
-
-  string s;
 
 protected:
   std::streamsize showmanyc() override
@@ -349,6 +365,8 @@ protected:
       (this->eback(), this->eback() + pos, this->egptr());
     return pos;
   }
+
+  string s;
 };
 
 template<int16_t N>
@@ -390,11 +408,13 @@ struct len_t<const CharT(&)[N]>
 template<class OutIt, size_t N>
 class stringifier_t<
   OutIt,
-  const char(&)[N]
+  const typename OutIt::char_type(&)[N]
 >
 {
 public:
-  stringifier_t(const char(&s)[N]) noexcept
+  using char_type = typename OutIt::char_type;
+
+  stringifier_t(const char_type(&s)[N]) noexcept
     : ptr(s) 
   {}
 
@@ -404,7 +424,7 @@ public:
   }
 
 protected:
-  const char *const ptr;
+  const char_type *const ptr;
 };
 
 // for long double
@@ -421,6 +441,8 @@ template<class OutIt>
 class stringifier_t<OutIt, long double&>
 {
 public:
+  using char_type = typename OutIt::char_type;
+
   stringifier_t(long double v) noexcept : val(v) {}
 
   void stringify(OutIt out, std::ios_base& st) 
@@ -430,7 +452,7 @@ public:
     // TODO check noexcept 
     // & no memory allocation condition
     const auto& np = 
-      use_facet<num_put<char, OutIt>>(st.getloc());
+      use_facet<num_put<char_type, OutIt>>(st.getloc());
     
     np.put(out, st, ' ', val);
   }
@@ -487,14 +509,10 @@ using compound_message_t =
 // TODO the same as stringifier_t ?
 template<class OutIt, class... Args>
 class compound_message_t 
-  : public compound_message_::stringifier_t<
-      OutIt,
-      Args...
-  >
 {
 public:
   using stringifier_t = compound_message_::stringifier_t<
-    OutIt,
+    std::ostreambuf_iterator<char>,
     Args...
   >;
 

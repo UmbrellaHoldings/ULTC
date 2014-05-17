@@ -60,10 +60,12 @@ public:
   static constexpr auto num = ratio_type::num;
   static constexpr auto den = ratio_type::den;
 
+#if 0
   static constexpr double ratio_as_long_double = 
     (double) ratio_type::num / ratio_type::den;
   static constexpr double rev_ratio_as_long_double = 
     (double) ratio_type::den / ratio_type::num;
+#endif
 
   static_assert( 
     std::is_signed<modular_type>::value, 
@@ -81,6 +83,11 @@ public:
   static_assert(
     ratio_type::num != 0,
     "fixed_t::ratio_type::num == 0"
+  );
+
+  static_assert(
+    ratio_type::num == 1,
+    "fixed_t::ratio_type::num != 1"
   );
 
   constexpr fixed_t() : rep(0) {}
@@ -133,7 +140,7 @@ public:
   void to_long_double
     (long double& val, bool* lost_precision) const
   {
-    val = (long double) rep * ratio_as_long_double;
+    val = (long double) rep / num; //* ratio_as_long_double;
     if (lost_precision) // a recursion guard
       *lost_precision = 
         *this != from_long_double(val, nullptr)
@@ -149,7 +156,7 @@ public:
   static fixed_t from_long_double
     (long double d, bool* lost_precision) 
   {
-    fixed_t p(d * rev_ratio_as_long_double);
+    fixed_t p(d * num/*rev_ratio_as_long_double*/);
     if (lost_precision) { // a recursion guard
       long double d2;
       p.to_long_double(d2, nullptr);

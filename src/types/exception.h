@@ -9,6 +9,7 @@
 #ifndef COHORS_TYPES_EXCEPTION_H
 #define COHORS_TYPES_EXCEPTION_H
 
+#include <iostream>
 #include <tuple>
 #include <algorithm>
 #include <iterator>
@@ -20,7 +21,8 @@ template<uint16_t max_len>
 class exception_string : public virtual std::exception
 {
 public:
-  using string = auto_string<max_len>;
+  using stringbuf = auto_stringbuf<max_len>;
+  using string = typename stringbuf::string;
 
   exception_string() {}
 
@@ -28,23 +30,36 @@ public:
     : msg(message) 
   {}
 
+  exception_string(const exception_string& o)
+    : exception_string()
+  {
+    msg.str(o.msg.str());
+  }
+
   exception_string(
     typename string::const_iterator begin,
     typename string::const_iterator end
   )
   {
-    std::copy(begin, end, msg.begin());
+    std::copy(begin, end, msg.str().begin());
+  }
+
+  exception_string& operator=(const exception_string& o)
+  {
+    msg.str(o.msg.str());
+    return *this;
   }
 
   const char* what() const noexcept override
   {
-    return msg.data();
+    return msg.str().data();
   }
 
 protected:
-  string msg;
+  stringbuf msg;
 };
 
+#if 0
 namespace exception_ {
 
 //! The ostream for exception message formatting
@@ -55,20 +70,10 @@ template<
 class basic_ostream : public std::ios_base
 {
 public:
-  using parent = std::ios_base; 
   basic_ostream()
   {
-    using namespace std;
     // always use C locale for excpetion messages
-    imbue(
-      locale(
-        locale::classic(), 
-        new num_put<
-          char, 
-          std::back_insert_iterator<auto_string>
-        >
-      )
-    );
+    imbue(std::locale::classic());
   }
 };
 
@@ -79,6 +84,7 @@ basic_ostream<char> the_ostream;
 }
 
 } // exception_
+#endif
 
 template<class... Pars>
 class exception_compound_message 
@@ -92,17 +98,17 @@ class exception_compound_message
 
 public:
   const compound_message_t<
-    std::back_insert_iterator<typename parent::string>,
+    std::ostreambuf_iterator<char>,
     Pars...
   > message;
 
   explicit exception_compound_message(Pars... pars)
     : parent(), message(pars...)
   {
-    auto it = std::back_inserter(this->msg);
+    auto it = std::ostreambuf_iterator<char>(&this->msg);
     message.stringify(
       it,
-      exception_::the_ostream
+      std::cout //exception_::the_ostream
     );
     *it = '\0';
   }

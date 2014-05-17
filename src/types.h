@@ -27,6 +27,7 @@ inline percent_t operator""_pct(long double p)
     throw types::exception<types::precision_lost>(
       "Unable to represent ", p, 
       "_pct as a fixed point type coin::percent_t"
+      " (lost precision)"
     );
 
   return res;
