@@ -115,11 +115,11 @@ void romix
   // The current SSE2 salsa20 implementation needs word rearrangement
   rearrange_before<r>(x);
 
-  for (unsigned i = 0; i < N; i++) {
+  for (uint32_t i = 0; i < N; i++) {
     v[i] = x;
     x = H(x);
   }
-  for (unsigned i = 0; i < N; i++) {
+  for (uint32_t i = 0; i < N; i++) {
     static_assert(pow2x<log2x<N>::value>::value == N, "N must be pow of 2");
     // NB is N is pow 2 than we can integrify in mod 2^32-1
     // and then mod N
