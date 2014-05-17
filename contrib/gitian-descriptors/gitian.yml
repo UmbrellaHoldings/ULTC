@@ -56,8 +56,6 @@ script: |
   export PATH=$(pwd)/bin:$PATH
   cd ..
   #
-  mkdir 
-  #
   GCCVERSION=$(g++ -E -dM $(mktemp --suffix=.h) | grep __VERSION__ | cut -d ' ' -f 3 | cut -d '"' -f 2)
   #
   cd xxxxxxx
