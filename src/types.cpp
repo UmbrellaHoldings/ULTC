@@ -15,7 +15,7 @@
 
 namespace coin {
 
-percent_t operator""_pct(long double p)
+percent_t operator"" _pct(long double p)
 {
   bool lost;
   const auto res = 

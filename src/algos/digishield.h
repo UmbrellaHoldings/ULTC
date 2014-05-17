@@ -74,7 +74,7 @@ protected:
 
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 
-    coin::operator""_pct(110);
+    coin::operator"" _pct(110);
 
   //! Returns the last block which can't be faked
   static const CBlockIndex* dos_last_reliable_block();

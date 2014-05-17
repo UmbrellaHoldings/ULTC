@@ -16,7 +16,7 @@ namespace coin {
 
 using percent_t = types::percent_t<intmax_t>;
 
-percent_t operator""_pct(long double p);
+percent_t operator"" _pct(long double p);
 
 }
 
