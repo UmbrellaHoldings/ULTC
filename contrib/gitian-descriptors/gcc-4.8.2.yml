@@ -1,0 +1,77 @@
+---
+name: "gcc-4.8.2"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "libgmp-dev"
+- "libmpfr-dev"
+- "libmpc-dev"
+- "zlib1g-dev"
+- "libc6-dev-i386"
+- "zip"
+- "faketime"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "binutils-2.23.1.tar.bz2"
+- "gcc-4.8.2.tar.bz2"
+- "isl-0.11.1.tar.gz"
+- "cloog-0.18.1.tar.gz"
+script: |
+  # Defines
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  INSTDIR="$HOME/install"
+  TEMPDIR="$HOME/tmp"
+  rm -rf $INSTDIR && mkdir $INSTDIR
+  # Input Integrity Check
+  echo "587fca86f6c85949576f4536a90a3c76ffc1a3e1  binutils-2.23.1.tar.bz2" | shasum -c
+  echo "810fb70bd721e1d9f446b6503afe0a9088b62986  gcc-4.8.2.tar.bz2" | shasum -c
+  echo "f44035e0c77c9dbf6a4db7142cae0bb601958b98  isl-0.11.1.tar.gz" | shasum -c
+  echo "2dc70313e8e2c6610b856d627bce9c9c3f848077  cloog-0.18.1.tar.gz" | shasum -c
+  tar -jxf gcc-4.8.2.tar.bz2
+  tar -jxf binutils-2.23.1.tar.bz2
+  tar -xf isl-0.11.1.tar.gz
+  tar -xf cloog-0.18.1.tar.gz
+  # Build Binutils
+  mkdir binutils-2.23.1-build32 && cd binutils-2.23.1-build32
+  ../binutils-2.23.1/configure --prefix=$INSTDIR/ --enable-deterministic-archives
+  make $MAKEOPTS
+  make $MAKEOPTS install
+  cd ..
+  # Install ISL
+  mkdir isl-build && cd isl-build
+  ../isl-0.11.1/configure --prefix=$INSTDIR/ --without-piplib --disable-shared
+  make $MAKEOPTS
+  make $MAKEOPTS install
+  cd ..
+  # Install Cloog
+  mkdir cloog-build && cd cloog-build
+  ../cloog-0.18.1/configure --prefix=$INSTDIR/ --with-isl-prefix=$INSTDIR/ --disable-shared
+  make $MAKEOPTS
+  make $MAKEOPTS install
+  cd ..
+  # Build GCC itself
+  export LIBRARY_PATH=/usr/lib/$(gcc -print-multiarch)
+  export C_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)
+  export CPLUS_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)	 
+  mkdir gcc-build && cd gcc-build
+  ../gcc-4.8.2/configure --prefix=$INSTDIR/ --disable-checking --enable-languages=c,c++ --enable-multiarch --enable-shared --enable-threads=posix --program-suffix=4.8 --with-gmp=/usr/local/lib --with-mpc=/usr/lib --with-mpfr=/usr/lib --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --without-included-gettext --with-system-zlib --with-tune=generic
+  make $MAKEOPTS 
+  make $MAKEOPTS install
+  # post-process all generated libraries to be deterministic
+  # extract them to a temporary directory then re-build them deterministically
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  for LIB in $(find $INSTDIR -name \*.a); do
+    rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+    ar xv $LIB | cut -b5- > /tmp/list.txt
+    rm $LIB
+    ar crsD $LIB $(cat /tmp/list.txt)
+  done
+  # Done
+  cd "$INSTDIR"
+  zip -r gcc-linux64-4.8.2.zip *
+  cp gcc-linux64-4.8.2.zip $OUTDIR
+  exit
