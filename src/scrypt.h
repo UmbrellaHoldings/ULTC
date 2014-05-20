@@ -70,11 +70,6 @@ std::array<T, n>& operator ^= (std::array<T, n>& a, const std::array<T, n>& b)
   return a;
 }
 
-static_assert(
-  sizeof(generic::SalsaBlock) == sizeof(sse2::SalsaBlock),
-  "Invalid types definition"
-);
-
 void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
 #ifdef USE_SSE2
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
