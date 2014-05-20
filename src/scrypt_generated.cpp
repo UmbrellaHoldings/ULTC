@@ -195,9 +195,9 @@ scratchpad_ptr get_scratchpad(n_factor_t n_factor)
   else if (n_factor == n_factor_t(2097152, 58, 1))
     // Sun Feb 18 16:51:15 2035
     return scratchpad_ptr(new scratchpad<2097152, 58, 1>);
-/*  else if (n_factor == n_factor_t(2097152, 59, 1))
+  else if (n_factor == n_factor_t(2097152, 59, 1))
     // Sun May 13 16:51:15 2035
-    return scratchpad_ptr(new scratchpad<2097152, 59, 1>);*/
+    return scratchpad_ptr(new scratchpad<2097152, 59, 1>);
   else 
     throw runtime_error("invalid n_factor");
 }
