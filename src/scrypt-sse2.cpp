@@ -35,6 +35,7 @@
 
 namespace scrypt {
 
+#ifdef USE_SSE2
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx)
 {
 	__m128i X0, X1, X2, X3;
@@ -115,5 +116,6 @@ void rearrange_after(sse2::SalsaBlock& x)
   for (size_t i = 0; i < x1.size(); i++)
     x2[i * 5 % 16] = x1[i];
 }
+#endif
 
 }

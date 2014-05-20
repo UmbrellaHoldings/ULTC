@@ -14,7 +14,9 @@
 #include <array>
 #include <cstdint>
 #include <memory>
-#include <emmintrin.h>
+#ifdef USE_SSE2
+#  include <emmintrin.h>
+#endif
 #include "uint256.h"
 #include "n_factor.h"
 
@@ -49,6 +51,7 @@ static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
 
 }
 
+#ifdef USE_SSE2
 namespace sse2 {
 
 using SalsaBlock = scrypt::SalsaBlock<__m128i>;
@@ -56,6 +59,7 @@ static_assert(sizeof(SalsaBlock) == 512/8,
   "Invalid types definition");
 
 }
+#endif
 
 //! It's bit XOR for arrays
 template<class T, size_t n>
@@ -72,7 +76,9 @@ static_assert(
 );
 
 void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
+#ifdef USE_SSE2
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
+#endif
 
 #if 0
 #if defined(USE_SSE2)
