@@ -60,6 +60,10 @@ public:
   template<class Block>
   void dos_check_min_difficulty(const Block& block) const;
 
+  //! An average planned block period
+  const duration block_period_by_design = 
+    coin::time::block::minutes(8);
+
 protected:
   //TODO make the _by_design parameters as a template
   //parameters 
@@ -67,10 +71,6 @@ protected:
   //! The greater numeric value is the lower difficulty
   const compact_bignum_t min_difficulty_by_design = 
     CBigNum(~uint256(0) >> 18).GetCompact();
-
-  //! An average planned block period
-  const duration block_period_by_design = 
-    coin::time::block::minutes(8);
 
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 
