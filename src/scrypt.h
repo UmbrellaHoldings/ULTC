@@ -125,6 +125,10 @@ template<
 struct scratchpad : scratchpad_base
 {
   Scratchpad<N, r, p, SSE2_OR_GENERIC::SalsaBlock> pad;
+  static scratchpad_base* allocate()
+  {
+    return new scratchpad();
+  }
 };
 
 using scratchpad_ptr = std::shared_ptr<scratchpad_base>;

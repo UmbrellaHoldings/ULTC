@@ -65,8 +65,8 @@ get_scratchpad(const coin::time::block::time_point now)
   << N << ", " << r << ", " << p << "))\n"
   << "    // " 
   << put_time(clock::to_system_clock(now), "%c") << '\n'
-  << "    return scratchpad_ptr(new scratchpad<"
-  << N << ", " << r << ", " << p << ">);\n"
+  << "    return scratchpad_ptr(scratchpad<"
+  << N << ", " << r << ", " << p << ">::allocate());\n"
   << "  else ";
 }
 
