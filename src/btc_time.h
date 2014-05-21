@@ -62,8 +62,8 @@ using hours =
   std::chrono::duration<clock::rep, std::ratio<60 * 60>>;
 using days = 
   std::chrono::duration<clock::rep, std::ratio<60*60*24>>;
-using common_years = 
-  std::chrono::duration<clock::rep, std::ratio<60*60*24*365>>;
+using common_years = std::chrono::duration
+  <clock::rep, std::ratio<60*60*24*365>>;
 
 using time_point = clock::time_point;
 
