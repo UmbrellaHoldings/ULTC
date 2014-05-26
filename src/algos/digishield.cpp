@@ -66,9 +66,9 @@ compact_bignum_t difficulty
     << "GetNextWorkRequired [DigiShield] RETARGET \n"
     << "retargetTimespan = " << block_period_by_design
     << " nActualTimespan = " << nActualTimespan
-    << "\nBefore: " << pindexLast->nBits 
+    << "\nBefore: " << pindexLast->nBits << ' '
     << CBigNum(pindexLast->nBits).getuint256()
-    << "\nAfter: " << bnNew.GetCompact()
+    << "\nAfter: " << bnNew.GetCompact() << ' '
     << bnNew.getuint256() << '\n';
   
   if (bnNew > min_difficulty_by_design)

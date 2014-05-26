@@ -12,8 +12,9 @@ std::ostream&
 operator<<(std::ostream& out, compact_bignum_t c)
 {
   using namespace std;
-  out << setfill('0') << setw(sizeof(c.compact)*8/2)
-      << c.compact;
+  out << setfill('0') << hex << showbase
+      << setw(sizeof(c.compact)*8/4)
+      << c.compact << "_comp" << dec << noshowbase;
   return out;
 }
 

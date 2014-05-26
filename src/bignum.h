@@ -53,7 +53,7 @@ public:
 //! @author Sergei Loadyagin
 struct compact_bignum_t
 {
-  unsigned int compact;
+  uint32_t compact;
 
   constexpr compact_bignum_t() : compact(0) {}
   constexpr compact_bignum_t(unsigned int c) 

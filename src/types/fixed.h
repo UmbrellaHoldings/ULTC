@@ -429,6 +429,8 @@ protected:
       }
     }
   
+    const auto old_flags = str.flags();
+    str.setf(std::ios_base::fixed);
     str.precision(frac);
 
     long double ld;
@@ -437,6 +439,7 @@ protected:
 
     // here it is!
     numput.put(out, str, fill, ld);
+    str.setf(old_flags);
 
     if (lost_precision) {
       // the error mark (two dots)
