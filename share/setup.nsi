@@ -10,7 +10,7 @@ SetCompressor /SOLID lzma
 !define URL http://cohors.bz/
 
 # MUI Symbol Definitions
-!define MUI_ICON "../share/pixmaps/bitcoin.ico"
+!define MUI_ICON "../share/pixmaps/xxxxxxx.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
@@ -76,7 +76,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-bitcoin executable and locales:
+    # Remove old wxwidgets-based-xxxxxxx executable and locales:
     Delete /REBOOTOK $INSTDIR\xxxxxxx.exe
     RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
