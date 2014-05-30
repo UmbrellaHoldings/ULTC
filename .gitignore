@@ -5,6 +5,8 @@ src/xxxxxxxKeyGen
 src/test_xxxxxxx
 src/show_n_factor
 .*.swp
+*#*
+*~*
 *.*~*
 *.bak
 *.rej
