@@ -12,25 +12,30 @@ reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "qt-everywhere-opensource-src-4.8.3.tar.gz"
-- "bitcoin-deps-win32-gitian-r9.zip"
-- "mingw-w64-gcc-4.8.1.zip"
+- "bitcoin-deps-win32-gitian-r2.zip"
+- "mingw-w64-gcc-4.8.2-gitian-r1.zip"
 script: |
   #
   HOST=i686-w64-mingw32
   INSTDIR="$HOME/qt/"
+  # Integrity Check
+  echo 'f1f72974f924861be04019f49f07cd43ab3c95056db2ba8f34b283487cccc728  qt-everywhere-opensource-src-4.8.3.tar.gz' | sha256sum -c
+  echo '41fadc5a53d5fac475db50d4afdfbdde9926d06a7dcfe100df6e34c6f539af42  bitcoin-deps-win32-gitian-r2.zip' | sha256sum -c
+  echo 'f90b380f4ef09502bfec0ce7497527a3e027f97ef43135b3a71036708726e571  mingw-w64-gcc-4.8.2-gitian-r1.zip' | sha256sum -c
   #
   mkdir $INSTDIR
   mkdir -p $INSTDIR/host/bin
   #
   # Need mingw-compiled openssl from bitcoin-deps:
-  unzip -q bitcoin-deps-win32-gitian-r9.zip
+  unzip -q bitcoin-deps-win32-gitian-r2.zip
   DEPSDIR=`pwd`
   #
   mkdir mingw-w64 && cd mingw-w64
-  unzip -q ../mingw-w64-gcc-4.8.1.zip
+  unzip -q ../mingw-w64-gcc-4.8.2-gitian-r1.zip
   export PATH=$(pwd)/bin:$PATH
   cd ..
   $HOST-g++ --version
+  $HOST-g++ -v
   #
   tar xzf qt-everywhere-opensource-src-4.8.3.tar.gz
   cd qt-everywhere-opensource-src-4.8.3
@@ -64,4 +69,4 @@ script: |
 
   # as zip stores file timestamps, use faketime to intercept stat calls to set dates for all files to reference date
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
-  zip -r $OUTDIR/qt-win32-4.8.3-gitian-r4.zip *
+  zip -r $OUTDIR/qt-win32-4.8.3-gitian-r5.zip *

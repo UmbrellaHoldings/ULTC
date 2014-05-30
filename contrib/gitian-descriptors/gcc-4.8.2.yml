@@ -58,7 +58,7 @@ script: |
   export C_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)
   export CPLUS_INCLUDE_PATH=/usr/include/$(gcc -print-multiarch)	 
   mkdir gcc-build && cd gcc-build
-  ../gcc-4.8.2/configure --prefix=$INSTDIR/ --disable-checking --enable-languages=c,c++ --enable-multiarch --enable-shared --enable-threads=posix --program-suffix=4.8 --with-gmp=/usr/local/lib --with-mpc=/usr/lib --with-mpfr=/usr/lib --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --without-included-gettext --with-system-zlib --with-tune=generic
+  ../gcc-4.8.2/configure --prefix=$INSTDIR/ --disable-checking --enable-languages=c,c++ --enable-multiarch --enable-shared --enable-threads=posix --program-suffix=4.8 --with-gmp=/usr/local/lib --with-mpc=/usr/lib --with-mpfr=/usr/lib --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --without-included-gettext --with-system-zlib --with-tune=generic --disable-sjlj-exceptions --with-dwarf2
   make $MAKEOPTS 
   make $MAKEOPTS install
   # post-process all generated libraries to be deterministic
@@ -72,6 +72,6 @@ script: |
   done
   # Done
   cd "$INSTDIR"
-  zip -r gcc-linux64-4.8.2.zip *
-  cp gcc-linux64-4.8.2.zip $OUTDIR
+  zip -r gcc-linux64-4.8.2-gitian-r1.zip *
+  cp gcc-linux64-4.8.2-gitian-r1.zip $OUTDIR
   exit

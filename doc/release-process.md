@@ -77,15 +77,14 @@ Release Process
         mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64.yml
-   mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64-gcc-4.8.2.yml
+   mv build/out/mingw-w64-gcc-4.8.2-gitian-r1.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.55.0-gitian-r6.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r4.zip inputs/
->
 
  Build xxxxxxxd and xxxxxxx-qt on Linux32, Linux64, and Win32:
   

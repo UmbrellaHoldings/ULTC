@@ -15,21 +15,26 @@ remotes:
 - "url": "trading.kogorta.dp.ua:/USDollarCoin"
   "dir": "xxxxxxx"
 files:
-- "qt-win32-4.8.3-gitian-r4.zip"
-- "boost-win32-1.55.0.zip"
-- "bitcoin-deps-win32-gitian-r9.zip"
-- "mingw-w64-gcc-4.8.2.zip"
+- "qt-win32-4.8.3-gitian-r5.zip"
+- "boost-win32-1.55.0-gitian-r1.zip"
+- "bitcoin-deps-win32-gitian-r2.zip"
+- "mingw-w64-gcc-4.8.2-gitian-r1.zip"
 script: |
   #
   STAGING=$HOME/staging
   HOST=i686-w64-mingw32
+  # Integrity Check
+  echo 'a9176894cddc834cac0a0f1d5bdf7518b14d347a394c838388f1095afc1dcb96  qt-win32-4.8.3-gitian-r5.zip' | sha256sum -c
+  echo 'a0148a7c363608f8b364f6fe9e42018b136435cf4e38b64d0daa2b0333043c17  boost-win32-1.55.0-gitian-r1.zip' | sha256sum -c
+  echo '41fadc5a53d5fac475db50d4afdfbdde9926d06a7dcfe100df6e34c6f539af42  bitcoin-deps-win32-gitian-r2.zip' | sha256sum -c
+  echo 'f90b380f4ef09502bfec0ce7497527a3e027f97ef43135b3a71036708726e571  mingw-w64-gcc-4.8.2-gitian-r1.zip' | sha256sum -c
   #
   mkdir -p $STAGING
   cd $STAGING
-  unzip -q ../build/qt-win32-4.8.3-gitian-r4.zip
-  unzip -q ../build/boost-win32-1.55.0.zip
-  unzip -q ../build/bitcoin-deps-win32-gitian-r9.zip
-  unzip -q ../build/mingw-w64-gcc-4.8.2.zip
+  unzip -q ../build/qt-win32-4.8.3-gitian-r5.zip
+  unzip -q ../build/boost-win32-1.55.0-gitian-r1.zip
+  unzip -q ../build/bitcoin-deps-win32-gitian-r2.zip
+  unzip -q ../build/mingw-w64-gcc-4.8.2-gitian-r1.zip
   export PATH=$(pwd)/bin:$PATH
   cd $HOME/build/
   #
