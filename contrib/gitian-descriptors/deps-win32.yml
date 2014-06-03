@@ -12,7 +12,7 @@ packages:
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
-- "mingw-w64-gcc-4.8.2-gitian-r1.zip"
+- "mingw-w64-gcc-4.8.2-gitian-r2.zip"
 - "openssl-1.0.1g.tar.gz"
 - "db-4.8.30.NC.tar.gz"
 - "miniupnpc-1.6.tar.gz"
@@ -27,7 +27,7 @@ script: |
   export INSTALLPREFIX=$OUTDIR/staging/deps
   export HOST=i686-w64-mingw32
   # Integrity Check
-  echo 'f90b380f4ef09502bfec0ce7497527a3e027f97ef43135b3a71036708726e571  mingw-w64-gcc-4.8.2-gitian-r1.zip' | sha256sum -c
+  echo '86edefe6af3a3657350ca39f3a14a9621cf0eaee036f730ddea294b2db974768  mingw-w64-gcc-4.8.2-gitian-r2.zip' | sha256sum -c
   echo '53cb818c3b90e507a8348f4f5eaedb05d8bfe5358aabb508b7263cc670c3e028  openssl-1.0.1g.tar.gz'  | sha256sum -c
   echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz'    | sha256sum -c
   echo 'bbd6b756e6af44b5a5b0f9b93eada3fb8922ed1d6451b7d6f184d0ae0c813994  miniupnpc-1.6.tar.gz' | sha256sum -c
@@ -38,7 +38,7 @@ script: |
   mkdir -p $INSTALLPREFIX
   #
   mkdir mingw-w64 && cd mingw-w64
-  unzip -q ../mingw-w64-gcc-4.8.2-gitian-r1.zip
+  unzip -q ../mingw-w64-gcc-4.8.2-gitian-r2.zip
   export PATH=$(pwd)/bin:$PATH
   cd ..
   #
@@ -102,4 +102,4 @@ script: |
   cd ..
   #
   cd $INSTALLPREFIX
-  zip -r $OUTDIR/bitcoin-deps-win32-gitian-r2.zip include lib
+  zip -r $OUTDIR/bitcoin-deps-win32-gitian-r3.zip include lib
