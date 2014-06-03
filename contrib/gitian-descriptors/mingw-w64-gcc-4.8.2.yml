@@ -66,7 +66,7 @@ script: |
   cd ..
   # Build GCC itself
   mkdir gcc-4.8.2-mingw32 && cd gcc-4.8.2-mingw32
-  ../gcc-4.8.2/configure --prefix=$INSTDIR/ --target=i686-w64-mingw32 --with-gnu-ld --with-gnu-as --enable-languages=c,c++ --disable-multilib --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --disable-sjlj-exceptions --with-dwarf2
+  ../gcc-4.8.2/configure --prefix=$INSTDIR/ --target=i686-w64-mingw32 --with-gnu-ld --with-gnu-as --enable-languages=c,c++ --disable-multilib --enable-threads=win32 --with-isl=$INSTDIR/ --with-cloog=$INSTDIR/ --enable-sjlj-exceptions --with-dwarf2 CFLAGS='-O2 -pipe' 
   make $MAKEOPTS all-gcc 
   make $MAKEOPTS install-gcc
   cd ..
@@ -83,4 +83,4 @@ script: |
   cd ..
   # Done
   cd "$INSTDIR"
-  find | sort | zip -X@ $OUTDIR/mingw-w64-gcc-4.8.2-gitian-r1.zip
+  find | sort | zip -X@ $OUTDIR/mingw-w64-gcc-4.8.2-gitian-r2.zip
