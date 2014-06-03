@@ -118,7 +118,7 @@ struct scratchpad_base
 };
 
 template<
-  size_t N,
+  uint32_t N,
   unsigned r,
   unsigned p
 >

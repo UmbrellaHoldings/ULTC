@@ -14,7 +14,7 @@
 #include <tuple>
 #include "btc_time.h"
 
-using n_factor_t = std::tuple<size_t, unsigned, unsigned>;
+using n_factor_t = std::tuple<uint32_t, unsigned, unsigned>;
 
 n_factor_t
 GetNfactor(coin::time::block::time_point block_time);

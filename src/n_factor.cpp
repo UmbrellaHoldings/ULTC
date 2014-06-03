@@ -10,6 +10,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <stdexcept>
 #include "types/time.h"
 #include "n_factor.h"
 
@@ -29,7 +30,7 @@
 //! parameter means better GPU protection but at the same
 //! time greater block checking time on a single core
 //! which is near proportional to N*r).
-std::tuple<size_t, unsigned, unsigned> 
+std::tuple<uint32_t, unsigned, unsigned>
 GetNfactor(coin::time::block::time_point block_time) 
 {
   using namespace coin::time::block;
@@ -40,7 +41,7 @@ GetNfactor(coin::time::block::time_point block_time)
   using avg_months = chrono::duration
     <clock::rep, ratio<3600 * 24 * 30>>;
 
-  constexpr size_t MiB = 1024 * 1024;
+  constexpr uint64_t MiB = 1024 * 1024;
 
   //! The function birth time
   static const auto birth_time =
@@ -65,26 +66,29 @@ GetNfactor(coin::time::block::time_point block_time)
 
   // the scrypt parameters
   constexpr int p = 1; // increasing is not protect us
-  constexpr size_t initial_mem = 1 * MiB;
+  constexpr uint64_t initial_mem = 1 * MiB;
   constexpr unsigned initial_r = 8;
-  size_t mem = (initial_mem << moore_steps);
-  if (mem < initial_mem) mem = initial_mem;
+  uint64_t mem = (initial_mem << moore_steps);
+  if (mem < initial_mem)
+    mem = initial_mem;
 
   // today min amount of scrypt memory per device
-  constexpr size_t birth_total_memory = 128 * MiB; 
+  constexpr uint64_t birth_total_memory = 128 * MiB;
   // today min amount of CPU cores
   constexpr int birth_cores = 2;
 
   // assume memory access speed will be not increased
   // much, so limit block load time to 2.5 mins
-  constexpr size_t max_mem = 
-    (size_t) 8 * 1024 * 1024 * 1024;
-  if (mem > max_mem) mem = max_mem;
+  constexpr uint64_t max_mem =
+    (uint64_t) 8 * 1024 * 1024 * 1024;
+  if (mem > max_mem)
+    mem = max_mem;
 
   size_t moore_cores = (birth_cores << moore_steps);
-  if (moore_cores < birth_cores) moore_cores = birth_cores;
+  if (moore_cores < birth_cores)
+    moore_cores = birth_cores;
   // memory used by scrypt when use moore_cores
-  size_t moore_total_memory = 
+  uint64_t moore_total_memory =
     (birth_total_memory << moore_steps);
   if (moore_total_memory < birth_total_memory)
     moore_total_memory = birth_total_memory;
@@ -105,9 +109,11 @@ GetNfactor(coin::time::block::time_point block_time)
     / (5 * moore_period);
 
   // N must be power of 2
-  const size_t N = mem / (128 * r0 * p);
-//  size_t N = 1 << (sizeof(N1) * 8 - __builtin_clz(N1) - 1);
+  const uint64_t N = mem / (128 * r0 * p);
+  if (N > std::numeric_limits<uint32_t>::max())
+    throw std::length_error("N factor is too large");
+//  uint64_t N = 1 << (sizeof(N1) * 8 - __builtin_clz(N1) - 1);
   //if (N == 0) N = 1024;
-  return make_tuple(N, r, p);
+  return make_tuple((uint32_t) N, r, p);
 }
 
