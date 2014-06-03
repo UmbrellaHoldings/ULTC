@@ -2,6 +2,7 @@ src/*.exe
 src/xxxxxxx
 src/xxxxxxxd
 src/xxxxxxxKeyGen
+src/leveldb/build_config.mk
 src/test_xxxxxxx
 src/show_n_factor
 .*.swp
