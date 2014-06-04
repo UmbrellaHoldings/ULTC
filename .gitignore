@@ -15,6 +15,7 @@ src/show_n_factor
 *.o
 *.patch
 .xxxxxxx
+nohup.out
 
 # Compilation and Qt preprocessor part
 *.qm
