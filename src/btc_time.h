@@ -41,7 +41,7 @@ struct clock
     );
   }
 
-  static constexpr std::chrono::system_clock::time_point
+  static /*constexpr*/ std::chrono::system_clock::time_point
   to_system_clock(time_point local)
   {
     using namespace std::chrono;

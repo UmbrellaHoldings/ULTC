@@ -145,7 +145,7 @@ public:
     return base + idx + ovf;
   }
 
-protected:
+  //protected:  //TODO problem with friend basic_auto_string in clang
   safe_string(
     pointer base_, 
     int16_t n_, 
@@ -278,8 +278,8 @@ public:
   }
 
   //! Returns the size of buffer with ending 0, so
-  constexpr size_type buf_size() const { 
-    assert (N == buf_end() - begin() + 1);
+  constexpr size_type buf_size() const 
+  { 
     return N; 
   }
 
@@ -522,7 +522,7 @@ template<class... Args>
 struct len_t;
 
 template<class OutIt, class... Args>
-struct stringifier_t;
+class stringifier_t;
 
 // an empty tail case
 template<>

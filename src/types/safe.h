@@ -246,9 +246,10 @@ public:
     return *this;
   }
 
-  safe& operator *= (Int b) noexcept
+  template<class Int2>
+  safe& operator *= (Int2 b) noexcept
   {
-    return operator*=(safe(b));
+    return operator*=(safe<Int2>(b));
   }
 
   template<class Int2>
@@ -405,7 +406,7 @@ public:
     return safe(); 
   }
 
-  constexpr bool lost_precision() 
+  constexpr bool lost_precision() const
   {
     return rem;
   }

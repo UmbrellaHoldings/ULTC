@@ -299,7 +299,15 @@ public:
   //! Truncates to an integer
   safe<modular_type> truncate() const noexcept
   {
+#if 1
+    safe<modular_type> copy(rep);
+    copy *= ratio_type::num;
+    copy /= ratio_type::den;
+    return copy;
+#else
+    // clang not compiles it
     return rep * ratio_type::num / ratio_type::den;
+#endif
   }
 
 protected:
