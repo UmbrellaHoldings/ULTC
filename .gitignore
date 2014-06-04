@@ -10,6 +10,7 @@ src/show_n_factor
 *~*
 *.*~*
 *.bak
+*.kdev4
 *.rej
 *.orig
 *.o
