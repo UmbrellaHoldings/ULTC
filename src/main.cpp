@@ -71,7 +71,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Compcoin Signed Message:\n";
+const string strMessageMagic = "Xxxxxxx Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -369,7 +369,7 @@ unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans)
 
 bool CTxOut::IsDust() const
 {
-  // Compcoin: IsDust() detection disabled, allows any valid dust to be relayed.
+  // Xxxxxxx: IsDust() detection disabled, allows any valid dust to be relayed.
   // The fees imposed on each dust txo is considered sufficient spam deterrant. 
   return false;
 }
@@ -626,7 +626,7 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
       nMinFee = 0;
   }
 
-  // Compcoin
+  // Xxxxxxx
   // To limit dust spam, add nBaseFee for each output less than DUST_SOFT_LIMIT
   BOOST_FOREACH(const CTxOut& txout, vout)
     if (txout.nValue < DUST_SOFT_LIMIT)
@@ -1081,9 +1081,9 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
   int64 nSubsidy = 35 * COIN;
   
   if(nHeight == 1)
-  nSubsidy = 16800000 * COIN; //For Compcoin Mail Drop [48%]
+  nSubsidy = 16800000 * COIN; //For Litecoin Mail Drop [48%]
   else if(nHeight == 2)
-  nSubsidy = 700000 * COIN;   //For Compcoin Mail Drop Costs / Development Costs [2%]
+  nSubsidy = 700000 * COIN;   //For Litecoin Mail Drop Costs / Development Costs [2%]
   
   if (fTestNet && nHeight % 10 == 0 && nHeight >= 70 && nHeight <= 100)
   nSubsidy = 350 * COIN;     //Coin Bonus Check for Testnet
@@ -1093,7 +1093,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 
 
   // Subsidy is cut in half every 75000 blocks, which will occur approximately every year
-  nSubsidy >>= (nHeight / 75000); // Compcoin: 75000k blocks in ~1 years
+  nSubsidy >>= (nHeight / 75000); // 75000k blocks in ~1 years
 
   return nSubsidy + nFees;
 }
@@ -2010,7 +2010,7 @@ bool CBlock::CheckBlock(CValidationState &state, bool fCheckPOW, bool fCheckMerk
   if (vtx.empty() || vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
     return state.DoS(100, error("CheckBlock() : size limits failed"));
 
-  // Compcoin: Special short-term limits to avoid 10,000 BDB lock limit:
+  // Litecoin: Special short-term limits to avoid 10,000 BDB lock limit:
   if (GetBlockTime() < 1376568000)  // stop enforcing 15 August 2013 00:00:00
   {
     // Rule is: #unique txids referenced <= 4,500
@@ -2177,7 +2177,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
 
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
 {
-  // Compcoin: temporarily disable v2 block lockin until we are ready for v2 transition
+  // Litecoin: temporarily disable v2 block lockin until we are ready for v2 transition
   return false;
   unsigned int nFound = 0;
   for (unsigned int i = 0; i < nToCheck && nFound < nRequired && pstart != NULL; i++)
@@ -4031,7 +4031,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// CompcoinMiner
+// LitecoinMiner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -4445,7 +4445,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     return false;
 
   //// debug print
-  printf("CompcoinMiner:\n");
+  printf("LitecoinMiner:\n");
   printf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex().c_str(), hashTarget.GetHex().c_str());
   pblock->print();
   printf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue).c_str());
@@ -4454,7 +4454,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
   {
     LOCK(cs_main);
     if (pblock->hashPrevBlock != hashBestChain)
-      return error("CompcoinMiner : generated block is stale");
+      return error("LitecoinMiner : generated block is stale");
 
     // Remove key from key pool
     reservekey.KeepKey();
@@ -4468,17 +4468,17 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessBlock(state, NULL, pblock))
-      return error("CompcoinMiner : ProcessBlock, block not accepted");
+      return error("LitecoinMiner : ProcessBlock, block not accepted");
   }
 
   return true;
 }
 
-void static CompcoinMiner(CWallet *pwallet)
+void static LitecoinMiner(CWallet *pwallet)
 {
-  printf("CompcoinMiner started\n");
+  printf("LitecoinMiner started\n");
   SetThreadPriority(THREAD_PRIORITY_LOWEST);
-  RenameThread("compcoin-miner");
+  RenameThread("litecoin-miner");
 
   // Each thread has its own key and counter
   CReserveKey reservekey(pwallet);
@@ -4500,7 +4500,7 @@ void static CompcoinMiner(CWallet *pwallet)
   CBlock *pblock = &pblocktemplate->block;
   IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-  printf("Running CompcoinMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
+  printf("Running LitecoinMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
      ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
   //
@@ -4602,7 +4602,7 @@ void static CompcoinMiner(CWallet *pwallet)
   } }
   catch (boost::thread_interrupted)
   {
-  printf("CompcoinMiner terminated\n");
+  printf("LitecoinMiner terminated\n");
   throw;
   }
 }
@@ -4627,7 +4627,7 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet)
 
   minerThreads = new boost::thread_group();
   for (int i = 0; i < nThreads; i++)
-    minerThreads->create_thread(boost::bind(&CompcoinMiner, pwallet));
+    minerThreads->create_thread(boost::bind(&LitecoinMiner, pwallet));
 }
 
 // Amount compression:
