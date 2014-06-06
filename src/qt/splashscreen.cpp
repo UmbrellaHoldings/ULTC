@@ -29,7 +29,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QString copyrightText2   = QChar(0xA9)+QString(" 2011-2013 ") + QString(tr("The Litecoin developers"));
     QString copyrightText3   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("The Vertcoin developers"));
     QString copyrightText4   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("The SiliconValleycoin developers"));
-    QString copyrightText5   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("Cohorta LLC"));
+    QString copyrightText5   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("Cohors LLC"));
     
     QString font            = "Arial";
 

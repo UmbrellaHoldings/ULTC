@@ -25,7 +25,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
       + QString("<br>") + tr("Copyright")
       + QString(" &copy; 2013-2014 ") + tr("The SiliconValleycoin Developers")
       + QString("<br>") + tr("Copyright")
-      + QString(" &copy; 2013-2014 ") + tr("Cohorta LLC")      
+      + QString(" &copy; 2013-2014 ") + tr("Cohors LLC")      
     );}
 
 void AboutDialog::setModel(ClientModel *model)
