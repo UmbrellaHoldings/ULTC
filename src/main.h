@@ -1346,7 +1346,7 @@ public:
     return (int64)nTime;
   }
 
-  coin::time::block::time_point GetTimePoint() const;
+  coin::times::block::time_point GetTimePoint() const;
 
   void UpdateTime(const CBlockIndex* pindexPrev);
 };
@@ -1767,7 +1767,7 @@ public:
     return (int64)nTime;
   }
 
-  coin::time::block::time_point GetTimePoint() const;
+  coin::times::block::time_point GetTimePoint() const;
 
   CBigNum GetBlockWork() const
   {

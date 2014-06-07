@@ -3,6 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "log.h"
 #include "txdb.h"
 #include "walletdb.h"
 #include "bitcoinrpc.h"
@@ -141,15 +142,6 @@ void HandleSIGTERM(int)
 {
     fRequestShutdown = true;
 }
-
-void HandleSIGHUP(int)
-{
-    fReopenDebugLog = true;
-}
-
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -495,7 +487,6 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // Reopen debug.log on SIGHUP
     struct sigaction sa_hup;
-    sa_hup.sa_handler = HandleSIGHUP;
     sigemptyset(&sa_hup.sa_mask);
     sa_hup.sa_flags = 0;
     sigaction(SIGHUP, &sa_hup, NULL);
@@ -582,7 +573,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 #endif
     fPrintToConsole = GetBoolArg("-printtoconsole");
     fPrintToDebugger = GetBoolArg("-printtodebugger");
-    fLogTimestamps = GetBoolArg("-logtimestamps", true);
+    //fLogTimestamps = GetBoolArg("-logtimestamps", true);
     bool fDisableWallet = GetBoolArg("-disablewallet", false);
 
     if (mapArgs.count("-timeout"))
@@ -652,7 +643,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("Xxxxxxx version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
-    if (!fLogTimestamps)
+    if (lg::stream::instance().log_timestamps())
         printf("Startup time: %s\n", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", GetTime()).c_str());
     printf("Default data directory %s\n", GetDefaultDataDir().string().c_str());
     printf("Using data directory %s\n", strDataDir.c_str());

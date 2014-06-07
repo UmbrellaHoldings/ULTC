@@ -12,6 +12,7 @@
 #include <cmath>
 #include <stdexcept>
 #include "types/time.h"
+#include "btc_time.h"
 #include "n_factor.h"
 
 //! Returns tuple with scrypt N,r,p parameters.
@@ -31,13 +32,14 @@
 //! time greater block checking time on a single core
 //! which is near proportional to N*r).
 std::tuple<uint32_t, unsigned, unsigned>
-GetNfactor(coin::time::block::time_point block_time) 
+GetNfactor(coin::times::block::time_point block_time) 
 {
-  using namespace coin::time::block;
+  using namespace coin::times::block;
   using namespace std::chrono;
   using namespace std;
 
-  using days = chrono::duration<clock::rep, ratio<3600 * 24>>;
+  using days = chrono::duration
+    <clock::rep, ratio<3600 * 24>>;
   using avg_months = chrono::duration
     <clock::rep, ratio<3600 * 24 * 30>>;
 
@@ -45,8 +47,8 @@ GetNfactor(coin::time::block::time_point block_time)
 
   //! The function birth time
   static const auto birth_time =
-    coin::time::block::time_point(
-      days(curr::time::howard_hinnant::days_from_civil
+    coin::times::block::time_point(
+      days(times::howard_hinnant::days_from_civil
         (2014, 05, 05))
     );
 

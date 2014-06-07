@@ -25,7 +25,7 @@ namespace DigiByte {
 class difficulty
 {
 public:
-  using duration = coin::time::block::clock::duration;
+  using duration = coin::times::block::clock::duration;
 
   //! Calculates a target difficulty for the next block
   compact_bignum_t next_block_difficulty(
@@ -71,6 +71,10 @@ protected:
   //! The greater numeric value is the lower difficulty
   const compact_bignum_t min_difficulty_by_design = 
     CBigNum(~uint256(0) >> 18).GetCompact();
+
+  //! An average planned block period
+  const duration block_period_by_design = 
+    coin::times::block::minutes(8);
 
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 

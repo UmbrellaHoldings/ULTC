@@ -1200,17 +1200,17 @@ bool ConnectBestBlock(CValidationState &state) {
   } while(true);
 }
 
-coin::time::block::time_point CBlockHeader
+coin::times::block::time_point CBlockHeader
 ::GetTimePoint() const
 {
-  using namespace coin::time::block;
+  using namespace coin::times::block;
   return time_point(std::chrono::seconds(nTime));
 }
 
-coin::time::block::time_point CBlockIndex
+coin::times::block::time_point CBlockIndex
 ::GetTimePoint() const
 {
-  using namespace coin::time::block;
+  using namespace coin::times::block;
   return time_point(std::chrono::seconds(nTime));
 }
 

@@ -17,6 +17,6 @@
 using n_factor_t = std::tuple<uint32_t, unsigned, unsigned>;
 
 n_factor_t
-GetNfactor(coin::time::block::time_point block_time);
+GetNfactor(coin::times::block::time_point block_time);
 
 #endif

@@ -38,13 +38,12 @@
 #include <ctime>
 #include <iomanip>
 #include <tuple>
+#include "types/string.h"
 
 #ifndef COHORS_TYPES_TIME_H_
 #define COHORS_TYPES_TIME_H_
 
-namespace curr {
-
-namespace time {
+namespace times {
 
 namespace howard_hinnant {
 
@@ -176,7 +175,35 @@ std::tm make_utc_tm(
     return tm;
 }
 
-} // time
+//! Log the current time when output to a stream
+template<class CharT, class Clock, size_t slen>
+class timestamp_t
+{
+public:
+  timestamp_t(const CharT(&fmt)[slen])
+    : format(fmt)
+  {}
+
+  const types::constexpr_basic_string<CharT> format;
+};
+
+template<class Clock, size_t slen>
+timestamp_t<char, Clock, slen> timestamp(
+  const char(&s)[slen]
+)
+{
+  return timestamp_t<char, Clock, slen>(s);
+}
+
+template<class Clock, size_t slen>
+timestamp_t<wchar_t, Clock, slen> timestamp(
+  const wchar_t(&s)[slen]
+)
+{
+  return timestamp_t<wchar_t, Clock, slen>(s);
+}
+
+} // times
 
 //! seconds from the last midnight
 template < 
@@ -196,15 +223,24 @@ TDur seconds_since_midnight
 template<
   class CharT, 
   class Clock,
-  class Duration = typename Clock::duration,
-  uint8_t N = 0
+  class Duration = typename Clock::duration//,
+//  uint8_t N = 0
 >
 struct put_time_t
 {
   using time_point = std::chrono::time_point<Clock, Duration>;
 
+  template<size_t N>
   put_time_t(const time_point& p, const CharT(&f)[N]) 
-    : point(p), format(f) {}
+    : point(p), format(f) 
+  {}
+
+  put_time_t(
+    const time_point& p, 
+    types::constexpr_string f
+  ) 
+    : point(p), format(f.c_str()) 
+  {}
 
   const time_point point;
   const CharT* format;
@@ -216,14 +252,14 @@ template<
   class Duration = typename Clock::duration,
   uint8_t N = 0
 >
-std::ostream& operator<<(
-  std::ostream& out, 
-  put_time_t<CharT, Clock, Duration, N>&& t
+std::basic_ostream<CharT>& operator<<(
+  std::basic_ostream<CharT>& out, 
+  put_time_t<CharT, Clock, Duration>&& t
 )
 {
-  const std::tm tmp = time::make_utc_tm(t.point);
-  using iterator = std::ostreambuf_iterator<char>;
-  using time_put = std::time_put<char, iterator>;
+  const std::tm tmp = times::make_utc_tm(t.point);
+  using iterator = std::ostreambuf_iterator<CharT>;
+  using time_put = std::time_put<CharT, iterator>;
   const time_put& tp= std::use_facet<time_put>(out.getloc());
   const iterator end = tp.put(
     iterator(out.rdbuf()), 
@@ -232,7 +268,7 @@ std::ostream& operator<<(
     &tmp,
     t.format,
     t.format 
-      + std::char_traits<char>::length(t.format)
+      + std::char_traits<CharT>::length(t.format)
   );
 
   if (end.failed())
@@ -247,103 +283,54 @@ template<
   class Duration = typename Clock::duration,
   uint8_t N = 0
 >
-put_time_t<CharT, Clock, Duration, N> 
+put_time_t<CharT, Clock, Duration> 
 put_time(
   const std::chrono::time_point<Clock, Duration>& time, 
   const CharT(&format)[N]
 )
 {
-  return put_time_t<CharT, Clock, Duration, N>
+  return put_time_t<CharT, Clock, Duration>
     (time, format);
 }
 
-namespace types {
-
-//! Ostream helper type
-template <class Clock, class Duration, class Format>
-class put_time_type
+template<
+  class CharT, 
+  class Clock,
+  class Duration = typename Clock::duration
+>
+put_time_t<CharT, Clock, Duration> 
+put_time(
+  const std::chrono::time_point<Clock, Duration>& time, 
+  const types::constexpr_basic_string<CharT> format
+)
 {
-public:
-  typedef std::chrono::time_point<Clock, Duration>
-    time_point;
+  return put_time_t<CharT, Clock, Duration>
+    (time, format);
+}
 
-  //! Formatted output. Supports a few conversions from
-  //! std::put_time 
-  put_time_type(time_point t, const Format& f) 
-    : time(t), fmt(f) {}
-
-  put_time_type(time_point t, Format&& f) 
-    : time(t), fmt(std::forward<Format>(f)) {}
-
-  time_point time;
-  Format fmt;
-};
-
-template<class Clock, class Duration>
-std::ostream&
-operator << 
-  (std::ostream& out, 
-   const put_time_type<Clock, Duration, const char*>& time
-   )
+#if 1
+template<
+  class CharT, 
+  class Clock, 
+  size_t slen
+>
+std::basic_ostream<CharT>& operator<<(
+  std::basic_ostream<CharT>& out, 
+  times::timestamp_t<CharT, Clock, slen>&& ts
+)
 {
-#if 0
-  const std::tm tm = 
-    Clock::time_point_to_tm(time.time);
-  out << std::put_time<char>(&tm, time.fmt);
-#else
-  out << time.fmt;
-#endif
+  out << put_time(Clock::now(), ts.format);
   return out;
 }
-
-/*
-template<class Clock, class Duration, class Format>
-std::basic_ostream <
-  typename format_string<Format>::char_type,
-  std::char_traits<typename format_string<Format>::char_type>
->&
-operator << 
-  (std::basic_ostream <
-    typename format_string<Format>::char_type,
-    std::char_traits<typename format_string<Format>::char_type>
-   >& out, 
-   const put_time_type<Clock, Duration, Format>& time
-  );
-*/
-
-
-//! A time stream output helper function (it allows
-//! specify a format)
-template <class Clock, class Duration, class Format>
-put_time_type<Clock, Duration, Format>
-//
-put_time(std::chrono::time_point<Clock, Duration> time,
-         const Format& fmt)
+#else
+template<class Clock, size_t slen>
+std::ostream& operator<<(
+  std::ostream& out, 
+  times::timestamp_t<char, Clock, slen>&& ts
+)
 {
-  return put_time_type<Clock, Duration, Format>(time, fmt);
+  return out << put_time(Clock::now(), ts.format);
 }
-
-template <class Clock, class Duration, class Format>
-put_time_type<Clock, Duration, Format>
-//
-put_time(std::chrono::time_point<Clock, Duration> time,
-         Format&& fmt)
-{
-  return put_time_type<Clock, Duration, Format>
-    (time, std::forward<Format>(fmt));
-}
-
-template <class Clock, class Duration, class CharT>
-put_time_type<Clock, Duration, const CharT*>
-//
-put_time(std::chrono::time_point<Clock, Duration> time,
-         const CharT* fmt)
-{
-  return put_time_type<Clock, Duration, const CharT*>
-    (time, fmt);
-}
-
-} // types
-} // curr
+#endif
 
 #endif

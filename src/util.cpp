@@ -13,6 +13,7 @@
 #include <sys/resource.h>
 #endif
 
+#include <fstream>
 #include "util.h"
 #include "sync.h"
 #include "version.h"
@@ -37,9 +38,11 @@ namespace boost {
 #include <boost/filesystem/fstream.hpp>
 #include <boost/foreach.hpp>
 #include <boost/thread.hpp>
+//#include <boost/thread/recursive_mutex.hpp>
 #include <openssl/crypto.h>
 #include <openssl/rand.h>
 #include <stdarg.h>
+#include "log.h"
 
 #ifdef WIN32
 #ifdef _MSC_VER
@@ -81,9 +84,8 @@ string strMiscWarning;
 bool fTestNet = false;
 bool fBloomFilters = true;
 bool fNoListen = false;
-bool fLogTimestamps = false;
+//bool fLogTimestamps = false;
 CMedianFilter<int64> vTimeOffsets(200,0);
-volatile bool fReopenDebugLog = false;
 bool fCachedPath[2] = {false, false};
 
 // Init OpenSSL library multithreading support
@@ -128,13 +130,6 @@ public:
 }
 instance_of_cinit;
 
-
-
-
-
-
-
-
 uint64 GetRand(uint64 nMax)
 {
   if (nMax == 0)
@@ -160,83 +155,26 @@ uint256 GetRandHash()
   uint256 hash;
   RAND_bytes((unsigned char*)&hash, sizeof(hash));
   return hash;
+
 }
 
-
-
-
-
-
-
-//
-// OutputDebugStringF (aka printf -- there is a #define that we really
-// should get rid of one day) has been broken a couple of times now
-// by well-meaning people adding mutexes in the most straightforward way.
-// It breaks because it may be called by global destructors during shutdown.
-// Since the order of destruction of static/global objects is undefined,
-// defining a mutex as a global object doesn't work (the mutex gets
-// destroyed, and then some later destructor calls OutputDebugStringF,
-// maybe indirectly, and you get a core dump at shutdown trying to lock
-// the mutex).
-
-static boost::once_flag debugPrintInitFlag = BOOST_ONCE_INIT;
-// We use boost::call_once() to make sure these are initialized in
-// in a thread-safe manner the first time it is called:
-static FILE* fileout = NULL;
-static boost::mutex* mutexDebugLog = NULL;
-
-static void DebugPrintInit()
+void OutputDebugStringF(const char* pszFormat, ...)
 {
-  assert(fileout == NULL);
-  assert(mutexDebugLog == NULL);
 
-  boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-  fileout = fopen(pathDebug.string().c_str(), "a");
-  if (fileout) setbuf(fileout, NULL); // unbuffered
-
-  mutexDebugLog = new boost::mutex();
-}
-
-int OutputDebugStringF(const char* pszFormat, ...)
-{
-  int ret = 0; // Returns total number of characters written
+//  int ret = 0; // Returns total number of characters written
   if (fPrintToConsole)
   {
     // print to console
     va_list arg_ptr;
     va_start(arg_ptr, pszFormat);
-    ret += vprintf(pszFormat, arg_ptr);
+    /*ret +=*/ vprintf(pszFormat, arg_ptr);
     va_end(arg_ptr);
   }
   else if (!fPrintToDebugger)
   {
-    static bool fStartedNewLine = true;
-    boost::call_once(&DebugPrintInit, debugPrintInitFlag);
-
-    if (fileout == NULL)
-      return ret;
-
-    boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
-
-    // reopen the log file, if requested
-    if (fReopenDebugLog) {
-      fReopenDebugLog = false;
-      boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-      if (freopen(pathDebug.string().c_str(),"a",fileout) != NULL)
-        setbuf(fileout, NULL); // unbuffered
-    }
-
-    // Debug print useful for profiling
-    if (fLogTimestamps && fStartedNewLine)
-      ret += fprintf(fileout, "%s ", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", GetTime()).c_str());
-    if (pszFormat[strlen(pszFormat) - 1] == '\n')
-      fStartedNewLine = true;
-    else
-      fStartedNewLine = false;
-
     va_list arg_ptr;
     va_start(arg_ptr, pszFormat);
-    ret += vfprintf(fileout, pszFormat, arg_ptr);
+    lg::stream::instance().vprintf(pszFormat, arg_ptr);
     va_end(arg_ptr);
   }
 
@@ -248,17 +186,27 @@ int OutputDebugStringF(const char* pszFormat, ...)
     // accumulate and output a line at a time
     {
       LOCK(cs_OutputDebugStringF);
-      static std::string buffer;
+      class ostringstream 
+        : public std::ostringstream,
+          public lg::printf_basic_stream<char>
+      {
+      public:
+        using std::ostringstream::ostringstream;
+      };
+
+      ostringstream out;
 
       va_list arg_ptr;
       va_start(arg_ptr, pszFormat);
-      buffer += vstrprintf(pszFormat, arg_ptr);
+      out.vprintf(pszFormat, arg_ptr);
       va_end(arg_ptr);
+
+      std::string buffer = out.str();
 
       int line_start = 0, line_end;
       while((line_end = buffer.find('\n', line_start)) != -1)
       {
-        OutputDebugStringA(buffer.substr(line_start, line_end - line_start).c_str());
+        OutputDebugStringA(buffer.str().substr(line_start, line_end - line_start).c_str());
         line_start = line_end + 1;
         ret += line_end-line_start;
       }
@@ -266,7 +214,6 @@ int OutputDebugStringF(const char* pszFormat, ...)
     }
   }
 #endif
-  return ret;
 }
 
 string vstrprintf(const char *format, va_list ap)
@@ -1239,7 +1186,7 @@ void ShrinkDebugFile()
     }
   }
   else if(file != NULL)
-       fclose(file);
+     fclose(file);
 }
 
 

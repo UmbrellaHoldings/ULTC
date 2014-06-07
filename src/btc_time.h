@@ -16,7 +16,7 @@
 #include "types/fixed.h"
 
 namespace coin {
-namespace time {
+namespace times {
 
 namespace block {
 
@@ -70,8 +70,10 @@ using time_point = clock::time_point;
 constexpr clock::duration zero = clock::duration::zero();
 
 } // block
-} // time
+} // times
 } // coin
+
+static coin::times::block::time_point a;
 
 namespace std { namespace chrono {
 

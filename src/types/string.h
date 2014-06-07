@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <iterator>
 #include <assert.h>
+#include "types/safe.h"
 
 namespace types {
 
@@ -205,6 +206,16 @@ public:
   constexpr const value_type* c_str() const 
   { 
     return arr; 
+  }
+
+  const value_type* begin() const
+  {
+    return arr;
+  }
+
+  const value_type* end() const
+  {
+    return arr + len;
   }
 
 private:

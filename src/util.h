@@ -146,12 +146,12 @@ extern std::string strMiscWarning;
 extern bool fTestNet;
 extern bool fBloomFilters;
 extern bool fNoListen;
-extern bool fLogTimestamps;
+//extern bool fLogTimestamps;
 extern volatile bool fReopenDebugLog;
 
 void RandAddSeed();
 void RandAddSeedPerfmon();
-int ATTR_WARN_PRINTF(1,2) OutputDebugStringF(const char* pszFormat, ...);
+void ATTR_WARN_PRINTF(1,2) OutputDebugStringF(const char* pszFormat, ...);
 
 /*
   Rationale for the real_strprintf / strprintf construction:
