@@ -1,0 +1,65 @@
+---
+name: "boost-raspberry"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "unzip"
+- "pkg-config"
+- "libtool"
+- "faketime"
+- "bsdmainutils"
+- "zip"
+- "libz-dev"
+- "libc6-dev-i386"
+- "linux-libc-dev:i386"
+- "lib32stdc++6"
+- "zlib1g:i386"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "boost_1_55_0.tar.bz2"
+- "raspberry_tools.tar.bz2"
+script: |
+  # Input Integrity Check
+  echo "fff00023dd79486d444c8e29922f4072e1d451fc5a4d2b6075852ead7f2b7b52  boost_1_55_0.tar.bz2" | shasum -c
+  echo "523e25e7277f2e143d9b29fba5b65ff1c56baf80085bc51c64220cd2ade83ff2  raspberry_tools.tar.bz2" | shasum -c
+  #
+  tar --warning=no-timestamp -xjf raspberry_tools.tar.bz2
+  export TOOLCHAIN_BIN=$(pwd)/raspberry_tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin
+  export PATH=$PATH:$TOOLCHAIN_BIN
+  #
+  # Defines
+  STAGING="$HOME/install"
+  TEMPDIR="$HOME/tmp"
+  export LIBRARY_PATH="$STAGING/lib"
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  #
+  mkdir -p "$STAGING"
+  tar --warning=no-timestamp -xjf boost_1_55_0.tar.bz2
+  cd boost_1_55_0
+  # note: bjam with -d+2 reveals that -O3 is implied by default, no need to provide it in cxxflags
+  echo "using gcc : arm : $TOOLCHAIN_BIN/arm-linux-gnueabihf-g++
+        :
+        <cxxflags>\"-frandom-seed=boost1\"
+  ;" > user-config.jam
+
+  ./bootstrap.sh --without-icu
+
+  ./bjam toolset=gcc-arm --target-os=linux cxxflags='--std=c++11' threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
+
+  # post-process all generated libraries to be deterministic
+  # extract them to a temporary directory then re-build them deterministically
+  export AR=arm-linux-gnueabihf-ar
+  for LIB in $(find $STAGING -name \*.a); do
+    rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+    $AR xv $LIB | cut -b5- > /tmp/list.txt
+    rm $LIB
+    $AR crsD $LIB $(cat /tmp/list.txt)
+  done
+  #
+  cd "$STAGING"
+  find | sort | zip -X@ $OUTDIR/boost-raspberry-1.55.0.zip
