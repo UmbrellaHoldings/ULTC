@@ -9,7 +9,7 @@ packages:
 - "zip"
 - "pkg-config"
 - "libtool"
-- "faketime"
+- "faketime:i386"
 - "bsdmainutils"
 - "lib32stdc++6"
 - "zlib1g:i386"
@@ -18,6 +18,7 @@ remotes: []
 files:
 - "openssl-1.0.1g.tar.gz"
 - "miniupnpc-1.9.tar.gz"
+- "zlib-1.2.6.tar.gz"
 - "db-4.8.30.NC.tar.gz"
 - "raspberry_tools.tar.bz2"
 script: |
@@ -31,6 +32,7 @@ script: |
   # Integrity Check
   echo "53cb818c3b90e507a8348f4f5eaedb05d8bfe5358aabb508b7263cc670c3e028  openssl-1.0.1g.tar.gz"  | sha256sum -c
   echo "2923e453e880bb949e3d4da9f83dd3cb6f08946d35de0b864d0339cf70934464  miniupnpc-1.9.tar.gz"   | sha256sum -c
+  echo '21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b  zlib-1.2.6.tar.gz' | sha256sum -c
   #  echo "dfd71487513c871bad485806bfd1fdb304dedc84d2b01a8fb8e0940b50597a98  qrencode-3.4.3.tar.bz2" | sha256sum -c
   echo "12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz"    | sha256sum -c
   echo "523e25e7277f2e143d9b29fba5b65ff1c56baf80085bc51c64220cd2ade83ff2  raspberry_tools.tar.bz2" | shasum -c
@@ -44,6 +46,13 @@ script: |
   export CC=arm-linux-gnueabihf-gcc
   export AR=arm-linux-gnueabihf-ar
   export RANLIB=arm-linux-gnueabihf-ranlib
+  #
+  tar --warning=no-timestamp -xzf zlib-1.2.6.tar.gz
+  cd zlib-1.2.6
+  CROSS_PREFIX=$HOST- ./configure --prefix=$STAGING --static
+  make
+  make install
+  cd ..
   #
   tar --warning=no-timestamp -xzf openssl-1.0.1g.tar.gz
   cd openssl-1.0.1g
@@ -90,5 +99,5 @@ script: |
   done
   #
   cd $STAGING
-  find include lib bin host | sort | zip -X@ $OUTDIR/deps-raspberry.zip
+  find include lib bin host | sort | zip -X@ $OUTDIR/deps-raspberry-gitian-r1.zip
 
