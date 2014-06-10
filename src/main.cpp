@@ -20,6 +20,7 @@
 #include "algos/digishield.hpp"
 #include "btc_time.h"
 #include "block.h"
+#include "log.h"
 
 using namespace std;
 using namespace boost;
@@ -2207,8 +2208,8 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
       the_difficulty.dos_check_min_difficulty(*pblock);
     }
     catch(const except::dos& ex) {
-      std::cout << "ProcessBlock() : " 
-                << ex.what() << std::endl;
+      LOG() << "ProcessBlock() : " 
+            << ex.what() << std::endl;
       return state.DoS(100);
     }
   }
@@ -4473,7 +4474,10 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
 void static LitecoinMiner(CWallet *pwallet)
 {
-  printf("LitecoinMiner started\n");
+  static int miner_id_ = 0;
+  const int miner_id = ++miner_id_;
+  LOG() << "LitecoinMiner " << miner_id << " started"
+    << std::endl;
   SetThreadPriority(THREAD_PRIORITY_LOWEST);
   RenameThread("litecoin-miner");
 
@@ -4519,30 +4523,53 @@ void static LitecoinMiner(CWallet *pwallet)
   //
   int64 nStart = GetTime();
   uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+  LOG() << '(' << miner_id << ") Current target: " 
+        << hashTarget << std::endl;
+  static auto global_best_hash = ~uint256();
+  auto best_hash = global_best_hash;
+
   loop
   {
     unsigned int nHashesDone = 0;
 
     uint256 thash;
-    auto H = ::hash::hasher::instance
+    const auto n_factor = GetNfactor
       (pblock->GetTimePoint());
-
+    auto scratchpad = scrypt::get_scratchpad(n_factor);
     loop
     {
-    thash = H->hash(*pblock);
+      thash = scrypt::hash(*pblock, n_factor, scratchpad);
       
-    if (thash <= hashTarget)
-    {
-      // Found a solution
-      SetThreadPriority(THREAD_PRIORITY_NORMAL);
-      CheckWork(pblock, *pwallet, reservekey);
-      SetThreadPriority(THREAD_PRIORITY_LOWEST);
-      break;
-    }
-    pblock->nNonce += 1;
-    nHashesDone += 1;
-    if ((pblock->nNonce & 0xFF) == 0)
-    break;
+      if (thash <= hashTarget)
+      {
+        // Found a solution
+        SetThreadPriority(THREAD_PRIORITY_NORMAL);
+        CheckWork(pblock, *pwallet, reservekey);
+        SetThreadPriority(THREAD_PRIORITY_LOWEST);
+        break;
+      }
+      pblock->nNonce += 1;
+      nHashesDone += 1;
+      if (thash < best_hash) {
+        best_hash = thash;
+        static CCriticalSection cs;
+        bool global_best = false;
+        {
+          LOCK(cs);
+          if (thash < global_best_hash)
+          {
+            global_best_hash = thash;
+            global_best = true;
+          }
+        }
+        if (global_best) {
+          LOG() << '(' << miner_id << ") Best hash: " 
+                << thash << std::endl;
+          break;
+        }
+      }
+      if ((pblock->nNonce & 0xFF) == 0)
+        break;
     }
 
     // Meter hashes/sec
@@ -4568,7 +4595,8 @@ void static LitecoinMiner(CWallet *pwallet)
       if (GetTime() - nLogTime > 30 * 60)
       {
         nLogTime = GetTime();
-        printf("hashmeter %6.0f khash/s\n", dHashesPerSec/1000.0);
+        LOG() << "hashmeter " << std::fixed 
+          << dHashesPerSec << " hash/s" << std::endl;
       }
       }
     }

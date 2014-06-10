@@ -16,6 +16,7 @@
 #include "main.h"
 #include "checkpoints.h"
 #include "bignum.h"
+#include "log.h"
 
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 
@@ -39,7 +40,7 @@ compact_bignum_t difficulty
   auto nActualTimespan = pindexLast->GetTimePoint() 
     - pindexFirst->GetTimePoint();
 
-  std::cout << "  nActualTimespan = " 
+  LOG() << "  nActualTimespan = " 
        << nActualTimespan
        << "  before bounds\n";
 
@@ -61,8 +62,10 @@ compact_bignum_t difficulty
   bnNew *= to_fixed(nActualTimespan);
   bnNew /= to_fixed(block_period_by_design);
   
-  /// debug print
-  std::cout 
+  if (bnNew > min_difficulty_by_design)
+    bnNew = min_difficulty_by_design;
+
+  LOG() 
     << "GetNextWorkRequired [DigiShield] RETARGET \n"
     << "retargetTimespan = " << block_period_by_design
     << " nActualTimespan = " << nActualTimespan
@@ -71,9 +74,6 @@ compact_bignum_t difficulty
     << "\nAfter: " << bnNew.GetCompact() << ' '
     << bnNew.getuint256() << '\n';
   
-  if (bnNew > min_difficulty_by_design)
-    bnNew = min_difficulty_by_design;
-
   return bnNew.GetCompact();
 }
 
