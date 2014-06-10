@@ -203,8 +203,6 @@ timestamp_t<wchar_t, Clock, slen> timestamp(
   return timestamp_t<wchar_t, Clock, slen>(s);
 }
 
-} // times
-
 //! seconds from the last midnight
 template < 
   class Clock,
@@ -246,18 +244,53 @@ struct put_time_t
   const CharT* format;
 };
 
+} // times
+
 template<
   class CharT, 
   class Clock,
   class Duration = typename Clock::duration,
   uint8_t N = 0
 >
-std::basic_ostream<CharT>& operator<<(
-  std::basic_ostream<CharT>& out, 
-  put_time_t<CharT, Clock, Duration>&& t
+::times::put_time_t<CharT, Clock, Duration> 
+put_time(
+  const std::chrono::time_point<Clock, Duration>& time, 
+  const CharT(&format)[N]
 )
 {
-  const std::tm tmp = times::make_utc_tm(t.point);
+  return ::times::put_time_t<CharT, Clock, Duration>
+    (time, format);
+}
+
+template<
+  class CharT, 
+  class Clock,
+  class Duration = typename Clock::duration
+>
+::times::put_time_t<CharT, Clock, Duration> 
+put_time(
+  const std::chrono::time_point<Clock, Duration>& time, 
+  const types::constexpr_basic_string<CharT> format
+)
+{
+  return ::times::put_time_t<CharT, Clock, Duration>
+    (time, format);
+}
+
+namespace times {
+
+template<
+  class CharT, 
+  class Clock,
+  class Duration = typename Clock::duration,
+  uint8_t N = 0
+>
+void put_time(
+  std::basic_ios<CharT>& out, 
+  const put_time_t<CharT, Clock, Duration>& t
+)
+{
+  const std::tm tmp = ::times::make_utc_tm(t.point);
   using iterator = std::ostreambuf_iterator<CharT>;
   using time_put = std::time_put<CharT, iterator>;
   const time_put& tp= std::use_facet<time_put>(out.getloc());
@@ -273,9 +306,22 @@ std::basic_ostream<CharT>& operator<<(
 
   if (end.failed())
     out.setstate(std::ios_base::badbit);
-
-  return out;
 }
+
+template<
+  class CharT, 
+  class Clock, 
+  size_t slen
+>
+void put_time(
+  std::basic_ios<CharT>& out, 
+  const ::times::timestamp_t<CharT, Clock, slen>& ts
+)
+{
+  put_time(out, ::put_time(Clock::now(), ts.format));
+}
+
+} // times
 
 template<
   class CharT, 
@@ -283,32 +329,15 @@ template<
   class Duration = typename Clock::duration,
   uint8_t N = 0
 >
-put_time_t<CharT, Clock, Duration> 
-put_time(
-  const std::chrono::time_point<Clock, Duration>& time, 
-  const CharT(&format)[N]
+std::basic_ostream<CharT>& operator<<(
+  std::basic_ostream<CharT>& out, 
+  const ::times::put_time_t<CharT, Clock, Duration>& t
 )
 {
-  return put_time_t<CharT, Clock, Duration>
-    (time, format);
+  ::times::put_time(out, t);
+  return out;
 }
 
-template<
-  class CharT, 
-  class Clock,
-  class Duration = typename Clock::duration
->
-put_time_t<CharT, Clock, Duration> 
-put_time(
-  const std::chrono::time_point<Clock, Duration>& time, 
-  const types::constexpr_basic_string<CharT> format
-)
-{
-  return put_time_t<CharT, Clock, Duration>
-    (time, format);
-}
-
-#if 1
 template<
   class CharT, 
   class Clock, 
@@ -316,21 +345,11 @@ template<
 >
 std::basic_ostream<CharT>& operator<<(
   std::basic_ostream<CharT>& out, 
-  times::timestamp_t<CharT, Clock, slen>&& ts
+  const ::times::timestamp_t<CharT, Clock, slen>& ts
 )
 {
-  out << put_time(Clock::now(), ts.format);
+  ::times::put_time(out, ts);
   return out;
 }
-#else
-template<class Clock, size_t slen>
-std::ostream& operator<<(
-  std::ostream& out, 
-  times::timestamp_t<char, Clock, slen>&& ts
-)
-{
-  return out << put_time(Clock::now(), ts.format);
-}
-#endif
 
 #endif
