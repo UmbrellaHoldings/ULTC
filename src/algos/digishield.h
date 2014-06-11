@@ -72,8 +72,8 @@ protected:
   //parameters 
 
   //! The greater numeric value is the lower difficulty
-  const compact_bignum_t min_difficulty_by_design = 
-    CBigNum(~uint256(0) >> 18).GetCompact();
+  const compact_bignum_t min_difficulty_by_design;
+  //= CBigNum(~uint256(0) >> 18).GetCompact();
 
   //! An average planned block period
   const duration block_period_by_design;
@@ -87,9 +87,11 @@ protected:
 
 private:
   difficulty(
+    compact_bignum_t min_difficulty_by_design_,
     duration block_period_by_design_
   )
-    : block_period_by_design(block_period_by_design_)
+    : min_difficulty_by_design(min_difficulty_by_design_),
+      block_period_by_design(block_period_by_design_)
   {}
 };
 
