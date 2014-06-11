@@ -9,9 +9,11 @@ then
   build_only=yes
 fi
 
-IFS=v. read _ maj min rev build <<EOF
+IFS=v. read dummy maj min rev build <<EOF
 $(echo $last_tag)
 EOF
+
+echo $maj >&2
 
 if test -z "$build"
 then 
