@@ -160,7 +160,7 @@ std::tm make_utc_tm(
     std::tie(year, month, day) = 
       howard_hinnant::civil_from_days(d.count());
     // start filling in the tm with calendar info
-    std::tm tm = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    std::tm tm = {0};
     tm.tm_year = year - 1900;
     tm.tm_mon = month - 1;
     tm.tm_mday = day;

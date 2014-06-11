@@ -160,14 +160,17 @@ uint256 GetRandHash()
 
 void OutputDebugStringF(const char* pszFormat, ...)
 {
+<<<<<<< HEAD
 
 //  int ret = 0; // Returns total number of characters written
+=======
+>>>>>>> 49dca35... switch to boost::filesystem::ostream, make compilable
   if (fPrintToConsole)
   {
     // print to console
     va_list arg_ptr;
     va_start(arg_ptr, pszFormat);
-    /*ret +=*/ vprintf(pszFormat, arg_ptr);
+    vprintf(pszFormat, arg_ptr);
     va_end(arg_ptr);
   }
   else if (!fPrintToDebugger)
@@ -192,6 +195,15 @@ void OutputDebugStringF(const char* pszFormat, ...)
       {
       public:
         using std::ostringstream::ostringstream;
+        void sentried(const std::function<void()>& f) override
+        {
+          sentry s(*this);
+          if (!s)
+             return;
+
+          f();
+        }
+
       };
 
       ostringstream out;
@@ -203,12 +215,13 @@ void OutputDebugStringF(const char* pszFormat, ...)
 
       std::string buffer = out.str();
 
+
       int line_start = 0, line_end;
       while((line_end = buffer.find('\n', line_start)) != -1)
       {
-        OutputDebugStringA(buffer.str().substr(line_start, line_end - line_start).c_str());
+        OutputDebugStringA(buffer.substr(line_start, line_end - line_start).c_str());
+        std::cout << buffer << std::endl;
         line_start = line_end + 1;
-        ret += line_end-line_start;
       }
       buffer.erase(0, line_start);
     }

@@ -14,6 +14,7 @@
 #include <fstream>
 #include <algorithm>
 #include <boost/thread.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include "types/string.h"
 #include "types/time.h"
 #include "util.h"
@@ -79,7 +80,7 @@ protected:
 //! The stream to log. It is a singleton.
 class stream 
   : public printf_basic_stream<char>,
-    public std::basic_ofstream<char> //, log_traits<char>>
+    public boost::filesystem::basic_ofstream<char> //, log_traits<char>>
 {
 public:
   static stream& instance()
@@ -108,8 +109,8 @@ protected:
 
 private:
   stream() 
-   : std::ofstream(
-       (GetDataDir() / "debug.log").c_str(), 
+   : boost::filesystem::ofstream(
+       GetDataDir() / "debug.log",
        std::ios_base::app
      )
   {
