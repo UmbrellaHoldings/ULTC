@@ -13,8 +13,6 @@ IFS=v. read dummy maj min rev build <<EOF
 $(echo $last_tag)
 EOF
 
-echo $maj >&2
-
 if test -z "$build"
 then 
   echo "Invalid version tag: [$last_tag]" >&2
