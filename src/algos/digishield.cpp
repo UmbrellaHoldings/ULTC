@@ -17,10 +17,33 @@
 #include "checkpoints.h"
 #include "bignum.h"
 #include "log.h"
+#include "util.h"
 
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 
 namespace DigiByte {
+
+difficulty& difficulty::instance()
+{
+  static boost::once_flag of = BOOST_ONCE_INIT;
+  static difficulty* instance = nullptr;
+
+  boost::call_once([]()
+  { 
+    if (!GetBoolArg("-testnet"))
+      instance = new difficulty(
+        coin::times::block::minutes(8)
+      ); 
+    else
+      instance = new difficulty(
+        coin::times::block::seconds(20)
+      ); 
+
+  }, of);
+
+  assert(instance);
+  return *instance;
+}
 
 compact_bignum_t difficulty
 ::next_block_difficulty(const CBlockIndex* pindexLast)

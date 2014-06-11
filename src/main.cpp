@@ -80,12 +80,6 @@ int64 nHPSTimerStart = 0;
 int64 nTransactionFee = 0;
 int64 nMinimumInputValue = DUST_HARD_LIMIT;
 
-namespace coin {
-
-difficulty the_difficulty;
-
-} // coin
-
 using namespace coin;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2093,8 +2087,8 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
     nHeight = pindexPrev->nHeight+1;
 
     // Check proof of work
-    if (nBits != the_difficulty.next_block_difficulty
-        (pindexPrev)
+    if (nBits != DigiByte::difficulty::instance()
+          . next_block_difficulty(pindexPrev)
         )
       return state.DoS(
         100, 
@@ -2205,7 +2199,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     // Extra checks to prevent "fill up memory by spamming
     // with bogus blocks"
     try {
-      the_difficulty.dos_check_min_difficulty(*pblock);
+      DigiByte::difficulty::instance().dos_check_min_difficulty(*pblock);
     }
     catch(const except::dos& ex) {
       LOG() << "ProcessBlock() : " 
@@ -4342,8 +4336,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     pblock->UpdateTime(pindexPrev);
-    pblock->nBits = 
-      the_difficulty.next_block_difficulty(pindexPrev);
+    pblock->nBits = DigiByte::difficulty::instance()
+      . next_block_difficulty(pindexPrev);
     pblock->nNonce     = 0;
     pblock->vtx[0].vin[0].scriptSig = CScript() << OP_0 << OP_0;
     pblocktemplate->vTxSigOps[0] = pblock->vtx[0].GetLegacySigOpCount();

@@ -12,6 +12,8 @@
 #ifndef BITCOIN_DIGISHIELD_H
 #define BITCOIN_DIGISHIELD_H
 
+#include <assert.h>
+#include <boost/thread.hpp>
 #include "types/fixed.h"
 #include "btc_time.h"
 #include "types.h"
@@ -21,11 +23,12 @@ class CBlockIndex;
 
 namespace DigiByte {
 
-// TODO singleton
 class difficulty
 {
 public:
   using duration = coin::times::block::clock::duration;
+
+  static difficulty& instance();
 
   //! Calculates a target difficulty for the next block
   compact_bignum_t next_block_difficulty(
@@ -73,8 +76,7 @@ protected:
     CBigNum(~uint256(0) >> 18).GetCompact();
 
   //! An average planned block period
-  const duration block_period_by_design = 
-    coin::times::block::minutes(8);
+  const duration block_period_by_design;
 
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 
@@ -82,6 +84,13 @@ protected:
 
   //! Returns the last block which can't be faked
   static const CBlockIndex* dos_last_reliable_block();
+
+private:
+  difficulty(
+    duration block_period_by_design_
+  )
+    : block_period_by_design(block_period_by_design_)
+  {}
 };
 
 } // DigiByte

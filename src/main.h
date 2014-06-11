@@ -124,14 +124,6 @@ class CValidationState;
 
 struct CBlockTemplate;
 
-namespace coin {
-
-using difficulty = DigiByte::difficulty;
-
-extern difficulty the_difficulty;
-
-}
-
 /** Register a wallet to receive updates from core */
 void RegisterWallet(CWallet* pwalletIn);
 /** Unregister a wallet from core */
@@ -186,7 +178,7 @@ template<class Block>
 bool CheckProofOfWork(const Block& block)
 {
   // Check range
-  if (!coin::the_difficulty.is_valid(block))
+  if (!DigiByte::difficulty::instance().is_valid(block))
   return error(
     "CheckProofOfWork() : nBits below minimum work"
   );
