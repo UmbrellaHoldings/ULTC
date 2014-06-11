@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 last_tag=$(git describe --abbrev=0 --tags)
 current_tag=$(git describe --exact-match --abbrev=0 --tags 2>/dev/null)
@@ -9,7 +9,7 @@ then
   build_only=yes
 fi
 
-IFS=v. read dummy maj min rev build <<EOF
+IFS=v. read -r _ maj min rev build <<EOF
 $(echo $last_tag)
 EOF
 
@@ -19,13 +19,13 @@ then
   exit 1 
 fi
 
-if test -v build_only
+if test -n "$build_only"
 then
-  let build++
+  build=$(expr $build + 1)
   sed -i "s/^.*CLIENT_VERSION_BUILD.*$/#define CLIENT_VERSION_BUILD       $build/" \
     src/clientversion.h
 else
-  let rev++
+  rev=$(expr $rev + 1)
   sed -i "s/^.*CLIENT_VERSION_REVISION.*$/#define CLIENT_VERSION_REVISION    $rev/" \
     src/clientversion.h
 fi
@@ -36,7 +36,7 @@ old_string=$(echo $last_tag|sed 's/v//'|sed 's/\\./\\\\./g')
 new_string=$maj.$min.$rev.$build
 sed -i "s/$old_string/$new_string/g" share/setup.nsi *qt.pro
 
-message="sica $(date)"
+message="sica v$new_string $(date)"
 git add . \
 && git commit -m "$message" \
 && git tag -a v$new_string -m "$message" \
