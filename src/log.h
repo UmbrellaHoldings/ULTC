@@ -114,6 +114,7 @@ private:
      )
   {
     exceptions(std::ios_base::goodbit);
+    std::unitbuf(*this);
   }
 
   boost::mutex mx;
@@ -170,7 +171,6 @@ void printf_basic_stream<CharT, Traits>
       buf.data(), 
       std::min(len, buf.size())
       );
-    this->rdbuf()->pubsync();
   });
 }
 
