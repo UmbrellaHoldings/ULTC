@@ -5,6 +5,7 @@
 #ifndef BITCOIN_KEY_H
 #define BITCOIN_KEY_H
 
+#include <iostream>
 #include <vector>
 
 #include "allocators.h"
@@ -37,8 +38,12 @@ public:
 };
 
 /** An encapsulated public key. */
-class CPubKey {
+class CPubKey 
+{
 private:
+  friend std::ostream&
+  operator<<(std::ostream& out, const CPubKey& key);
+
     // Just store the serialized data.
     // Its length can very cheaply be computed from the first byte.
     unsigned char vch[65];
@@ -163,6 +168,8 @@ public:
     bool Decompress();
 };
 
+std::ostream&
+operator<<(std::ostream& out, const CPubKey& key);
 
 // secure_allocator is defined in allocators.h
 // CPrivKey is a serialized private key, with all parameters included (279 bytes)

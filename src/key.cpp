@@ -7,6 +7,7 @@
 #include <openssl/obj_mac.h>
 
 #include "key.h"
+#include "bignum.h"
 
 
 // anonymous namespace with local implementation code (OpenSSL interaction)
@@ -393,4 +394,11 @@ bool CPubKey::Decompress() {
         return false;
     key.GetPubKey(*this, false);
     return true;
+}
+
+std::ostream&
+operator<<(std::ostream& out, const CPubKey& key)
+{
+  out << HexStr(key.vch, key.vch + key.size());
+  return out;
 }
