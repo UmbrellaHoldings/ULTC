@@ -41,7 +41,7 @@ compact_bignum_t difficulty::dos_min_difficulty(
   const auto past = block.GetTimePoint() 
     - last_reliable_block->GetTimePoint();
 
-  if (past < times::block::zero)
+  if (past < coin::times::block::zero)
     throw exception<invalid_timestamp>(
       "block with timestamp before last checkpoint"
   );

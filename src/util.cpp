@@ -172,7 +172,9 @@ void OutputDebugStringF(const char* pszFormat, ...)
   {
     va_list arg_ptr;
     va_start(arg_ptr, pszFormat);
-    lg::stream::instance().vprintf(pszFormat, arg_ptr);
+    lg::stream& out = lg::stream::instance();
+    out.vprintf(pszFormat, arg_ptr);
+    out.flush();
     va_end(arg_ptr);
   }
 

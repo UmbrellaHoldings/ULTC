@@ -145,8 +145,10 @@ std::tm make_utc_tm(
 {
     using namespace std;
     using namespace std::chrono;
-    using days = duration
-      <int, ratio_multiply<hours::period, ratio<24>>>;
+    using days = duration<
+      int, 
+      std::ratio_multiply<hours::period, std::ratio<24>>
+    >;
     // t is time duration since 1970-01-01
     Duration t = tp.time_since_epoch();
     // d is days since 1970-01-01

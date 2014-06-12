@@ -80,7 +80,7 @@ protected:
 //! The stream to log. It is a singleton.
 class stream 
   : public printf_basic_stream<char>,
-    public boost::filesystem::basic_ofstream<char> //, log_traits<char>>
+    public boost::filesystem::basic_ofstream<char>
 {
 public:
   static stream& instance()
@@ -115,7 +115,6 @@ private:
      )
   {
     exceptions(std::ios_base::goodbit);
-    std::unitbuf(*this);
   }
 
   boost::mutex mx;
@@ -147,7 +146,7 @@ void printf_basic_stream<CharT, Traits>
     else
       fStartedNewLine = false;
 
-    std::array<CharT, 512> buf;
+    std::array<CharT, 1024> buf;
 
     const size_t len = vsnprintf(
       buf.data(), 
