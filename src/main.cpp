@@ -496,6 +496,69 @@ unsigned int CTransaction::GetLegacySigOpCount() const
   return nSigOps;
 }
 
+std::ostream&
+operator<<(std::ostream& out, const COutPoint& p)
+{
+  out << "COutPoint(" << p.hash << ", " << p.n << ')';
+  return out;
+}
+
+std::ostream& 
+operator<<(std::ostream& out, const CTransaction& tr)
+{
+#if 0
+  out << "Input:\n" << tr.vin << "\nOutput:\n" << tr.vout;
+  return out;
+#else
+  return out << tr.ToString();
+#endif
+}
+
+std::ostream& operator<<(
+  std::ostream& out, 
+  const std::vector<CTxOut>& trs
+)
+{
+  for (const CTxOut& tr : trs)
+    out << tr << '\n';
+  return out;
+}
+
+std::ostream& 
+operator<<(std::ostream& out, const CTxOut& t)
+{
+  if (t.scriptPubKey.size() < 6)
+    return out << "CTxOut(error)";
+
+  out << "CTxOut(nValue=" << t.nValue / COIN
+      << '.' << t.nValue % COIN
+      << ", scriptPubKey=" << t.scriptPubKey << ')';
+  return out;
+}
+
+std::ostream& operator<<(
+  std::ostream& out, 
+  const std::vector<CTxIn>& trs
+)
+{
+  for (const CTxIn& t : trs)
+    out << t;
+  return out;
+}
+
+std::ostream& 
+operator<<(std::ostream& out, const CTxIn& t)
+{
+  out << "CTxIn(" << t.prevout;
+  if (t.prevout.IsNull())
+    out << ", coinbase " << /*HexStr(*/t.scriptSig/*)*/;
+  else
+    out << ", scriptSig=" << t.scriptSig;
+  if (t.nSequence != std::numeric_limits<unsigned>::max())
+    out << ", nSequence=" << t.nSequence;
+  out << ')';
+  return out;
+}
 
 int CMerkleTx::SetMerkleBranch(const CBlock* pblock)
 {
@@ -4516,11 +4579,16 @@ void static LitecoinMiner(CWallet *pwallet)
   // Search
   //
   int64 nStart = GetTime();
-  uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+  uint256 hashTarget = CBigNum().SetCompact(pblock->nBits)
+    . getuint256();
   LOG() << '(' << miner_id << ") Current target: " 
         << hashTarget << std::endl;
+
+#define LOG_BEST_HASH
+#ifdef LOG_BEST_HASH
   static auto global_best_hash = ~uint256();
   auto best_hash = global_best_hash;
+#endif
 
   loop
   {
@@ -4544,6 +4612,8 @@ void static LitecoinMiner(CWallet *pwallet)
       }
       pblock->nNonce += 1;
       nHashesDone += 1;
+
+#ifdef LOG_BEST_HASH
       if (thash < best_hash) {
         best_hash = thash;
         static CCriticalSection cs;
@@ -4555,6 +4625,8 @@ void static LitecoinMiner(CWallet *pwallet)
             global_best_hash = thash;
             global_best = true;
           }
+          else 
+            best_hash = global_best_hash;
         }
         if (global_best) {
           LOG() << '(' << miner_id << ") Best hash: " 
@@ -4562,6 +4634,7 @@ void static LitecoinMiner(CWallet *pwallet)
           break;
         }
       }
+#endif
       if ((pblock->nNonce & 0xFF) == 0)
         break;
     }

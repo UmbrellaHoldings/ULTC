@@ -5,6 +5,7 @@
 #ifndef H_BITCOIN_SCRIPT
 #define H_BITCOIN_SCRIPT
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -596,6 +597,9 @@ public:
         return CScriptID(Hash160(*this));
     }
 };
+
+std::ostream&
+operator<<(std::ostream& out, const CScript& s);
 
 /** Compact serializer for scripts.
  *

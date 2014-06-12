@@ -5,6 +5,8 @@
 #ifndef BITCOIN_MAIN_H
 #define BITCOIN_MAIN_H
 
+#include <iostream>
+#include <sstream>
 #include <list>
 #include "bignum.h"
 #include "sync.h"
@@ -12,6 +14,7 @@
 #include "script.h"
 #include "btc_time.h"
 #include "algos/digishield.h"
+#include "log.h"
 
 class CWallet;
 class CBlock;
@@ -282,7 +285,9 @@ public:
   bool IsNull() const { return (ptx == NULL && n == (unsigned int) -1); }
 };
 
-
+class COutPoint;
+std::ostream&
+operator<<(std::ostream& out, const COutPoint& op);
 
 /** An outpoint - a combination of a transaction hash and an index n into its vout */
 class COutPoint
@@ -312,19 +317,24 @@ public:
     return !(a == b);
   }
 
+  //! @deprecated
   std::string ToString() const
   {
-    return strprintf("COutPoint(%s, %u)", hash.ToString().c_str(), n);
+    std::ostringstream out;
+    out << *this;
+    return out.str();
   }
 
+  //! @deprecated
   void print() const
   {
-    printf("%s\n", ToString().c_str());
+    LOG() << *this << std::flush;
   }
 };
 
-
-
+class CTxIn;
+std::ostream& 
+operator<<(std::ostream& out, const CTxIn& t);
 
 /** An input of a transaction.  It contains the location of the previous
  * transaction's output that it claims and a signature that matches the
@@ -380,29 +390,29 @@ public:
     return !(a == b);
   }
 
+  //! @deprecated
   std::string ToString() const
   {
-    std::string str;
-    str += "CTxIn(";
-    str += prevout.ToString();
-    if (prevout.IsNull())
-      str += strprintf(", coinbase %s", HexStr(scriptSig).c_str());
-    else
-      str += strprintf(", scriptSig=%s", scriptSig.ToString().substr(0,24).c_str());
-    if (nSequence != std::numeric_limits<unsigned int>::max())
-      str += strprintf(", nSequence=%u", nSequence);
-    str += ")";
-    return str;
+    std::ostringstream out;
+    out << *this;
+    return out.str();
   }
 
+  //! @deprecated
   void print() const
   {
-    printf("%s\n", ToString().c_str());
+    LOG() << *this << std::flush;
   }
 };
 
+std::ostream& operator<<(
+  std::ostream& out, 
+  const std::vector<CTxIn>& trs
+);
 
-
+class CTxOut;
+std::ostream& 
+operator<<(std::ostream& out, const CTxOut& t);
 
 /** An output of a transaction.  It contains the public key that the next input
  * must be able to sign with to claim it.
@@ -459,20 +469,25 @@ public:
 
   bool IsDust() const;
 
+  //! @deprecated
   std::string ToString() const
   {
-    if (scriptPubKey.size() < 6)
-      return "CTxOut(error)";
-    return strprintf("CTxOut(nValue=%" PRI64d ".%08" PRI64d ", scriptPubKey=%s)", nValue / COIN, nValue % COIN, scriptPubKey.ToString().substr(0,30).c_str());
+    std::ostringstream out;
+    out << *this;
+    return out.str();
   }
 
+  //! @deprecated
   void print() const
   {
-    printf("%s\n", ToString().c_str());
+    LOG() << *this << std::flush;
   }
 };
 
-
+std::ostream& operator<<(
+  std::ostream& out, 
+  const std::vector<CTxOut>& trs
+);
 
 enum GetMinFee_mode
 {
@@ -700,6 +715,9 @@ void UpdateCoins(const CTransaction& tx, CValidationState &state, CCoinsViewCach
 protected:
   static const CTxOut &GetOutputFor(const CTxIn& input, CCoinsViewCache& mapInputs);
 };
+
+std::ostream& 
+operator<<(std::ostream& out, const CTransaction& tr);
 
 /** wrapper for CTxOut that provides a more compact serialization */
 class CTxOutCompressor

@@ -9,6 +9,7 @@
 #include "ui_interface.h"
 #include "base58.h"
 #include "coincontrol.h"
+#include "log.h"
 #include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
@@ -1458,6 +1459,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64> >& vecSend,
             }
         }
     }
+    LOG() << "CreateTransaction: " << wtxNew << std::endl;
     return true;
 }
 

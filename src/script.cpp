@@ -15,6 +15,7 @@ using namespace boost;
 #include "main.h"
 #include "sync.h"
 #include "util.h"
+#include "log.h"
 
 bool CheckSig(vector<unsigned char> vchSig, const vector<unsigned char> &vchPubKey, const CScript &scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType, int flags);
 
@@ -1122,7 +1123,8 @@ bool CheckSig(vector<unsigned char> vchSig, const vector<unsigned char> &vchPubK
 
 
 //
-// Return public keys or hashes from scriptPubKey, for 'standard' transaction types.
+// Return public keys or hashes from scriptPubKey, for
+// 'standard' transaction types.
 //
 bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, vector<vector<unsigned char> >& vSolutionsRet)
 {
@@ -1266,10 +1268,13 @@ bool SignN(const vector<valtype>& multisigdata, const CKeyStore& keystore, uint2
 }
 
 //
-// Sign scriptPubKey with private keys stored in keystore, given transaction hash and hash type.
-// Signatures are returned in scriptSigRet (or returns false if scriptPubKey can't be signed),
-// unless whichTypeRet is TX_SCRIPTHASH, in which case scriptSigRet is the redemption script.
-// Returns false if scriptPubKey could not be completely satisfied.
+// Sign scriptPubKey with private keys stored in keystore,
+// given transaction hash and hash type.  Signatures are
+// returned in scriptSigRet (or returns false if
+// scriptPubKey can't be signed), unless whichTypeRet is
+// TX_SCRIPTHASH, in which case scriptSigRet is the
+// redemption script.  Returns false if scriptPubKey could
+// not be completely satisfied.
 //
 bool Solver(const CKeyStore& keystore, const CScript& scriptPubKey, uint256 hash, int nHashType,
                   CScript& scriptSigRet, txnouttype& whichTypeRet)
@@ -1557,6 +1562,14 @@ bool SignSignature(const CKeyStore &keystore, const CTransaction& txFrom, CTrans
     CTxIn& txin = txTo.vin[nIn];
     assert(txin.prevout.n < txFrom.vout.size());
     const CTxOut& txout = txFrom.vout[txin.prevout.n];
+
+#if 1
+    LOG() << "SignSignature: txout = " << txout 
+          << std::endl;
+#else
+    LOG() << "SignSignature: txout.scriptPubKey = "
+          << txout.scriptPubKey << std::endl;
+#endif
 
     return SignSignature(keystore, txout.scriptPubKey, txTo, nIn, nHashType);
 }
@@ -1899,4 +1912,10 @@ bool CScriptCompressor::Decompress(unsigned int nSize, const std::vector<unsigne
         return true;
     }
     return false;
+}
+
+std::ostream&
+operator<<(std::ostream& out, const CScript& s)
+{
+  return out << s.ToString();
 }
