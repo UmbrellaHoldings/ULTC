@@ -146,7 +146,7 @@ void printf_basic_stream<CharT, Traits>
     else
       fStartedNewLine = false;
 
-    std::array<CharT, 1024> buf;
+    std::array<CharT, 512> buf;
 
     const size_t len = vsnprintf(
       buf.data(), 
