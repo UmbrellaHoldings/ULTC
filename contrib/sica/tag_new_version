@@ -26,6 +26,7 @@ then
     src/clientversion.h
 else
   rev=$(expr $rev + 1)
+  build=1
   sed -i "s/^.*CLIENT_VERSION_REVISION.*$/#define CLIENT_VERSION_REVISION    $rev/" \
     src/clientversion.h
 fi
