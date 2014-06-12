@@ -43,5 +43,5 @@ git add . \
 && git push origin $(git branch|grep '^\*'|cut -f2 -d' ') --tags
 ret=$?
 
-echo $new_string
+echo $new_string >tag_new_version.out
 exit $ret
