@@ -13,7 +13,7 @@ array=${last_tag//:/ }
 maj=${array[1]}
 min=${array[2]}
 rev=${array[3]}
-build=${array[i]}
+build=${array[4]}
 
 if test -z "$build"
 then 
