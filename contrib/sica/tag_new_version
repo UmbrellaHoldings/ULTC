@@ -9,9 +9,11 @@ then
   build_only=yes
 fi
 
-IFS=v. read -r _ maj min rev build <<EOF
-$(echo $last_tag)
-EOF
+array=${last_tag//:/ }
+maj=${array[1]}
+min=${array[2]}
+rev=${array[3]}
+build=${array[4]}
 
 if test -z "$build"
 then 
