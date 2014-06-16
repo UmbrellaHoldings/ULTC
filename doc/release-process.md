@@ -52,7 +52,8 @@ Release Process
 
 	mkdir -p inputs; cd inputs/
 	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.6.tar.gz' -O miniupnpc-1.6.tar.gz
-	wget 'http://www.openssl.org/source/openssl-1.0.1c.tar.gz'
+	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.tar.gz' -O miniupnpc-1.9.tar.gz
+	wget 'http://www.openssl.org/source/openssl-1.0.1g.tar.gz'
 	wget 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
 	wget 'http://downloads.sourceforge.net/project/libpng/zlib/1.2.6/zlib-1.2.6.tar.gz'
         wget 'http://downloads.sourceforge.net/project/libpng/libpng15/older-releases/1.5.9/libpng-1.5.9.tar.gz'
@@ -77,19 +78,19 @@ Release Process
         mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64.yml
-   mv build/out/mingw-w64-gcc-4.8.1.zip inputs/
+	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64-gcc-4.8.2.yml
+   mv build/out/mingw-w64-gcc-4.8.2-gitian-r1.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost-win32.yml
-	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
+	mv build/out/boost-win32-1.55.0-gitian-r6.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
 	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r4.zip inputs/
->
 
  Build xxxxxxxd and xxxxxxx-qt on Linux32, Linux64, and Win32:
   
 	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
+	../xxxxxxx/create-deb.sh build/out/bin/64/
 	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
 	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *

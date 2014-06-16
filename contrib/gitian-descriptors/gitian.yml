@@ -7,8 +7,8 @@ architectures:
 packages:
 - "libdb5.1++-dev"
 - "qt4-qmake"
-- "libminiupnpc-dev"
 - "libqt4-dev"
+- "libssl-dev"
 - "git-core"
 - "unzip"
 - "pkg-config"
@@ -16,23 +16,31 @@ packages:
 - "libz-dev"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "trading.kogorta.dp.ua:xxxxxxx"
+- "url": "trading.kogorta.dp.ua:USDollarCoin"
   "dir": "xxxxxxx"
 files:
 - "miniupnpc-1.6.tar.gz"
 - "qrencode-3.2.0.tar.bz2"
 - "gcc-4.8.1-linux64.zip"
-- "boost-linux64-1.54.0-gitian-r6.zip"
+- "boost-linux64-1.55.0.zip"
 script: |
+  # Input Integrity Check
+  echo "bbd6b756e6af44b5a5b0f9b93eada3fb8922ed1d6451b7d6f184d0ae0c813994  miniupnpc-1.6.tar.gz" | shasum -c
+  echo "03c4bc7cd9a75747c3815d509bbe061907d615764f2357923f0db948c567068f  qrencode-3.2.0.tar.bz2" | shasum -c
   #
   STAGING=$HOME/staging
   mkdir -p $STAGING
   pushd $STAGING
-  unzip -q ../build/boost-linux64-1.54.0-gitian-r6.zip
+  unzip -q ../build/boost-linux64-1.55.0.zip
   popd
   #
   INSTDIR="$HOME/install"
   export LIBRARY_PATH="$INSTDIR/lib"
+  #
+  tar xzf miniupnpc-1.6.tar.gz
+  cd miniupnpc-1.6
+  INSTALLPREFIX=$INSTDIR make $MAKEOPTS install
+  cd ..
   #
   tar xjf qrencode-3.2.0.tar.bz2
   cd qrencode-3.2.0

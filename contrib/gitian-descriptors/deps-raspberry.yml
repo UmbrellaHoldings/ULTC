@@ -1,0 +1,103 @@
+---
+name: "deps-raspberry"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "unzip"
+- "zip"
+- "pkg-config"
+- "libtool"
+- "faketime:i386"
+- "bsdmainutils"
+- "lib32stdc++6"
+- "zlib1g:i386"
+reference_datetime: "2013-06-01 00:00:00"
+remotes: []
+files:
+- "openssl-1.0.1g.tar.gz"
+- "miniupnpc-1.9.tar.gz"
+- "zlib-1.2.6.tar.gz"
+- "db-4.8.30.NC.tar.gz"
+- "raspberry_tools.tar.bz2"
+script: |
+  STAGING="$HOME/install"
+  TEMPDIR="$HOME/tmp"
+  OPTFLAGS='-O2'
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  export LIBRARY_PATH="$STAGING/lib"
+  # Integrity Check
+  echo "53cb818c3b90e507a8348f4f5eaedb05d8bfe5358aabb508b7263cc670c3e028  openssl-1.0.1g.tar.gz"  | sha256sum -c
+  echo "2923e453e880bb949e3d4da9f83dd3cb6f08946d35de0b864d0339cf70934464  miniupnpc-1.9.tar.gz"   | sha256sum -c
+  echo '21235e08552e6feba09ea5e8d750805b3391c62fb81c71a235c0044dc7a8a61b  zlib-1.2.6.tar.gz' | sha256sum -c
+  #  echo "dfd71487513c871bad485806bfd1fdb304dedc84d2b01a8fb8e0940b50597a98  qrencode-3.4.3.tar.bz2" | sha256sum -c
+  echo "12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz"    | sha256sum -c
+  echo "523e25e7277f2e143d9b29fba5b65ff1c56baf80085bc51c64220cd2ade83ff2  raspberry_tools.tar.bz2" | shasum -c
+
+  #
+  tar --warning=no-timestamp -xjf raspberry_tools.tar.bz2
+  export HOST=arm-linux-gnueabihf
+  export TOOLCHAIN_BIN=$(pwd)/raspberry_tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin
+  export PATH=$PATH:$TOOLCHAIN_BIN
+  export CXX=arm-linux-gnueabihf-g++
+  export CC=arm-linux-gnueabihf-gcc
+  export AR=arm-linux-gnueabihf-ar
+  export RANLIB=arm-linux-gnueabihf-ranlib
+  #
+  tar --warning=no-timestamp -xzf zlib-1.2.6.tar.gz
+  cd zlib-1.2.6
+  CROSS_PREFIX=$HOST- ./configure --prefix=$STAGING --static
+  make
+  make install
+  cd ..
+  #
+  tar --warning=no-timestamp -xzf openssl-1.0.1g.tar.gz
+  cd openssl-1.0.1g
+  #   need -fPIC to avoid relocation error in 64 bit builds
+  ./Configure linux-armv4 no-shared no-zlib no-dso no-krb5 --openssldir=$STAGING
+  #   need to build OpenSSL with faketime because a timestamp is embedded into cversion.o
+  make
+  make install_sw
+  cd ..
+  #
+  tar --warning=no-timestamp -xzf miniupnpc-1.9.tar.gz
+  cd miniupnpc-1.9
+  #   miniupnpc is always built with -fPIC
+  INSTALLPREFIX=$STAGING make $MAKEOPTS install
+  rm -f $STAGING/lib/libminiupnpc.so* # no way to skip shared lib build
+  cd ..
+  #
+  #  tar --warning=no-timestamp -xjf qrencode-3.4.3.tar.bz2
+  #  cd qrencode-3.4.3
+  #  unset FAKETIME # unset fake time during configure, as it does some clock sanity tests
+  #   need --with-pic to avoid relocation error in 64 bit builds
+  #  ./configure --prefix=$STAGING --enable-static --disable-shared --with-pic --without-tools --disable-dependency-tracking
+  # Workaround to prevent re-configuring by make; make all files have a date in the past
+  #  find . -print0 | xargs -r0 touch -t 200001010000
+  #  export FAKETIME=$REFERENCE_DATETIME
+  #  make $MAKEOPTS install
+  #  cd ..
+  #
+  tar --warning=no-timestamp -xzf db-4.8.30.NC.tar.gz
+  cd db-4.8.30.NC/build_unix
+  ../dist/configure --host=$HOST --prefix=$STAGING --enable-cxx --disable-shared 
+  # Workaround to prevent re-configuring by make; make all files have a date in the past
+  find . -print0 | xargs -r0 touch -t 200001010000
+  make $MAKEOPTS library_build
+  make install_lib install_include
+  cd ../..
+  # post-process all generated libraries to be deterministic
+  # extract them to a temporary directory then re-build them deterministically
+  for LIB in $(find $STAGING -name \*.a); do
+    rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+    $AR xv $LIB | cut -b5- > /tmp/list.txt
+    rm $LIB
+    $AR crsD $LIB $(cat /tmp/list.txt)
+  done
+  #
+  cd $STAGING
+  find include lib bin host | sort | zip -X@ $OUTDIR/deps-raspberry-gitian-r1.zip
+

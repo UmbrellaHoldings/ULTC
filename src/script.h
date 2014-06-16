@@ -10,9 +10,14 @@
 
 #include <boost/foreach.hpp>
 #include <boost/variant.hpp>
-
-#include "keystore.h"
 #include "bignum.h"
+
+#if 1
+#include "key.h"
+class CKeyStore;
+#else
+#include "keystore.h"
+#endif
 
 class CCoins;
 class CTransaction;

@@ -28,6 +28,126 @@ struct CompareValueOnly
     }
 };
 
+int64 CWalletTx::GetDebit() const
+{
+     if (vin.empty())
+         return 0;
+     if (fDebitCached)
+         return nDebitCached;
+     nDebitCached = pwallet->GetDebit(*this);
+     fDebitCached = true;
+     return nDebitCached;
+}
+
+int64 CWalletTx::GetAvailableCredit(bool fUseCache) const
+{
+        // Must wait until coinbase is safely deep enough in the chain before valuing it
+        if (IsCoinBase() && GetBlocksToMaturity() > 0)
+            return 0;
+
+        if (fUseCache && fAvailableCreditCached)
+            return nAvailableCreditCached;
+
+        int64 nCredit = 0;
+        for (unsigned int i = 0; i < vout.size(); i++)
+        {
+            if (!IsSpent(i))
+            {
+                const CTxOut &txout = vout[i];
+                nCredit += pwallet->GetCredit(txout);
+                if (!MoneyRange(nCredit))
+                    throw std::runtime_error("CWalletTx::GetAvailableCredit() : value out of range");
+            }
+        }
+
+        nAvailableCreditCached = nCredit;
+        fAvailableCreditCached = true;
+        return nCredit;
+}
+
+
+int64 CWalletTx::GetChange() const
+{
+        if (fChangeCached)
+            return nChangeCached;
+        nChangeCached = pwallet->GetChange(*this);
+        fChangeCached = true;
+        return nChangeCached;
+}
+
+bool CWalletTx::IsConfirmed() const
+{
+        // Quick answer in most cases
+        if (!IsFinal())
+            return false;
+        if (GetDepthInMainChain() >= 1)
+            return true;
+        if (!IsFromMe()) // using wtx's cached debit
+            return false;
+
+        // If no confirmations but it's from us, we can still
+        // consider it confirmed if all dependencies are confirmed
+        std::map<uint256, const CMerkleTx*> mapPrev;
+        std::vector<const CMerkleTx*> vWorkQueue;
+        vWorkQueue.reserve(vtxPrev.size()+1);
+        vWorkQueue.push_back(this);
+        for (unsigned int i = 0; i < vWorkQueue.size(); i++)
+        {
+            const CMerkleTx* ptx = vWorkQueue[i];
+
+            if (!ptx->IsFinal())
+                return false;
+            if (ptx->GetDepthInMainChain() >= 1)
+                continue;
+            if (!pwallet->IsFromMe(*ptx))
+                return false;
+
+            if (mapPrev.empty())
+            {
+                BOOST_FOREACH(const CMerkleTx& tx, vtxPrev)
+                    mapPrev[tx.GetHash()] = &tx;
+            }
+
+            BOOST_FOREACH(const CTxIn& txin, ptx->vin)
+            {
+                if (!mapPrev.count(txin.prevout.hash))
+                    return false;
+                vWorkQueue.push_back(mapPrev[txin.prevout.hash]);
+            }
+        }
+        return true;
+}
+
+int64 CWalletTx::GetCredit(bool fUseCache) const
+{
+        // Must wait until coinbase is safely deep enough in the chain before valuing it
+        if (IsCoinBase() && GetBlocksToMaturity() > 0)
+            return 0;
+
+        // GetBalance can assume transactions in mapWallet won't change
+        if (fUseCache && fCreditCached)
+            return nCreditCached;
+        nCreditCached = pwallet->GetCredit(*this);
+        fCreditCached = true;
+        return nCreditCached;
+}
+
+int64 CWalletTx::GetImmatureCredit(bool fUseCache) const
+{
+        if (IsCoinBase() && GetBlocksToMaturity() > 0 && IsInMainChain())
+        {
+            if (fUseCache && fImmatureCreditCached)
+                return nImmatureCreditCached;
+            nImmatureCreditCached = pwallet->GetCredit(*this);
+            fImmatureCreditCached = true;
+            return nImmatureCreditCached;
+        }
+
+        return 0;
+}
+
+
+
 CPubKey CWallet::GenerateNewKey()
 {
     bool fCompressed = CanSupportFeature(FEATURE_COMPRPUBKEY); 

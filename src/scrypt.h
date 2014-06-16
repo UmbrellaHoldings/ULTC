@@ -14,7 +14,9 @@
 #include <array>
 #include <cstdint>
 #include <memory>
-#include <emmintrin.h>
+#ifdef USE_SSE2
+#  include <emmintrin.h>
+#endif
 #include "uint256.h"
 #include "n_factor.h"
 
@@ -39,8 +41,9 @@ public:
 
 //! The dynamic-allocated memory for scrypt
 template<uint32_t N, unsigned r, unsigned p, class SalsaBlockT>
-using Scratchpad alignas(64) = 
-  std::array<std::array<std::array<SalsaBlockT, 2*r>, N>, p>;
+struct alignas(64) Scratchpad  
+  : std::array<std::array<std::array<SalsaBlockT, 2*r>, N>, p>
+{};
 
 namespace generic {
 
@@ -49,6 +52,7 @@ static_assert(sizeof(SalsaBlock) == 512/8, "Invalid types definition");
 
 }
 
+#ifdef USE_SSE2
 namespace sse2 {
 
 using SalsaBlock = scrypt::SalsaBlock<__m128i>;
@@ -56,6 +60,7 @@ static_assert(sizeof(SalsaBlock) == 512/8,
   "Invalid types definition");
 
 }
+#endif
 
 //! It's bit XOR for arrays
 template<class T, size_t n>
@@ -66,13 +71,10 @@ std::array<T, n>& operator ^= (std::array<T, n>& a, const std::array<T, n>& b)
   return a;
 }
 
-static_assert(
-  sizeof(generic::SalsaBlock) == sizeof(sse2::SalsaBlock),
-  "Invalid types definition"
-);
-
 void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx);
+#ifdef USE_SSE2
 void xor_salsa8(sse2::SalsaBlock& B, const sse2::SalsaBlock& Bx);
+#endif
 
 #if 0
 #if defined(USE_SSE2)
@@ -117,13 +119,17 @@ struct scratchpad_base
 };
 
 template<
-  size_t N,
+  uint32_t N,
   unsigned r,
   unsigned p
 >
 struct scratchpad : scratchpad_base
 {
   Scratchpad<N, r, p, SSE2_OR_GENERIC::SalsaBlock> pad;
+  static scratchpad_base* allocate()
+  {
+    return new scratchpad();
+  }
 };
 
 using scratchpad_ptr = std::shared_ptr<scratchpad_base>;

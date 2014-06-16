@@ -70,28 +70,12 @@
        <enum>Qt::RichText</enum>
        </property>
        <property name="text">
-        <string>&lt;b&gt;What is Bitcoin?&lt;/b&gt;&lt;br&gt;
-Bitcoin is a &lt;i&gt;Peer to Peer Payment Network&lt;/i&gt; that allows instant payments to anywhere in the world. This Network is not governed by any central body or authority. Bitcoin is a &lt;i&gt;Crypto Currency.&lt;/i&gt;
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;What are Crypto Currencies?&lt;/b&gt;"&lt;br&gt;
-&lt;i&gt;Crypto Currencies&lt;/i&gt; are modified copies of the original Bitcoin Source Code. Each &lt;i&gt;Currency&lt;/i&gt; is valued by its importance in the &lt;i&gt;Crypto &lt;b&gt;Trading/Mining&lt;/b&gt; Community&lt;/i&gt;.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;What is Xxxxxxx Coin?&lt;/b&gt;"&lt;br&gt;
-Xxxxxxx Coin is a variation of &lt;i&gt;Xxxxxxx&lt;/i&gt; eliminating Scrypt ASICS with N-Factor. Its purpose is to connect people to the world of &lt;i&gt;Cypto Currencies&lt;/i&gt;.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;How are we connecting people?&lt;/b&gt;&lt;br&gt;
-Our &lt;i&gt;Mail Drop&lt;/i&gt; system is designed to distribute the original &lt;i&gt;16,800,000 ZYZ&lt;/i&gt; to selected &lt;i&gt;Xxxxxxx Zip Codes&lt;/i&gt;. There will be &lt;b&gt;5 to 500&lt;/b&gt; coins given away per selected mailing address.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;What can I do with Xxxxxxx Coins?&lt;/b&gt;&lt;br&gt;
-You can exchange on a trading site, hold to Multiply Investment, buy more to Increase Profits, or Purchase Goods Online.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Support The Network&lt;/b&gt;&lt;br&gt;
-Spread the Word! The Stronger the &lt;i&gt;Community&lt;/i&gt;, the Stronger the &lt;i&gt;Economy&lt;/i&gt;.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Copyright 2014&lt;/b&gt; - &lt;i&gt;The Bitcoin, Xxxxxxx, Xxxxxxx, and Xxxxxxx Developers&lt;/i&gt;&lt;br&gt;
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Distributed under MIT/X11&lt;/b&gt; - &lt;i&gt;http://www.opensource.org/licenses/mit-license.php&lt;/i&gt;</string>
+        <string notr="true">Copyright &amp;copy; 2009-2013 The Bitcoin developers
+Copyright &amp;copy; 2011-2013 The Litecoin developers
+Copyright &amp;copy; 2013-2014 The Vertcoin developers
+Copyright &amp;copy; 2013-2014 The SiliconValleycoin developers
+Copyright &amp;copy; 2013-2014 Cohors LLC
+</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

@@ -584,7 +584,8 @@ if config.plugins:
         print "+ Deploying plugins +"
     
     try:
-        deployPlugins(applicationBundle, deploymentInfo, config.strip, verbose)
+	print "tratatata"
+        # deployPlugins(applicationBundle, deploymentInfo, config.strip, verbose)
     except RuntimeError as e:
         if verbose >= 1:
             sys.stderr.write("Error: %s\n" % str(e))
@@ -724,11 +725,9 @@ if config.dmg is not None:
             shutil.copy2(fancy["background_picture"], bg_path)
         else:
             bg_path = None
-        
         if fancy.get("applications_symlink", False):
             os.symlink("/Applications", os.path.join(disk_root, "Applications"))
-        
-        # The Python appscript package broke with OSX 10.8 and isn't being fixed.
+# The Python appscript package broke with OSX 10.8 and isn't being fixed.
         # So we now build up an AppleScript string and use the osascript command
         # to make the .dmg file pretty:
         appscript = Template( """

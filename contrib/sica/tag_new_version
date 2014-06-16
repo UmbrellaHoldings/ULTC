@@ -1,0 +1,48 @@
+#!/bin/sh
+
+last_tag=$(git describe --abbrev=0 --tags)
+current_tag=$(git describe --exact-match --abbrev=0 --tags 2>/dev/null)
+
+# If the latest revision already has a tag increment only build number
+if test -n "$current_tag"
+then
+  build_only=yes
+fi
+
+IFS=v. read -r _ maj min rev build <<EOF
+$(echo $last_tag)
+EOF
+
+if test -z "$build"
+then 
+  echo "Invalid version tag: [$last_tag]" >&2
+  exit 1 
+fi
+
+if test -n "$build_only"
+then
+  build=$(expr $build + 1)
+  sed -i "s/^.*CLIENT_VERSION_BUILD.*$/#define CLIENT_VERSION_BUILD       $build/" \
+    src/clientversion.h
+else
+  rev=$(expr $rev + 1)
+  build=1
+  sed -i "s/^.*CLIENT_VERSION_REVISION.*$/#define CLIENT_VERSION_REVISION    $rev/" \
+    src/clientversion.h
+fi
+# other version components are incremented only by hands
+
+#fix versions in other sources
+old_string=$(echo $last_tag|sed 's/v//'|sed 's/\\./\\\\./g')
+new_string=$maj.$min.$rev.$build
+sed -i "s/$old_string/$new_string/g" share/setup.nsi *qt.pro
+
+message="sica v$new_string $(date)"
+git add . \
+&& git commit -m "$message" \
+&& git tag -a v$new_string -m "$message" \
+&& git push origin $(git branch|grep '^\*'|cut -f2 -d' ') --tags
+ret=$?
+
+echo $new_string >tag_new_version.out
+exit $ret

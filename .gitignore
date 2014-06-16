@@ -2,16 +2,21 @@ src/*.exe
 src/xxxxxxx
 src/xxxxxxxd
 src/xxxxxxxKeyGen
+src/leveldb/build_config.mk
 src/test_xxxxxxx
 src/show_n_factor
 .*.swp
+*#*
+*~*
 *.*~*
 *.bak
+*.kdev4
 *.rej
 *.orig
 *.o
 *.patch
 .xxxxxxx
+nohup.out
 
 # Compilation and Qt preprocessor part
 *.qm

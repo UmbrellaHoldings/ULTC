@@ -6,30 +6,36 @@ architectures:
 - "amd64"
 packages: 
 - "zip"
+- "unzip"
 - "faketime"
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "qt-everywhere-opensource-src-4.8.3.tar.gz"
-- "bitcoin-deps-win32-gitian-r9.zip"
-- "mingw-w64-gcc-4.8.1.zip"
+- "bitcoin-deps-win32-gitian-r3.zip"
+- "mingw-w64-gcc-4.8.2-gitian-r2.zip"
 script: |
   #
   HOST=i686-w64-mingw32
   INSTDIR="$HOME/qt/"
+  # Integrity Check
+  echo 'f1f72974f924861be04019f49f07cd43ab3c95056db2ba8f34b283487cccc728  qt-everywhere-opensource-src-4.8.3.tar.gz' | sha256sum -c
+  echo 'fdceda286a5da4f162afcc4a514f45ce1fc6e3c22f9599ef1d1215179068d06c  bitcoin-deps-win32-gitian-r3.zip' | sha256sum -c
+  echo '86edefe6af3a3657350ca39f3a14a9621cf0eaee036f730ddea294b2db974768  mingw-w64-gcc-4.8.2-gitian-r2.zip' | sha256sum -c
   #
   mkdir $INSTDIR
   mkdir -p $INSTDIR/host/bin
   #
   # Need mingw-compiled openssl from bitcoin-deps:
-  unzip -q bitcoin-deps-win32-gitian-r9.zip
+  unzip -q bitcoin-deps-win32-gitian-r3.zip
   DEPSDIR=`pwd`
   #
   mkdir mingw-w64 && cd mingw-w64
-  unzip -q ../mingw-w64-gcc-4.8.1.zip
+  unzip -q ../mingw-w64-gcc-4.8.2-gitian-r2.zip
   export PATH=$(pwd)/bin:$PATH
   cd ..
   $HOST-g++ --version
+  $HOST-g++ -v
   #
   tar xzf qt-everywhere-opensource-src-4.8.3.tar.gz
   cd qt-everywhere-opensource-src-4.8.3
@@ -54,7 +60,7 @@ script: |
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
   # Compile static libraries, and use statically linked openssl (-openssl-linked):
-  OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32" ./configure -prefix $INSTDIR -bindir $INSTDIR/host/bin -I $DEPSDIR/include  -confirm-license -release -opensource -static -no-qt3support -xplatform unsupported/win32-g++-cross -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-declarative -no-script -no-scripttools -no-javascript-jit -no-webkit -no-svg -no-xmlpatterns -no-sql-sqlite -no-nis -no-cups -no-iconv -no-dbus -no-gif -no-libtiff -no-opengl -nomake examples -nomake demos -nomake docs -no-feature-style-plastique -no-feature-style-cleanlooks -no-feature-style-motif -no-feature-style-cde -no-feature-style-windowsce -no-feature-style-windowsmobile -no-feature-style-s60 -openssl-linked
+  OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32" ./configure -prefix $INSTDIR -bindir $INSTDIR/host/bin -I $DEPSDIR/include  -confirm-license -debug -opensource -static -no-qt3support -xplatform unsupported/win32-g++-cross -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-declarative -no-script -no-scripttools -no-javascript-jit -no-webkit -no-svg -no-xmlpatterns -no-sql-sqlite -no-nis -no-cups -no-iconv -no-dbus -no-gif -no-libtiff -no-opengl -nomake examples -nomake demos -nomake docs -no-feature-style-plastique -no-feature-style-cleanlooks -no-feature-style-motif -no-feature-style-cde -no-feature-style-windowsce -no-feature-style-windowsmobile -no-feature-style-s60 -openssl-linked
   find . -name *.prl | xargs -l sed 's|/\.||' -i
   find . -name *.prl | xargs -l sed 's|/$||' -i
   make $MAKEOPTS install
@@ -63,4 +69,4 @@ script: |
 
   # as zip stores file timestamps, use faketime to intercept stat calls to set dates for all files to reference date
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
-  zip -r $OUTDIR/qt-win32-4.8.3-gitian-r4.zip *
+  zip -r $OUTDIR/qt-win32-4.8.3-gitian-r6.zip *

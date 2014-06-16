@@ -1,0 +1,23 @@
+diff --git a/bitcoin-qt.pro b/bitcoin-qt.pro
+index 44e466a..851b344 100644
+--- a/bitcoin-qt.pro
++++ b/bitcoin-qt.pro
+@@ -11,7 +11,7 @@ CONFIG += thread
+ 
+ QMAKE_CXXFLAGS += -g --std=c++11 -Wno-unused-local-typedefs
+ 
+-BOOST_LIB_SUFFIX=-mt
++#BOOST_LIB_SUFFIX=-mgw48-mt-d-1_55
+ 
+ # for boost 1.37, add -mt to the boost libraries
+ # use: qmake BOOST_LIB_SUFFIX=-mt
+@@ -116,7 +116,8 @@ LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
+         QMAKE_RANLIB = $$replace(QMAKE_STRIP, strip, ranlib)
+     }
+     LIBS += -lshlwapi
+-    genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
++    leveldb_dir = $$re_escape($$shell_path($$PWD/src/leveldb))
++    genleveldb.commands = cd $$leveldb_dir && set CC=$$QMAKE_CC && set CXX=$$QMAKE_CXX && set TARGET_OS=NATIVE_WINDOWS&& $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
+ }
+ genleveldb.target = $$PWD/src/leveldb/libleveldb.a
+ genleveldb.depends = FORCE
