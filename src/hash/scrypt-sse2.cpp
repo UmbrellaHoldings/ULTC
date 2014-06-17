@@ -33,6 +33,7 @@
 #include <string.h>
 #include <openssl/sha.h>
 
+namespace hash {
 namespace scrypt {
 
 #ifdef USE_SSE2
@@ -118,4 +119,5 @@ void rearrange_after(sse2::SalsaBlock& x)
 }
 #endif
 
-}
+} // scrypt
+} // hash

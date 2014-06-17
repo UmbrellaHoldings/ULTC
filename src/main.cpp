@@ -16,8 +16,7 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
-#include "scrypt.hpp"
-#include "n_factor.h"
+#include "hash/hash.h"
 #include "algos/digishield.hpp"
 #include "btc_time.h"
 #include "block.h"
@@ -1227,10 +1226,8 @@ void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
 
 uint256 CBlock::GetPoWHash() const
 {
-  const auto n_factor = GetNfactor(GetTimePoint());
-  auto scratchpad = scrypt::get_scratchpad(n_factor);
-
-  return scrypt::hash(*this, n_factor, scratchpad);
+  return ::hash::hasher::instance(GetTimePoint())
+    -> hash(*this);
 }
 
 const CTxOut &CTransaction::GetOutputFor(const CTxIn& input, CCoinsViewCache& view)
@@ -4031,7 +4028,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// LitecoinMiner
+// The Miner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -4527,12 +4524,12 @@ void static LitecoinMiner(CWallet *pwallet)
     unsigned int nHashesDone = 0;
 
     uint256 thash;
-    const auto n_factor = GetNfactor
-    (pblock->GetTimePoint());
-    auto scratchpad = scrypt::get_scratchpad(n_factor);
+    auto H = ::hash::hasher::instance
+      (pblock->GetTimePoint());
+
     loop
     {
-    thash = scrypt::hash(*pblock, n_factor, scratchpad);
+    thash = H->hash(*pblock);
       
     if (thash <= hashTarget)
     {

@@ -28,6 +28,7 @@ constexpr bool is_little_endian()
 
 }
 
+namespace hash {
 namespace scrypt {
 
 void
@@ -190,6 +191,7 @@ void scrypt_256_sp_templ
     output.size());
 }
 
-}
+} // scrypt
+} // hash
 
 #endif

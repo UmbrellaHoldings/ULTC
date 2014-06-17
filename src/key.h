@@ -10,7 +10,7 @@
 #include "allocators.h"
 #include "serialize.h"
 #include "uint256.h"
-#include "hash.h"
+#include "hash/hash.h"
 
 // secp256k1:
 // const unsigned int PRIVATE_KEY_SIZE = 279;

@@ -1,16 +1,51 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// -*-coding: mule-utf-8-unix; fill-column: 58; -*-
+
+/**
+ *@file
+ * The abstract hash function interface.
+ *
+ *@copyright Copyright (c) 2009-2010 Satoshi Nakamoto
+ *@copyright Copyright (c) 2009-2012 The Bitcoin developers
+ *@copyright Copyright (c) 2014 Cohors LLC
+ *
+ *@license Distributed under the MIT/X11 software license,
+ * see the accompanying file COPYING 
+ * or http://www.opensource.org/licenses/mit-license.php.
+ */
+
 #ifndef BITCOIN_HASH_H
 #define BITCOIN_HASH_H
 
-#include "uint256.h"
-#include "serialize.h"
-
+#include <vector>
+#include <memory>
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>
-#include <vector>
+#include "uint256.h"
+#include "serialize.h"
+#include "btc_time.h"
+#include "pars.h"
+
+class CBlock;
+
+namespace hash {
+
+//! An abstract hash provider. Contains a scratchpad 
+//! for calculating hash of a block
+//! with block_time (the scratchpad size 
+//! can vary with the time for some descendants, see
+//! brittcoin_scrypt). 
+class hasher
+{
+public:
+  static std::shared_ptr<hasher> instance(
+    coin::time::block::time_point block_time
+  );
+
+  //! Calculates a hash
+  virtual uint256 hash(const CBlock& blk) = 0;
+};
+
+} // hash
 
 template<typename T1>
 inline uint256 Hash(const T1 pbegin, const T1 pend)

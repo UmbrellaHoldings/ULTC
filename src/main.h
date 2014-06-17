@@ -10,7 +10,6 @@
 #include "sync.h"
 #include "net.h"
 #include "script.h"
-#include "scrypt.h"
 #include "btc_time.h"
 #include "algos/digishield.h"
 

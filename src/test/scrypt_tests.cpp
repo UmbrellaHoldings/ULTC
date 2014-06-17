@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <boost/test/unit_test.hpp>
 #include "util.h"
-#include "scrypt.hpp"
+#include "hash/scrypt.hpp"
 
 using namespace scrypt;
 

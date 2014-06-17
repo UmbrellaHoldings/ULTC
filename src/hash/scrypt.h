@@ -13,14 +13,23 @@
 
 #include <array>
 #include <cstdint>
-#include <memory>
 #ifdef USE_SSE2
 #  include <emmintrin.h>
 #endif
 #include "uint256.h"
 #include "n_factor.h"
+#include "hash.h"
 
 class CBlock;
+
+namespace hash {
+
+struct scratchpad_base
+{
+  virtual ~scratchpad_base() {}
+};
+
+using scratchpad_ptr = scratchpad_base*;
 
 namespace scrypt {
 
@@ -113,17 +122,12 @@ void scrypt_256_sp_templ
          Scratchpad<N, r, p, SalsaBlockT>& scratchpad
   );
 
-struct scratchpad_base
-{
-  virtual ~scratchpad_base() {}
-};
-
 template<
   uint32_t N,
   unsigned r,
   unsigned p
 >
-struct scratchpad : scratchpad_base
+struct scratchpad : ::hash::scratchpad_base
 {
   Scratchpad<N, r, p, SSE2_OR_GENERIC::SalsaBlock> pad;
   static scratchpad_base* allocate()
@@ -132,10 +136,6 @@ struct scratchpad : scratchpad_base
   }
 };
 
-using scratchpad_ptr = std::shared_ptr<scratchpad_base>;
-
-scratchpad_ptr get_scratchpad(n_factor_t n_factor);
-
 uint256 hash(
   const CBlock& blk,
   n_factor_t n_factor,
@@ -143,5 +143,6 @@ uint256 hash(
 );
 
 } // scrypt
+} // hash
 
 #endif

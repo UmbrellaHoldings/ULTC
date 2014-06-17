@@ -19,7 +19,7 @@
 #include "netbase.h"
 #include "protocol.h"
 #include "addrman.h"
-#include "hash.h"
+#include "hash/hash.h"
 #include "bloom.h"
 
 class CNode;

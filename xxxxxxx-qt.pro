@@ -165,7 +165,6 @@ HEADERS += \
     src/compat.h \
     src/crypter.h \
     src/db.h \
-    src/hash.h \
     src/init.h \
     src/key.h \
     src/keystore.h \
@@ -178,8 +177,6 @@ HEADERS += \
     src/netbase.h \
     src/protocol.h \
     src/script.h \
-    src/scrypt.h \
-    src/scrypt.hpp \
     src/serialize.h \
     src/sync.h \
     src/threadsafety.h \
@@ -193,6 +190,9 @@ HEADERS += \
     src/walletdb.h \
     src/algos/digishield.h \
     src/algos/digishield.hpp \
+    src/hash/hash.h \
+    src/hash/scrypt.h \
+    src/hash/scrypt.hpp \
     src/json/json_spirit.h \
     src/json/json_spirit_error_position.h \
     src/json/json_spirit_reader.h \
@@ -258,7 +258,6 @@ SOURCES += \
     src/checkpoints.cpp \
     src/crypter.cpp \
     src/db.cpp \
-    src/hash.cpp \
     src/init.cpp \
     src/key.cpp \
     src/keystore.cpp \
@@ -277,8 +276,6 @@ SOURCES += \
     src/rpcrawtransaction.cpp \
     src/rpcwallet.cpp \
     src/script.cpp \
-    src/scrypt.cpp \
-    src/scrypt_generated.cpp \
     src/sync.cpp \
     src/txdb.cpp \
     src/types.cpp \
@@ -289,6 +286,9 @@ SOURCES += \
     src/wallet.cpp \
     src/walletdb.cpp \
     src/algos/digishield.cpp \
+    src/hash/hash.cpp \
+    src/hash/scrypt.cpp \
+    src/hash/scrypt_generated.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/addressbookpage.cpp \
     src/qt/addresstablemodel.cpp \

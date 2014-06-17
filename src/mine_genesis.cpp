@@ -9,8 +9,8 @@
 #include "uint256.h"
 #include "bignum.h"
 #include "main.h"
-#include "scrypt.h"
 #include "n_factor.h"
+#include "hash/hash.h"
 
 extern uint256 hashGenesisBlock;
 
@@ -27,12 +27,11 @@ void MineGenesisBlock(CBlock& block)
     // creating a different genesis block:
     uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
     uint256 thash;
-    const auto n_factor = GetNfactor(block.GetTimePoint());
-    auto scratchpad = scrypt::get_scratchpad(n_factor);
+    auto H = hash::hasher::instance(block.GetTimePoint());
      
     loop
     {
-      thash = scrypt::hash(block, n_factor, scratchpad);
+      thash = H->hash(block);
 
       if (thash <= hashTarget)
         break;

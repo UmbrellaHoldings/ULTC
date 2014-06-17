@@ -27,10 +27,11 @@
  * online backup system.
  */
 
-#include "scrypt.hpp"
+#include "hash/scrypt.hpp"
 #include "util.h"
 #include <openssl/sha.h>
 
+namespace hash {
 namespace scrypt {
 
 static inline uint32_t be32dec(const void *pp)
@@ -243,3 +244,4 @@ void xor_salsa8(generic::SalsaBlock& B, const generic::SalsaBlock& Bx)
 }
 
 } // scrypt
+} // hash
