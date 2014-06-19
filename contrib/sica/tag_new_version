@@ -37,7 +37,7 @@ old_string=$(echo $last_tag|sed 's/v//'|sed 's/\\./\\\\./g')
 new_string=$maj.$min.$rev.$build
 sed -i "s/$old_string/$new_string/g" share/setup.nsi *qt.pro
 
-message="sica v$new_string $(date)"
+message="sica $(date)"
 git add . \
 && git commit -m "$message" \
 && git tag -a v$new_string -m "$message" \
