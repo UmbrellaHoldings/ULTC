@@ -160,11 +160,6 @@ uint256 GetRandHash()
 
 void OutputDebugStringF(const char* pszFormat, ...)
 {
-<<<<<<< HEAD
-
-//  int ret = 0; // Returns total number of characters written
-=======
->>>>>>> 49dca35... switch to boost::filesystem::ostream, make compilable
   if (fPrintToConsole)
   {
     // print to console
