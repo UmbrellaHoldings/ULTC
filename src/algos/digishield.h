@@ -63,10 +63,6 @@ public:
   template<class Block>
   void dos_check_min_difficulty(const Block& block) const;
 
-  //! An average planned block period
-  const duration block_period_by_design = 
-    coin::time::block::minutes(8);
-
 protected:
   //TODO make the _by_design parameters as a template
   //parameters 

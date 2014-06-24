@@ -2,6 +2,7 @@
 #include "hash/scrypt.h"
 #include "n_factor.h"
 #include "scrypt.hpp"
+#include "main.h"
 
 namespace hash {
 
@@ -26,7 +27,7 @@ class hasher_impl<pars::hash_fun::brittcoin_scrypt>
 {
 public:
   hasher_impl( 
-    coin::time::block::time_point block_time
+    coin::times::block::time_point block_time
   )
     : n_factor(GetNfactor(block_time)),
       scratchpad(scrypt::get_scratchpad(n_factor))
@@ -42,12 +43,28 @@ protected:
   std::unique_ptr<scratchpad_base> scratchpad;
 };
 
+template<>
+class hasher_impl<pars::hash_fun::sha256d> 
+  : public hasher
+{
+public:
+  hasher_impl( 
+    coin::times::block::time_point block_time
+  )
+  {}
+
+  uint256 hash(const CBlock& blk) override
+  {
+    return blk.GetHash();
+  }
+};
+
 std::shared_ptr<hasher> hasher::instance(
-  coin::time::block::time_point block_time
+  coin::times::block::time_point block_time
 )
 {
   return std::make_shared
-    <hasher_impl<pars::hash_fun::brittcoin_scrypt>>
+    <hasher_impl<pars::hash_function>>
       (block_time);
 }
 

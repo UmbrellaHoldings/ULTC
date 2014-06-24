@@ -38,7 +38,7 @@ class hasher
 {
 public:
   static std::shared_ptr<hasher> instance(
-    coin::time::block::time_point block_time
+    coin::times::block::time_point block_time
   );
 
   //! Calculates a hash

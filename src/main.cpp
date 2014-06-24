@@ -4595,12 +4595,11 @@ void static LitecoinMiner(CWallet *pwallet)
     unsigned int nHashesDone = 0;
 
     uint256 thash;
-    const auto n_factor = GetNfactor
-      (pblock->GetTimePoint());
-    auto scratchpad = scrypt::get_scratchpad(n_factor);
+    auto H = ::hash::hasher::instance
+       (pblock->GetTimePoint());
     loop
     {
-      thash = scrypt::hash(*pblock, n_factor, scratchpad);
+      thash = H->hash(*pblock);
       
       if (thash <= hashTarget)
       {
