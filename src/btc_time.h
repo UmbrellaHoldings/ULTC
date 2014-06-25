@@ -41,7 +41,7 @@ struct clock
     );
   }
 
-  static /*constexpr*/ std::chrono::system_clock::time_point
+  static std::chrono::system_clock::time_point
   to_system_clock(time_point local)
   {
     using namespace std::chrono;
@@ -52,6 +52,18 @@ struct clock
                                    // same epoch
     );
   }
+
+  //! Converts to bitcoin nTime
+  static constexpr unsigned to_nTime(time_point tp)
+  {
+    using namespace std::chrono;
+
+    return duration_cast<seconds>
+      (tp.time_since_epoch()).count();
+  }
+
+  //! Converts from bitcoin nTime
+  static constexpr time_point from_nTime(unsigned nTime);
 };
 
 using seconds = 
@@ -68,6 +80,11 @@ using common_years = std::chrono::duration
 using time_point = clock::time_point;
 
 constexpr clock::duration zero = clock::duration::zero();
+
+constexpr time_point clock::from_nTime(unsigned nTime)
+{
+  return time_point(seconds(nTime));
+}
 
 } // block
 } // times

@@ -6,21 +6,23 @@
 
 #include <vector>
 #include <memory>
+#include <boost/thread.hpp>
 #include "uint256.h"
 #include "bignum.h"
 #include "main.h"
 #include "n_factor.h"
 #include "hash/hash.h"
+#include "log.h"
 
-extern uint256 hashGenesisBlock;
+namespace genesis {
 
-// If genesis block hash does not match, then generate new
-// genesis hash.
-void MineGenesisBlock(CBlock& block)
+void block::mine()
 {
+  CBlock& block = *this;
+
   block.nNonce = 0;
 
-  if (block.GetHash() != hashGenesisBlock)
+  if (GetHash() != known_hash())
   {
     printf("Searching for genesis block...\n");
     // This will figure out a valid hash and Nonce if you're
@@ -51,3 +53,5 @@ void MineGenesisBlock(CBlock& block)
     printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
   }
 }
+
+} // genesis

@@ -1793,6 +1793,12 @@ void CScript::SetMultisig(int nRequired, const std::vector<CPubKey>& keys)
     *this << EncodeOP_N(keys.size()) << OP_CHECKMULTISIG;
 }
 
+CScriptID CScript::GetID() const
+{
+  return CScriptID(Hash160(*this));
+}
+
+
 bool CScriptCompressor::IsToKeyID(CKeyID &hash) const
 {
     if (script.size() == 25 && script[0] == OP_DUP && script[1] == OP_HASH160 
@@ -1919,3 +1925,21 @@ operator<<(std::ostream& out, const CScript& s)
 {
   return out << s.ToString();
 }
+
+CScriptCheck::CScriptCheck(
+  const CCoins& txFromIn, 
+  const CTransaction& txToIn, 
+  unsigned int nInIn, 
+  unsigned int nFlagsIn, 
+  int nHashTypeIn
+) :
+  scriptPubKey(
+    txFromIn.vout[txToIn.vin[nInIn].prevout.n].scriptPubKey
+  ),
+  ptxTo(&txToIn), 
+  nIn(nInIn), 
+  nFlags(nFlagsIn), 
+  nHashType(nHashTypeIn) 
+{
+}
+

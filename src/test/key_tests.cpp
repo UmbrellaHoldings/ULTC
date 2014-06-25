@@ -7,6 +7,7 @@
 #include "base58.h"
 #include "uint256.h"
 #include "util.h"
+#include "hash/hash.h"
 
 using namespace std;
 

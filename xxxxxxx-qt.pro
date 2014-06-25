@@ -153,6 +153,7 @@ HEADERS += \
     src/alert.h \
     src/allocators.h \
     src/base58.h \
+    src/block.h \
     src/bignum.h \
     src/bitcoinrpc.h \
     src/block.h \
@@ -175,6 +176,7 @@ HEADERS += \
     src/n_factor.h \
     src/net.h \
     src/netbase.h \
+    src/pars.h \
     src/protocol.h \
     src/script.h \
     src/serialize.h \
@@ -190,6 +192,8 @@ HEADERS += \
     src/walletdb.h \
     src/algos/digishield.h \
     src/algos/digishield.hpp \
+    src/genesis/genesis.h \
+    src/genesis/genesis.hpp \
     src/hash/hash.h \
     src/hash/scrypt.h \
     src/hash/scrypt.hpp \
@@ -252,8 +256,10 @@ SOURCES += \
     src/addrman.cpp \
     src/alert.cpp \
     src/allocators.cpp \
+    src/base58.cpp \
     src/bignum.cpp \
     src/bitcoinrpc.cpp \
+    src/block.cpp \
     src/bloom.cpp \
     src/checkpoints.cpp \
     src/crypter.cpp \
@@ -286,6 +292,7 @@ SOURCES += \
     src/wallet.cpp \
     src/walletdb.cpp \
     src/algos/digishield.cpp \
+    src/genesis/bitcoin_genesis.cpp \
     src/hash/hash.cpp \
     src/hash/scrypt.cpp \
     src/hash/scrypt_generated.cpp \

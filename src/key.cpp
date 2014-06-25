@@ -8,9 +8,11 @@
 
 #include "key.h"
 #include "bignum.h"
+#include "hash/hash.h"
 
 
-// anonymous namespace with local implementation code (OpenSSL interaction)
+// anonymous namespace with local implementation code
+// (OpenSSL interaction)
 namespace {
 
 // Generate a private key from just the secret parameter
@@ -395,6 +397,15 @@ bool CPubKey::Decompress() {
     key.GetPubKey(*this, false);
     return true;
 }
+
+CKeyID CPubKey::GetID() const {
+  return CKeyID(Hash160(vch, vch+size()));
+}
+
+uint256 CPubKey::GetHash() const {
+  return Hash(vch, vch+size());
+}
+
 
 std::ostream&
 operator<<(std::ostream& out, const CPubKey& key)

@@ -592,10 +592,7 @@ public:
         printf("%s\n", ToString().c_str());
     }
 
-    CScriptID GetID() const
-    {
-        return CScriptID(Hash160(*this));
-    }
+    CScriptID GetID() const;
 };
 
 std::ostream&
@@ -672,6 +669,32 @@ public:
         script.resize(nSize);
         s >> REF(CFlatData(&script[0], &script[script.size()]));
     }
+};
+
+/** Closure representing one script verification
+ *  Note that this stores references to the spending transaction */
+class CScriptCheck
+{
+private:
+  CScript scriptPubKey;
+  const CTransaction *ptxTo;
+  unsigned int nIn;
+  unsigned int nFlags;
+  int nHashType;
+
+public:
+  CScriptCheck() {}
+  CScriptCheck(const CCoins& txFromIn, const CTransaction& txToIn, unsigned int nInIn, unsigned int nFlagsIn, int nHashTypeIn);
+
+  bool operator()() const;
+
+  void swap(CScriptCheck &check) {
+    scriptPubKey.swap(check.scriptPubKey);
+    std::swap(ptxTo, check.ptxTo);
+    std::swap(nIn, check.nIn);
+    std::swap(nFlags, check.nFlags);
+    std::swap(nHashType, check.nHashType);
+  }
 };
 
 bool IsCanonicalPubKey(const std::vector<unsigned char> &vchPubKey);

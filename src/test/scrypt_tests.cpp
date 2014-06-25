@@ -3,7 +3,7 @@
 #include "util.h"
 #include "hash/scrypt.hpp"
 
-using namespace scrypt;
+using namespace hash::scrypt;
 
 BOOST_AUTO_TEST_SUITE(scrypt_tests)
 
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(salsa_test)
 
 BOOST_AUTO_TEST_CASE(scrypt_hashtest)
 {
-    using SB = scrypt::SSE2_OR_GENERIC::SalsaBlock;
+    using SB = hash::scrypt::SSE2_OR_GENERIC::SalsaBlock;
 
     // 1. The 1024x1x1 80 in 32 out case
 

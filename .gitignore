@@ -17,6 +17,7 @@ src/show_n_factor
 *.patch
 .xxxxxxx
 nohup.out
+src/test/data/Mar12Fork.dat
 
 # Compilation and Qt preprocessor part
 *.qm

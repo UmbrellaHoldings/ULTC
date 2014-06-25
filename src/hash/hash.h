@@ -34,9 +34,12 @@ namespace hash {
 //! with block_time (the scratchpad size 
 //! can vary with the time for some descendants, see
 //! brittcoin_scrypt). 
+//!
+//! @author Sergei Lodyagin
 class hasher
 {
 public:
+  //! Returns new instance. NB not a singleton.
   static std::shared_ptr<hasher> instance(
     coin::times::block::time_point block_time
   );

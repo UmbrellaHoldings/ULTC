@@ -80,8 +80,11 @@ OBJS= \
     obj/addrman.o \
     obj/alert.o \
     obj/allocators.o \
+    obj/base58.o \
     obj/bignum.o \
+    obj/bitcoin_genesis.o \
     obj/bitcoinrpc.o \
+    obj/block.o \
     obj/bloom.o \
     obj/checkpoints.o \
     obj/crypter.o \
@@ -171,6 +174,13 @@ obj/%-sse2.o: %-sse2.cpp
 	  rm -f $(@:%.o=%.d)
 
 obj/%.o: algos/%.cpp
+	$(CXX) -c $(CFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
+	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
+	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
+	  rm -f $(@:%.o=%.d)
+
+obj/%.o: genesis/%.cpp
 	$(CXX) -c $(CFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \

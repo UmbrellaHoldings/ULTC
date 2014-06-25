@@ -39,7 +39,6 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x8ac09281728f8a25263a4900ef8da66867249ebf8e7575a07a9d073ae8e7d6aa");
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 uint256 nBestChainWork = 0;
@@ -1584,7 +1583,7 @@ bool CBlock::ConnectBlock(CValidationState &state, CBlockIndex* pindex, CCoinsVi
 
   // Special case for the genesis block, skipping connection of its transactions
   // (its coinbase is unspendable)
-  if (GetHash() == hashGenesisBlock) {
+  if (GetHash() == genesis::block::instance().known_hash()) {
     view.SetBestBlock(pindex);
     pindexGenesisBlock = pindex;
     return true;
@@ -2142,7 +2141,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
   // Get prev block index
   CBlockIndex* pindexPrev = NULL;
   int nHeight = 0;
-  if (hash != hashGenesisBlock) {
+  if (hash != genesis::block::instance().known_hash()) {
     map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hashPrevBlock);
     if (mi == mapBlockIndex.end())
       return state.DoS(10, error("AcceptBlock() : prev block not found"));
@@ -2711,7 +2710,7 @@ bool LoadBlockIndex()
     pchMessageStart[1] = 'o';
     pchMessageStart[2] = 'm';
     pchMessageStart[3] = 'p';
-    hashGenesisBlock = uint256("0x330c6f8b4a3c9739a76203234d81bdce2e1298b36b26e3cefaca4dbca3a314c6");
+//    hashGenesisBlock = uint256("0x330c6f8b4a3c9739a76203234d81bdce2e1298b36b26e3cefaca4dbca3a314c6");
   }
 
   //
@@ -2739,41 +2738,7 @@ bool InitBlockIndex() {
   // Only add the genesis block if not reindexing (in which case we reuse the one already on disk)
   if (!fReindex) {
 
-    // Genesis block
-    const char* pszTimestamp = "Noon gleams on the Lake, Noon glows on the Fell, Wake thee, O wake, White Maid of Avenel!";
-    CTransaction txNew;
-    txNew.vin.resize(1);
-    txNew.vout.resize(1);
-    txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-    txNew.vout[0].nValue = 35 * COIN;
-    txNew.vout[0].scriptPubKey = CScript() << ParseHex("0487e11b7e3b8803bef76182af8faa8566191aa37e301e0f8bc01ca668a265c5a11c2d95a689c8432e6aae6e5d0be182c9db9c2fa6494e49b0e464c1b87da7f9be") << OP_CHECKSIG;
-    CBlock block;
-    block.vtx.push_back(txNew);
-    block.hashPrevBlock = 0;
-    block.hashMerkleRoot = block.BuildMerkleTree();
-    block.nVersion = 1;
-    block.nTime  = 1396281265;
-    block.nBits  = 0x1f003fff;
-    block.nNonce   = 96633;
-
-    if (fTestNet)
-    {
-      block.nTime  = 1402483639;
-      block.nBits  = 0x2000ffff;
-      block.nNonce   = 22; 
-    }
-
-    //// debug print
-    uint256 hash = block.GetHash();
-    printf("%s\n", hash.ToString().c_str());
-    printf("%s\n", hashGenesisBlock.ToString().c_str());
-    printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-    assert(block.hashMerkleRoot == uint256("0xc900d294567c4363a0d8481f24e635df784e5b480e7b7eb97f0841628fcbe93a"));
-#if 0 // this part is used only on new genesis generation
-    MineGenesisBlock(block);
-#endif
-    block.print();
-    assert(hash == hashGenesisBlock);
+    CBlock block = genesis::block::instance();
 
     // Start new block file
     try {
