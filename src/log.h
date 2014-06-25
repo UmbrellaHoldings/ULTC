@@ -150,7 +150,7 @@ void printf_basic_stream<CharT, Traits>
 
     const size_t len = vsnprintf(
       buf.data(), 
-      buf.size() - Log::truncated_mark().size(), 
+      buf.size() - Log::truncated_mark().size() + 1, 
       fmt, 
       ap
     );
