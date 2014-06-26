@@ -33,7 +33,7 @@ difficulty& difficulty::instance()
     if (!GetBoolArg("-testnet"))
       instance = new difficulty(
         CBigNum(~uint256(0) >> 18).GetCompact(),
-        coin::times::block::minutes(8)
+        coin::times::block::seconds(30)
       ); 
     else
       instance = new difficulty(

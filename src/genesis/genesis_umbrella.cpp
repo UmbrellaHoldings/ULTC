@@ -29,8 +29,7 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0x00002e91fb9d6c7e9f5f6debf68e1e993bc9ffaaeaa9efe"
-  "358e7fc0be2dfa83b"
+  "0x0"
 );
 extern const uint256 hash;  
 
@@ -67,7 +66,7 @@ genesis::block* create()
       "137a1a292c59afbdb35"
     ));
 
-#if 0 // this part is used only on new genesis generation
+#if 1 // this part is used only on new genesis generation
     blk->mine();
 #endif
 

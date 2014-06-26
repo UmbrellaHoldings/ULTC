@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <memory>
+#include <chrono>
 #include <boost/thread.hpp>
 #include "uint256.h"
 #include "bignum.h"
@@ -13,49 +14,83 @@
 #include "n_factor.h"
 #include "hash/hash.h"
 #include "log.h"
+#include "algos/digishield.h"
 
 namespace genesis {
 
 void block::mine()
 {
-#define LOG_BEST_HASH
-#ifdef LOG_BEST_HASH
-  auto best_hash = ~uint256();
-#endif
+  using namespace std::chrono;
+
+  // Set n cores will be used for other block mining here
+  constexpr int n_cores = 6;
 
   CBlock& block = *this;
 
-  block.nNonce = 0;
+  DigiByte::difficulty& D = 
+    DigiByte::difficulty::instance();
+  
+  const auto block_period = 
+    D.block_period_by_design * n_cores;
 
-  if (GetHash() != known_hash())
-  {
-    printf("Searching for genesis block...\n");
-    // This will figure out a valid hash and Nonce if you're
-    // creating a different genesis block:
-    uint256 hashTarget = CBigNum().SetCompact(block.nBits)
-      . getuint256();
+  CBigNum target_difficulty = D.min_difficulty_by_design;
+
+  // FIXME one round is not enough because the process
+  // is stochastic
+  unsigned start_nonce = 0;
+  // <-- add a loop here
+
+  bool found = false;
+
+  do {
+
+    block.nNonce = start_nonce;
+
+    const steady_clock::time_point start = 
+      steady_clock::now();
+
+    LOG() << "Searching for genesis block..." << std::endl;
+    uint256 hashTarget = target_difficulty.getuint256();
     uint256 thash;
     auto H = hash::hasher::instance(block.GetTimePoint());
      
+    LOG() << "(genesis mining) start with difficulty "
+          << target_difficulty.GetCompact() << std::endl;
+
+#define LOG_BEST_HASH
+#ifdef LOG_BEST_HASH
+    auto best_hash = ~uint256();
+#endif
+
     loop
     {
       thash = H->hash(block);
 
-      if (thash <= hashTarget)
+      if (thash <= hashTarget) {
+        found = true;
         break;
+      }
 
 #ifdef LOG_BEST_HASH
       if (thash < best_hash) {
         best_hash = thash;
         LOG() << "(genesis mining) Best hash: " 
               << thash << std::endl;
+        const auto passed = steady_clock::now() - start;
+        if (passed > block_period + block_period / 2) {
+          LOG() << "(genesis mining) "
+            "target searching takes too long: "
+                << duration_cast<seconds>(passed) 
+                << " secs" << std::endl;
+          break;
+        }
       }
-#endif
-
-      if ((block.nNonce & 0xFFF) == 0)
+#else
+      if ((block.nNonce & 0xFFFFF) == 0)
       {
         printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
       }
+#endif
       ++block.nNonce;
       if (block.nNonce == 0)
       {
@@ -63,10 +98,24 @@ void block::mine()
         ++block.nTime;
       }
     }
-    printf("block.nTime = %u \n", block.nTime);
-    printf("block.nNonce = %u \n", block.nNonce);
-    printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
-  }
+    if (found) {
+      const auto passed = steady_clock::now() - start;
+      if (passed < block_period / 2) {
+        LOG() << "(genesis mining) "
+          "target searching takes too short: "
+              << duration_cast<seconds>(passed) 
+              << " secs" << std::endl;
+        target_difficulty >>= 1; 
+        found = false;
+      }
+    } 
+    else {
+      target_difficulty <<= 1;
+    }
+  } while (!found);
+  printf("block.nTime = %u \n", block.nTime);
+  printf("block.nNonce = %u \n", block.nNonce);
+  printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
 }
 
 } // genesis

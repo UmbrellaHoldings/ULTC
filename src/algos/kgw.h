@@ -2,7 +2,7 @@
 
 /**
  * @file
- * The DigiShield algo.
+ * The Kimoto Gravity Well algo.
  *
  * @author l0rdicon <xploited.ca@gmail.com>
  * @author digibyte <dev@digibyte.co>
@@ -63,15 +63,16 @@ public:
   template<class Block>
   void dos_check_min_difficulty(const Block& block) const;
 
-  //! The greater numeric value is the lower difficulty
-  const compact_bignum_t min_difficulty_by_design;
-
-  //! An average planned block period
-  const duration block_period_by_design;
-
 protected:
   //TODO make the _by_design parameters as a template
   //parameters 
+
+  //! The greater numeric value is the lower difficulty
+  const compact_bignum_t min_difficulty_by_design;
+  //= CBigNum(~uint256(0) >> 18).GetCompact();
+
+  //! An average planned block period
+  const duration block_period_by_design;
 
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 
