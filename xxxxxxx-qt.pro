@@ -190,8 +190,7 @@ HEADERS += \
     src/version.h \
     src/wallet.h \
     src/walletdb.h \
-    src/algos/digishield.h \
-    src/algos/digishield.hpp \
+    src/algos/retarget.h \
     src/genesis/genesis.h \
     src/genesis/genesis.hpp \
     src/hash/hash.h \
@@ -269,7 +268,6 @@ SOURCES += \
     src/keystore.cpp \
     src/leveldb.cpp \
     src/main.cpp \
-    src/mine_genesis.cpp \
     src/n_factor.cpp \
     src/net.cpp \
     src/netbase.cpp \
@@ -291,9 +289,10 @@ SOURCES += \
     src/version.cpp \
     src/wallet.cpp \
     src/walletdb.cpp \
-    src/algos/digishield.cpp \
+    src/algos/retarget.cpp \
     src/genesis/genesis_bitcoin.cpp \
     src/genesis/genesis_umbrella.cpp \
+    src/genesis/mine_genesis.cpp \
     src/hash/hash.cpp \
     src/hash/scrypt.cpp \
     src/hash/scrypt_generated.cpp \

@@ -9,7 +9,7 @@
  * @author Sergei Lodyagin <serg@kogorta.dp.ua>
  */
 
-#ifndef BITCOIN_DIGISHIELD_H
+#ifndef BITCOIN_KGW_H
 #define BITCOIN_DIGISHIELD_H
 
 #include <assert.h>

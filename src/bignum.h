@@ -60,12 +60,14 @@ struct compact_bignum_t
     : compact(c) 
   {}
 
+  bool operator>(compact_bignum_t o) const;
+
   //! Returns true if this has lower difficulty than o
   //! (lower difficulty corresponds 
   //! to higher numeric values)
-  constexpr bool lower_difficulty(compact_bignum_t o) const
+  bool lower_difficulty(compact_bignum_t o) const
   {
-    return compact > o.compact;
+    return *this > o;
   }
 };
 
@@ -676,6 +678,15 @@ inline bool operator<=(const CBigNum& a, const CBigNum& b) { return (BN_cmp(&a, 
 inline bool operator>=(const CBigNum& a, const CBigNum& b) { return (BN_cmp(&a, &b) >= 0); }
 inline bool operator<(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) < 0); }
 inline bool operator>(const CBigNum& a, const CBigNum& b)  { return (BN_cmp(&a, &b) > 0); }
+
+inline bool compact_bignum_t::operator>
+  (compact_bignum_t o) const
+{
+  const CBigNum a(*this);
+  const CBigNum b(o);
+  return a > b;
+}
+
 
 //! 
 

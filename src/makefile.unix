@@ -138,6 +138,7 @@ OBJS= \
     obj/netbase.o \
     obj/noui.o \
     obj/protocol.o \
+    obj/retarget.o \
     obj/rpcblockchain.o \
     obj/rpcdump.o \
     obj/rpcmining.o \
@@ -155,8 +156,7 @@ OBJS= \
     obj/util_cmn.o \
     obj/version.o \
     obj/wallet.o \
-    obj/walletdb.o \
-    obj/digishield.o
+    obj/walletdb.o
 
 ifdef USE_SSE2
 DEFS += -DUSE_SSE2

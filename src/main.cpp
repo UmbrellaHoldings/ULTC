@@ -17,7 +17,6 @@
 #include "ui_interface.h"
 #include "checkqueue.h"
 #include "hash/hash.h"
-#include "algos/digishield.hpp"
 #include "btc_time.h"
 #include "block.h"
 #include "log.h"
@@ -2149,7 +2148,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
     nHeight = pindexPrev->nHeight+1;
 
     // Check proof of work
-    if (nBits != DigiByte::difficulty::instance()
+    if (nBits != retarget::difficulty::instance()
           . next_block_difficulty(pindexPrev)
         )
       return state.DoS(
@@ -2261,7 +2260,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     // Extra checks to prevent "fill up memory by spamming
     // with bogus blocks"
     try {
-      DigiByte::difficulty::instance().dos_check_min_difficulty(*pblock);
+      retarget::difficulty::instance().dos_check_min_difficulty(*pblock);
     }
     catch(const except::dos& ex) {
       LOG() << "ProcessBlock() : " 
@@ -4364,7 +4363,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     pblock->UpdateTime(pindexPrev);
-    pblock->nBits = DigiByte::difficulty::instance()
+    pblock->nBits = retarget::difficulty::instance()
       . next_block_difficulty(pindexPrev);
     pblock->nNonce     = 0;
     pblock->vtx[0].vin[0].scriptSig = CScript() << OP_0 << OP_0;

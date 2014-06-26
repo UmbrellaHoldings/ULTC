@@ -179,3 +179,152 @@ void CBlock::print() const
     printf("%s ", vMerkleTree[i].ToString().c_str());
   printf("\n");
 }
+
+CBlockIndex::CBlockIndex()
+{
+  phashBlock = NULL;
+  pprev = NULL;
+  pnext = NULL;
+  nHeight = 0;
+  nFile = 0;
+  nDataPos = 0;
+  nUndoPos = 0;
+  nChainWork = 0;
+  nTx = 0;
+  nChainTx = 0;
+  nStatus = 0;
+
+  nVersion     = 0;
+  hashMerkleRoot = 0;
+  nTime      = 0;
+  nBits      = 0;
+  nNonce     = 0;
+}
+
+CBlockIndex::CBlockIndex(CBlockHeader& block)
+{
+  phashBlock = NULL;
+  pprev = NULL;
+  pnext = NULL;
+  nHeight = 0;
+  nFile = 0;
+  nDataPos = 0;
+  nUndoPos = 0;
+  nChainWork = 0;
+  nTx = 0;
+  nChainTx = 0;
+  nStatus = 0;
+
+  nVersion     = block.nVersion;
+  hashMerkleRoot = block.hashMerkleRoot;
+  nTime      = block.nTime;
+  nBits      = block.nBits;
+  nNonce     = block.nNonce;
+}
+
+CDiskBlockPos CBlockIndex::GetBlockPos() const 
+{
+  CDiskBlockPos ret;
+  if (nStatus & BLOCK_HAVE_DATA) {
+    ret.nFile = nFile;
+    ret.nPos  = nDataPos;
+  }
+  return ret;
+}
+
+CDiskBlockPos CBlockIndex::GetUndoPos() const 
+{
+  CDiskBlockPos ret;
+  if (nStatus & BLOCK_HAVE_UNDO) {
+    ret.nFile = nFile;
+    ret.nPos  = nUndoPos;
+  }
+  return ret;
+}
+
+CBlockHeader CBlockIndex::GetBlockHeader() const
+{
+  CBlockHeader block;
+  block.nVersion     = nVersion;
+  if (pprev)
+    block.hashPrevBlock = pprev->GetBlockHash();
+  block.hashMerkleRoot = hashMerkleRoot;
+  block.nTime      = nTime;
+  block.nBits      = nBits;
+  block.nNonce     = nNonce;
+  return block;
+}
+
+uint256 CBlockIndex::GetBlockHash() const
+{
+  return *phashBlock;
+}
+
+int64 CBlockIndex::GetBlockTime() const
+{
+  return (int64)nTime;
+}
+
+CBigNum CBlockIndex::GetBlockWork() const
+{
+  CBigNum bnTarget;
+  bnTarget.SetCompact(nBits);
+  if (bnTarget <= 0)
+    return 0;
+  return (CBigNum(1)<<256) / (bnTarget+1);
+}
+
+bool CBlockIndex::IsInMainChain() const
+{
+  return (pnext || this == pindexBest);
+}
+
+bool CBlockIndex::CheckIndex() const
+{
+  /** Scrypt is used for block proof-of-work, but for
+   *  purposes of performance the index internally uses
+   *  sha256.  This check was considered unneccessary
+   *  given the other safeguards like the genesis and
+   *  checkpoints. */
+  return true; // return CheckProofOfWork(GetBlockHash(),
+               // nBits);
+}
+
+int64 CBlockIndex::GetMedianTimePast() const
+{
+  int64 pmedian[nMedianTimeSpan];
+  int64* pbegin = &pmedian[nMedianTimeSpan];
+  int64* pend = &pmedian[nMedianTimeSpan];
+
+  const CBlockIndex* pindex = this;
+  for (int i = 0; i < nMedianTimeSpan && pindex; i++, pindex = pindex->pprev)
+    *(--pbegin) = pindex->GetBlockTime();
+
+  std::sort(pbegin, pend);
+  return pbegin[(pend - pbegin)/2];
+}
+
+int64 CBlockIndex::GetMedianTime() const
+{
+  const CBlockIndex* pindex = this;
+  for (int i = 0; i < nMedianTimeSpan/2; i++)
+  {
+    if (!pindex->pnext)
+      return GetBlockTime();
+    pindex = pindex->pnext;
+  }
+  return pindex->GetMedianTimePast();
+}
+
+std::string CBlockIndex::ToString() const
+{
+  return strprintf("CBlockIndex(pprev=%p, pnext=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
+                   pprev, pnext, nHeight,
+                   hashMerkleRoot.ToString().c_str(),
+                   GetBlockHash().ToString().c_str());
+}
+
+void CBlockIndex::print() const
+{
+  printf("%s\n", ToString().c_str());
+}

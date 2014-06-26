@@ -88,7 +88,6 @@ OBJS= \
     obj/checkpoints.o \
     obj/crypter.o \
     obj/db.o \
-    obj/digishield.o \
     obj/genesis_bitcoin.o \
     obj/genesis_umbrella.o \
     obj/hash.o \
@@ -103,6 +102,7 @@ OBJS= \
     obj/netbase.o \
     obj/noui.o \
     obj/protocol.o \
+    obj/retarget.o \
     obj/rpcblockchain.o \
     obj/rpcdump.o \
     obj/rpcmining.o \
