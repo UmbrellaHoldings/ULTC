@@ -25,22 +25,10 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
   CBigNum bnResult;
   bnResult.SetCompact(nBase);
 
-#if 1
   bnResult = std::min(
     bnResult * adjustment_percent * nTime / nTargetTime,
     bnProofOfWorkLimit
   );
-#else
-  while (nTime > 0 && bnResult < bnProofOfWorkLimit)
-  {
-    // Maximum 10% adjustment...
-    bnResult = (bnResult * 110) / 100;
-    // ... in best-case exactly 4-times-normal target time
-    nTime -= nTargetTimespan*4;
-  }
-  if (bnResult > bnProofOfWorkLimit)
-    bnResult = bnProofOfWorkLimit;
-#endif
     
   return bnResult.GetCompact();
 }
