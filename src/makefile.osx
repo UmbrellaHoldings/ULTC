@@ -82,7 +82,6 @@ OBJS= \
     obj/allocators.o \
     obj/base58.o \
     obj/bignum.o \
-    obj/bitcoin_genesis.o \
     obj/bitcoinrpc.o \
     obj/block.o \
     obj/bloom.o \
@@ -90,6 +89,8 @@ OBJS= \
     obj/crypter.o \
     obj/db.o \
     obj/digishield.o \
+    obj/genesis_bitcoin.o \
+    obj/genesis_umbrella.o \
     obj/hash.o \
     obj/init.o \
     obj/key.o \

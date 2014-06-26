@@ -292,7 +292,8 @@ SOURCES += \
     src/wallet.cpp \
     src/walletdb.cpp \
     src/algos/digishield.cpp \
-    src/genesis/bitcoin_genesis.cpp \
+    src/genesis/genesis_bitcoin.cpp \
+    src/genesis/genesis_umbrella.cpp \
     src/hash/hash.cpp \
     src/hash/scrypt.cpp \
     src/hash/scrypt_generated.cpp \

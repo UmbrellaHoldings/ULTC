@@ -18,7 +18,8 @@ namespace genesis {
 
 class block;
 
-namespace bitcoin { block* create(); }
+namespace bitcoin  { block* create(); }
+namespace umbrella { block* create(); }
 
 }
 
@@ -44,7 +45,7 @@ constexpr int64 MAX_MONEY = 35000000 * COIN;
 
 inline genesis::block* create_genesis_block()
 {
-  return genesis::bitcoin::create();
+  return genesis::umbrella::create();
 }
 
 } // pars

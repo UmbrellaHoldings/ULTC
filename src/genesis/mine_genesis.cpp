@@ -18,6 +18,11 @@ namespace genesis {
 
 void block::mine()
 {
+#define LOG_BEST_HASH
+#ifdef LOG_BEST_HASH
+  auto best_hash = ~uint256();
+#endif
+
   CBlock& block = *this;
 
   block.nNonce = 0;
@@ -27,7 +32,8 @@ void block::mine()
     printf("Searching for genesis block...\n");
     // This will figure out a valid hash and Nonce if you're
     // creating a different genesis block:
-    uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+    uint256 hashTarget = CBigNum().SetCompact(block.nBits)
+      . getuint256();
     uint256 thash;
     auto H = hash::hasher::instance(block.GetTimePoint());
      
@@ -37,6 +43,15 @@ void block::mine()
 
       if (thash <= hashTarget)
         break;
+
+#ifdef LOG_BEST_HASH
+      if (thash < best_hash) {
+        best_hash = thash;
+        LOG() << "(genesis mining) Best hash: " 
+              << thash << std::endl;
+      }
+#endif
+
       if ((block.nNonce & 0xFFF) == 0)
       {
         printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
