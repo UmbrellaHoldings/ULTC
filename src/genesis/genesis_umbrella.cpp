@@ -29,9 +29,14 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0x0"
+  "0x00000001d8488b9dd2013a7ce1896b5ae94b7549881ebb5ce0538e1292b64d13"
 );
 extern const uint256 hash;  
+
+const uint256 hash_testnet = uint256(
+  "0x0000003bc489eb6cfb38dafd6bc9d390337bda36cb3aa04fdfc04e785c65fd48"
+);
+extern const uint256 hash_testnet;  
 
 genesis::block* create()
 {
@@ -46,9 +51,9 @@ genesis::block* create()
     // time
     time,
     //nonce
-    463861,
+    137072358,
     // difficuly
-    0x1f003fff,
+    pars::min_difficulty_by_design.first,
     hash
   >();
 
@@ -66,7 +71,55 @@ genesis::block* create()
       "137a1a292c59afbdb35"
     ));
 
-#if 1 // this part is used only on new genesis generation
+#if 0 // this part is used only on new genesis generation
+    blk->mine();
+#endif
+
+  blk->print();
+
+  assert(blk->known_hash() == real_hash);
+  const auto hash2 = hash::hasher::instance
+    (coin::times::block::clock::from_nTime(time))
+    -> hash(*blk);
+  assert(real_hash == hash2);
+
+  return blk;
+}
+
+genesis::block* create_testnet()
+{
+  constexpr unsigned time = 1403787088;
+
+  genesis::block* blk = new the_block<
+    /* the coinbase */
+    phrase,
+    10 * COIN, // reward
+    pubkey,
+  
+    // time
+    time,
+    //nonce
+    13571552,
+    // difficuly
+    pars::min_difficulty_by_design.second,
+    hash_testnet
+  >();
+
+  const uint256 real_hash = blk->GetHash();
+
+  // debug print
+  LOG() << "genesis sha256d: " << real_hash << std::endl;
+  LOG() << "genesis merkle root: " << blk->hashMerkleRoot
+        << std::endl;
+
+  assert(
+    blk->hashMerkleRoot == 
+    uint256(
+      "0x77a2709a91515ab610c6543228bdd45b2c56a72f9cbaa"
+      "137a1a292c59afbdb35"
+    ));
+
+#if 0 // this part is used only on new genesis generation
     blk->mine();
 #endif
 

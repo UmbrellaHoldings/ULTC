@@ -21,11 +21,18 @@ namespace genesis {
 class block;
 
 namespace bitcoin  { block* create(); }
-namespace umbrella { block* create(); }
+namespace umbrella { block* create(); block* create_testnet(); }
 
 }
 
 namespace pars {
+
+template<class T>
+T testnet_switch(const std::pair<T, T>& par)
+{
+  const bool is_testnet = GetBoolArg("-testnet");
+  return (is_testnet) ? par.second : par.first;
+}
 
 // hash function
 
@@ -47,7 +54,12 @@ constexpr int64 MAX_MONEY = 35000000 * COIN;
 
 inline genesis::block* create_genesis_block()
 {
-  return genesis::umbrella::create();
+  return testnet_switch(
+    std::make_pair(
+      genesis::umbrella::create,
+      genesis::umbrella::create_testnet
+    )
+  )();
 }
 
 // retarget algo
@@ -73,13 +85,6 @@ constexpr auto block_period_by_design = std::make_pair(
   coin::times::block::seconds(30),
   coin::times::block::seconds(30)
 );
-
-template<class T>
-T testnet_switch(const std::pair<T, T>& par)
-{
-  const bool is_testnet = GetBoolArg("-testnet");
-  return (is_testnet) ? par.second : par.first;
-}
 
 } // pars
 
