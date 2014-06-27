@@ -217,7 +217,10 @@ public:
           desired_timespan * mass;
         const clock::duration actual_passed = std::max(
           zero_duration,
-          last_blocks_info_rbegin->time - bi.time
+          // the timewrap fix
+          (last_blocks_info_rbegin->time < bi.time)
+            ? zero_duration
+            : last_blocks_info_rbegin->time - bi.time
         );
 
         const double PastRateAdjustmentRatio =
