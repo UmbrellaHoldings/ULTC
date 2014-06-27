@@ -175,6 +175,9 @@ public:
     past_min / block_period_by_design;
   const int past_blocks_max = 
     past_max / block_period_by_design;
+  //! The timewrap fix.
+  //! Retarget every retarget_interval blocks
+  const int retarget_interval = 12;
 
   compact_bignum_t next_block_difficulty(
     const duration desired_timespan,
@@ -188,6 +191,12 @@ public:
 
     // TODO don't use floating point
     using float_duration = std::chrono::duration<double>;
+
+    if (last_blocks_info_rbegin->height 
+          % retarget_interval != 0
+        )
+       // the timewrap fix
+      return last_blocks_info_rbegin->difficulty;
 
     // early blocks rule
     if (height_diff(
