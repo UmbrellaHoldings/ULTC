@@ -168,9 +168,9 @@ public:
 
   // These constantes are got from vertcoin
   constexpr static duration past_min = 
-    coin::times::block::hours(6);
+    coin::times::block::hours(1);
   constexpr static duration past_max =
-    coin::times::block::days(7);
+    coin::times::block::days(1);
   const int past_blocks_min = 
     past_min / block_period_by_design;
   const int past_blocks_max = 
