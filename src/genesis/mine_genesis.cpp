@@ -19,6 +19,8 @@
 #include "algos/retarget.h"
 #include "btc_time.h"
 
+//#define LOG_BEST_HASH
+
 namespace {
 
 // types used for search desired block difficulty
@@ -99,8 +101,10 @@ void block::mine()
 
       if (thash < best_hash) {
         best_hash = thash;
+#ifdef LOG_BEST_HASH
         LOG() << "(genesis mining) Best hash: " 
               << thash << std::endl;
+#endif
         const auto now = coin::times::block::clock::now();
         const auto passed = now - start;
         if (passed > block_period + block_period / 2) {
@@ -148,6 +152,25 @@ void block::mine()
         );
         found = false;
       }
+#if 0 // allow to disable higher difficulty in genesis
+      else  if (passed > block_period + block_period / 2) {
+        LOG() << "(genesis mining) "
+                 "target searching takes too long: "
+              << duration_cast<seconds>(passed) 
+              << " secs" << std::endl;
+        d_list.push_front({
+          d_list.front().height + 1,
+          target_difficulty,
+          now
+        });
+        target_difficulty = D.next_block_difficulty(
+          block_period,
+          difficulty_iterator(d_list.cbegin()),
+          difficulty_iterator(d_list_bottom)
+        );
+        found = false;
+      }
+#endif
     } 
   } while (!found);
   printf("block.nTime = %u \n", block.nTime);

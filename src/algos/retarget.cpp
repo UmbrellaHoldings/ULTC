@@ -198,6 +198,8 @@ public:
       return min_difficulty_by_design;
 
     int64_t mass = 0;
+    // FIXME need just to rewind past_block_min steps,
+    // it is dummy calculation
     const auto breaking_el = std::find_if(
       last_blocks_info_rbegin,
       last_blocks_info_rend,
@@ -311,6 +313,8 @@ public:
       << "GetNextWorkRequired [KGW] RETARGET ["
       << height_diff(last_blocks_info_rbegin, breaking_el)
       << " last blocks analysed]"
+      << "\navg difficulty: " 
+      << PastDifficultyAverage.GetCompact()
       << "\ndesired timespan for the range = " 
       << range_desired_timespan
       << "\nactual timespan for the range = " 
