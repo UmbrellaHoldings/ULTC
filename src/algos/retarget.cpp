@@ -210,23 +210,25 @@ public:
         (const block::info_type& bi)
       {
         constexpr auto zero_duration = clock::duration(0);
+        // != 0: fixes the same-time blocks retargetting
+        // exploit
+        constexpr auto min_duration = seconds(1);
+
         if (++mass > past_blocks_max)
           return true;
 
         const clock::duration desired_passed = 
           desired_timespan * mass;
-        const clock::duration actual_passed = std::max(
-          zero_duration,
-          // the timewrap fix
-          (last_blocks_info_rbegin->time < bi.time)
-            ? zero_duration
-            : last_blocks_info_rbegin->time - bi.time
-        );
+        const clock::duration actual_passed = 
+          // the timewrap fix (part 1)
+          (last_blocks_info_rbegin->time <= bi.time)
+            ? min_duration
+            : last_blocks_info_rbegin->time - bi.time;
+        
 
+        assert(actual_passed != zero_duration);
         const double PastRateAdjustmentRatio =
-          (actual_passed != zero_duration && 
-           desired_passed != zero_duration
-           )
+          (desired_passed != zero_duration)
         ?
           std::chrono::duration_cast<float_duration>(
             desired_passed
@@ -280,17 +282,24 @@ public:
         }
       ) / (distance + 1);
 
+    constexpr auto zero_duration = clock::duration(0);
+    // != 0: fixes the same-time blocks retargetting
+    // exploit
+    constexpr auto min_duration = seconds(1);
+
     const auto range_desired_timespan = 
       desired_timespan * (distance + 1);
     const auto range_actual_timespan =
-      last_blocks_info_rbegin->time - breaking_el->time;
+      // the timewrap fix (part 2)
+      (last_blocks_info_rbegin->time <= breaking_el->time)
+      ? min_duration 
+      : last_blocks_info_rbegin->time - breaking_el->time;
 
-    constexpr auto zero_duration = clock::duration(0);
+    assert(range_actual_timespan != zero_duration);
     CBigNum bnNew(PastDifficultyAverage);
-    if (range_desired_timespan != zero_duration && 
-        range_actual_timespan != zero_duration) 
+    if (range_desired_timespan != zero_duration)
     {
-      // actual passed
+      // actual time passed
       bnNew *= to_fixed(range_actual_timespan); 
       // desired
       bnNew /= to_fixed(range_desired_timespan);
