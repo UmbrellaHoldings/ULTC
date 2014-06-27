@@ -11,11 +11,92 @@
 #define BITCOIN_RETARGET_H
 
 #include <algorithm>
+#include "types/abstract_iterator.h"
 #include "types.h"
 #include "bignum.h"
 #include "btc_time.h"
 #include "pars.h"
 #include "block.h"
+
+namespace block {
+
+struct info_type 
+{
+  int height;
+  compact_bignum_t difficulty;
+  coin::times::block::clock::time_point time;
+};
+
+template<class Block>
+class const_iterator 
+  : public types::virtual_iterator::const_forward_base<
+      info_type
+    >
+{
+  using base = types::virtual_iterator::const_forward_base<
+    info_type
+  >;
+
+public:
+  using value_type = typename base::value_type;
+  using reference = typename base::reference;
+  using pointer = typename base::pointer;
+  using iterator_category = 
+    typename base::iterator_category;
+  using difference_type = typename base::difference_type;
+ 
+  const_iterator(const Block* blk_ = nullptr) : blk(blk_)
+  {}
+
+  reference operator*() const override
+  {  
+    using namespace coin::times::block;
+
+    if (!blk)
+     throw types::exception
+      <types::virtual_iterator::dereference_of_unitialized>
+        ();
+
+    return value_type{
+      blk->nHeight, 
+      blk->nBits, 
+      clock::from_nTime(blk->nTime)
+    };
+  }
+
+  base& operator++() override
+  {
+    if (!blk)
+      throw types::exception
+        <types::virtual_iterator::movement_of_unitialized>
+          ();
+
+    blk = blk->pprev;
+    return *this;
+  }
+
+  std::unique_ptr<base> clone() const override
+  {
+    return std::unique_ptr<base>(new const_iterator(blk));
+  }
+
+  bool operator==(const base& o) const override
+  {
+    auto* other = dynamic_cast<const const_iterator*>(&o);
+
+    if (!other)
+      throw types::exception<
+        types::virtual_iterator::incompatible_types
+      > ();
+
+    return blk == other->blk;
+  }
+
+protected:
+  const Block* blk;
+};
+
+} // block
 
 namespace retarget {
 
@@ -24,15 +105,34 @@ class difficulty
 {
 public:
   using duration = coin::times::block::clock::duration;
+  using time_point = coin::times::block::clock::time_point;
+
+  using block_info_iterator_base_t =
+    types::virtual_iterator::const_forward_holder<
+      block::info_type
+    >;
+
+  static block_info_iterator_base_t::difference_type 
+  height_diff(
+    const block_info_iterator_base_t& a,
+    const block_info_iterator_base_t& b
+  )
+  {
+    return a->height - b->height;
+  }
 
   static difficulty& instance();
 
   //! Calculates a target difficulty based on the actual
   //! timespan value
   virtual compact_bignum_t next_block_difficulty(
-    duration desired_timespan,
-    duration actual_timespan,
-    compact_bignum_t last_block_difficulty
+    const duration desired_timespan,
+    //! the last block in chain
+    const block_info_iterator_base_t& 
+      last_blocks_info_rbegin,
+    //! the first block in chain
+    const block_info_iterator_base_t& 
+      last_blocks_info_rend
   ) = 0;
 
   //! Do not accept blocks with too low difficulty.

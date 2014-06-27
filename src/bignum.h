@@ -61,6 +61,19 @@ struct compact_bignum_t
   {}
 
   bool operator>(compact_bignum_t o) const;
+  bool operator<(compact_bignum_t o) const;
+
+  bool operator<=(compact_bignum_t o) const
+  {
+    return !operator>(o);
+  }
+  
+  bool operator>=(compact_bignum_t o) const
+  {
+    return !operator<(o);
+  }
+
+  //operator uint256() const;
 
   //! Returns true if this has lower difficulty than o
   //! (lower difficulty corresponds 
@@ -687,6 +700,20 @@ inline bool compact_bignum_t::operator>
   return a > b;
 }
 
+inline bool compact_bignum_t::operator<
+  (compact_bignum_t o) const
+{
+  const CBigNum a(*this);
+  const CBigNum b(o);
+  return a < b;
+}
+
+/*
+inline compact_bignum_t::operator uint256() const
+{
+  return CBigNum(*this).getuint256();
+}
+*/
 
 //! 
 

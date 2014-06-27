@@ -4,10 +4,11 @@
   It was shared for everyone's profit by elbandi at https://bitcointalk.org/index.php?topic=391983.0
 */
 
-#include <vector>
+#include <forward_list>
 #include <memory>
 #include <chrono>
 #include <boost/thread.hpp>
+#include "types/abstract_iterator.h"
 #include "uint256.h"
 #include "bignum.h"
 #include "main.h"
@@ -15,6 +16,20 @@
 #include "hash/hash.h"
 #include "log.h"
 #include "pars.h"
+#include "algos/retarget.h"
+#include "btc_time.h"
+
+namespace {
+
+// types used for search desired block difficulty
+
+using difficulty_list = std::forward_list<block::info_type>;
+
+using difficulty_iterator = 
+  types::virtual_iterator::const_forward
+    <difficulty_list::const_iterator>;
+
+}
 
 namespace genesis {
 
@@ -45,26 +60,33 @@ void block::mine()
 
   bool found = false;
 
+  difficulty_list d_list;
+  d_list.emplace_front(
+    ::block::info_type{
+      0, 
+      0, 
+      coin::times::block::clock::now()
+    }
+  );
+  const auto d_list_bottom = d_list.cbegin();
+
   do {
 
     block.nNonce = start_nonce;
 
-    const steady_clock::time_point start = 
-      steady_clock::now();
+    const auto start = coin::times::block::clock::now();
 
     LOG() << "Searching for genesis block..." << std::endl;
     uint256 hashTarget = 
       CBigNum(target_difficulty).getuint256();
     uint256 thash;
+
     auto H = hash::hasher::instance(block.GetTimePoint());
      
     LOG() << "(genesis mining) start with difficulty "
           << target_difficulty << std::endl;
 
-#define LOG_BEST_HASH
-#ifdef LOG_BEST_HASH
     auto best_hash = ~uint256();
-#endif
 
     loop
     {
@@ -75,33 +97,30 @@ void block::mine()
         break;
       }
 
-#ifdef LOG_BEST_HASH
       if (thash < best_hash) {
         best_hash = thash;
         LOG() << "(genesis mining) Best hash: " 
               << thash << std::endl;
-        const auto passed = steady_clock::now() - start;
+        const auto now = coin::times::block::clock::now();
+        const auto passed = now - start;
         if (passed > block_period + block_period / 2) {
           LOG() << "(genesis mining) "
             "target searching takes too long: "
                 << duration_cast<seconds>(passed) 
                 << " secs" << std::endl;
+          d_list.push_front({
+            d_list.front().height + 1,
+            target_difficulty,
+            now
+          });
           target_difficulty = D.next_block_difficulty(
             block_period,
-            std::chrono::duration_cast
-              <coin::times::block::clock::duration>
-                (passed), 
-            target_difficulty
+            difficulty_iterator(d_list.cbegin()),
+            difficulty_iterator(d_list_bottom)
           );
           break;
         }
       }
-#else
-      if ((block.nNonce & 0xFFFFF) == 0)
-      {
-        printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-      }
-#endif
       ++block.nNonce;
       if (block.nNonce == 0)
       {
@@ -110,18 +129,22 @@ void block::mine()
       }
     }
     if (found) {
-      const auto passed = steady_clock::now() - start;
+      const auto now = coin::times::block::clock::now();
+      const auto passed = now - start;
       if (passed < block_period / 2) {
         LOG() << "(genesis mining) "
           "target searching takes too short: "
               << duration_cast<seconds>(passed) 
               << " secs" << std::endl;
+        d_list.push_front({
+          d_list.front().height + 1,
+          target_difficulty,
+          now
+        });
         target_difficulty = D.next_block_difficulty(
           block_period,
-          std::chrono::duration_cast
-            <coin::times::block::clock::duration>
-              (passed), 
-          target_difficulty
+          difficulty_iterator(d_list.cbegin()),
+          difficulty_iterator(d_list_bottom)
         );
         found = false;
       }

@@ -60,8 +60,7 @@ enum class retarget_algo
 };
 
 constexpr auto retarget_algorithm = 
-  retarget_algo::twice_and_half;
-//  retarget_algo::digishield;
+  retarget_algo::kgw;
 
 // the value second is for testnet
 constexpr auto min_difficulty_by_design = std::make_pair(
