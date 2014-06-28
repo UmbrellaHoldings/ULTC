@@ -4548,7 +4548,7 @@ void static LitecoinMiner(CWallet *pwallet)
   LOG() << '(' << miner_id << ") Current target: " 
         << hashTarget << std::endl;
 
-#define LOG_BEST_HASH
+//#define LOG_BEST_HASH
 #ifdef LOG_BEST_HASH
   static auto global_best_hash = ~uint256();
   auto best_hash = global_best_hash;
