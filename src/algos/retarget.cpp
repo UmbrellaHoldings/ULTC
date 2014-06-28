@@ -27,41 +27,34 @@ extern CBlockIndex* pindexGenesisBlock;
 
 namespace retarget {
 
-template<pars::retarget_algo>
+template<class Algo>
 class difficulty_impl;
 
 //! Allows change difficulty only by 2 or 1/2
 template<>
-class difficulty_impl<pars::retarget_algo::twice_and_half>
+class difficulty_impl<pars::twice_and_half>
   : public difficulty
 {
 public:
   compact_bignum_t next_block_difficulty(
     const duration desired_timespan,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rbegin,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rend
+    const iterator& rbegin,
+    const iterator& rend
   ) override
   {
-    if (last_blocks_info_rbegin == last_blocks_info_rend)
+    if (rbegin == rend)
       return min_difficulty_by_design;
 
-    assert(
-      height_diff(
-        last_blocks_info_rbegin, 
-        last_blocks_info_rend
-      ) > 0
-    );
+    assert(height_diff(rbegin, rend) > 0);
 
-    auto prev = last_blocks_info_rbegin;
+    auto prev = rbegin;
     ++prev;
     const auto actual_timespan = 
-      last_blocks_info_rbegin->time - prev->time;
+      rbegin->time - prev->time;
     return (
       (actual_timespan < desired_timespan)
-        ? last_blocks_info_rbegin->difficulty >> 1
-        : last_blocks_info_rbegin->difficulty << 1
+        ? rbegin->difficulty >> 1
+        : rbegin->difficulty << 1
     ).GetCompact();
   }
 
@@ -75,7 +68,7 @@ public:
 };
 
 template<>
-class difficulty_impl<pars::retarget_algo::digishield>
+class difficulty_impl<pars::digishield>
   : public difficulty
 {
 public:
@@ -85,19 +78,16 @@ public:
 
   compact_bignum_t next_block_difficulty(
     const duration desired_timespan,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rbegin,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rend
+    const iterator& rbegin,
+    const iterator& rend
   ) override
   {
-    if (last_blocks_info_rbegin == last_blocks_info_rend)
+    if (rbegin == rend)
       return min_difficulty_by_design;
 
-    auto prev = last_blocks_info_rbegin;
+    auto prev = rbegin;
     ++prev;
-    auto nActualTimespan = 
-      last_blocks_info_rbegin->time - prev->time;
+    auto nActualTimespan = rbegin->time - prev->time;
 
     LOG() << "  nActualTimespan = " 
           << nActualTimespan
@@ -118,7 +108,7 @@ public:
 
     // Retarget
     const auto last_block_difficulty =
-      last_blocks_info_rbegin->difficulty;
+      rbegin->difficulty;
     CBigNum bnNew = last_block_difficulty;
     bnNew *= to_fixed(nActualTimespan);
     bnNew /= to_fixed(desired_timespan);
@@ -143,7 +133,7 @@ public:
     coin::times::block::clock::duration past
   ) const override
   {
-    if (past < coin::times::block::zero)
+    if (past < coin::times::block::zero_duration)
     throw types::exception<coin::except::invalid_timestamp>(
         "block with timestamp before last checkpoint"
         );
@@ -158,30 +148,22 @@ public:
 };
 
 template<>
-class difficulty_impl<pars::retarget_algo::kgw>
-  : public difficulty
+class difficulty_impl<pars::kgw> : public difficulty
 {
 public:
   //! The limit parameter for dos_min_difficulty()
   const coin::percent_t adjustment_by_design = 
     coin::operator"" _pct(110);
 
-  // These constantes are got from vertcoin
-  constexpr static duration past_min = 
-    coin::times::block::hours(1);
-  constexpr static duration past_max =
-    coin::times::block::days(1);
   const int past_blocks_min = 
-    past_min / block_period_by_design;
+    pars::kgw::past_min() / block_period_by_design;
   const int past_blocks_max = 
-    past_max / block_period_by_design;
+    pars::kgw::past_max() / block_period_by_design;
 
   compact_bignum_t next_block_difficulty(
     const duration desired_timespan,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rbegin,
-    const block_info_iterator_base_t& 
-      last_blocks_info_rend
+    const iterator& rbegin,
+    const iterator& rend
   ) override
   {
     using namespace coin::times::block;
@@ -190,28 +172,24 @@ public:
     using float_duration = std::chrono::duration<double>;
 
     // early blocks rule
-    if (height_diff(
-          last_blocks_info_rbegin,
-          last_blocks_info_rend
-        ) < past_blocks_min
-       )
+    if (height_diff(rbegin, rend) < past_blocks_min)
       return min_difficulty_by_design;
 
-    int64_t mass = 0;
-    // FIXME need just to rewind past_block_min steps,
-    // it is dummy calculation
+    iterator start = rbegin;
+    std::advance(start, past_blocks_min - 1);
+
+    int64_t mass = past_blocks_min - 1;
     const auto breaking_el = std::find_if(
-      last_blocks_info_rbegin,
-      last_blocks_info_rend,
+      start,
+      rend,
       [
         this,
         desired_timespan,
-        &last_blocks_info_rbegin,
+        &rbegin,
         &mass
       ]
         (const block::info_type& bi)
       {
-        constexpr auto zero_duration = clock::duration(0);
         // != 0: fixes the same-time blocks retargetting
         // exploit
         constexpr auto min_duration = seconds(1);
@@ -223,9 +201,9 @@ public:
           desired_timespan * mass;
         const clock::duration actual_passed = 
           // the timewrap fix (part 1)
-          (last_blocks_info_rbegin->time <= bi.time)
+          (rbegin->time <= bi.time)
             ? min_duration
-            : last_blocks_info_rbegin->time - bi.time;
+            : rbegin->time - bi.time;
         
 
         assert(actual_passed != zero_duration);
@@ -244,7 +222,7 @@ public:
         // TODO tabulate it as fixed point values
         const double EventHorizonDeviation = 
           1 + (0.7084 
-            * pow((double(mass)/double(144)), 
+            * pow((double(mass)/double(past_blocks_min)), 
                   -1.228));
 
         const double EventHorizonDeviationFast = 
@@ -252,30 +230,19 @@ public:
         const double EventHorizonDeviationSlow = 
           1.0 / EventHorizonDeviation;
                 
-        if (mass >= past_blocks_min) 
-        {
-          if ((PastRateAdjustmentRatio <= 
-               EventHorizonDeviationSlow) || 
-              (PastRateAdjustmentRatio >= 
-               EventHorizonDeviationFast)) 
-            return true;
-        }
-        return false;
+        return PastRateAdjustmentRatio <= 
+          EventHorizonDeviationSlow 
+          || PastRateAdjustmentRatio >= 
+          EventHorizonDeviationFast;
       }
     );
 
-    if (breaking_el == last_blocks_info_rend ||
-        breaking_el->time >= last_blocks_info_rbegin->time
-        )
-      return min_difficulty_by_design;
-
-    const auto distance = height_diff
-      (last_blocks_info_rbegin, breaking_el);
+    const auto distance = height_diff(rbegin, breaking_el);
     assert(distance >= 0);
 
     const CBigNum PastDifficultyAverage = 
       std::accumulate(
-        last_blocks_info_rbegin, 
+        rbegin, 
         breaking_el, 
         CBigNum(0),
         [](const CBigNum& acc, const block::info_type& bi)
@@ -284,7 +251,6 @@ public:
         }
       ) / (distance + 1);
 
-    constexpr auto zero_duration = clock::duration(0);
     // != 0: fixes the same-time blocks retargetting
     // exploit
     constexpr auto min_duration = seconds(1);
@@ -293,9 +259,9 @@ public:
       desired_timespan * (distance + 1);
     const auto range_actual_timespan =
       // the timewrap fix (part 2)
-      (last_blocks_info_rbegin->time <= breaking_el->time)
+      (rbegin->time <= breaking_el->time)
       ? min_duration 
-      : last_blocks_info_rbegin->time - breaking_el->time;
+      : rbegin->time - breaking_el->time;
 
     assert(range_actual_timespan != zero_duration);
     CBigNum bnNew(PastDifficultyAverage);
@@ -311,7 +277,7 @@ public:
   
     LOG() 
       << "GetNextWorkRequired [KGW] RETARGET ["
-      << height_diff(last_blocks_info_rbegin, breaking_el)
+      << height_diff(rbegin, breaking_el)
       << " last blocks analysed]"
       << "\navg difficulty: " 
       << PastDifficultyAverage.GetCompact()
@@ -320,8 +286,8 @@ public:
       << "\nactual timespan for the range = " 
       << range_actual_timespan
       << "\nBefore: " 
-      << last_blocks_info_rbegin->difficulty << ' '
-      << CBigNum(last_blocks_info_rbegin->difficulty)
+      << rbegin->difficulty << ' '
+      << CBigNum(rbegin->difficulty)
            . getuint256()
       << "\nAfter: " << bnNew.GetCompact() << ' '
       << bnNew.getuint256() << std::endl;
@@ -334,7 +300,7 @@ public:
     coin::times::block::clock::duration past
   ) const override
   {
-    if (past < coin::times::block::zero)
+    if (past < coin::times::block::zero_duration)
     throw types::exception<coin::except::invalid_timestamp>(
         "block with timestamp before last checkpoint"
         );
@@ -347,12 +313,6 @@ public:
       ).GetCompact();
   }
 };
-
-constexpr coin::times::block::clock::duration
-difficulty_impl<pars::retarget_algo::kgw>::past_min;
-
-constexpr coin::times::block::clock::duration
-difficulty_impl<pars::retarget_algo::kgw>::past_max;
 
 difficulty& difficulty::instance()
 {

@@ -21,7 +21,11 @@ namespace genesis {
 class block;
 
 namespace bitcoin  { block* create(); }
-namespace umbrella { block* create(); block* create_testnet(); }
+
+namespace umbrella { 
+  block* create(); 
+  block* create_testnet(); 
+}
 
 }
 
@@ -62,28 +66,57 @@ inline genesis::block* create_genesis_block()
   )();
 }
 
+// the value second is for testnet
+constexpr auto block_period_by_design = std::make_pair(
+  coin::times::block::seconds(30),
+  coin::times::block::seconds(30)
+);
+
 // retarget algo
 
-enum class retarget_algo
+struct retarget_algo {};
+struct twice_and_half : retarget_algo {}; // for test only
+struct digishield : retarget_algo {};
+
+struct kgw : retarget_algo
 {
-  twice_and_half, // for test only
-  digishield,
-  kgw
+  constexpr static coin::times::block::clock::duration 
+  past_min()
+  {
+    return coin::times::block::hours(1);
+  }
+
+  constexpr static coin::times::block::clock::duration 
+  past_max()
+  {
+    return coin::times::block::days(1);
+  }
+
 };
 
-constexpr auto retarget_algorithm = 
-  retarget_algo::kgw;
+static_assert(
+  kgw::past_min() > block_period_by_design.first
+  && kgw::past_min() > block_period_by_design.second,
+  "invalid past_min() definition"
+);
+
+static_assert(
+  kgw::past_max() > block_period_by_design.first
+  || kgw::past_max() > block_period_by_design.second
+  || kgw::past_max() > kgw::past_min() 
+       + std::max(
+           block_period_by_design.first,
+           block_period_by_design.second
+         ),
+  "invalid past_max() definition"
+);
+
+using retarget_algorithm = kgw;
 
 // the value second is for testnet
 constexpr auto min_difficulty_by_design = std::make_pair(
 //  0x1d0fffff, 0x1d7fffff
   0x207fffff, 0x207fffff
-);
-
-// the value second is for testnet
-constexpr auto block_period_by_design = std::make_pair(
-  coin::times::block::seconds(30),
-  coin::times::block::seconds(30)
 );
 
 } // pars

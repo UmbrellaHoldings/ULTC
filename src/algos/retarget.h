@@ -107,15 +107,15 @@ public:
   using duration = coin::times::block::clock::duration;
   using time_point = coin::times::block::clock::time_point;
 
-  using block_info_iterator_base_t =
+  using iterator =
     types::virtual_iterator::const_forward_holder<
       block::info_type
     >;
 
-  static block_info_iterator_base_t::difference_type 
+  static iterator::difference_type 
   height_diff(
-    const block_info_iterator_base_t& a,
-    const block_info_iterator_base_t& b
+    const iterator& a,
+    const iterator& b
   )
   {
     return a->height - b->height;
@@ -128,11 +128,9 @@ public:
   virtual compact_bignum_t next_block_difficulty(
     const duration desired_timespan,
     //! the last block in chain
-    const block_info_iterator_base_t& 
-      last_blocks_info_rbegin,
+    const iterator& rbegin,
     //! the first block in chain
-    const block_info_iterator_base_t& 
-      last_blocks_info_rend
+    const iterator& rend
   ) = 0;
 
   //! Do not accept blocks with too low difficulty.

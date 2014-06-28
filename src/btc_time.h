@@ -79,7 +79,8 @@ using common_years = std::chrono::duration
 
 using time_point = clock::time_point;
 
-constexpr clock::duration zero = clock::duration::zero();
+constexpr clock::duration zero_duration = 
+  clock::duration::zero();
 
 constexpr time_point clock::from_nTime(unsigned nTime)
 {
