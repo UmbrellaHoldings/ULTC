@@ -54,7 +54,7 @@ struct clock
   }
 
   //! Converts to bitcoin nTime
-  static constexpr unsigned to_nTime(time_point tp)
+  static /*constexpr*/ unsigned to_nTime(time_point tp)
   {
     using namespace std::chrono;
 
@@ -82,7 +82,7 @@ using time_point = clock::time_point;
 constexpr clock::duration zero_duration = 
   clock::duration::zero();
 
-constexpr time_point clock::from_nTime(unsigned nTime)
+/*constexpr*/ time_point clock::from_nTime(unsigned nTime)
 {
   return time_point(seconds(nTime));
 }
