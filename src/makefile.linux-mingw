@@ -61,12 +61,16 @@ OBJS= \
     obj/addrman.o \
     obj/alert.o \
     obj/allocators.o \
+    obj/base58.o \
     obj/bignum.o \
     obj/bitcoinrpc.o \
+    obj/block.o \
     obj/bloom.o \
     obj/checkpoints.o \
     obj/crypter.o \
     obj/db.o \
+    obj/genesis_bitcoin.o \
+    obj/genesis_umbrella.o \
     obj/hash.o \
     obj/init.o \
     obj/key.o \
@@ -79,6 +83,7 @@ OBJS= \
     obj/netbase.o \
     obj/noui.o \
     obj/protocol.o \
+    obj/retarget.o \
     obj/rpcblockchain.o \
     obj/rpcdump.o \
     obj/rpcmining.o \
@@ -96,8 +101,7 @@ OBJS= \
     obj/util_cmn.o \
     obj/version.o \
     obj/wallet.o \
-    obj/walletdb.o \
-    obj/digishield.o
+    obj/walletdb.o
 
 ifdef USE_SSE2
 DEFS += -DUSE_SSE2
