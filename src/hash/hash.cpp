@@ -44,6 +44,33 @@ protected:
 };
 
 template<>
+class hasher_impl<pars::hash_fun::scrypt> 
+  : public hasher
+{
+public:
+  hasher_impl( 
+    coin::times::block::time_point block_time
+  )
+    : scratchpad(scrypt::scratchpad<1024, 1, 1>::allocate())
+  {}
+
+  uint256 hash(const CBlock& blk) override
+  {
+    const std::string in(BEGIN(blk.nVersion), 80);
+    uint256 hash;
+
+    return scrypt::scrypt_256_sp_templ<1024, 1, 1>(
+      in, in, hash,
+      scratchpad->pad
+    );
+  }
+
+protected:
+  const n_factor_t n_factor;
+  scrypt::scratchpad<1024, 1, 1>* scratchpad;
+};
+
+template<>
 class hasher_impl<pars::hash_fun::sha256d> 
   : public hasher
 {
