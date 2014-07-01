@@ -74,10 +74,6 @@ genesis::block* create()
   blk->print();
 
   assert(blk->known_hash() == real_hash);
-  const auto hash2 = hash::hasher::instance
-    (coin::times::block::clock::from_nTime(time))
-    -> hash(*blk);
-  assert(real_hash == hash2);
 
   return blk;
 }
@@ -122,10 +118,6 @@ genesis::block* create_testnet()
   blk->print();
 
   assert(blk->known_hash() == real_hash);
-  const auto hash2 = hash::hasher::instance
-    (coin::times::block::clock::from_nTime(time))
-    -> hash(*blk);
-  assert(real_hash == hash2);
 
   return blk;
 }

@@ -22,6 +22,11 @@ class block;
 
 namespace bitcoin  { block* create(); }
 
+namespace litecoin { 
+  block* create(); 
+  block* create_testnet(); 
+}
+
 namespace umbrella { 
   block* create(); 
   block* create_testnet(); 
@@ -47,7 +52,7 @@ enum class hash_fun
   brittcoin_scrypt
 };
 
-constexpr auto hash_function = hash_fun::sha256d;
+constexpr auto hash_function = hash_fun::scrypt;
 
 // mining profile
 
@@ -60,8 +65,8 @@ inline genesis::block* create_genesis_block()
 {
   return testnet_switch(
     std::make_pair(
-      genesis::umbrella::create,
-      genesis::umbrella::create_testnet
+      genesis::litecoin::create,
+      genesis::litecoin::create_testnet
     )
   )();
 }

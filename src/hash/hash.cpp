@@ -1,7 +1,6 @@
 #include "hash/hash.h"
-#include "hash/scrypt.h"
+#include "hash/scrypt.hpp"
 #include "n_factor.h"
-#include "scrypt.hpp"
 #include "main.h"
 
 namespace hash {
@@ -59,15 +58,17 @@ public:
     const std::string in(BEGIN(blk.nVersion), 80);
     uint256 hash;
 
-    return scrypt::scrypt_256_sp_templ<1024, 1, 1>(
+    auto* sp = dynamic_cast<scrypt::scratchpad<1024, 1, 1>*>(scratchpad);
+    assert(sp);
+    scrypt::scrypt_256_sp_templ<1024, 1, 1>(
       in, in, hash,
-      scratchpad->pad
+      sp->pad
     );
+    return hash;
   }
 
 protected:
-  const n_factor_t n_factor;
-  scrypt::scratchpad<1024, 1, 1>* scratchpad;
+  scratchpad_base* scratchpad;
 };
 
 template<>
