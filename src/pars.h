@@ -57,7 +57,7 @@ constexpr auto hash_function = hash_fun::scrypt;
 // mining profile
 
 /** No amount larger than this (in satoshi) is valid */
-constexpr int64 MAX_MONEY = 35000000 * COIN;
+constexpr int64 MAX_MONEY = 6000000 * COIN;
 
 // genesis block
 
@@ -65,16 +65,16 @@ inline genesis::block* create_genesis_block()
 {
   return testnet_switch(
     std::make_pair(
-      genesis::litecoin::create,
-      genesis::litecoin::create_testnet
+      genesis::umbrella::create,
+      genesis::umbrella::create_testnet
     )
   )();
 }
 
 // the value second is for testnet
 constexpr auto block_period_by_design = std::make_pair(
-  coin::times::block::seconds(30),
-  coin::times::block::seconds(30)
+  coin::times::block::seconds(270),
+  coin::times::block::seconds(27)
 );
 
 // retarget algo
@@ -116,7 +116,7 @@ static_assert(
   "invalid past_max() definition"
 );
 
-using retarget_algorithm = kgw;
+using retarget_algorithm = digishield;
 
 // the value second is for testnet
 constexpr auto min_difficulty_by_design = std::make_pair(

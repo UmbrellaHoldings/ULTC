@@ -1133,22 +1133,13 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-  int64 nSubsidy = 35 * COIN;
+  int64 nSubsidy = 10 * COIN;
   
   if(nHeight == 1)
-  nSubsidy = 16800000 * COIN; //For Litecoin Mail Drop [48%]
-  else if(nHeight == 2)
-  nSubsidy = 700000 * COIN;   //For Litecoin Mail Drop Costs / Development Costs [2%]
+  nSubsidy = 120000 * COIN; //Premined volume
   
-  if (fTestNet && nHeight % 10 == 0 && nHeight >= 70 && nHeight <= 100)
-  nSubsidy = 350 * COIN;     //Coin Bonus Check for Testnet
-  else if(nHeight % 10 == 0 && nHeight >= 300 && nHeight <= 500)
-  nSubsidy = 350 * COIN;   //Block Bonus for Miners
-  
-
-
-  // Subsidy is cut in half every 75000 blocks, which will occur approximately every year
-  nSubsidy >>= (nHeight / 75000); // 75000k blocks in ~1 years
+  if(nHeight >= 1 + (MAX_MONEY - 120000)/10 ) // Over money limit
+    nSubsidy = 0; 
 
   return nSubsidy + nFees;
 }
