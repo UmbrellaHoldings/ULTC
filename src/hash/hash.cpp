@@ -1,7 +1,6 @@
 #include "hash/hash.h"
-#include "hash/scrypt.h"
+#include "hash/scrypt.hpp"
 #include "n_factor.h"
-#include "scrypt.hpp"
 #include "main.h"
 
 namespace hash {
@@ -41,6 +40,35 @@ public:
 protected:
   const n_factor_t n_factor;
   std::unique_ptr<scratchpad_base> scratchpad;
+};
+
+template<>
+class hasher_impl<pars::hash_fun::scrypt> 
+  : public hasher
+{
+public:
+  hasher_impl( 
+    coin::times::block::time_point block_time
+  )
+    : scratchpad(scrypt::scratchpad<1024, 1, 1>::allocate())
+  {}
+
+  uint256 hash(const CBlock& blk) override
+  {
+    const std::string in(BEGIN(blk.nVersion), 80);
+    uint256 hash;
+
+    auto* sp = dynamic_cast<scrypt::scratchpad<1024, 1, 1>*>(scratchpad);
+    assert(sp);
+    scrypt::scrypt_256_sp_templ<1024, 1, 1>(
+      in, in, hash,
+      sp->pad
+    );
+    return hash;
+  }
+
+protected:
+  scratchpad_base* scratchpad;
 };
 
 template<>

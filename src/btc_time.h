@@ -63,7 +63,7 @@ struct clock
   }
 
   //! Converts from bitcoin nTime
-  static constexpr time_point from_nTime(unsigned nTime);
+  static /*constexpr*/ time_point from_nTime(unsigned nTime);
 };
 
 using seconds = 
@@ -82,7 +82,7 @@ using time_point = clock::time_point;
 constexpr clock::duration zero_duration = 
   clock::duration::zero();
 
-/*constexpr*/ time_point clock::from_nTime(unsigned nTime)
+inline /*constexpr*/ time_point clock::from_nTime(unsigned nTime)
 {
   return time_point(seconds(nTime));
 }
