@@ -24,6 +24,7 @@ Priority: optional
 Architecture: amd64
 Depends: $CreateDeb_DEPS
 Maintainer: Sergei Lodyagin <serg@kogorta.dp.ua>
+Homepage: http://moneta.cohors.bz/
 Description: ${name^}
  Peer-to-peer cryptocurrency" > $CreateDeb_CONTROL || exit 1
  
@@ -32,7 +33,7 @@ mkdir -p $CreateDeb_ROOT/usr/bin || exit 1
 cp $CreateDeb_binariesPath* $CreateDeb_ROOT/usr/bin || exit 1
 
 mkdir -p $CreateDeb_ROOT/usr/share/applications/
-cat <<EOF >> $CreateDeb_ROOT/usr/share/applications/eclipse.desktop
+cat <<EOF >> $CreateDeb_ROOT/usr/share/applications/$name.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=${name^}
