@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#example VERSION=1.2.3.4 name=bobcoin ./create-deb.sh 
+#example VERSION=1.2.3.4 name=xxxcoin ./create-deb.sh 
 CreateDeb_binariesPath=$PWD/bin/*/
 CreateDeb_ROOT=$PWD/deb
 CreateDeb_OUT=$PWD
@@ -19,6 +19,8 @@ fi
  
 echo "Package: $name
 Version: $VERSION
+Section: utils
+Priority: optional
 Architecture: amd64
 Depends: $CreateDeb_DEPS
 Maintainer: Sergei Lodyagin <serg@kogorta.dp.ua>
@@ -28,7 +30,32 @@ Description: ${name^}
 
 mkdir -p $CreateDeb_ROOT/usr/bin || exit 1
 cp $CreateDeb_binariesPath* $CreateDeb_ROOT/usr/bin || exit 1
- 
+
+mkdir -p $CreateDeb_ROOT/usr/share/applications/
+cat <<EOF >> $CreateDeb_ROOT/usr/share/applications/eclipse.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=${name^}
+Comment=${name^} P2P Cryptocurrency
+Exec=/usr/bin/$name-qt %u
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/$(echo $name)128.png
+MimeType=x-scheme-handler/bitcoin;
+Categories=Network;Office;
+Name[en_US]=$name-qt.desktop
+EOF
+
+mkdir -p $CreateDeb_ROOT/usr/share/pixmaps/
+cp $CreateDeb_OUT/src/share/pixmaps/$(echo $name)128.png $CreateDeb_ROOT/usr/share/pixmaps/
+
+mkdir -p $CreateDeb_ROOT/usr/share/man/man1/
+cp $CreateDeb_OUT/src/contrib/debian/manpages/*.1 $CreateDeb_ROOT/usr/share/man/man1/
+
+mkdir -p $CreateDeb_ROOT/usr/share/man/man5/
+cp $CreateDeb_OUT/src/contrib/debian/manpages/*.5 $CreateDeb_ROOT/usr/share/man/man5/
+
+
 deb_name=$name'-'$VERSION'.deb'
 mkdir -p $CreateDeb_OUT  || exit 1 
  
