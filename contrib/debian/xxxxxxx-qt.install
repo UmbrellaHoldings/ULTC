@@ -1,6 +1,0 @@
-xxxxxxx-qt usr/bin
-share/pixmaps/xxxxxxx32.xpm usr/share/pixmaps
-share/pixmaps/xxxxxxx16.xpm usr/share/pixmaps
-share/pixmaps/xxxxxxx128.png usr/share/pixmaps
-debian/xxxxxxx-qt.desktop usr/share/applications
-debian/xxxxxxx-qt.protocol usr/share/kde4/services/

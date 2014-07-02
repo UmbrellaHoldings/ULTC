@@ -1,7 +1,7 @@
 TOR SUPPORT IN BITCOIN
 ======================
 
-It is possible to run Xxxxxxx as a Tor hidden service, and connect to such services.
+It is possible to run Umbrella-ltc as a Tor hidden service, and connect to such services.
 
 The following directions assume you have a Tor proxy running on port 9050. Many distributions
 default to having a SOCKS proxy listening on port 9050, but others may not.
@@ -10,10 +10,10 @@ https://www.torproject.org/docs/faq.html.en#TBBSocksPort for how to properly
 configure Tor.
 
 
-1. Run xxxxxxx behind a Tor proxy
+1. Run umbrella-ltc behind a Tor proxy
 ---------------------------------
 
-The first step is running Xxxxxxx behind a Tor proxy. This will already make all
+The first step is running Umbrella-ltc behind a Tor proxy. This will already make all
 outgoing connections be anonimized, but more is possible.
 
 -socks=5        SOCKS5 supports connecting-to-hostname, which can be used instead
@@ -39,26 +39,26 @@ outgoing connections be anonimized, but more is possible.
 
 In a typical situation, this suffices to run behind a Tor proxy:
 
-  ./xxxxxxxd -proxy=127.0.0.1:9050
+  ./umbrella-ltcd -proxy=127.0.0.1:9050
 
 
-2. Run a xxxxxxx hidden server
+2. Run a umbrella-ltc hidden server
 ------------------------------
 
 If you configure your Tor system accordingly, it is possible to make your node also
 reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equivalent
 config file):
 
-  HiddenServiceDir /var/lib/tor/xxxxxxx-service/
+  HiddenServiceDir /var/lib/tor/umbrella-ltc-service/
   HiddenServicePort 201413051431 127.0.0.1:201413051431
 
 The directory can be different of course, but (both) port numbers should be equal to
-your xxxxxxxd's P2P listen port (201413051431 by default).
+your umbrella-ltcd's P2P listen port (201413051431 by default).
 
--externalip=X   You can tell xxxxxxx about its publicly reachable address using
+-externalip=X   You can tell umbrella-ltc about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above
                 configuration, you can find your onion address in
-                /var/lib/tor/xxxxxxx-service/hostname. Onion addresses are given
+                /var/lib/tor/umbrella-ltc-service/hostname. Onion addresses are given
                 preference for your node to advertize itself with, for connections
                 coming from unroutable addresses (such as 127.0.0.1, where the
                 Tor proxy typically runs).
@@ -75,18 +75,18 @@ your xxxxxxxd's P2P listen port (201413051431 by default).
 
 In a typical situation, where you're only reachable via Tor, this should suffice:
 
-  ./xxxxxxxd -proxy=127.0.0.1:9050 -externalip=57qr3yd1nyntf5k.onion -listen
+  ./umbrella-ltcd -proxy=127.0.0.1:9050 -externalip=57qr3yd1nyntf5k.onion -listen
 
 (obviously, replace the Onion address with your own). If you don't care too much
 about hiding your node, and want to be reachable on IPv4 as well, additionally
 specify:
 
-  ./xxxxxxxd ... -discover
+  ./umbrella-ltcd ... -discover
 
 and open port 201413051431 on your firewall (or use -upnp).
 
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
 
-  ./xxxxxxxd -tor=127.0.0.1:9050 -externalip=57qr3yd1nyntf5k.onion -discover
+  ./umbrella-ltcd -tor=127.0.0.1:9050 -externalip=57qr3yd1nyntf5k.onion -discover
 

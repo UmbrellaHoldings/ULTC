@@ -57,7 +57,10 @@ constexpr auto hash_function = hash_fun::scrypt;
 // mining profile
 
 /** No amount larger than this (in satoshi) is valid */
+
 constexpr int64 MAX_MONEY = 6000000 * COIN;
+constexpr int64 PREMINED_MONEY = 120000 * COIN;
+constexpr int64 BLOCK_REWARD = 10 * COIN;
 
 // genesis block
 
@@ -73,8 +76,8 @@ inline genesis::block* create_genesis_block()
 
 // the value second is for testnet
 constexpr auto block_period_by_design = std::make_pair(
-  coin::times::block::seconds(270),
-  coin::times::block::seconds(27)
+  coin::times::block::seconds(270),//for live
+  coin::times::block::seconds(27)  //for testnet
 );
 
 // retarget algo

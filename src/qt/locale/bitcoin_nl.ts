@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Xxxxxxx</source>
-        <translation>Over Xxxxxxx</translation>
+        <source>About Umbrella-ltc</source>
+        <translation>Over Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Xxxxxxx&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Xxxxxxx&lt;/b&gt; versie</translation>
+        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-ltc&lt;/b&gt; versie</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+0"/>
-        <source>The Xxxxxxx developers</source>
-        <translation>De Xxxxxxx-ontwikkelaars</translation>
+        <source>The Umbrella-ltc developers</source>
+        <translation>De Umbrella-ltc-ontwikkelaars</translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Xxxxxxx addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Dit zijn uw Xxxxxxxadressen om betalingen mee te ontvangen. U kunt er voor kiezen om een uniek adres aan te maken voor elke afzender. Op deze manier kunt u bijhouden wie al aan u betaald heeft.</translation>
+        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Dit zijn uw Umbrella-ltcadressen om betalingen mee te ontvangen. U kunt er voor kiezen om een uniek adres aan te maken voor elke afzender. Op deze manier kunt u bijhouden wie al aan u betaald heeft.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Xxxxxxx address</source>
-        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Xxxxxxxadres bezit</translation>
+        <source>Sign a message to prove you own a Umbrella-ltc address</source>
+        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Umbrella-ltcadres bezit</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Xxxxxxx address</source>
-        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Xxxxxxxadres het bericht heeft ondertekend.</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
+        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Umbrella-ltcadres het bericht heeft ondertekend.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Xxxxxxx addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw Xxxxxxxadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw xxxxxxxs verzendt.</translation>
+        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dit zijn uw Umbrella-ltcadressen om betalingen mee te verzenden. Check altijd het bedrag en het ontvangende adres voordat u uw umbrella-ltcs verzendt.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -248,8 +248,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR XXXXXXXS&lt;/b&gt;!</source>
-        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW XXXXXXXS VERLIEZEN&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR UMBRELLA-LTCS&lt;/b&gt;!</source>
+        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW UMBRELLA-LTCS VERLIEZEN&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -275,8 +275,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-56"/>
-        <source>Xxxxxxx will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your xxxxxxxs from being stolen by malware infecting your computer.</source>
-        <translation>Xxxxxxx zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw xxxxxxxs stelen.</translation>
+        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Umbrella-ltc zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw umbrella-ltcs stelen.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Xxxxxxx</source>
-        <translation>Laat informatie zien over Xxxxxxx</translation>
+        <source>Show information about Umbrella-ltc</source>
+        <translation>Laat informatie zien over Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Xxxxxxx address</source>
-        <translation>Verstuur munten naar een Xxxxxxxadres</translation>
+        <source>Send coins to a Umbrella-ltc address</source>
+        <translation>Verstuur munten naar een Umbrella-ltcadres</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Xxxxxxx</source>
-        <translation>Wijzig instellingen van Xxxxxxx</translation>
+        <source>Modify configuration options for Umbrella-ltc</source>
+        <translation>Wijzig instellingen van Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Xxxxxxx</source>
-        <translation>Xxxxxxx</translation>
+        <source>Umbrella-ltc</source>
+        <translation>Umbrella-ltc</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Xxxxxxx</source>
-        <translation>&amp;Over Xxxxxxx</translation>
+        <source>&amp;About Umbrella-ltc</source>
+        <translation>&amp;Over Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Xxxxxxx addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw Xxxxxxxadressen om te bewijzen dat u deze adressen bezit</translation>
+        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
+        <translation>Onderteken berichten met uw Umbrella-ltcadressen om te bewijzen dat u deze adressen bezit</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Xxxxxxx addresses</source>
-        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Xxxxxxxadressen</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
+        <translation>Verifiëer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Umbrella-ltcadressen</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     </message>
     <message>
         <location line="+47"/>
-        <source>Xxxxxxx client</source>
-        <translation>Xxxxxxx client</translation>
+        <source>Umbrella-ltc client</source>
+        <translation>Umbrella-ltc client</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Xxxxxxx network</source>
-        <translation><numerusform>%n actieve connectie naar Xxxxxxxnetwerk</numerusform><numerusform>%n actieve connecties naar Xxxxxxxnetwerk</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-ltc network</source>
+        <translation><numerusform>%n actieve connectie naar Umbrella-ltcnetwerk</numerusform><numerusform>%n actieve connecties naar Umbrella-ltcnetwerk</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -607,7 +607,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     <message>
         <location line="+70"/>
         <source>This transaction is over the size limit. You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network. Do you want to pay the fee?</source>
-        <translation>Deze transactie overschrijdt de groottelimiet. Om de transactie alsnog te versturen kunt u transactiekosten betalen van %1. Deze transactiekosten gaan naar de nodes die uw transactie verwerken en het helpt op deze manier bij het ondersteunen van het Xxxxxxxnetwerk. Wilt u de transactiekosten betalen?</translation>
+        <translation>Deze transactie overschrijdt de groottelimiet. Om de transactie alsnog te versturen kunt u transactiekosten betalen van %1. Deze transactiekosten gaan naar de nodes die uw transactie verwerken en het helpt op deze manier bij het ondersteunen van het Umbrella-ltcnetwerk. Wilt u de transactiekosten betalen?</translation>
     </message>
     <message>
         <location line="-140"/>
@@ -656,8 +656,8 @@ Adres: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Xxxxxxx address or malformed URI parameters.</source>
-        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig Xxxxxxxadres of misvormde URI-parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
+        <translation>URI kan niet worden geïnterpreteerd. Dit kan komen door een ongeldig Umbrella-ltcadres of misvormde URI-parameters.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Xxxxxxx can no longer continue safely and will quit.</source>
-        <translation>Er is een fatale fout opgetreden. Xxxxxxx kan niet meer veilig doorgaan en zal nu afgesloten worden.</translation>
+        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
+        <translation>Er is een fatale fout opgetreden. Umbrella-ltc kan niet meer veilig doorgaan en zal nu afgesloten worden.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Adres: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Xxxxxxx address.</source>
-        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig Xxxxxxxadres</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
+        <translation>Het opgegeven adres &quot;%1&quot; is een ongeldig Umbrella-ltcadres</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Adres: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Xxxxxxx-Qt</source>
-        <translation>Xxxxxxx-Qt</translation>
+        <source>Umbrella-ltc-Qt</source>
+        <translation>Umbrella-ltc-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Adres: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Xxxxxxx after logging in to the system.</source>
-        <translation>Start Xxxxxxx automatisch na inloggen in het systeem</translation>
+        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
+        <translation>Start Umbrella-ltc automatisch na inloggen in het systeem</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Xxxxxxx on system login</source>
-        <translation>Start &amp;Xxxxxxx bij het inloggen in het systeem</translation>
+        <source>&amp;Start Umbrella-ltc on system login</source>
+        <translation>Start &amp;Umbrella-ltc bij het inloggen in het systeem</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Adres: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Xxxxxxx client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Open de Xxxxxxx-poort automatisch op de router. Dit werkt alleen als de router UPnP ondersteunt en het aanstaat.</translation>
+        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Open de Umbrella-ltc-poort automatisch op de router. Dit werkt alleen als de router UPnP ondersteunt en het aanstaat.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Xxxxxxx network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Verbind met het Xxxxxxx-netwerk via een SOCKS-proxy (bijv. wanneer u via Tor wilt verbinden)</translation>
+        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Verbind met het Umbrella-ltc-netwerk via een SOCKS-proxy (bijv. wanneer u via Tor wilt verbinden)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Adres: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>De taal van de gebruikersinterface kan hier ingesteld worden. Deze instelling zal pas van kracht worden nadat Xxxxxxx herstart wordt.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>De taal van de gebruikersinterface kan hier ingesteld worden. Deze instelling zal pas van kracht worden nadat Umbrella-ltc herstart wordt.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,8 +944,8 @@ Adres: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Xxxxxxx addresses in the transaction list or not.</source>
-        <translation>Of Xxxxxxxadressen getoond worden in de transactielijst</translation>
+        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
+        <translation>Of Umbrella-ltcadressen getoond worden in de transactielijst</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Adres: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Deze instelling zal pas van kracht worden na het herstarten van Xxxxxxx.</translation>
+        <source>This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Deze instelling zal pas van kracht worden na het herstarten van Umbrella-ltc.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Adres: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Xxxxxxx network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het Xxxxxxxnetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
+        <translation>De weergegeven informatie kan verouderd zijn. Uw portemonnee synchroniseert automaticsh met het Umbrella-ltcnetwerk nadat een verbinding is gelegd, maar dit proces is nog niet voltooid.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1069,8 +1069,8 @@ Adres: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start xxxxxxx: click-to-pay handler</source>
-        <translation>Kan xxxxxxx niet starten: click-to-pay handler</translation>
+        <source>Cannot start umbrella-ltc: click-to-pay handler</source>
+        <translation>Kan umbrella-ltc niet starten: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1219,8 +1219,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Xxxxxxx-Qt help message to get a list with possible Xxxxxxx command-line options.</source>
-        <translation>Toon het XxxxxxxQt-hulpbericht voor een lijst met mogelijke Xxxxxxx commandoregel-opties.</translation>
+        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
+        <translation>Toon het Umbrella-ltcQt-hulpbericht voor een lijst met mogelijke Umbrella-ltc commandoregel-opties.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Adres: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Xxxxxxx - Debug window</source>
-        <translation>Xxxxxxx-debugscherm</translation>
+        <source>Umbrella-ltc - Debug window</source>
+        <translation>Umbrella-ltc-debugscherm</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Xxxxxxx Core</source>
-        <translation>Xxxxxxx Kern</translation>
+        <source>Umbrella-ltc Core</source>
+        <translation>Umbrella-ltc Kern</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Xxxxxxx debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open het Xxxxxxxdebug-logbestand van de huidige datamap. Dit kan een aantal seconden duren voor grote logbestanden.</translation>
+        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open het Umbrella-ltcdebug-logbestand van de huidige datamap. Dit kan een aantal seconden duren voor grote logbestanden.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Xxxxxxx RPC console.</source>
-        <translation>Welkom bij de Xxxxxxx RPC-console.</translation>
+        <source>Welcome to the Umbrella-ltc RPC console.</source>
+        <translation>Welkom bij de Umbrella-ltc RPC-console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Vul een Xxxxxxxadres in (bijv. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Vul een Umbrella-ltcadres in (bijv. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Adres: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Xxxxxxx address</source>
-        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Xxxxxxxadres bezit</translation>
+        <source>Sign the message to prove you own this Umbrella-ltc address</source>
+        <translation>Onderteken een bericht om te bewijzen dat u een bepaald Umbrella-ltcadres bezit</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Adres: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Xxxxxxx address</source>
-        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Xxxxxxxadres het bericht heeft ondertekend.</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
+        <translation>Controleer een bericht om te verifiëren dat het gespecificeerde Umbrella-ltcadres het bericht heeft ondertekend.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Adres: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Vul een Xxxxxxxadres in (bijv. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Vul een Umbrella-ltcadres in (bijv. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Adres: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Xxxxxxx signature</source>
-        <translation>Voer Xxxxxxx-handtekening in</translation>
+        <source>Enter Umbrella-ltc signature</source>
+        <translation>Voer Umbrella-ltc-handtekening in</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Adres: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Xxxxxxx developers</source>
-        <translation>De Xxxxxxx-ontwikkelaars</translation>
+        <source>The Umbrella-ltc developers</source>
+        <translation>De Umbrella-ltc-ontwikkelaars</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,8 +2187,8 @@ Adres: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Xxxxxxx version</source>
-        <translation>Xxxxxxxversie</translation>
+        <source>Umbrella-ltc version</source>
+        <translation>Umbrella-ltcversie</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2197,8 +2197,8 @@ Adres: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or xxxxxxxd</source>
-        <translation>Stuur commando naar -server of xxxxxxxd</translation>
+        <source>Send command to -server or umbrella-ltcd</source>
+        <translation>Stuur commando naar -server of umbrella-ltcd</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2217,14 +2217,14 @@ Adres: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: xxxxxxx.conf)</source>
-        <translation>Specificeer configuratiebestand (standaard: xxxxxxx.conf)
+        <source>Specify configuration file (default: umbrella-ltc.conf)</source>
+        <translation>Specificeer configuratiebestand (standaard: umbrella-ltc.conf)
 </translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: xxxxxxxd.pid)</source>
-        <translation>Specificeer pid-bestand (standaard: xxxxxxxd.pid)
+        <source>Specify pid file (default: umbrella-ltcd.pid)</source>
+        <translation>Specificeer pid-bestand (standaard: umbrella-ltcd.pid)
 </translation>
     </message>
     <message>
@@ -2302,23 +2302,23 @@ Adres: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </source>
         <translation>%s, u moet een RPC-wachtwoord instellen in het configuratiebestand: %s
 U wordt aangeraden het volgende willekeurige wachtwoord te gebruiken:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (u hoeft dit wachtwoord niet te onthouden)
 De gebruikersnaam en wachtwoord mogen niet hetzelfde zijn.
 Als het bestand niet bestaat, make hem dan aan met leesrechten voor enkel de eigenaar.
 Het is ook aan te bevelen &quot;alertnotify&quot; in te stellen zodat u op de hoogte gesteld wordt van problemen;
-for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com</translation>
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2332,8 +2332,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Xxxxxxx is probably already running.</source>
-        <translation>Kan geen lock op de datamap %s verkrijgen. Xxxxxxx draait vermoedelijk reeds.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
+        <translation>Kan geen lock op de datamap %s verkrijgen. Umbrella-ltc draait vermoedelijk reeds.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2377,8 +2377,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Xxxxxxx will not work properly.</source>
-        <translation>Waarschuwing: Controleer dat de datum en tijd op uw computer correct zijn ingesteld. Als uw klok fout staat zal Xxxxxxx niet correct werken.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
+        <translation>Waarschuwing: Controleer dat de datum en tijd op uw computer correct zijn ingesteld. Als uw klok fout staat zal Umbrella-ltc niet correct werken.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2627,8 +2627,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Xxxxxxx Wiki for SSL setup instructions)</source>
-        <translation>SSL-opties: (zie de Xxxxxxx wiki voor SSL-instructies)</translation>
+        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
+        <translation>SSL-opties: (zie de Umbrella-ltc wiki voor SSL-instructies)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2817,13 +2817,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Xxxxxxx</source>
-        <translation>Fout bij laden wallet.dat: Portemonnee vereist een nieuwere versie van Xxxxxxx</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
+        <translation>Fout bij laden wallet.dat: Portemonnee vereist een nieuwere versie van Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Xxxxxxx to complete</source>
-        <translation>Portemonnee moest herschreven worden: Herstart Xxxxxxx om te voltooien</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
+        <translation>Portemonnee moest herschreven worden: Herstart Umbrella-ltc om te voltooien</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2882,8 +2882,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Xxxxxxx is probably already running.</source>
-        <translation>Niet in staat om aan %s te binden op deze computer. Xxxxxxx draait vermoedelijk reeds.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
+        <translation>Niet in staat om aan %s te binden op deze computer. Umbrella-ltc draait vermoedelijk reeds.</translation>
     </message>
     <message>
         <location line="+64"/>

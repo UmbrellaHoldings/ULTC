@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Xxxxxxx</source>
-        <translation>Xxxxxxxist</translation>
+        <source>About Umbrella-ltc</source>
+        <translation>Umbrella-ltcist</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Xxxxxxx&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Xxxxxxxi&lt;/b&gt; versioon</translation>
+        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-ltci&lt;/b&gt; versioon</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,7 +34,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+0"/>
-        <source>The Xxxxxxx developers</source>
+        <source>The Umbrella-ltc developers</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -67,8 +67,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Xxxxxxx addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Maksete saamiseks kasutatavad Xxxxxxxi aadressid. Maksjate paremaks jälgimiseks võib igaühele anda erineva.</translation>
+        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Maksete saamiseks kasutatavad Umbrella-ltci aadressid. Maksjate paremaks jälgimiseks võib igaühele anda erineva.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,7 +82,7 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Xxxxxxx address</source>
+        <source>Sign a message to prove you own a Umbrella-ltc address</source>
         <translation>Allkirjasta sõnum, et tõestada Bitconi aadressi olemasolu.</translation>
     </message>
     <message>
@@ -107,8 +107,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Xxxxxxx address</source>
-        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Xxxxxxxi aadressiga.</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
+        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Umbrella-ltci aadressiga.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Xxxxxxx addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Need on sinu Xxxxxxxi aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
+        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Need on sinu Umbrella-ltci aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -248,8 +248,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR XXXXXXXS&lt;/b&gt;!</source>
-        <translation>Hoiatus: Kui sa kaotad oma, rahakoti krüpteerimisel kasutatud, salafraasi, siis &lt;b&gt;KAOTAD KA KÕIK OMA XXXXXXXID&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR UMBRELLA-LTCS&lt;/b&gt;!</source>
+        <translation>Hoiatus: Kui sa kaotad oma, rahakoti krüpteerimisel kasutatud, salafraasi, siis &lt;b&gt;KAOTAD KA KÕIK OMA UMBRELLA-LTCID&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -275,8 +275,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="-56"/>
-        <source>Xxxxxxx will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your xxxxxxxs from being stolen by malware infecting your computer.</source>
-        <translation>Xxxxxxx sulgub krüpteeringu lõpetamiseks. Pea meeles, et rahakoti krüpteerimine ei välista xxxxxxxide vargust, kui sinu arvuti on nakatunud pahavaraga.</translation>
+        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Umbrella-ltc sulgub krüpteeringu lõpetamiseks. Pea meeles, et rahakoti krüpteerimine ei välista umbrella-ltcide vargust, kui sinu arvuti on nakatunud pahavaraga.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Xxxxxxx</source>
-        <translation>Kuva info Xxxxxxxi kohta</translation>
+        <source>Show information about Umbrella-ltc</source>
+        <translation>Kuva info Umbrella-ltci kohta</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Xxxxxxx address</source>
-        <translation>Saada münte Xxxxxxxi aadressile</translation>
+        <source>Send coins to a Umbrella-ltc address</source>
+        <translation>Saada münte Umbrella-ltci aadressile</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Xxxxxxx</source>
-        <translation>Muuda Xxxxxxxi seadeid</translation>
+        <source>Modify configuration options for Umbrella-ltc</source>
+        <translation>Muuda Umbrella-ltci seadeid</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Xxxxxxx</source>
-        <translation>Xxxxxxx</translation>
+        <source>Umbrella-ltc</source>
+        <translation>Umbrella-ltc</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Xxxxxxx</source>
-        <translation>%Xxxxxxxist</translation>
+        <source>&amp;About Umbrella-ltc</source>
+        <translation>%Umbrella-ltcist</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Xxxxxxx addresses to prove you own them</source>
-        <translation>Omandi tõestamiseks allkirjasta sõnumid oma Xxxxxxxi aadressiga</translation>
+        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
+        <translation>Omandi tõestamiseks allkirjasta sõnumid oma Umbrella-ltci aadressiga</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Xxxxxxx addresses</source>
-        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud Xxxxxxxi aadressiga</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
+        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud Umbrella-ltci aadressiga</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ Toode sisaldab OpenSSL Projekti all toodetud tarkvara, mis on kasutamiseks OpenS
     </message>
     <message>
         <location line="+47"/>
-        <source>Xxxxxxx client</source>
-        <translation>Xxxxxxxi klient</translation>
+        <source>Umbrella-ltc client</source>
+        <translation>Umbrella-ltci klient</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Xxxxxxx network</source>
-        <translation><numerusform>%n aktiivne ühendus Xxxxxxxi võrku</numerusform><numerusform>%n aktiivset ühendust Xxxxxxxi võrku</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-ltc network</source>
+        <translation><numerusform>%n aktiivne ühendus Umbrella-ltci võrku</numerusform><numerusform>%n aktiivset ühendust Umbrella-ltci võrku</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -655,8 +655,8 @@ Aadress: %4⏎</translation>
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Xxxxxxx address or malformed URI parameters.</source>
-        <translation>URI ei suudeta parsida. Põhjuseks võib olla kehtetu Xxxxxxxi aadress või vigased URI parameetrid.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
+        <translation>URI ei suudeta parsida. Põhjuseks võib olla kehtetu Umbrella-ltci aadress või vigased URI parameetrid.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -670,8 +670,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Xxxxxxx can no longer continue safely and will quit.</source>
-        <translation>Ilmnes kriitiline tõrge. Xxxxxxx suletakse turvakaalutluste tõttu.</translation>
+        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
+        <translation>Ilmnes kriitiline tõrge. Umbrella-ltc suletakse turvakaalutluste tõttu.</translation>
     </message>
 </context>
 <context>
@@ -736,8 +736,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Xxxxxxx address.</source>
-        <translation>Sisestatud aadress &quot;%1&quot; ei ole Xxxxxxxis kehtiv.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
+        <translation>Sisestatud aadress &quot;%1&quot; ei ole Umbrella-ltcis kehtiv.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -755,8 +755,8 @@ Aadress: %4⏎</translation>
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Xxxxxxx-Qt</source>
-        <translation>Xxxxxxxi-Qt</translation>
+        <source>Umbrella-ltc-Qt</source>
+        <translation>Umbrella-ltci-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -818,13 +818,13 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Xxxxxxx after logging in to the system.</source>
-        <translation>Käivita Xxxxxxx süsteemi logimisel.</translation>
+        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
+        <translation>Käivita Umbrella-ltc süsteemi logimisel.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Xxxxxxx on system login</source>
-        <translation>&amp;Start Xxxxxxx sisselogimisel</translation>
+        <source>&amp;Start Umbrella-ltc on system login</source>
+        <translation>&amp;Start Umbrella-ltc sisselogimisel</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -843,8 +843,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Xxxxxxx client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Xxxxxxxi kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
+        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Umbrella-ltci kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -853,8 +853,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Xxxxxxx network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Kasuta Xxxxxxxi võrgustikku ühendumiseks SOCKS turva proxy&apos;t (nt Tor&apos;i kasutamisel).</translation>
+        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Kasuta Umbrella-ltci võrgustikku ühendumiseks SOCKS turva proxy&apos;t (nt Tor&apos;i kasutamisel).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -928,8 +928,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Kasutajaliidese keele valimise koht. Valik rakendub Xxxxxxxi käivitamisel.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Kasutajaliidese keele valimise koht. Valik rakendub Umbrella-ltci käivitamisel.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -943,8 +943,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Xxxxxxx addresses in the transaction list or not.</source>
-        <translation>Kuvada Xxxxxxxi aadress tehingute loetelus või mitte.</translation>
+        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
+        <translation>Kuvada Umbrella-ltci aadress tehingute loetelus või mitte.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -995,8 +995,8 @@ Aadress: %4⏎</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Tehtud valik rakendub Xxxxxxxi käivitamisel.</translation>
+        <source>This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Tehtud valik rakendub Umbrella-ltci käivitamisel.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1014,7 +1014,7 @@ Aadress: %4⏎</translation>
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Xxxxxxx network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
         <translation>Kuvatav info ei pruugi olla ajakohane. Ühenduse loomisel süngitakse sinu rahakott automaatselt Bitconi võrgustikuga, kuid see toiming on hetkel lõpetamata.</translation>
     </message>
     <message>
@@ -1068,8 +1068,8 @@ Aadress: %4⏎</translation>
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start xxxxxxx: click-to-pay handler</source>
-        <translation>Xxxxxxx ei käivitu: vajuta-maksa toiming</translation>
+        <source>Cannot start umbrella-ltc: click-to-pay handler</source>
+        <translation>Umbrella-ltc ei käivitu: vajuta-maksa toiming</translation>
     </message>
 </context>
 <context>
@@ -1218,8 +1218,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Xxxxxxx-Qt help message to get a list with possible Xxxxxxx command-line options.</source>
-        <translation>Näita kehtivate käsurea valikute kuvamiseks Xxxxxxxi-Qt abiteksti</translation>
+        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
+        <translation>Näita kehtivate käsurea valikute kuvamiseks Umbrella-ltci-Qt abiteksti</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1238,13 +1238,13 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>Xxxxxxx - Debug window</source>
-        <translation>Xxxxxxx - debugimise aken</translation>
+        <source>Umbrella-ltc - Debug window</source>
+        <translation>Umbrella-ltc - debugimise aken</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Xxxxxxx Core</source>
-        <translation>Xxxxxxxi tuumik</translation>
+        <source>Umbrella-ltc Core</source>
+        <translation>Umbrella-ltci tuumik</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1253,8 +1253,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Xxxxxxx debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Ava Xxxxxxxi logifail praegusest andmekaustast. Toiminguks võib kuluda kuni mõni sekund.</translation>
+        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Ava Umbrella-ltci logifail praegusest andmekaustast. Toiminguks võib kuluda kuni mõni sekund.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1263,8 +1263,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Xxxxxxx RPC console.</source>
-        <translation>Teretulemast Xxxxxxxi RPC konsooli.</translation>
+        <source>Welcome to the Umbrella-ltc RPC console.</source>
+        <translation>Teretulemast Umbrella-ltci RPC konsooli.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1447,8 +1447,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Sisesta Xxxxxxxi aadress (nt: XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Sisesta Umbrella-ltci aadress (nt: XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1512,8 +1512,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Xxxxxxx address</source>
-        <translation>Allkirjasta sõnum Xxxxxxxi aadressi sulle kuulumise tõestamiseks</translation>
+        <source>Sign the message to prove you own this Umbrella-ltc address</source>
+        <translation>Allkirjasta sõnum Umbrella-ltci aadressi sulle kuulumise tõestamiseks</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1548,8 +1548,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Xxxxxxx address</source>
-        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Xxxxxxxi aadressiga.</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
+        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Umbrella-ltci aadressiga.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1564,8 +1564,8 @@ Aadress: %4⏎</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Sisesta Xxxxxxxi aadress (nt: XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Sisesta Umbrella-ltci aadress (nt: XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1574,8 +1574,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Xxxxxxx signature</source>
-        <translation>Sisesta Xxxxxxxi allkiri</translation>
+        <source>Enter Umbrella-ltc signature</source>
+        <translation>Sisesta Umbrella-ltci allkiri</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1648,7 +1648,7 @@ Aadress: %4⏎</translation>
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Xxxxxxx developers</source>
+        <source>The Umbrella-ltc developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2186,8 +2186,8 @@ Aadress: %4⏎</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Xxxxxxx version</source>
-        <translation>Xxxxxxxi versioon</translation>
+        <source>Umbrella-ltc version</source>
+        <translation>Umbrella-ltci versioon</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2196,8 +2196,8 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or xxxxxxxd</source>
-        <translation>Saada käsklus -serverile või xxxxxxxdile</translation>
+        <source>Send command to -server or umbrella-ltcd</source>
+        <translation>Saada käsklus -serverile või umbrella-ltcdile</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2216,13 +2216,13 @@ Aadress: %4⏎</translation>
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: xxxxxxx.conf)</source>
-        <translation>Täpsusta sätete fail (vaikimisi: xxxxxxx.conf)</translation>
+        <source>Specify configuration file (default: umbrella-ltc.conf)</source>
+        <translation>Täpsusta sätete fail (vaikimisi: umbrella-ltc.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: xxxxxxxd.pid)</source>
-        <translation>Täpsusta PID fail (vaikimisi: xxxxxxx.pid)</translation>
+        <source>Specify pid file (default: umbrella-ltcd.pid)</source>
+        <translation>Täpsusta PID fail (vaikimisi: umbrella-ltc.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2299,24 +2299,24 @@ Aadress: %4⏎</translation>
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </source>
         <translation>%s, sul tuleb rpcpassword määrata seadete failis:
 %s
 Soovitatav on kasutada järgmist juhuslikku parooli:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (seda parooli ei pea meeles pidama)
 Kasutajanimi ning parool EI TOHI kattuda.
 Kui faili ei leita, loo see ainult-omaniku-loetavas failiõigustes .
 Soovitatav on seadistada tõrgete puhul teavitus;
-nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+nt: alertnotify=echo %%s | email -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2331,8 +2331,8 @@ nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Xxxxxxx is probably already running.</source>
-        <translation>Ei suuda määrata ainuõigust andmekaustale %s. Tõenäolisel on Xxxxxxx juba avatud.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
+        <translation>Ei suuda määrata ainuõigust andmekaustale %s. Tõenäolisel on Umbrella-ltc juba avatud.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2376,8 +2376,8 @@ nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Xxxxxxx will not work properly.</source>
-        <translation>Hoiatus: Palun kontrolli oma arvuti kuupäeva/kellaaega! Kui arvuti kell on vale, siis Xxxxxxx ei tööta korralikult</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
+        <translation>Hoiatus: Palun kontrolli oma arvuti kuupäeva/kellaaega! Kui arvuti kell on vale, siis Umbrella-ltc ei tööta korralikult</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2626,8 +2626,8 @@ nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Xxxxxxx Wiki for SSL setup instructions)</source>
-        <translation>SSL valikud: (vaata Xxxxxxxi Wikist või SSL sätete juhendist)</translation>
+        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
+        <translation>SSL valikud: (vaata Umbrella-ltci Wikist või SSL sätete juhendist)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2816,13 +2816,13 @@ nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Xxxxxxx</source>
-        <translation>Viga wallet.dat käivitamisel: Rahakott nõuab Xxxxxxxi uusimat versiooni</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
+        <translation>Viga wallet.dat käivitamisel: Rahakott nõuab Umbrella-ltci uusimat versiooni</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Xxxxxxx to complete</source>
-        <translation>Rahakott tuli ümberkirjutada: toimingu lõpetamiseks taaskäivita Xxxxxxx</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
+        <translation>Rahakott tuli ümberkirjutada: toimingu lõpetamiseks taaskäivita Umbrella-ltc</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2881,8 +2881,8 @@ nt: alertnotify=echo %%s | email -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Xxxxxxx is probably already running.</source>
-        <translation>%s&apos;ga ei ole võimalik sellest arvutist siduda. Xxxxxxx juba töötab.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
+        <translation>%s&apos;ga ei ole võimalik sellest arvutist siduda. Umbrella-ltc juba töötab.</translation>
     </message>
     <message>
         <location line="+64"/>

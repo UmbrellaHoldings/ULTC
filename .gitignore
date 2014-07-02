@@ -1,9 +1,10 @@
 src/*.exe
-src/xxxxxxx
+src/umbrella-ltc
+src/umbrella-ltcd
 src/xxxxxxxd
-src/xxxxxxxKeyGen
+src/umbrella-ltcKeyGen
 src/leveldb/build_config.mk
-src/test_xxxxxxx
+src/test_umbrella-ltc
 src/show_n_factor
 .*.swp
 *#*
@@ -15,19 +16,19 @@ src/show_n_factor
 *.orig
 *.o
 *.patch
-.xxxxxxx
+.umbrella-ltc
 nohup.out
 src/test/data/Mar12Fork.dat
 
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-xxxxxxx-qt
-Xxxxxxx-Qt.app
+umbrella-ltc-qt
+Umbrella-ltc-Qt.app
 
 # Unit-tests
 Makefile.test
-xxxxxxx-qt_test
+umbrella-ltc-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -39,8 +40,8 @@ qrc_*.cpp
 .DS_Store
 build
 Info
-Xxxxxxx-Qt.xcodeproj
-Xxxxxxx-Qt.dmg
+Umbrella-ltc-Qt.xcodeproj
+Umbrella-ltc-Qt.dmg
 
 !src/leveldb*/Makefile
 

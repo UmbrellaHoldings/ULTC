@@ -6,7 +6,7 @@ Release Process
 ###update (commit) version in sources
 
 
-	xxxxxxx-qt.pro
+	umbrella-ltc-qt.pro
 	contrib/verifysfbinaries/verify.sh
 	doc/README*
 	share/setup.nsi
@@ -70,65 +70,65 @@ Release Process
 	cd ..
 
 	#Linux
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/gcc-4.8.1.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/gcc-4.8.1.yml
  	mv build/out/gcc-4.8.1-linux64.zip inputs/
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/qt.yml
 	mv build/out/qt-4.8.3-linux64.zip inputs/
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/boost.yml
         mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/mingw-w64-gcc-4.8.2.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/mingw-w64-gcc-4.8.2.yml
    mv build/out/mingw-w64-gcc-4.8.2-gitian-r1.zip inputs/
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/boost-win32.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.55.0-gitian-r6.zip inputs/
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/deps-win32.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/deps-win32.yml
 	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
-	./bin/gbuild ../xxxxxxx/contrib/gitian-descriptors/qt-win32.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r4.zip inputs/
 
- Build xxxxxxxd and xxxxxxx-qt on Linux32, Linux64, and Win32:
+ Build umbrella-ltcd and umbrella-ltc-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
-	../xxxxxxx/create-deb.sh build/out/bin/64/
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian.yml
+	./bin/gbuild --commit umbrella-ltc=v${VERSION} ../umbrella-ltc/contrib/gitian-descriptors/gitian.yml
+	../umbrella-ltc/create-deb.sh build/out/bin/64/
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../umbrella-ltc/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
-	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *
-	mv xxxxxxx-${VERSION}-linux-gitian.zip ../../
+	zip -r umbrella-ltc-${VERSION}-linux-gitian.zip *
+	mv umbrella-ltc-${VERSION}-linux-gitian.zip ../../
 	popd
-	./bin/gbuild --commit xxxxxxx=v${VERSION} ../xxxxxxx/contrib/gitian-descriptors/gitian-win32.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../xxxxxxx/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gbuild --commit umbrella-ltc=v${VERSION} ../umbrella-ltc/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../umbrella-ltc/contrib/gitian-descriptors/gitian-win32.yml
 	pushd build/out
-	zip -r xxxxxxx-${VERSION}-win32-gitian.zip *
-	mv xxxxxxx-${VERSION}-win32-gitian.zip ../../
+	zip -r umbrella-ltc-${VERSION}-win32-gitian.zip *
+	mv umbrella-ltc-${VERSION}-win32-gitian.zip ../../
 	popd
 
   Build output expected:
 
-  1. linux 32-bit and 64-bit binaries + source (xxxxxxx-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit binary, installer + source (xxxxxxx-${VERSION}-win32-gitian.zip)
+  1. linux 32-bit and 64-bit binaries + source (umbrella-ltc-${VERSION}-linux-gitian.zip)
+  2. windows 32-bit binary, installer + source (umbrella-ltc-${VERSION}-win32-gitian.zip)
   3. Gitian signatures (in gitian.sigs/${VERSION}[-win32]/(your gitian key)/
 
 repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 **Linux .tar.gz:**
 
-	unzip xxxxxxx-${VERSION}-linux-gitian.zip -d xxxxxxx-${VERSION}-linux
-	tar czvf xxxxxxx-${VERSION}-linux.tar.gz xxxxxxx-${VERSION}-linux
-	rm -rf xxxxxxx-${VERSION}-linux
+	unzip umbrella-ltc-${VERSION}-linux-gitian.zip -d umbrella-ltc-${VERSION}-linux
+	tar czvf umbrella-ltc-${VERSION}-linux.tar.gz umbrella-ltc-${VERSION}-linux
+	rm -rf umbrella-ltc-${VERSION}-linux
 
 **Windows .zip and setup.exe:**
 
-	unzip xxxxxxx-${VERSION}-win32-gitian.zip -d xxxxxxx-${VERSION}-win32
-	mv xxxxxxx-${VERSION}-win32/xxxxxxx-*-setup.exe .
-	zip -r xxxxxxx-${VERSION}-win32.zip bitcoin-${VERSION}-win32
-	rm -rf xxxxxxx-${VERSION}-win32
+	unzip umbrella-ltc-${VERSION}-win32-gitian.zip -d umbrella-ltc-${VERSION}-win32
+	mv umbrella-ltc-${VERSION}-win32/umbrella-ltc-*-setup.exe .
+	zip -r umbrella-ltc-${VERSION}-win32.zip bitcoin-${VERSION}-win32
+	rm -rf umbrella-ltc-${VERSION}-win32
 
 **Perform Mac build:**
 
   OSX binaries are created by Gavin Andresen on a 32-bit, OSX 10.6 machine.
 
-	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 xxxxxxx-qt.pro
+	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 umbrella-ltc-qt.pro
 	make
 	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
 	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
@@ -146,14 +146,14 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 * create SHA256SUMS for builds, and PGP-sign it
 
-* update xxxxxxx.org version
+* update umbrella-ltc.org version
   make sure all OS download links go to the right versions
 
 * update forum version
 
 * update wiki download links
 
-* update wiki changelog: [https://en.xxxxxxx.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
+* update wiki changelog: [https://en.umbrella-ltc.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
 
 Commit your signature to gitian.sigs:
 
@@ -168,32 +168,32 @@ Commit your signature to gitian.sigs:
 
 ### After 3 or more people have gitian-built, repackage gitian-signed zips:
 
-From a directory containing xxxxxxx source, gitian.sigs and gitian zips
+From a directory containing umbrella-ltc source, gitian.sigs and gitian zips
 
 	export VERSION=0.5.1
-	mkdir xxxxxxx-${VERSION}-linux-gitian
-	pushd xxxxxxx-${VERSION}-linux-gitian
-	unzip ../xxxxxxx-${VERSION}-linux-gitian.zip
+	mkdir umbrella-ltc-${VERSION}-linux-gitian
+	pushd umbrella-ltc-${VERSION}-linux-gitian
+	unzip ../umbrella-ltc-${VERSION}-linux-gitian.zip
 	mkdir gitian
-	cp ../xxxxxxx/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../umbrella-ltc/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}/); do
-	 cp ../gitian.sigs/${VERSION}/${signer}/xxxxxxx-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}/${signer}/xxxxxxx-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}/${signer}/umbrella-ltc-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}/${signer}/umbrella-ltc-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r xxxxxxx-${VERSION}-linux-gitian.zip *
-	cp xxxxxxx-${VERSION}-linux-gitian.zip ../
+	zip -r umbrella-ltc-${VERSION}-linux-gitian.zip *
+	cp umbrella-ltc-${VERSION}-linux-gitian.zip ../
 	popd
-	mkdir xxxxxxx-${VERSION}-win32-gitian
-	pushd xxxxxxx-${VERSION}-win32-gitian
-	unzip ../xxxxxxx-${VERSION}-win32-gitian.zip
+	mkdir umbrella-ltc-${VERSION}-win32-gitian
+	pushd umbrella-ltc-${VERSION}-win32-gitian
+	unzip ../umbrella-ltc-${VERSION}-win32-gitian.zip
 	mkdir gitian
-	cp ../xxxxxxx/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../umbrella-ltc/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}-win32/); do
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/xxxxxxx-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/xxxxxxx-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/umbrella-ltc-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/umbrella-ltc-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r xxxxxxx-${VERSION}-win32-gitian.zip *
-	cp xxxxxxx-${VERSION}-win32-gitian.zip ../
+	zip -r umbrella-ltc-${VERSION}-win32-gitian.zip *
+	cp umbrella-ltc-${VERSION}-win32-gitian.zip ../
 	popd
 
 - Upload gitian zips to SourceForge

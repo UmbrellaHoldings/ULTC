@@ -56,8 +56,8 @@ Designer: Jonas Schnelli (based on the original bitcoin logo from Bitboy)
 License: MIT
 
 Icon: src/qt/res/images/splash.png, src/qt/res/images/splash_testnet.png
-      src/qt/res/src/xxxxxxx_testnet.png, src/qt/res/icons/xxxxxxx.icns
-      src/qt/res/icons/xxxxxxx.icns
+      src/qt/res/src/umbrella-ltc_testnet.png, src/qt/res/icons/umbrella-ltc.icns
+      src/qt/res/icons/umbrella-ltc.icns
       
 Designer: Chris Webbs
 License: Creative Commons

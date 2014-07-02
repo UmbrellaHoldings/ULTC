@@ -1,12 +1,12 @@
-Building Xxxxxxx
+Building Umbrella-ltc
 
-See doc/readme-qt.rst for instructions on building Xxxxxxx-Qt,
+See doc/readme-qt.rst for instructions on building Umbrella-ltc-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Xxxxxxx.
+implementation of Umbrella-ltc.
 
-See doc/build-*.txt for instructions on building xxxxxxxd,
+See doc/build-*.txt for instructions on building umbrella-ltcd,
 the intended-for-services, no-graphical-interface, reference
-implementation of Xxxxxxx.
+implementation of Umbrella-ltc.
 
 Further build information and documentation is available at
-the official Xxxxxxx website, http://www.xxxxxxx.org
+the official Umbrella-ltc website, http://www.umbrella-ltc.org

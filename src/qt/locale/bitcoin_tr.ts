@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Xxxxxxx</source>
-        <translation>Xxxxxxx hakkında</translation>
+        <source>About Umbrella-ltc</source>
+        <translation>Umbrella-ltc hakkında</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Xxxxxxx&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Xxxxxxx&lt;/b&gt; sürüm</translation>
+        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-ltc&lt;/b&gt; sürüm</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Xxxxxxx developers</source>
-        <translation>Xxxxxxx geliştiricileri</translation>
+        <source>The Umbrella-ltc developers</source>
+        <translation>Umbrella-ltc geliştiricileri</translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Xxxxxxx addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Bunlar, ödeme almak için Xxxxxxx adresleridir. Kimin ödeme yaptığını izleyebilmek için her ödeme yollaması gereken kişiye değişik bir adres verebilirsiniz.</translation>
+        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Bunlar, ödeme almak için Umbrella-ltc adresleridir. Kimin ödeme yaptığını izleyebilmek için her ödeme yollaması gereken kişiye değişik bir adres verebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Xxxxxxx address</source>
-        <translation>Bir Xxxxxxx adresinin sizin olduğunu ispatlamak için mesaj imzalayın</translation>
+        <source>Sign a message to prove you own a Umbrella-ltc address</source>
+        <translation>Bir Umbrella-ltc adresinin sizin olduğunu ispatlamak için mesaj imzalayın</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Xxxxxxx address</source>
-        <translation>Belirtilen Xxxxxxx adresi ile imzalandığını doğrulamak için bir mesajı kontrol et</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
+        <translation>Belirtilen Umbrella-ltc adresi ile imzalandığını doğrulamak için bir mesajı kontrol et</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Xxxxxxx addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Bunlar ödeme yapmak için kullanacağınız Xxxxxxx adreslerinizdir. Xxxxxxx yollamadan önce meblağı ve alıcı adresini daima kontrol ediniz.</translation>
+        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Bunlar ödeme yapmak için kullanacağınız Umbrella-ltc adreslerinizdir. Umbrella-ltc yollamadan önce meblağı ve alıcı adresini daima kontrol ediniz.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -248,7 +248,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR XXXXXXXS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR UMBRELLA-LTCS&lt;/b&gt;!</source>
         <translation>Uyarı: Eğer cüzdanınızı şifrelerseniz ve parolanızı kaybederseniz, &lt;b&gt;TÜM BİTCOİNLERİNİZİ KAYBEDERSİNİZ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -275,8 +275,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Xxxxxxx will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your xxxxxxxs from being stolen by malware infecting your computer.</source>
-        <translation>Şifreleme işlemini tamamlamak için Xxxxxxx şimdi kapanacaktır. Cüzdanınızı şifrelemenin, Xxxxxxxlerinizin bilgisayara bulaşan kötücül bir yazılım tarafından çalınmaya karşı tamamen koruyamayacağını unutmayınız.</translation>
+        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Şifreleme işlemini tamamlamak için Umbrella-ltc şimdi kapanacaktır. Cüzdanınızı şifrelemenin, Umbrella-ltclerinizin bilgisayara bulaşan kötücül bir yazılım tarafından çalınmaya karşı tamamen koruyamayacağını unutmayınız.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Xxxxxxx</source>
-        <translation>Xxxxxxx hakkında bilgi göster</translation>
+        <source>Show information about Umbrella-ltc</source>
+        <translation>Umbrella-ltc hakkında bilgi göster</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Xxxxxxx address</source>
-        <translation>Bir Xxxxxxx adresine Xxxxxxx yolla</translation>
+        <source>Send coins to a Umbrella-ltc address</source>
+        <translation>Bir Umbrella-ltc adresine Umbrella-ltc yolla</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Xxxxxxx</source>
-        <translation>Xxxxxxx seçeneklerinin yapılandırmasını değiştir</translation>
+        <source>Modify configuration options for Umbrella-ltc</source>
+        <translation>Umbrella-ltc seçeneklerinin yapılandırmasını değiştir</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Xxxxxxx</source>
-        <translation>Xxxxxxx</translation>
+        <source>Umbrella-ltc</source>
+        <translation>Umbrella-ltc</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Xxxxxxx</source>
-        <translation>Xxxxxxx &amp;Hakkında</translation>
+        <source>&amp;About Umbrella-ltc</source>
+        <translation>Umbrella-ltc &amp;Hakkında</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Xxxxxxx addresses to prove you own them</source>
-        <translation>Mesajları adreslerin size ait olduğunu ispatlamak için Xxxxxxx adresleri ile imzala</translation>
+        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
+        <translation>Mesajları adreslerin size ait olduğunu ispatlamak için Umbrella-ltc adresleri ile imzala</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Xxxxxxx addresses</source>
-        <translation>Belirtilen Xxxxxxx adresleri ile imzalandıklarından emin olmak için mesajları kontrol et</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
+        <translation>Belirtilen Umbrella-ltc adresleri ile imzalandıklarından emin olmak için mesajları kontrol et</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Xxxxxxx client</source>
-        <translation>Xxxxxxx istemcisi</translation>
+        <source>Umbrella-ltc client</source>
+        <translation>Umbrella-ltc istemcisi</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Xxxxxxx network</source>
-        <translation><numerusform>Xxxxxxx şebekesine %n faal bağlantı</numerusform><numerusform>Xxxxxxx şebekesine %n faal bağlantı</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-ltc network</source>
+        <translation><numerusform>Umbrella-ltc şebekesine %n faal bağlantı</numerusform><numerusform>Umbrella-ltc şebekesine %n faal bağlantı</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -656,8 +656,8 @@ Adres: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Xxxxxxx address or malformed URI parameters.</source>
-        <translation>URI okunamadı! Sebebi geçersiz bir Xxxxxxx adresi veya hatalı URI parametreleri olabilir.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
+        <translation>URI okunamadı! Sebebi geçersiz bir Umbrella-ltc adresi veya hatalı URI parametreleri olabilir.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Xxxxxxx can no longer continue safely and will quit.</source>
-        <translation>Ciddi bir hata oluştu. Xxxxxxx artık güvenli bir şekilde işlemeye devam edemez ve kapanacaktır.</translation>
+        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
+        <translation>Ciddi bir hata oluştu. Umbrella-ltc artık güvenli bir şekilde işlemeye devam edemez ve kapanacaktır.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Adres: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Xxxxxxx address.</source>
-        <translation>Girilen &quot;%1&quot; adresi geçerli bir Xxxxxxx adresi değildir.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
+        <translation>Girilen &quot;%1&quot; adresi geçerli bir Umbrella-ltc adresi değildir.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Adres: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Xxxxxxx-Qt</source>
-        <translation>Xxxxxxx-Qt</translation>
+        <source>Umbrella-ltc-Qt</source>
+        <translation>Umbrella-ltc-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Adres: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Xxxxxxx after logging in to the system.</source>
-        <translation>Sistemde oturum açıldığında Xxxxxxx&apos;i otomatik olarak başlat.</translation>
+        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
+        <translation>Sistemde oturum açıldığında Umbrella-ltc&apos;i otomatik olarak başlat.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Xxxxxxx on system login</source>
-        <translation>Xxxxxxx&apos;i sistem oturumuyla &amp;başlat</translation>
+        <source>&amp;Start Umbrella-ltc on system login</source>
+        <translation>Umbrella-ltc&apos;i sistem oturumuyla &amp;başlat</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Adres: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Xxxxxxx client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Yönlendiricide Xxxxxxx istemci portlarını otomatik olarak açar. Bu, sadece yönlendiricinizin UPnP desteği bulunuyorsa ve etkinse çalışabilir.</translation>
+        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Yönlendiricide Umbrella-ltc istemci portlarını otomatik olarak açar. Bu, sadece yönlendiricinizin UPnP desteği bulunuyorsa ve etkinse çalışabilir.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Xxxxxxx network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Xxxxxxx şebekesine SOCKS vekil sunucusu vasıtasıyla bağlan (mesela Tor ile bağlanıldığında).</translation>
+        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Umbrella-ltc şebekesine SOCKS vekil sunucusu vasıtasıyla bağlan (mesela Tor ile bağlanıldığında).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Adres: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Kullanıcı arayüzünün dili burada belirtilebilir. Bu ayar Xxxxxxx tekrar başlatıldığında etkinleşecektir.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Kullanıcı arayüzünün dili burada belirtilebilir. Bu ayar Umbrella-ltc tekrar başlatıldığında etkinleşecektir.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -940,12 +940,12 @@ Adres: %4
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Xxxxxxx gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
+        <translation>Umbrella-ltc gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Xxxxxxx addresses in the transaction list or not.</source>
-        <translation>Muamele listesinde Xxxxxxx adreslerinin gösterilip gösterilmeyeceklerini belirler.</translation>
+        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
+        <translation>Muamele listesinde Umbrella-ltc adreslerinin gösterilip gösterilmeyeceklerini belirler.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Adres: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Bu ayarlar Xxxxxxx tekrar başlatıldığında etkinleşecektir.</translation>
+        <source>This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Bu ayarlar Umbrella-ltc tekrar başlatıldığında etkinleşecektir.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,7 +1015,7 @@ Adres: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Xxxxxxx network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
         <translation>Görüntülenen veriler zaman aşımına uğramış olabilir. Bağlantı kurulduğunda cüzdanınız otomatik olarak şebeke ile eşleşir ancak bu işlem henüz tamamlanmamıştır.</translation>
     </message>
     <message>
@@ -1069,8 +1069,8 @@ Adres: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start xxxxxxx: click-to-pay handler</source>
-        <translation>Xxxxxxx başlatılamadı: tıkla-ve-öde yöneticisi</translation>
+        <source>Cannot start umbrella-ltc: click-to-pay handler</source>
+        <translation>Umbrella-ltc başlatılamadı: tıkla-ve-öde yöneticisi</translation>
     </message>
 </context>
 <context>
@@ -1219,8 +1219,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Xxxxxxx-Qt help message to get a list with possible Xxxxxxx command-line options.</source>
-        <translation>Mevcut Xxxxxxx komut satırı seçeneklerinin listesini içeren Xxxxxxx-Qt yardımını göster.</translation>
+        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
+        <translation>Mevcut Umbrella-ltc komut satırı seçeneklerinin listesini içeren Umbrella-ltc-Qt yardımını göster.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Adres: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Xxxxxxx - Debug window</source>
-        <translation>Xxxxxxx - Hata ayıklama penceresi</translation>
+        <source>Umbrella-ltc - Debug window</source>
+        <translation>Umbrella-ltc - Hata ayıklama penceresi</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Xxxxxxx Core</source>
-        <translation>Xxxxxxx Çekirdeği</translation>
+        <source>Umbrella-ltc Core</source>
+        <translation>Umbrella-ltc Çekirdeği</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Xxxxxxx debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Güncel veri klasöründen Xxxxxxx hata ayıklama kütük dosyasını açar. Büyük kütük dosyaları için bu birkaç saniye alabilir.</translation>
+        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Güncel veri klasöründen Umbrella-ltc hata ayıklama kütük dosyasını açar. Büyük kütük dosyaları için bu birkaç saniye alabilir.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Xxxxxxx RPC console.</source>
-        <translation>Xxxxxxx RPC konsoluna hoş geldiniz.</translation>
+        <source>Welcome to the Umbrella-ltc RPC console.</source>
+        <translation>Umbrella-ltc RPC konsoluna hoş geldiniz.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1290,7 +1290,7 @@ Adres: %4
         <location line="+5"/>
         <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Xxxxxxx yolla</translation>
+        <translation>Umbrella-ltc yolla</translation>
     </message>
     <message>
         <location line="+50"/>
@@ -1448,8 +1448,8 @@ Adres: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Xxxxxxx adresi giriniz (mesela XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Umbrella-ltc adresi giriniz (mesela XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Adres: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Xxxxxxx address</source>
-        <translation>Bu Xxxxxxx adresinin sizin olduğunu ispatlamak için mesajı imzalayın</translation>
+        <source>Sign the message to prove you own this Umbrella-ltc address</source>
+        <translation>Bu Umbrella-ltc adresinin sizin olduğunu ispatlamak için mesajı imzalayın</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Adres: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Xxxxxxx address</source>
-        <translation>Belirtilen Xxxxxxx adresi ile imzalandığını doğrulamak için mesajı kontrol et</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
+        <translation>Belirtilen Umbrella-ltc adresi ile imzalandığını doğrulamak için mesajı kontrol et</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Adres: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Xxxxxxx adresi giriniz (mesela XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Umbrella-ltc adresi giriniz (mesela XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Adres: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Xxxxxxx signature</source>
-        <translation>Xxxxxxx imzası gir</translation>
+        <source>Enter Umbrella-ltc signature</source>
+        <translation>Umbrella-ltc imzası gir</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Adres: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Xxxxxxx developers</source>
-        <translation>Xxxxxxx geliştiricileri</translation>
+        <source>The Umbrella-ltc developers</source>
+        <translation>Umbrella-ltc geliştiricileri</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1784,7 +1784,7 @@ Adres: %4
     <message>
         <location line="+3"/>
         <source>Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Oluşturulan Xxxxxxx&apos;lerin harcanabilmelerinden önce 120 blok beklemeleri gerekmektedir. Bu blok, oluşturduğunuzda blok zincirine eklenmesi için ağda yayınlandı. Zincire eklenmesi başarısız olursa, durumu &quot;kabul edilmedi&quot; olarak değiştirilecek ve harcanamayacaktır. Bu, bazen başka bir düğüm sizden birkaç saniye önce ya da sonra blok oluşturursa meydana gelebilir.</translation>
+        <translation>Oluşturulan Umbrella-ltc&apos;lerin harcanabilmelerinden önce 120 blok beklemeleri gerekmektedir. Bu blok, oluşturduğunuzda blok zincirine eklenmesi için ağda yayınlandı. Zincire eklenmesi başarısız olursa, durumu &quot;kabul edilmedi&quot; olarak değiştirilecek ve harcanamayacaktır. Bu, bazen başka bir düğüm sizden birkaç saniye önce ya da sonra blok oluşturursa meydana gelebilir.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2137,7 +2137,7 @@ Adres: %4
     <message>
         <location filename="../walletmodel.cpp" line="+193"/>
         <source>Send Coins</source>
-        <translation>Xxxxxxx yolla</translation>
+        <translation>Umbrella-ltc yolla</translation>
     </message>
 </context>
 <context>
@@ -2187,8 +2187,8 @@ Adres: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Xxxxxxx version</source>
-        <translation>Xxxxxxx sürümü</translation>
+        <source>Umbrella-ltc version</source>
+        <translation>Umbrella-ltc sürümü</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2197,8 +2197,8 @@ Adres: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or xxxxxxxd</source>
-        <translation>-server ya da xxxxxxxd&apos;ye komut gönder</translation>
+        <source>Send command to -server or umbrella-ltcd</source>
+        <translation>-server ya da umbrella-ltcd&apos;ye komut gönder</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2217,13 +2217,13 @@ Adres: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: xxxxxxx.conf)</source>
-        <translation>Yapılandırma dosyası belirt (varsayılan: xxxxxxx.conf)</translation>
+        <source>Specify configuration file (default: umbrella-ltc.conf)</source>
+        <translation>Yapılandırma dosyası belirt (varsayılan: umbrella-ltc.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: xxxxxxxd.pid)</source>
-        <translation>Pid dosyası belirt (varsayılan: xxxxxxxd.pid)</translation>
+        <source>Specify pid file (default: umbrella-ltcd.pid)</source>
+        <translation>Pid dosyası belirt (varsayılan: umbrella-ltcd.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2300,24 +2300,24 @@ Adres: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </source>
         <translation>%s, şu yapılandırma dosyasında rpc parolası belirtmeniz gerekir:
 %s
 Aşağıdaki rastgele oluşturulan parolayı kullanmanız tavsiye edilir:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (bu parolayı hatırlamanız gerekli değildir)
 Kullanıcı ismi ile parolanın FARKLI olmaları gerekir.
 Dosya mevcut değilse, sadece sahibi için okumayla sınırlı izin ile oluşturunuz.
 Sorunlar hakkında bildiri almak için alertnotify unsurunu ayarlamanız tavsiye edilir;
-mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+mesela: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2332,8 +2332,8 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Xxxxxxx is probably already running.</source>
-        <translation>%s veri dizininde kilit elde edilemedi. Xxxxxxx muhtemelen hâlihazırda çalışmaktadır.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
+        <translation>%s veri dizininde kilit elde edilemedi. Umbrella-ltc muhtemelen hâlihazırda çalışmaktadır.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2363,7 +2363,7 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     <message>
         <location line="+6"/>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
-        <translation>Bu yayın öncesi bir deneme sürümüdür - tüm riski siz üstlenmiş olursunuz - xxxxxxx oluşturmak ya da ticari uygulamalar için kullanmayınız</translation>
+        <translation>Bu yayın öncesi bir deneme sürümüdür - tüm riski siz üstlenmiş olursunuz - umbrella-ltc oluşturmak ya da ticari uygulamalar için kullanmayınız</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2377,8 +2377,8 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Xxxxxxx will not work properly.</source>
-        <translation>Uyarı: Lütfen bilgisayarınızın tarih ve saatinin doğru olup olmadığını kontrol ediniz! Saatiniz doğru değilse Xxxxxxx gerektiği gibi çalışamaz.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
+        <translation>Uyarı: Lütfen bilgisayarınızın tarih ve saatinin doğru olup olmadığını kontrol ediniz! Saatiniz doğru değilse Umbrella-ltc gerektiği gibi çalışamaz.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2518,7 +2518,7 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     <message>
         <location line="+1"/>
         <source>Generate coins (default: 0)</source>
-        <translation>Xxxxxxx oluştur (varsayılan: 0)</translation>
+        <translation>Umbrella-ltc oluştur (varsayılan: 0)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2627,8 +2627,8 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Xxxxxxx Wiki for SSL setup instructions)</source>
-        <translation> SSL seçenekleri: (SSL kurulum bilgisi için Xxxxxxx vikisine bakınız)</translation>
+        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
+        <translation> SSL seçenekleri: (SSL kurulum bilgisi için Umbrella-ltc vikisine bakınız)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2817,13 +2817,13 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Xxxxxxx</source>
-        <translation>wallet.dat dosyasının yüklenmesinde hata oluştu: cüzdanın daha yeni bir Xxxxxxx sürümüne ihtiyacı var</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
+        <translation>wallet.dat dosyasının yüklenmesinde hata oluştu: cüzdanın daha yeni bir Umbrella-ltc sürümüne ihtiyacı var</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Xxxxxxx to complete</source>
-        <translation>Cüzdanın tekrar yazılması gerekiyordu: işlemi tamamlamak için Xxxxxxx&apos;i yeniden başlatınız</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
+        <translation>Cüzdanın tekrar yazılması gerekiyordu: işlemi tamamlamak için Umbrella-ltc&apos;i yeniden başlatınız</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2882,8 +2882,8 @@ mesela: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Xxxxxxx is probably already running.</source>
-        <translation>Bu bilgisayarda %s unsuruna bağlanılamadı. Xxxxxxx muhtemelen hâlihazırda çalışmaktadır.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
+        <translation>Bu bilgisayarda %s unsuruna bağlanılamadı. Umbrella-ltc muhtemelen hâlihazırda çalışmaktadır.</translation>
     </message>
     <message>
         <location line="+64"/>

@@ -125,7 +125,7 @@ bool OptionsModel::Upgrade()
     }
     catch (std::ios_base::failure &e)
     {
-        // xxxxxxx 0.6.0rc1 saved this as a CService, which causes failure when parsing as a CAddress
+        // umbrella-ltc 0.6.0rc1 saved this as a CService, which causes failure when parsing as a CAddress
         CService addrProxy;
         if (walletdb.ReadSetting("addrProxy", addrProxy))
         {

@@ -1,4 +1,4 @@
-Mac OS X xxxxxxxd build instructions
+Mac OS X umbrella-ltcd build instructions
 ====================================
 
 Authors
@@ -26,7 +26,7 @@ Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.
 Notes
 -----
 
-See `doc/readme-qt.rst` for instructions on building Xxxxxxx-Qt, the
+See `doc/readme-qt.rst` for instructions on building Umbrella-ltc-Qt, the
 graphical user interface.
 
 Tested on OS X 10.5 through 10.8 on Intel processors only. PPC is not
@@ -72,14 +72,14 @@ Installing the dependencies using MacPorts is very straightforward.
 
     sudo port install boost db48@+no_java openssl miniupnpc
 
-### Building `xxxxxxxd`
+### Building `umbrella-ltcd`
 
 1. Clone the github tree to get the source code and go into the directory.
 
-        git clone git@github.com:xxxxxxx-project/xxxxxxx.git xxxxxxx
-        cd xxxxxxx
+        git clone git@github.com:umbrella-ltc-project/umbrella-ltc.git umbrella-ltc
+        cd umbrella-ltc
 
-2.  Build xxxxxxxd:
+2.  Build umbrella-ltcd:
 
         cd src
         make -f makefile.osx
@@ -107,12 +107,12 @@ If not, you can ensure that the Brew OpenSSL is correctly linked by running
 
 Rerunning "openssl version" should now return the correct version.
 
-### Building `xxxxxxxd`
+### Building `umbrella-ltcd`
 
 1. Clone the github tree to get the source code and go into the directory.
 
-        git clone git@github.com:xxxxxxx-project/xxxxxxx.git xxxxxxx
-        cd xxxxxxx
+        git clone git@github.com:umbrella-ltc-project/umbrella-ltc.git umbrella-ltc
+        cd umbrella-ltc
 
 2.  Modify source in order to pick up the `openssl` library.
 
@@ -122,7 +122,7 @@ Rerunning "openssl version" should now return the correct version.
 
         patch -p1 < contrib/homebrew/makefile.osx.patch
 
-3.  Build xxxxxxxd:
+3.  Build umbrella-ltcd:
 
         cd src
         make -f makefile.osx
@@ -134,8 +134,8 @@ Rerunning "openssl version" should now return the correct version.
 Creating a release build
 ------------------------
 
-A xxxxxxxd binary is not included in the Xxxxxxx-Qt.app bundle. You can ignore
-this section if you are building `xxxxxxxd` for your own use.
+A umbrella-ltcd binary is not included in the Umbrella-ltc-Qt.app bundle. You can ignore
+this section if you are building `umbrella-ltcd` for your own use.
 
 If you are building `litecond` for others, your build machine should be set up
 as follows for maximum compatibility:
@@ -156,30 +156,30 @@ As of December 2012, the `boost` port does not obey `macosx_deployment_target`.
 Download `http://gavinandresen-bitcoin.s3.amazonaws.com/boost_macports_fix.zip`
 for a fix. Some ports also seem to obey either `build_arch` or
 `macosx_deployment_target`, but not both at the same time. For example, building
-on an OS X 10.6 64-bit machine fails. Official release builds of Xxxxxxx-Qt are
+on an OS X 10.6 64-bit machine fails. Official release builds of Umbrella-ltc-Qt are
 compiled on an OS X 10.6 32-bit machine to workaround that problem.
 
-Once dependencies are compiled, creating `Xxxxxxx-Qt.app` is easy:
+Once dependencies are compiled, creating `Umbrella-ltc-Qt.app` is easy:
 
     make -f Makefile.osx RELEASE=1
 
 Running
 -------
 
-It's now available at `./xxxxxxxd`, provided that you are still in the `src`
+It's now available at `./umbrella-ltcd`, provided that you are still in the `src`
 directory. We have to first create the RPC configuration file, though.
 
-Run `./xxxxxxxd` to get the filename where it should be put, or just try these
+Run `./umbrella-ltcd` to get the filename where it should be put, or just try these
 commands:
 
-    echo -e "rpcuser=xxxxxxxrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Xxxxxxx/xxxxxxx.conf"
-    chmod 600 "/Users/${USER}/Library/Application Support/Xxxxxxx/xxxxxxx.conf"
+    echo -e "rpcuser=umbrella-ltcrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Umbrella-ltc/umbrella-ltc.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Umbrella-ltc/umbrella-ltc.conf"
 
 When next you run it, it will start downloading the blockchain, but it won't
 output anything while it's doing this. This process may take several hours.
 
 Other commands:
 
-    ./xxxxxxxd --help  # for a list of command-line options.
-    ./xxxxxxxd -daemon # to start the xxxxxxx daemon.
-    ./xxxxxxxd help    # When the daemon is running, to get a list of RPC commands
+    ./umbrella-ltcd --help  # for a list of command-line options.
+    ./umbrella-ltcd -daemon # to start the umbrella-ltc daemon.
+    ./umbrella-ltcd help    # When the daemon is running, to get a list of RPC commands

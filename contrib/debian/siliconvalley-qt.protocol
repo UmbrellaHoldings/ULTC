@@ -1,6 +1,6 @@
 [Protocol]
-exec=xxxxxxx-qt '%u'
-protocol=xxxxxxx
+exec=umbrella-ltc-qt '%u'
+protocol=umbrella-ltc
 input=none
 output=none
 helper=true

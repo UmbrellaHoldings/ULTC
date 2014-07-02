@@ -1,13 +1,13 @@
-# bash programmable completion for xxxxxxxd(1)
+# bash programmable completion for umbrella-ltcd(1)
 # Copyright (c) 2012 Christian von Roques <roques@mti.ag>
-# Copyright (c) 2014 Xxxxxxx Developers
+# Copyright (c) 2014 Umbrella-ltc Developers
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-have xxxxxxxd && {
+have umbrella-ltcd && {
 
-# call $xxxxxxxd for RPC
-_xxxxxxx_rpc() {
+# call $umbrella-ltcd for RPC
+_umbrella-ltc_rpc() {
     # determine already specified args necessary for RPC
     local rpcargs=()
     for i in ${COMP_LINE}; do
@@ -17,23 +17,23 @@ _xxxxxxx_rpc() {
                 ;;
         esac
     done
-    $xxxxxxxd "${rpcargs[@]}" "$@"
+    $umbrella-ltcd "${rpcargs[@]}" "$@"
 }
 
-# Add xxxxxxx accounts to COMPREPLY
-_xxxxxxx_accounts() {
+# Add umbrella-ltc accounts to COMPREPLY
+_umbrella-ltc_accounts() {
     local accounts
-    accounts=$(_xxxxxxx_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
+    accounts=$(_umbrella-ltc_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
     COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "$accounts" -- "$cur" ) )
 }
 
-_xxxxxxxd() {
+_umbrella-ltcd() {
     local cur prev words=() cword
-    local xxxxxxxd
+    local umbrella-ltcd
 
-    # save and use original argument to invoke xxxxxxxd
-    # xxxxxxxd might not be in $PATH
-    xxxxxxxd="$1"
+    # save and use original argument to invoke umbrella-ltcd
+    # umbrella-ltcd might not be in $PATH
+    umbrella-ltcd="$1"
 
     COMPREPLY=()
     _get_comp_words_by_ref -n = cur prev words cword
@@ -45,7 +45,7 @@ _xxxxxxxd() {
                 return 0
                 ;;
             move|setaccount)
-                _xxxxxxx_accounts
+                _umbrella-ltc_accounts
                 return 0
                 ;;
         esac
@@ -61,7 +61,7 @@ _xxxxxxxd() {
             return 0
             ;;
         getaccountaddress|getaddressesbyaccount|getbalance|getnewaddress|getreceivedbyaccount|listtransactions|move|sendfrom|sendmany)
-            _xxxxxxx_accounts
+            _umbrella-ltc_accounts
             return 0
             ;;
     esac
@@ -85,12 +85,12 @@ _xxxxxxxd() {
 
             # only parse --help if senseful
             if [[ -z "$cur" || "$cur" =~ ^- ]]; then
-                helpopts=$($xxxxxxxd --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
+                helpopts=$($umbrella-ltcd --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
             fi
 
             # only parse help if senseful
             if [[ -z "$cur" || "$cur" =~ ^[a-z] ]]; then
-                commands=$(_xxxxxxx_rpc help 2>/dev/null | awk '{ print $1; }')
+                commands=$(_umbrella-ltc_rpc help 2>/dev/null | awk '{ print $1; }')
             fi
 
             COMPREPLY=( $( compgen -W "$helpopts $commands" -- "$cur" ) )
@@ -104,7 +104,7 @@ _xxxxxxxd() {
     esac
 }
 
-complete -F _xxxxxxxd xxxxxxxd
+complete -F _umbrella-ltcd umbrella-ltcd
 }
 
 # Local variables:

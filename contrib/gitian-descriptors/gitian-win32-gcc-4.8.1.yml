@@ -1,5 +1,5 @@
 ---
-name: "xxxxxxx"
+name: "umbrella-ltc"
 suites:
 - "precise"
 architectures:
@@ -13,7 +13,7 @@ packages:
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
 - "url": "trading.kogorta.dp.ua:/USDollarCoin"
-  "dir": "xxxxxxx"
+  "dir": "umbrella-ltc"
 files:
 - "qt-win32-4.8.3-gitian-r4.zip"
 - "boost-win32-1.55.0.zip"
@@ -33,7 +33,7 @@ script: |
   export PATH=$(pwd)/bin:$PATH
   cd $HOME/build/
   #
-  cd xxxxxxx
+  cd umbrella-ltc
   export PATH=$STAGING/host/bin:$PATH
   $HOST-g++ --version
   mkdir -p $OUTDIR/src
@@ -44,19 +44,19 @@ script: |
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
   ln -s $STAGING $HOME/qt
-  $HOME/staging/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$STAGING MINIUPNPC_INCLUDE_PATH=$STAGING BDB_LIB_PATH=$STAGING BDB_INCLUDE_PATH=$STAGING BOOST_LIB_PATH=$STAGING BOOST_INCLUDE_PATH=$STAGING BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$STAGING OPENSSL_INCLUDE_PATH=$STAGING QRENCODE_LIB_PATH=$STAGING QRENCODE_INCLUDE_PATH=$STAGING USE_QRCODE=1 INCLUDEPATH=$STAGING DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=xxxxxxx USE_BUILD_INFO=1
+  $HOME/staging/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$STAGING MINIUPNPC_INCLUDE_PATH=$STAGING BDB_LIB_PATH=$STAGING BDB_INCLUDE_PATH=$STAGING BOOST_LIB_PATH=$STAGING BOOST_INCLUDE_PATH=$STAGING BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$STAGING OPENSSL_INCLUDE_PATH=$STAGING QRENCODE_LIB_PATH=$STAGING QRENCODE_INCLUDE_PATH=$STAGING USE_QRCODE=1 INCLUDEPATH=$STAGING DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=umbrella-ltc USE_BUILD_INFO=1
   make $MAKEOPTS 
-  # $HOST-strip release/xxxxxxx-qt.exe
-  cp release/xxxxxxx-qt.exe $OUTDIR/
+  # $HOST-strip release/umbrella-ltc-qt.exe
+  cp release/umbrella-ltc-qt.exe $OUTDIR/
   #
   cd src
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
-  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$STAGING xxxxxxxd.exe USE_UPNP=0 DEBUGFLAGS="-frandom-seed=xxxxxxx" CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs'  USE_SSE2=1
-  $HOST-strip xxxxxxxd.exe
+  make -f makefile.linux-mingw $MAKEOPTS DEPSDIR=$STAGING umbrella-ltcd.exe USE_UPNP=0 DEBUGFLAGS="-frandom-seed=umbrella-ltc" CXXFLAGS='--std=c++11 -Wno-unused-local-typedefs'  USE_SSE2=1
+  $HOST-strip umbrella-ltcd.exe
   mkdir $OUTDIR/daemon
-  cp xxxxxxxd.exe $OUTDIR/daemon
+  cp umbrella-ltcd.exe $OUTDIR/daemon
   cd ..
   mkdir nsis
   git archive HEAD | tar -x -C nsis
@@ -65,4 +65,4 @@ script: |
   cp ../../release/* ../release/
   cp ../../src/*.exe .
   makensis ../share/setup.nsi
-  cp ../share/xxxxxxx-*-win32-setup.exe $OUTDIR/
+  cp ../share/umbrella-ltc-*-win32-setup.exe $OUTDIR/

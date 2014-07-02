@@ -69,7 +69,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Xxxxxxx Signed Message:\n";
+const string strMessageMagic = "Umbrella-ltc Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -361,7 +361,7 @@ unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans)
 
 bool CTxOut::IsDust() const
 {
-  // Xxxxxxx: IsDust() detection disabled, allows any valid dust to be relayed.
+  // Umbrella-ltc: IsDust() detection disabled, allows any valid dust to be relayed.
   // The fees imposed on each dust txo is considered sufficient spam deterrant. 
   return false;
 }
@@ -681,7 +681,7 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
       nMinFee = 0;
   }
 
-  // Xxxxxxx
+  // Umbrella-ltc
   // To limit dust spam, add nBaseFee for each output less than DUST_SOFT_LIMIT
   BOOST_FOREACH(const CTxOut& txout, vout)
     if (txout.nValue < DUST_SOFT_LIMIT)
@@ -1133,12 +1133,12 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-  int64 nSubsidy = 10 * COIN;
+  int64 nSubsidy = BLOCK_REWARD;
   
   if(nHeight == 1)
-  nSubsidy = 120000 * COIN; //Premined volume
+  nSubsidy = PREMINED_MONEY; //Premined volume
   
-  if(nHeight >= 1 + (MAX_MONEY - 120000)/10 ) // Over money limit
+  if(nHeight >= 1 + (MAX_MONEY - PREMINED_MONEY)/BLOCK_REWARD ) // Over money limit
     nSubsidy = 0; 
 
   return nSubsidy + nFees;

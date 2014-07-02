@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = xxxxxxx-qt
-macx:TARGET = "Xxxxxxx-Qt"
+TARGET = umbrella-ltc-qt
+macx:TARGET = "Umbrella-ltc-Qt"
 VERSION = 1.0.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
@@ -364,7 +364,7 @@ SOURCES += src/qt/test/test_main.cpp \
 HEADERS += src/qt/test/uritests.h
 DEPENDPATH += src/qt/test
 QT += testlib
-TARGET = xxxxxxx-qt_test
+TARGET = umbrella-ltc-qt_test
 DEFINES += BITCOIN_QT_TEST
   macx: CONFIG -= app_bundle
 }
@@ -403,7 +403,7 @@ OTHER_FILES += README.md \
     doc/*.rst \
     doc/*.txt \
     doc/*.md \
-    src/qt/res/xxxxxxx-qt.rc \
+    src/qt/res/umbrella-ltc-qt.rc \
     src/test/*.cpp \
     src/test/*.h \
     src/qt/test/*.cpp \
@@ -440,7 +440,7 @@ isEmpty(BOOST_INCLUDE_PATH) {
 }
 
 win32:DEFINES += WIN32
-win32:RC_FILE = src/qt/res/xxxxxxx-qt.rc
+win32:RC_FILE = src/qt/res/umbrella-ltc-qt.rc
 
 win32:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
@@ -464,7 +464,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit -framework CoreServices
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/xxxxxxx.icns
+macx:ICON = src/qt/res/icons/umbrella-ltc.icns
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread

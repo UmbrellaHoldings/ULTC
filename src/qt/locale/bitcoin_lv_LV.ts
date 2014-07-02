@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Xxxxxxx</source>
-        <translation>Par Xxxxxxx</translation>
+        <source>About Umbrella-ltc</source>
+        <translation>Par Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Xxxxxxx&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Xxxxxxx&lt;/b&gt; versija</translation>
+        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-ltc&lt;/b&gt; versija</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -29,7 +29,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Xxxxxxx developers</source>
+        <source>The Umbrella-ltc developers</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -62,7 +62,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Xxxxxxx addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -77,7 +77,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Xxxxxxx address</source>
+        <source>Sign a message to prove you own a Umbrella-ltc address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -102,7 +102,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Xxxxxxx address</source>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -117,7 +117,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Xxxxxxx addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -243,7 +243,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR XXXXXXXS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR UMBRELLA-LTCS&lt;/b&gt;!</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -270,8 +270,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Xxxxxxx will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your xxxxxxxs from being stolen by malware infecting your computer.</source>
-        <translation>Xxxxxxx aizvērsies, lai pabeigtu šifrēšanu. Atcerieties, ka maciņa šifrēšana nevar pilnībā novērst bitkoinu zādzību, ko veic datorā ieviesušās kaitīgas programmas.</translation>
+        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Umbrella-ltc aizvērsies, lai pabeigtu šifrēšanu. Atcerieties, ka maciņa šifrēšana nevar pilnībā novērst bitkoinu zādzību, ko veic datorā ieviesušās kaitīgas programmas.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -369,8 +369,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Xxxxxxx</source>
-        <translation>Parādīt informāciju par Xxxxxxx</translation>
+        <source>Show information about Umbrella-ltc</source>
+        <translation>Parādīt informāciju par Umbrella-ltc</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -414,13 +414,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Xxxxxxx address</source>
-        <translation>Nosūtīt bitkoinus uz Xxxxxxx adresi</translation>
+        <source>Send coins to a Umbrella-ltc address</source>
+        <translation>Nosūtīt bitkoinus uz Umbrella-ltc adresi</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Xxxxxxx</source>
-        <translation>Mainīt Xxxxxxx konfigurācijas uzstādījumus</translation>
+        <source>Modify configuration options for Umbrella-ltc</source>
+        <translation>Mainīt Umbrella-ltc konfigurācijas uzstādījumus</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -450,7 +450,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Xxxxxxx</source>
+        <source>Umbrella-ltc</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -475,7 +475,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Xxxxxxx</source>
+        <source>&amp;About Umbrella-ltc</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -495,12 +495,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Xxxxxxx addresses to prove you own them</source>
+        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Xxxxxxx addresses</source>
+        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -531,13 +531,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Xxxxxxx client</source>
-        <translation>Xxxxxxx klients</translation>
+        <source>Umbrella-ltc client</source>
+        <translation>Umbrella-ltc klients</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Xxxxxxx network</source>
-        <translation><numerusform>%n aktīvu savienojumu ar Xxxxxxx tīklu</numerusform><numerusform>%n aktīvs savienojums ar Xxxxxxx tīklu</numerusform><numerusform>%n aktīvu savienojumu as Xxxxxxx tīklu</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-ltc network</source>
+        <translation><numerusform>%n aktīvu savienojumu ar Umbrella-ltc tīklu</numerusform><numerusform>%n aktīvs savienojums ar Umbrella-ltc tīklu</numerusform><numerusform>%n aktīvu savienojumu as Umbrella-ltc tīklu</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -651,7 +651,7 @@ Adrese: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Xxxxxxx address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -666,7 +666,7 @@ Adrese: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Xxxxxxx can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -732,8 +732,8 @@ Adrese: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Xxxxxxx address.</source>
-        <translation>Ierakstītā adrese &quot;%1&quot; nav derīga Xxxxxxx adrese.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
+        <translation>Ierakstītā adrese &quot;%1&quot; nav derīga Umbrella-ltc adrese.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -751,8 +751,8 @@ Adrese: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Xxxxxxx-Qt</source>
-        <translation>Xxxxxxx-Qt</translation>
+        <source>Umbrella-ltc-Qt</source>
+        <translation>Umbrella-ltc-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -814,13 +814,13 @@ Adrese: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Xxxxxxx after logging in to the system.</source>
-        <translation>Automātiski sākt Xxxxxxx pēc pieteikšanās sistēmā.</translation>
+        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
+        <translation>Automātiski sākt Umbrella-ltc pēc pieteikšanās sistēmā.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Xxxxxxx on system login</source>
-        <translation>&amp;Sākt Xxxxxxx reizē ar sistēmu</translation>
+        <source>&amp;Start Umbrella-ltc on system login</source>
+        <translation>&amp;Sākt Umbrella-ltc reizē ar sistēmu</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -839,8 +839,8 @@ Adrese: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Xxxxxxx client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Uz rūtera automātiski atvērt Xxxxxxx klienta portu. Tas strādā tikai tad, ja rūteris atbalsta UPnP un tas ir ieslēgts.</translation>
+        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Uz rūtera automātiski atvērt Umbrella-ltc klienta portu. Tas strādā tikai tad, ja rūteris atbalsta UPnP un tas ir ieslēgts.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -849,7 +849,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Xxxxxxx network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -924,8 +924,8 @@ Adrese: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Xxxxxxx.</source>
-        <translation>Šeit var iestatīt lietotāja valodu. Iestatījums aktivizēsies pēc Xxxxxxx pārstartēšanas.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
+        <translation>Šeit var iestatīt lietotāja valodu. Iestatījums aktivizēsies pēc Umbrella-ltc pārstartēšanas.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -939,8 +939,8 @@ Adrese: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Xxxxxxx addresses in the transaction list or not.</source>
-        <translation>Rādīt vai nē Xxxxxxx adreses transakciju sarakstā.</translation>
+        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
+        <translation>Rādīt vai nē Umbrella-ltc adreses transakciju sarakstā.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -991,7 +991,7 @@ Adrese: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Xxxxxxx.</source>
+        <source>This setting will take effect after restarting Umbrella-ltc.</source>
         <translation>Iestatījums aktivizēsies pēc Bitkoin pārstartēšanas.</translation>
     </message>
     <message>
@@ -1010,8 +1010,8 @@ Adrese: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Xxxxxxx network after a connection is established, but this process has not completed yet.</source>
-        <translation>Attēlotā informācija var būt novecojusi. Jūsu maciņš pēc savienojuma izveides automātiski sinhronizējas ar Xxxxxxx tīklu, taču šis process vēl nav beidzies.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
+        <translation>Attēlotā informācija var būt novecojusi. Jūsu maciņš pēc savienojuma izveides automātiski sinhronizējas ar Umbrella-ltc tīklu, taču šis process vēl nav beidzies.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1064,7 +1064,7 @@ Adrese: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start xxxxxxx: click-to-pay handler</source>
+        <source>Cannot start umbrella-ltc: click-to-pay handler</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1214,7 +1214,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Xxxxxxx-Qt help message to get a list with possible Xxxxxxx command-line options.</source>
+        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1234,12 +1234,12 @@ Adrese: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Xxxxxxx - Debug window</source>
+        <source>Umbrella-ltc - Debug window</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
-        <source>Xxxxxxx Core</source>
+        <source>Umbrella-ltc Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1249,7 +1249,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Xxxxxxx debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1259,8 +1259,8 @@ Adrese: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Xxxxxxx RPC console.</source>
-        <translation>Laipni lūgti Xxxxxxx RPC konsolē.</translation>
+        <source>Welcome to the Umbrella-ltc RPC console.</source>
+        <translation>Laipni lūgti Umbrella-ltc RPC konsolē.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1443,8 +1443,8 @@ Adrese: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Ierakstiet Xxxxxxx adresi (piem. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Ierakstiet Umbrella-ltc adresi (piem. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1508,7 +1508,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Xxxxxxx address</source>
+        <source>Sign the message to prove you own this Umbrella-ltc address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1544,7 +1544,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Xxxxxxx address</source>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1560,8 +1560,8 @@ Adrese: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Xxxxxxx address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Ierakstiet Xxxxxxx adresi (piem. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Ierakstiet Umbrella-ltc adresi (piem. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1570,7 +1570,7 @@ Adrese: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Xxxxxxx signature</source>
+        <source>Enter Umbrella-ltc signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1644,7 +1644,7 @@ Adrese: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Xxxxxxx developers</source>
+        <source>The Umbrella-ltc developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2182,8 +2182,8 @@ Adrese: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Xxxxxxx version</source>
-        <translation>Xxxxxxx versija</translation>
+        <source>Umbrella-ltc version</source>
+        <translation>Umbrella-ltc versija</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2192,8 +2192,8 @@ Adrese: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or xxxxxxxd</source>
-        <translation>Nosūtīt komantu uz -server vai xxxxxxxd</translation>
+        <source>Send command to -server or umbrella-ltcd</source>
+        <translation>Nosūtīt komantu uz -server vai umbrella-ltcd</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2212,13 +2212,13 @@ Adrese: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: xxxxxxx.conf)</source>
-        <translation>Norādiet konfigurācijas failu (pēc noklusēšanas: xxxxxxx.conf)</translation>
+        <source>Specify configuration file (default: umbrella-ltc.conf)</source>
+        <translation>Norādiet konfigurācijas failu (pēc noklusēšanas: umbrella-ltc.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: xxxxxxxd.pid)</source>
-        <translation>Norādiet pid failu (pēc noklusēšanas: xxxxxxxd.pid)</translation>
+        <source>Specify pid file (default: umbrella-ltcd.pid)</source>
+        <translation>Norādiet pid failu (pēc noklusēšanas: umbrella-ltcd.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2295,13 +2295,13 @@ Adrese: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=xxxxxxxrpc
+rpcuser=umbrella-ltcrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"/>
     </message>
@@ -2317,7 +2317,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Xxxxxxx is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2362,7 +2362,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Xxxxxxx will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2612,7 +2612,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Xxxxxxx Wiki for SSL setup instructions)</source>
+        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2802,13 +2802,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Xxxxxxx</source>
-        <translation>Nevar ielādēt wallet.dat: maciņa atvēršanai nepieciešama jaunāka Xxxxxxx versija</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
+        <translation>Nevar ielādēt wallet.dat: maciņa atvēršanai nepieciešama jaunāka Umbrella-ltc versija</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Xxxxxxx to complete</source>
-        <translation>Bija nepieciešams pārstartēt maciņu: pabeigšanai pārstartējiet Xxxxxxx</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
+        <translation>Bija nepieciešams pārstartēt maciņu: pabeigšanai pārstartējiet Umbrella-ltc</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2867,8 +2867,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Xxxxxxx Alert&quot; admin@foo.
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Xxxxxxx is probably already running.</source>
-        <translation>Nevar pievienoties %s uz šī datora. Xxxxxxx droši vien jau darbojas.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
+        <translation>Nevar pievienoties %s uz šī datora. Umbrella-ltc droši vien jau darbojas.</translation>
     </message>
     <message>
         <location line="+64"/>

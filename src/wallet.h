@@ -25,8 +25,8 @@ class COutput;
 class CCoinControl;
 
 /** (client) version numbers for particular wallet features 
-  It was inherited from xxxxxxx > 0.6.0, so, all features are
-  available in xxxxxxx v0.0.0
+  It was inherited from umbrella-ltc > 0.6.0, so, all features are
+  available in umbrella-ltc v0.0.0
 */
 enum WalletFeature
 {

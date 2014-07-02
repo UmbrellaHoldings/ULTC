@@ -12,9 +12,9 @@ To Build
 ---------------------
 
 	cd src/
-	make -f makefile.unix		# Headless xxxxxxx
+	make -f makefile.unix		# Headless umbrella-ltc
 
-See readme-qt.rst for instructions on building Xxxxxxx-Qt, the graphical user interface.
+See readme-qt.rst for instructions on building Umbrella-ltc-Qt, the graphical user interface.
 
 Dependencies
 ---------------------
@@ -118,7 +118,7 @@ If you need to build Boost yourself:
 
 Security
 --------
-To help make your xxxxxxx installation more secure by making certain attacks impossible to
+To help make your umbrella-ltc installation more secure by making certain attacks impossible to
 exploit even if a vulnerability is found, you can take the following measures:
 
 * Position Independent Executable
@@ -136,7 +136,7 @@ exploit even if a vulnerability is found, you can take the following measures:
 
     To test that you have built PIE executable, install scanelf, part of paxutils, and use:
 
-    	scanelf -e ./xxxxxxx
+    	scanelf -e ./umbrella-ltc
 
     The output should contain:
      TYPE
@@ -150,7 +150,7 @@ exploit even if a vulnerability is found, you can take the following measures:
     executable without the non-executable stack protection.
 
     To verify that the stack is non-executable after compiling use:
-    `scanelf -e ./xxxxxxx`
+    `scanelf -e ./umbrella-ltc`
 
     the output should contain:
 	STK/REL/PTL

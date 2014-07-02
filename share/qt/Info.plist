@@ -3,7 +3,7 @@
 <plist version="0.9">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>xxxxxxx.icns</string>
+	<string>umbrella-ltc.icns</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleGetInfoString</key>
@@ -15,19 +15,19 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>
-	<string>Xxxxxxx-Qt</string>
+	<string>Umbrella-ltc-Qt</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.xxxxxxx.Xxxxxxx-Qt</string>
+	<string>org.umbrella-ltc.Umbrella-ltc-Qt</string>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLName</key>
-            <string>org.xxxxxxx.XxxxxxxPayment</string>
+            <string>org.umbrella-ltc.Umbrella-ltcPayment</string>
             <key>CFBundleURLSchemes</key>
             <array>
-              <string>xxxxxxx</string>
+              <string>umbrella-ltc</string>
             </array>
           </dict>
         </array>

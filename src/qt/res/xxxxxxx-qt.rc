@@ -1,5 +1,5 @@
-IDI_ICON1 ICON DISCARDABLE "icons/xxxxxxx.ico"
-IDI_ICON2 ICON DISCARDABLE "icons/xxxxxxx_testnet.ico"
+IDI_ICON1 ICON DISCARDABLE "icons/umbrella-ltc.ico"
+IDI_ICON2 ICON DISCARDABLE "icons/umbrella-ltc_testnet.ico"
 
 #include <windows.h>             // needed for VERSIONINFO
 #include "../../clientversion.h" // holds the needed client version information
@@ -20,14 +20,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Xxxxxxx"
-            VALUE "FileDescription",    "Xxxxxxx-Qt (OSS GUI client for Xxxxxxx)"
+            VALUE "CompanyName",        "Umbrella-ltc"
+            VALUE "FileDescription",    "Umbrella-ltc-Qt (OSS GUI client for Umbrella-ltc)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "xxxxxxx-qt"
+            VALUE "InternalName",       "umbrella-ltc-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "xxxxxxx-qt.exe"
-            VALUE "ProductName",        "Xxxxxxx-Qt"
+            VALUE "OriginalFilename",   "umbrella-ltc-qt.exe"
+            VALUE "ProductName",        "Umbrella-ltc-Qt"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

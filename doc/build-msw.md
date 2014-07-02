@@ -5,7 +5,7 @@ This product includes software developed by the OpenSSL Project for use in the [
 cryptographic software written by Eric Young ([eay@cryptsoft.com](mailto:eay@cryptsoft.com)), and UPnP software written by Thomas Bernard.
 
 
-See readme-qt.rst for instructions on building Xxxxxxx-Qt, the
+See readme-qt.rst for instructions on building Umbrella-ltc-Qt, the
 graphical user interface.
 
 WINDOWS BUILD NOTES
@@ -80,10 +80,10 @@ MSYS shell:
 	mkdir miniupnpc
 	cp *.h miniupnpc/
 
-Xxxxxxx
+Umbrella-ltc
 -------
 DOS prompt:
 
-	cd \xxxxxxx\src
+	cd \umbrella-ltc\src
 	mingw32-make -f makefile.mingw
-	strip xxxxxxxd.exe
+	strip umbrella-ltcd.exe

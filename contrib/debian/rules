@@ -1,33 +1,33 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-#DEB_MAKE_CHECK_TARGET = test_xxxxxxx
-#build/xxxxxxxd::
-#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_xxxxxxx)
+#DEB_MAKE_CHECK_TARGET = test_umbrella-ltc
+#build/umbrella-ltcd::
+#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_umbrella-ltc)
 
-DEB_INSTALL_EXAMPLES_xxxxxxxd += debian/examples/*
-DEB_INSTALL_MANPAGES_xxxxxxxd += debian/manpages/*
+DEB_INSTALL_EXAMPLES_umbrella-ltcd += debian/examples/*
+DEB_INSTALL_MANPAGES_umbrella-ltcd += debian/manpages/*
 
 %:
 	dh --with bash-completion $@
 
 override_dh_auto_build:
-	cd src; $(MAKE) -f makefile.unix xxxxxxxd
+	cd src; $(MAKE) -f makefile.unix umbrella-ltcd
 	$(MAKE)
 
 override_dh_auto_clean:
-	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f xxxxxxx-qt; fi
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f umbrella-ltc-qt; fi
 	cd src; $(MAKE) -f makefile.unix clean
 
 override_dh_auto_configure:
-	qmake xxxxxxx-qt.pro USE_QRCODE=1
+	qmake umbrella-ltc-qt.pro USE_QRCODE=1
 
 override_dh_auto_test:
-	cd src; $(MAKE) -f makefile.unix test_xxxxxxx
-	src/test_xxxxxxx
+	cd src; $(MAKE) -f makefile.unix test_umbrella-ltc
+	src/test_umbrella-ltc
 
 # Ensure wrapper is set executable
-binary-post-install/xxxxxxxd:
-	chmod +x $(cdbs_curdestdir)usr/bin/xxxxxxxd
-binary-post-install/xxxxxxx-qt:
-	chmod +x $(cdbs_curdestdir)usr/bin/xxxxxxx-qt
+binary-post-install/umbrella-ltcd:
+	chmod +x $(cdbs_curdestdir)usr/bin/umbrella-ltcd
+binary-post-install/umbrella-ltc-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/umbrella-ltc-qt
