@@ -1133,12 +1133,12 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-  int64 nSubsidy = BLOCK_REWARD;
+  int64 nSubsidy = pars::BLOCK_REWARD;
   
   if(nHeight == 1)
-  nSubsidy = PREMINED_MONEY; //Premined volume
+  nSubsidy = pars::PREMINED_MONEY; //Premined volume
   
-  if(nHeight >= 1 + (MAX_MONEY - PREMINED_MONEY)/BLOCK_REWARD ) // Over money limit
+  if(nHeight >= 1 + (pars::MAX_MONEY - pars::PREMINED_MONEY)/pars::BLOCK_REWARD ) // Over money limit
     nSubsidy = 0; 
 
   return nSubsidy + nFees;
