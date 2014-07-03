@@ -27,9 +27,8 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QString versionText     = QString("Version %1 ").arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightText1   = QChar(0xA9)+QString(" 2009-2013 ") + QString(tr("The Bitcoin developers"));
     QString copyrightText2   = QChar(0xA9)+QString(" 2011-2013 ") + QString(tr("The Litecoin developers"));
-    QString copyrightText3   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("The Vertcoin developers"));
-    QString copyrightText4   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("The SiliconValleycoin developers"));
-    QString copyrightText5   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("Cohors LLC"));
+    QString copyrightText3   = QChar(0xA9)+QString(" 2013-2013 ") + QString(tr("Dr. Kimoto Chan"));
+    QString copyrightText4   = QChar(0xA9)+QString(" 2013-2014 ") + QString(tr("Cohors LLC"));
     
     QString font            = "Arial";
 
@@ -54,8 +53,6 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
       pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line2,copyrightText2);
       pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line3,copyrightText3);
       pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line4,copyrightText4);
-      pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line5,copyrightText5);
-
       
     pixPaint.end();
 

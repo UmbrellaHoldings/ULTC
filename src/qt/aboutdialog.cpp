@@ -21,9 +21,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
       + QString("<br>") + tr("Copyright")
       + QString(" &copy; 2011-2013 ") + tr("The Litecoin developers")
       + QString("<br>") + tr("Copyright")
-      + QString(" &copy; 2013-2014 ") + tr("The Vertcoin Developers")
-      + QString("<br>") + tr("Copyright")
-      + QString(" &copy; 2013-2014 ") + tr("The SiliconValleycoin Developers")
+      + QString(" &copy;    2013   ") + tr("Dr. Kimoto Chan")
       + QString("<br>") + tr("Copyright")
       + QString(" &copy; 2013-2014 ") + tr("Cohors LLC")      
     );}

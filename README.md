@@ -6,8 +6,8 @@ http://www.umbrella-ltccoin.com
 Copyright (c) 2009-2013 Bitcoin Developers
 Copyright (c) 2011-2013 Litecoin Developers
 Copyright (c) 2013-2014 Vertcoin Developers
-Copyright (c) 2013-2014 SiliconValleycoin Developers
-Copyright (c) 2014 Cohors LLC
+Copyright (c)    2013   Dr. Kimoto Chan
+Copyright (c) 2013-2014 Cohors LLC
 
 What is Umbrella-ltc?
 ----------------
