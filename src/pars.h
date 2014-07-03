@@ -125,7 +125,7 @@ static_assert(
   "invalid past_max() definition"
 );
 
-using retarget_algorithm = digishield;
+using retarget_algorithm = kgw;
 
 // the value second is for testnet
 constexpr auto min_difficulty_by_design = std::make_pair(
