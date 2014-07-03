@@ -50,10 +50,10 @@ reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equiv
 config file):
 
   HiddenServiceDir /var/lib/tor/umbrella-ltc-service/
-  HiddenServicePort 201413051431 127.0.0.1:201413051431
+  HiddenServicePort 13804 127.0.0.1:13804
 
 The directory can be different of course, but (both) port numbers should be equal to
-your umbrella-ltcd's P2P listen port (201413051431 by default).
+your umbrella-ltcd's P2P listen port (13804 by default).
 
 -externalip=X   You can tell umbrella-ltc about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above
@@ -83,7 +83,7 @@ specify:
 
   ./umbrella-ltcd ... -discover
 
-and open port 201413051431 on your firewall (or use -upnp).
+and open port 13804 on your firewall (or use -upnp).
 
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:

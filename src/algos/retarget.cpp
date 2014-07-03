@@ -109,6 +109,11 @@ public:
         nActualTimespan = desired_timespan * 3/2;
     }
 
+    if ( coin::times::block::zero_duration == nActualTimespan )
+    {
+        nActualTimespan = coin::times::block::seconds(1);
+    }
+
     // Retarget
     const auto last_block_difficulty =
       rbegin->difficulty;

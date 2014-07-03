@@ -87,6 +87,7 @@ void block::mine()
      
     LOG() << "(genesis mining) start with difficulty "
           << target_difficulty << std::endl;
+    block.nBits = target_difficulty;
 
     auto best_hash = ~uint256();
 

@@ -29,7 +29,7 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0"
+  "0x60c44de13ab93b8c1360649b9bdbc5d9360cf7c19c24c0e349864f1d8d9e3167"
 );
 extern const uint256 hash;  
 
