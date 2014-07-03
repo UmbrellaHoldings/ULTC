@@ -22,7 +22,7 @@
 
 using namespace types;
 
-extern std::map<uint256, CBlockIndex*> mapBlockIndex;
+extern std::map<uint256, CBlockIndex*> mapBlockIndex; 
 extern CBlockIndex* pindexGenesisBlock;
 
 namespace retarget {
@@ -94,17 +94,20 @@ public:
           << "  before bounds\n";
 
     // thanks to RealSolid & WDC for this code 
-
-    //Amplitude Filter by daft27
-    nActualTimespan = desired_timespan 
-      + (nActualTimespan - desired_timespan)/8;
+     
+    if ( pars::digishield::limit_steps() ) //switch off for development purposes
+    {
+      //Amplitude Filter by daft27
+      nActualTimespan = desired_timespan 
+        + (nActualTimespan - desired_timespan)/8;
     
-    //Guts of DigiShield Retarget
-    if (nActualTimespan < desired_timespan * 3/4)
-      nActualTimespan = desired_timespan * 3/4;
+      //Guts of DigiShield Retarget
+      if (nActualTimespan < desired_timespan * 3/4)
+        nActualTimespan = desired_timespan * 3/4;
       
-    if (nActualTimespan > desired_timespan * 3/2) 
-      nActualTimespan = desired_timespan * 3/2;
+      if (nActualTimespan > desired_timespan * 3/2) 
+        nActualTimespan = desired_timespan * 3/2;
+    }
 
     // Retarget
     const auto last_block_difficulty =

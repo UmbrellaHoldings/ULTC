@@ -84,7 +84,13 @@ constexpr auto block_period_by_design = std::make_pair(
 
 struct retarget_algo {};
 struct twice_and_half : retarget_algo {}; // for test only
-struct digishield : retarget_algo {};
+struct digishield : retarget_algo 
+{
+  constexpr static bool limit_steps()
+  {
+    return false;
+  }
+};
 
 struct kgw : retarget_algo
 {
