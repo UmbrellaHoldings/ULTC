@@ -1,6 +1,0 @@
-umbrella-ltc-qt usr/bin
-share/pixmaps/umbrella-ltc32.xpm usr/share/pixmaps
-share/pixmaps/umbrella-ltc16.xpm usr/share/pixmaps
-share/pixmaps/umbrella-ltc128.png usr/share/pixmaps
-debian/umbrella-ltc-qt.desktop usr/share/applications
-debian/umbrella-ltc-qt.protocol usr/share/kde4/services/
