@@ -29,7 +29,7 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0x60c44de13ab93b8c1360649b9bdbc5d9360cf7c19c24c0e349864f1d8d9e3167"
+  "0xd330a57952ee16c6a63367da4cbeffbb8221d4513ba8d8a293fb17d386e18a2c"
 );
 extern const uint256 hash;  
 
@@ -51,7 +51,7 @@ genesis::block* create()
     // time
     time,
     //nonce
-    0,
+    1891240,
     // difficuly
     pars::min_difficulty_by_design.first,
     hash
@@ -71,17 +71,13 @@ genesis::block* create()
       "137a1a292c59afbdb35"
     ));
 
-#if 1 // this part is used only on new genesis generation
+#if 0 // this part is used only on new genesis generation
     blk->mine();
 #endif
 
   blk->print();
 
   assert(blk->known_hash() == real_hash);
-  const auto hash2 = hash::hasher::instance
-    (coin::times::block::clock::from_nTime(time))
-    -> hash(*blk);
-  assert(real_hash == hash2);
 
   return blk;
 }
