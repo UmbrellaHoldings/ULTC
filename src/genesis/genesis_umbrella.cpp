@@ -34,9 +34,9 @@ const uint256 hash = uint256(
 extern const uint256 hash;  
 
 const uint256 hash_testnet = uint256(
-  "0"
+  "0x81ced9312c337c99a2d6c6108f09b1127a553f4ef84d83f60684c1523a8d18f6"
 );
-extern const uint256 hash_testnet;  
+extern const uint256 hash_testnet;
 
 genesis::block* create()
 {
@@ -95,7 +95,7 @@ genesis::block* create_testnet()
     // time
     time,
     //nonce
-    0,
+    121881,
     // difficuly
     pars::min_difficulty_by_design.second,
     hash_testnet
@@ -115,17 +115,13 @@ genesis::block* create_testnet()
       "137a1a292c59afbdb35"
     ));
 
-#if 1 // this part is used only on new genesis generation
+#if 0 // this part is used only on new genesis generation
     blk->mine();
 #endif
 
   blk->print();
 
   assert(blk->known_hash() == real_hash);
-  const auto hash2 = hash::hasher::instance
-    (coin::times::block::clock::from_nTime(time))
-    -> hash(*blk);
-  assert(real_hash == hash2);
 
   return blk;
 }

@@ -129,8 +129,7 @@ using retarget_algorithm = digishield;
 
 // the value second is for testnet
 constexpr auto min_difficulty_by_design = std::make_pair(
-//  0x1d0fffff, 0x1d7fffff
-  0x1e07ffff, 0x207fffff
+  0x1e07ffff, 0x1e6236f6
 );
 
 } // pars
