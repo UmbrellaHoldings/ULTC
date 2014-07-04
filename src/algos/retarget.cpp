@@ -159,10 +159,6 @@ template<>
 class difficulty_impl<pars::kgw> : public difficulty
 {
 public:
-  //! The limit parameter for dos_min_difficulty()
-  const coin::percent_t adjustment_by_design = 
-    coin::operator"" _pct(110);
-
   const int past_blocks_min = 
     pars::kgw::past_min() / block_period_by_design;
   const int past_blocks_max = 
@@ -308,17 +304,7 @@ public:
     coin::times::block::clock::duration past
   ) const override
   {
-    if (past < coin::times::block::zero_duration)
-    throw types::exception<coin::except::invalid_timestamp>(
-        "block with timestamp before last checkpoint"
-        );
-  
-    return std::min(
-      CBigNum(last_reliable_block_difficulty)
-      * past / block_period_by_design
-      * adjustment_by_design,
-      CBigNum(min_difficulty_by_design)
-      ).GetCompact();
+    return min_difficulty_by_design;
   }
 };
 
