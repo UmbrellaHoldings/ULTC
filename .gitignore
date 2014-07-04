@@ -24,7 +24,7 @@ src/test/data/Mar12Fork.dat
 *.qm
 Makefile
 umbrella-ltc-qt
-Umbrella-ltc-Qt.app
+Umbrella-LTC-Qt.app
 
 # Unit-tests
 Makefile.test
@@ -40,8 +40,8 @@ qrc_*.cpp
 .DS_Store
 build
 Info
-Umbrella-ltc-Qt.xcodeproj
-Umbrella-ltc-Qt.dmg
+Umbrella-LTC-Qt.xcodeproj
+Umbrella-LTC-Qt.dmg
 
 !src/leveldb*/Makefile
 
