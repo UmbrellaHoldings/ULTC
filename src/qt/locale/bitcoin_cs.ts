@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Umbrella-ltc</source>
-        <translation>O Umbrella-ltcu</translation>
+        <source>About Umbrella-LTC</source>
+        <translation>O Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Umbrella-ltc&lt;/b&gt; verze</translation>
+        <source>&lt;b&gt;Umbrella-LTC&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-LTC&lt;/b&gt; verze</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+0"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Vývojáři Umbrella-ltcu</translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Vývojáři Umbrella-LTCu</translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Tohle jsou tvé Umbrella-ltcové adresy pro příjem plateb. Můžeš dát pokaždé každému plátci novou adresu, abys věděl, kdo ti kdy kolik platil.</translation>
+        <source>These are your Umbrella-LTC addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Tohle jsou tvé Umbrella-LTCové adresy pro příjem plateb. Můžeš dát pokaždé každému plátci novou adresu, abys věděl, kdo ti kdy kolik platil.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Umbrella-ltc address</source>
-        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem Umbrella-ltcové adresy</translation>
+        <source>Sign a message to prove you own a Umbrella-LTC address</source>
+        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem Umbrella-LTCové adresy</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
-        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Umbrella-ltcovou adresou</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-LTC address</source>
+        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Umbrella-LTCovou adresou</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Tohle jsou tvé Umbrella-ltcové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
+        <source>These are your Umbrella-LTC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Tohle jsou tvé Umbrella-LTCové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -275,8 +275,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-56"/>
-        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
-        <translation>Umbrella-ltc se teď ukončí, aby dokončil zašifrování. Pamatuj však, že pouhé zašifrování peněženky úplně nezabraňuje krádeži tvých umbrella-ltců malwarem, kterým se může počítač nakazit.</translation>
+        <source>Umbrella-LTC will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Umbrella-LTC se teď ukončí, aby dokončil zašifrování. Pamatuj však, že pouhé zašifrování peněženky úplně nezabraňuje krádeži tvých umbrella-ltců malwarem, kterým se může počítač nakazit.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Umbrella-ltc</source>
-        <translation>Zobraz informace o Umbrella-ltcu</translation>
+        <source>Show information about Umbrella-LTC</source>
+        <translation>Zobraz informace o Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Umbrella-ltc address</source>
-        <translation>Pošli mince na Umbrella-ltcovou adresu</translation>
+        <source>Send coins to a Umbrella-LTC address</source>
+        <translation>Pošli mince na Umbrella-LTCovou adresu</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Umbrella-ltc</source>
-        <translation>Uprav nastavení Umbrella-ltcu</translation>
+        <source>Modify configuration options for Umbrella-LTC</source>
+        <translation>Uprav nastavení Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Umbrella-ltc</source>
-        <translation>Umbrella-ltc</translation>
+        <source>Umbrella-LTC</source>
+        <translation>Umbrella-LTC</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Umbrella-ltc</source>
-        <translation>O &amp;Umbrella-ltcu</translation>
+        <source>&amp;About Umbrella-LTC</source>
+        <translation>O &amp;Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
-        <translation>Podepiš zprávy svými Umbrella-ltcovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
+        <source>Sign messages with your Umbrella-LTC addresses to prove you own them</source>
+        <translation>Podepiš zprávy svými Umbrella-LTCovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
-        <translation>Ověř zprávy, aby ses ujistil, že byly podepsány danými Umbrella-ltcovými adresami</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-LTC addresses</source>
+        <translation>Ověř zprávy, aby ses ujistil, že byly podepsány danými Umbrella-LTCovými adresami</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+47"/>
-        <source>Umbrella-ltc client</source>
-        <translation>Umbrella-ltc klient</translation>
+        <source>Umbrella-LTC client</source>
+        <translation>Umbrella-LTC klient</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Umbrella-ltc network</source>
-        <translation><numerusform>%n aktivní spojení do Umbrella-ltcové sítě</numerusform><numerusform>%n aktivní spojení do Umbrella-ltcové sítě</numerusform><numerusform>%n aktivních spojení do Umbrella-ltcové sítě</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-LTC network</source>
+        <translation><numerusform>%n aktivní spojení do Umbrella-LTCové sítě</numerusform><numerusform>%n aktivní spojení do Umbrella-LTCové sítě</numerusform><numerusform>%n aktivních spojení do Umbrella-LTCové sítě</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -656,8 +656,8 @@ Adresa: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
-        <translation>Nepodařilo se analyzovat URI! Důvodem může být neplatná Umbrella-ltcová adresa nebo poškozené parametry URI.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-LTC address or malformed URI parameters.</source>
+        <translation>Nepodařilo se analyzovat URI! Důvodem může být neplatná Umbrella-LTCová adresa nebo poškozené parametry URI.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
-        <translation>Stala se fatální chyba. Umbrella-ltc nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
+        <source>A fatal error occurred. Umbrella-LTC can no longer continue safely and will quit.</source>
+        <translation>Stala se fatální chyba. Umbrella-LTC nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Adresa: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
-        <translation>Zadaná adresa &quot;%1&quot; není platná Umbrella-ltcová adresa.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-LTC address.</source>
+        <translation>Zadaná adresa &quot;%1&quot; není platná Umbrella-LTCová adresa.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Adresa: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Umbrella-ltc-Qt</source>
-        <translation>Umbrella-ltc-Qt</translation>
+        <source>Umbrella-LTC-Qt</source>
+        <translation>Umbrella-LTC-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Adresa: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
-        <translation>Automaticky spustí Umbrella-ltc po přihlášení do systému.</translation>
+        <source>Automatically start Umbrella-LTC after logging in to the system.</source>
+        <translation>Automaticky spustí Umbrella-LTC po přihlášení do systému.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Umbrella-ltc on system login</source>
-        <translation>S&amp;pustit Umbrella-ltc po přihlášení do systému</translation>
+        <source>&amp;Start Umbrella-LTC on system login</source>
+        <translation>S&amp;pustit Umbrella-LTC po přihlášení do systému</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,7 +844,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Umbrella-LTC client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Automaticky otevře potřebný port na routeru. Tohle funguje jen za předpokladu, že tvůj router podporuje UPnP a že je UPnP povolené.</translation>
     </message>
     <message>
@@ -854,8 +854,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Připojí se do Umbrella-ltcové sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
+        <source>Connect to the Umbrella-LTC network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Připojí se do Umbrella-LTCové sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování Umbrella-ltcu.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování Umbrella-LTCu.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,7 +944,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
+        <source>Whether to show Umbrella-LTC addresses in the transaction list or not.</source>
         <translation>Zda ukazovat umbrella-ltcové adresy ve výpisu transakcí nebo ne.</translation>
     </message>
     <message>
@@ -996,8 +996,8 @@ Adresa: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>Nastavení se projeví až po restartování Umbrella-ltcu.</translation>
+        <source>This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>Nastavení se projeví až po restartování Umbrella-LTCu.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Adresa: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s Umbrella-ltcovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-LTC network after a connection is established, but this process has not completed yet.</source>
+        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s Umbrella-LTCovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1219,8 +1219,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
-        <translation>Seznam parametrů Umbrella-ltcu pro příkazovou řádku získáš v nápovědě Umbrella-ltcu Qt.</translation>
+        <source>Show the Umbrella-LTC-Qt help message to get a list with possible Umbrella-LTC command-line options.</source>
+        <translation>Seznam parametrů Umbrella-LTCu pro příkazovou řádku získáš v nápovědě Umbrella-LTCu Qt.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Adresa: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Umbrella-ltc - Debug window</source>
-        <translation>Umbrella-ltc - ladicí okno</translation>
+        <source>Umbrella-LTC - Debug window</source>
+        <translation>Umbrella-LTC - ladicí okno</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Umbrella-ltc Core</source>
-        <translation>Jádro Umbrella-ltcu</translation>
+        <source>Umbrella-LTC Core</source>
+        <translation>Jádro Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Otevři soubor s ladicími záznamy Umbrella-ltcu z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
+        <source>Open the Umbrella-LTC debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Otevři soubor s ladicími záznamy Umbrella-LTCu z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Umbrella-ltc RPC console.</source>
-        <translation>Vítej v Umbrella-ltcové RPC konzoli.</translation>
+        <source>Welcome to the Umbrella-LTC RPC console.</source>
+        <translation>Vítej v Umbrella-LTCové RPC konzoli.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Zadej Umbrella-ltcovou adresu (např. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Zadej Umbrella-LTCovou adresu (např. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Umbrella-ltc address</source>
-        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této Umbrella-ltcové adresy</translation>
+        <source>Sign the message to prove you own this Umbrella-LTC address</source>
+        <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této Umbrella-LTCové adresy</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
-        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Umbrella-ltcovou adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-LTC address</source>
+        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Umbrella-LTCovou adresou</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Adresa: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Zadej Umbrella-ltcovou adresu (např. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Zadej Umbrella-LTCovou adresu (např. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Umbrella-ltc signature</source>
-        <translation>Vlož Umbrella-ltcový podpis</translation>
+        <source>Enter Umbrella-LTC signature</source>
+        <translation>Vlož Umbrella-LTCový podpis</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Adresa: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Vývojáři Umbrella-ltcu</translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Vývojáři Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,8 +2187,8 @@ Adresa: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Umbrella-ltc version</source>
-        <translation>Verze Umbrella-ltcu</translation>
+        <source>Umbrella-LTC version</source>
+        <translation>Verze Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2306,7 +2306,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </source>
         <translation>%s, musíš nastavit rpcpassword v konfiguračním souboru:
 %s
@@ -2317,7 +2317,7 @@ rpcpassword=%s
 rpcuser a rpcpassword NESMÍ být stejné.
 Pokud konfigurační soubor ještě neexistuje, vytvoř ho tak, aby ho mohl číst pouze vlastník.
 Je také doporučeno si nastavit alertnotify, abys byl upozorněn na případné problémy;
-například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+například: alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2332,8 +2332,8 @@ například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
-        <translation>Nedaří se mi získat zámek na datový adresář %s. Umbrella-ltc pravděpodobně už jednou běží.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-LTC is probably already running.</source>
+        <translation>Nedaří se mi získat zámek na datový adresář %s. Umbrella-LTC pravděpodobně už jednou běží.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2377,8 +2377,8 @@ například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
-        <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, Umbrella-ltc nebude fungovat správně.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-LTC will not work properly.</source>
+        <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, Umbrella-LTC nebude fungovat správně.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2627,8 +2627,8 @@ například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
-        <translation>Možnosti SSL: (viz instrukce nastavení SSL v Umbrella-ltc Wiki)</translation>
+        <source>SSL options: (see the Umbrella-LTC Wiki for SSL setup instructions)</source>
+        <translation>Možnosti SSL: (viz instrukce nastavení SSL v Umbrella-LTC Wiki)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2817,13 +2817,13 @@ například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
-        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi Umbrella-ltcu</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-LTC</source>
+        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi Umbrella-LTCu</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
-        <translation>Soubor s peněženkou potřeboval přepsat: restartuj Umbrella-ltc, aby se operace dokončila</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-LTC to complete</source>
+        <translation>Soubor s peněženkou potřeboval přepsat: restartuj Umbrella-LTC, aby se operace dokončila</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2882,8 +2882,8 @@ například: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
-        <translation>Nedaří se mi připojit na %s na tomhle počítači. Umbrella-ltc už pravděpodobně jednou běží.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-LTC is probably already running.</source>
+        <translation>Nedaří se mi připojit na %s na tomhle počítači. Umbrella-LTC už pravděpodobně jednou běží.</translation>
     </message>
     <message>
         <location line="+64"/>

@@ -14,7 +14,7 @@ To Build
 	cd src/
 	make -f makefile.unix		# Headless umbrella-ltc
 
-See readme-qt.rst for instructions on building Umbrella-ltc-Qt, the graphical user interface.
+See readme-qt.rst for instructions on building Umbrella-LTC-Qt, the graphical user interface.
 
 Dependencies
 ---------------------

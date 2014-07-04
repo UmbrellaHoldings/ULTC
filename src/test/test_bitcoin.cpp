@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE Umbrella-ltc Test Suite
+#define BOOST_TEST_MODULE Umbrella-LTC Test Suite
 #include <boost/test/unit_test.hpp>
 #include <boost/filesystem.hpp>
 

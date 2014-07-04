@@ -15,16 +15,16 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>
-	<string>Umbrella-ltc-Qt</string>
+	<string>Umbrella-LTC-Qt</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.umbrella-ltc.Umbrella-ltc-Qt</string>
+	<string>org.umbrella-ltc.Umbrella-LTC-Qt</string>
         <key>CFBundleURLTypes</key>
         <array>
           <dict>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLName</key>
-            <string>org.umbrella-ltc.Umbrella-ltcPayment</string>
+            <string>org.umbrella-ltc.Umbrella-LTCPayment</string>
             <key>CFBundleURLSchemes</key>
             <array>
               <string>umbrella-ltc</string>

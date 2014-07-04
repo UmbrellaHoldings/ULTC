@@ -1,4 +1,4 @@
-Umbrella-ltc-Qt: Qt4 GUI for Umbrella-ltc
+Umbrella-LTC-Qt: Qt4 GUI for Umbrella-LTC
 ===============================
 
 Build instructions
@@ -133,9 +133,9 @@ flag to qmake to control this:
 Berkely DB version warning
 ==========================
 
-A warning for people using the *static binary* version of Umbrella-ltc on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
+A warning for people using the *static binary* version of Umbrella-LTC on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
 
-The static binary version of Umbrella-ltc is linked against libdb4.8 (see also `this Debian issue`_).
+The static binary version of Umbrella-LTC is linked against libdb4.8 (see also `this Debian issue`_).
 
 Now the nasty thing is that databases from 5.X are not compatible with 4.X.
 

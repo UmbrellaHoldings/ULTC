@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Umbrella-ltc</source>
-        <translation>À propos de Umbrella-ltc</translation>
+        <source>About Umbrella-LTC</source>
+        <translation>À propos de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;Umbrella-LTC&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Umbrella-LTC&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Les développeurs Umbrella-ltc</translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Les développeurs Umbrella-LTC</translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Voici vos adresses Umbrella-ltc qui vous permettent de recevoir des paiements. Vous pouvez donner une adresse différente à chaque expéditeur afin de savoir qui vous paye.</translation>
+        <source>These are your Umbrella-LTC addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Voici vos adresses Umbrella-LTC qui vous permettent de recevoir des paiements. Vous pouvez donner une adresse différente à chaque expéditeur afin de savoir qui vous paye.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Umbrella-ltc address</source>
-        <translation>Signer un message pour prouver que vous détenez une adresse Umbrella-ltc</translation>
+        <source>Sign a message to prove you own a Umbrella-LTC address</source>
+        <translation>Signer un message pour prouver que vous détenez une adresse Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
-        <translation>Vérifier un message pour vous assurer qu&apos;il a bien été signé avec l&apos;adresse Umbrella-ltc spécifiée</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-LTC address</source>
+        <translation>Vérifier un message pour vous assurer qu&apos;il a bien été signé avec l&apos;adresse Umbrella-LTC spécifiée</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Ce sont vos adresses Umbrella-ltc pour émettre des paiements. Vérifiez toujours le montant et l&apos;adresse du destinataire avant d&apos;envoyer des pièces.</translation>
+        <source>These are your Umbrella-LTC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Ce sont vos adresses Umbrella-LTC pour émettre des paiements. Vérifiez toujours le montant et l&apos;adresse du destinataire avant d&apos;envoyer des pièces.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -138,7 +138,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+1"/>
         <source>Send &amp;Coins</source>
-        <translation>Envoyer des &amp;Umbrella-ltcs</translation>
+        <translation>Envoyer des &amp;Umbrella-LTCs</translation>
     </message>
     <message>
         <location line="+260"/>
@@ -275,8 +275,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
-        <translation>Umbrella-ltc va à présent se fermer pour terminer la procédure de cryptage. N&apos;oubliez pas que le chiffrement de votre porte-monnaie ne peut pas fournir une protection totale contre le vol par des logiciels malveillants qui infecteraient votre ordinateur.</translation>
+        <source>Umbrella-LTC will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Umbrella-LTC va à présent se fermer pour terminer la procédure de cryptage. N&apos;oubliez pas que le chiffrement de votre porte-monnaie ne peut pas fournir une protection totale contre le vol par des logiciels malveillants qui infecteraient votre ordinateur.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Umbrella-ltc</source>
-        <translation>Afficher des informations à propos de Umbrella-ltc</translation>
+        <source>Show information about Umbrella-LTC</source>
+        <translation>Afficher des informations à propos de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Umbrella-ltc address</source>
-        <translation>Envoyer des pièces à une adresse Umbrella-ltc</translation>
+        <source>Send coins to a Umbrella-LTC address</source>
+        <translation>Envoyer des pièces à une adresse Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Umbrella-ltc</source>
-        <translation>Modifier les options de configuration de Umbrella-ltc</translation>
+        <source>Modify configuration options for Umbrella-LTC</source>
+        <translation>Modifier les options de configuration de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Umbrella-ltc</source>
-        <translation>Umbrella-ltc</translation>
+        <source>Umbrella-LTC</source>
+        <translation>Umbrella-LTC</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Umbrella-ltc</source>
-        <translation>À &amp;propos de Umbrella-ltc</translation>
+        <source>&amp;About Umbrella-LTC</source>
+        <translation>À &amp;propos de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
-        <translation>Signer les messages avec vos adresses Umbrella-ltc pour prouver que vous les détenez</translation>
+        <source>Sign messages with your Umbrella-LTC addresses to prove you own them</source>
+        <translation>Signer les messages avec vos adresses Umbrella-LTC pour prouver que vous les détenez</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
-        <translation>Vérifier les messages pour vous assurer qu&apos;ils ont bien été signés avec les adresses Umbrella-ltc spécifiées</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-LTC addresses</source>
+        <translation>Vérifier les messages pour vous assurer qu&apos;ils ont bien été signés avec les adresses Umbrella-LTC spécifiées</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,13 +536,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Umbrella-ltc client</source>
-        <translation>Client Umbrella-ltc</translation>
+        <source>Umbrella-LTC client</source>
+        <translation>Client Umbrella-LTC</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Umbrella-ltc network</source>
-        <translation><numerusform>%n connexion active avec le réseau Umbrella-ltc</numerusform><numerusform>%n connexions actives avec le réseau Umbrella-ltc</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-LTC network</source>
+        <translation><numerusform>%n connexion active avec le réseau Umbrella-LTC</numerusform><numerusform>%n connexions actives avec le réseau Umbrella-LTC</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -656,8 +656,8 @@ Adresse : %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
-        <translation>L&apos;URI ne peut être analysé ! Cela peut être causé par une adresse Umbrella-ltc invalide ou par des paramètres d&apos;URI malformés.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-LTC address or malformed URI parameters.</source>
+        <translation>L&apos;URI ne peut être analysé ! Cela peut être causé par une adresse Umbrella-LTC invalide ou par des paramètres d&apos;URI malformés.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Adresse : %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
-        <translation>Une erreur fatale est survenue. Umbrella-ltc ne peut plus continuer à fonctionner de façon sûre et va s&apos;arrêter.</translation>
+        <source>A fatal error occurred. Umbrella-LTC can no longer continue safely and will quit.</source>
+        <translation>Une erreur fatale est survenue. Umbrella-LTC ne peut plus continuer à fonctionner de façon sûre et va s&apos;arrêter.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Adresse : %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
-        <translation>L&apos;adresse fournie « %1 » n&apos;est pas une adresse Umbrella-ltc valide.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-LTC address.</source>
+        <translation>L&apos;adresse fournie « %1 » n&apos;est pas une adresse Umbrella-LTC valide.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Adresse : %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Umbrella-ltc-Qt</source>
-        <translation>Umbrella-ltc-Qt</translation>
+        <source>Umbrella-LTC-Qt</source>
+        <translation>Umbrella-LTC-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Adresse : %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
-        <translation>Démarrer Umbrella-ltc automatiquement lors de l&apos;ouverture une session sur l&apos;ordinateur.</translation>
+        <source>Automatically start Umbrella-LTC after logging in to the system.</source>
+        <translation>Démarrer Umbrella-LTC automatiquement lors de l&apos;ouverture une session sur l&apos;ordinateur.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Umbrella-ltc on system login</source>
-        <translation>&amp;Démarrer Umbrella-ltc lors de l&apos;ouverture d&apos;une session</translation>
+        <source>&amp;Start Umbrella-LTC on system login</source>
+        <translation>&amp;Démarrer Umbrella-LTC lors de l&apos;ouverture d&apos;une session</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Ouvrir le port du client Umbrella-ltc automatiquement sur le routeur. Cela ne fonctionne que si votre routeur supporte l&apos;UPnP et si la fonctionnalité est activée.</translation>
+        <source>Automatically open the Umbrella-LTC client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ouvrir le port du client Umbrella-LTC automatiquement sur le routeur. Cela ne fonctionne que si votre routeur supporte l&apos;UPnP et si la fonctionnalité est activée.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connexion au réseau Umbrella-ltc à travers un proxy SOCKS (par ex. lors d&apos;une connexion via Tor).</translation>
+        <source>Connect to the Umbrella-LTC network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connexion au réseau Umbrella-LTC à travers un proxy SOCKS (par ex. lors d&apos;une connexion via Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>La langue de l&apos;interface utilisateur peut être définie ici. Ce réglage sera pris en compte après redémarrage de Umbrella-ltc.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>La langue de l&apos;interface utilisateur peut être définie ici. Ce réglage sera pris en compte après redémarrage de Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,8 +944,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
-        <translation>Détermine si les adresses Umbrella-ltc seront affichées sur la liste des transactions.</translation>
+        <source>Whether to show Umbrella-LTC addresses in the transaction list or not.</source>
+        <translation>Détermine si les adresses Umbrella-LTC seront affichées sur la liste des transactions.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Adresse : %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>Ce réglage sera pris en compte après un redémarrage de Umbrella-ltc.</translation>
+        <source>This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>Ce réglage sera pris en compte après un redémarrage de Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Adresse : %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
-        <translation>Les informations affichées peuvent être obsolètes. Votre porte-monnaie est automatiquement synchronisé avec le réseau Umbrella-ltc lorsque la connexion s&apos;établit, or ce processus n&apos;est pas encore terminé.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-LTC network after a connection is established, but this process has not completed yet.</source>
+        <translation>Les informations affichées peuvent être obsolètes. Votre porte-monnaie est automatiquement synchronisé avec le réseau Umbrella-LTC lorsque la connexion s&apos;établit, or ce processus n&apos;est pas encore terminé.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1219,8 +1219,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
-        <translation>Afficher le message d&apos;aide de Umbrella-ltc-Qt pour obtenir la liste des options de ligne de commande disponibles pour Umbrella-ltc.</translation>
+        <source>Show the Umbrella-LTC-Qt help message to get a list with possible Umbrella-LTC command-line options.</source>
+        <translation>Afficher le message d&apos;aide de Umbrella-LTC-Qt pour obtenir la liste des options de ligne de commande disponibles pour Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Adresse : %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Umbrella-ltc - Debug window</source>
-        <translation>Umbrella-ltc - Fenêtre de débogage</translation>
+        <source>Umbrella-LTC - Debug window</source>
+        <translation>Umbrella-LTC - Fenêtre de débogage</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Umbrella-ltc Core</source>
-        <translation>Noyau Umbrella-ltc</translation>
+        <source>Umbrella-LTC Core</source>
+        <translation>Noyau Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Ouvrir le journal de débogage de Umbrella-ltc depuis le répertoire de données actuel. Cela peut prendre quelques secondes pour les journaux de grande taille.</translation>
+        <source>Open the Umbrella-LTC debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Ouvrir le journal de débogage de Umbrella-LTC depuis le répertoire de données actuel. Cela peut prendre quelques secondes pour les journaux de grande taille.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Adresse : %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Umbrella-ltc RPC console.</source>
-        <translation>Bienvenue sur la console RPC de Umbrella-ltc.</translation>
+        <source>Welcome to the Umbrella-LTC RPC console.</source>
+        <translation>Bienvenue sur la console RPC de Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Adresse : %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Entrez une adresse Umbrella-ltc (par ex. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Entrez une adresse Umbrella-LTC (par ex. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Umbrella-ltc address</source>
-        <translation>Signer le message pour prouver que vous détenez cette adresse Umbrella-ltc</translation>
+        <source>Sign the message to prove you own this Umbrella-LTC address</source>
+        <translation>Signer le message pour prouver que vous détenez cette adresse Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
-        <translation>Vérifier le message pour vous assurer qu&apos;il a bien été signé par l&apos;adresse Umbrella-ltc spécifiée</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-LTC address</source>
+        <translation>Vérifier le message pour vous assurer qu&apos;il a bien été signé par l&apos;adresse Umbrella-LTC spécifiée</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Adresse : %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Entrez une adresse Umbrella-ltc (par ex. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Entrez une adresse Umbrella-LTC (par ex. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Umbrella-ltc signature</source>
-        <translation>Entrer une signature Umbrella-ltc</translation>
+        <source>Enter Umbrella-LTC signature</source>
+        <translation>Entrer une signature Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Adresse : %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Les développeurs Umbrella-ltc</translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Les développeurs Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,8 +2187,8 @@ Adresse : %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Umbrella-ltc version</source>
-        <translation>Version de Umbrella-ltc</translation>
+        <source>Umbrella-LTC version</source>
+        <translation>Version de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2306,7 +2306,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </source>
         <translation>%s, vous devez définir un mot de passe rpc dans le fichier de configuration : 
 %s
@@ -2317,7 +2317,7 @@ rpcpassword=%s
 Le nom d&apos;utilisateur et le mot de passe NE DOIVENT PAS être identiques.
 Si le fichier n&apos;existe pas, créez-le avec les droits de lecture accordés au propriétaire.
 Il est aussi conseillé de régler alertnotify pour être prévenu des problèmes ;
-par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2332,8 +2332,8 @@ par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admi
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
-        <translation>Impossible d’obtenir un verrou sur le répertoire de données %s. Umbrella-ltc fonctionne probablement déjà.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-LTC is probably already running.</source>
+        <translation>Impossible d’obtenir un verrou sur le répertoire de données %s. Umbrella-LTC fonctionne probablement déjà.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2377,8 +2377,8 @@ par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admi
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
-        <translation>Attention : veuillez vérifier que l&apos;heure et la date de votre ordinateur sont correctes ! Si votre horloge n&apos;est pas à l&apos;heure, Umbrella-ltc ne fonctionnera pas correctement.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-LTC will not work properly.</source>
+        <translation>Attention : veuillez vérifier que l&apos;heure et la date de votre ordinateur sont correctes ! Si votre horloge n&apos;est pas à l&apos;heure, Umbrella-LTC ne fonctionnera pas correctement.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2627,8 +2627,8 @@ par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admi
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
-        <translation>Options SSL : (cf. le wiki de Umbrella-ltc pour les instructions de configuration du SSL)</translation>
+        <source>SSL options: (see the Umbrella-LTC Wiki for SSL setup instructions)</source>
+        <translation>Options SSL : (cf. le wiki de Umbrella-LTC pour les instructions de configuration du SSL)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2817,13 +2817,13 @@ par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admi
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
-        <translation>Erreur lors du chargement de wallet.dat : le porte-monnaie nécessite une version plus récente de Umbrella-ltc</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-LTC</source>
+        <translation>Erreur lors du chargement de wallet.dat : le porte-monnaie nécessite une version plus récente de Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
-        <translation>Le porte-monnaie nécessitait une réécriture : veuillez redémarrer Umbrella-ltc pour terminer l&apos;opération</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-LTC to complete</source>
+        <translation>Le porte-monnaie nécessitait une réécriture : veuillez redémarrer Umbrella-LTC pour terminer l&apos;opération</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2882,8 +2882,8 @@ par exemple : alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admi
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
-        <translation>Impossible de se lier à %s sur cet ordinateur. Umbrella-ltc fonctionne probablement déjà.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-LTC is probably already running.</source>
+        <translation>Impossible de se lier à %s sur cet ordinateur. Umbrella-LTC fonctionne probablement déjà.</translation>
     </message>
     <message>
         <location line="+64"/>

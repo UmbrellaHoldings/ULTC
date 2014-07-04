@@ -1,4 +1,4 @@
-Umbrella-ltc integration/staging tree
+Umbrella-LTC integration/staging tree
 ================================
 
 http://www.umbrella-ltccoin.com
@@ -9,10 +9,10 @@ Copyright (c) 2013-2014 Vertcoin Developers
 Copyright (c)    2013   Dr. Kimoto Chan
 Copyright (c) 2013-2014 Cohors LLC
 
-What is Umbrella-ltc?
+What is Umbrella-LTC?
 ----------------
 
-Umbrella-ltc is a lite version of Umbrella-ltc using scrypt-adaptive-N as a proof-of-work algorithm.
+Umbrella-LTC is a lite version of Umbrella-LTC using scrypt-adaptive-N as a proof-of-work algorithm.
  - 8 minute block targets
  - block value halves in 75k blocks (~1 years)
  - 35 million total coins
@@ -20,12 +20,12 @@ Umbrella-ltc is a lite version of Umbrella-ltc using scrypt-adaptive-N as a proo
  - Every block to retarget difficulty with DigiShield algorithm
 
 For more information, as well as an immediately useable, binary version of
-the Umbrella-ltc client sofware, see http://www.umbrella-ltccoin.com.
+the Umbrella-LTC client sofware, see http://www.umbrella-ltccoin.com.
 
 License
 -------
 
-Umbrella-ltc is released under the terms of the MIT license. See `COPYING` for more
+Umbrella-LTC is released under the terms of the MIT license. See `COPYING` for more
 information or see http://opensource.org/licenses/MIT.
 
 Development process
@@ -34,7 +34,7 @@ Development process
 Developers work in their own trees, then submit pull requests when they think
 their feature or bug fix is ready.
 
-If it is a simple/trivial/non-controversial change, then one of the Umbrella-ltc
+If it is a simple/trivial/non-controversial change, then one of the Umbrella-LTC
 development team members simply pulls it.
 
 If it is a *more complicated or potentially controversial* change, then the patch
@@ -48,7 +48,7 @@ controversial.
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
 completely stable. [Tags](https://github.com/licentia/umbrella-ltccoin) are created
-regularly to indicate new official, stable release versions of Umbrella-ltc.
+regularly to indicate new official, stable release versions of Umbrella-LTC.
 
 Testing
 -------

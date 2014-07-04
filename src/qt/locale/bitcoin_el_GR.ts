@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Umbrella-ltc</source>
-        <translation>Σχετικά με το Umbrella-ltc</translation>
+        <source>About Umbrella-LTC</source>
+        <translation>Σχετικά με το Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Umbrella-ltc&lt;/b&gt; version</source>
-        <translation>Έκδοση Umbrella-ltc</translation>
+        <source>&lt;b&gt;Umbrella-LTC&lt;/b&gt; version</source>
+        <translation>Έκδοση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Οι Umbrella-ltc προγραμματιστές </translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Οι Umbrella-LTC προγραμματιστές </translation>
     </message>
 </context>
 <context>
@@ -67,8 +67,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Umbrella-ltc addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Αυτές είναι οι Umbrella-ltc διευθύνσεις σας για να λαμβάνετε πληρωμές. Δίνοντας μία ξεχωριστή διεύθυνση σε κάθε αποστολέα, θα μπορείτε να ελέγχετε ποιος σας πληρώνει.</translation>
+        <source>These are your Umbrella-LTC addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Αυτές είναι οι Umbrella-LTC διευθύνσεις σας για να λαμβάνετε πληρωμές. Δίνοντας μία ξεχωριστή διεύθυνση σε κάθε αποστολέα, θα μπορείτε να ελέγχετε ποιος σας πληρώνει.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -82,8 +82,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Umbrella-ltc address</source>
-        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως σας ανήκει μια συγκεκριμένη διεύθυνση Umbrella-ltc</translation>
+        <source>Sign a message to prove you own a Umbrella-LTC address</source>
+        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως σας ανήκει μια συγκεκριμένη διεύθυνση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Umbrella-ltc address</source>
-        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως ανήκει μια συγκεκριμένη διεύθυνση Umbrella-ltc</translation>
+        <source>Verify a message to ensure it was signed with a specified Umbrella-LTC address</source>
+        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως ανήκει μια συγκεκριμένη διεύθυνση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,8 +122,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Umbrella-ltc addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Αυτές είναι οι Umbrella-ltc διευθύνσεις σας για να λαμβάνετε πληρωμές. Δίνοντας μία ξεχωριστή διεύθυνση σε κάθε αποστολέα, θα μπορείτε να ελέγχετε ποιος σας πληρώνει.</translation>
+        <source>These are your Umbrella-LTC addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Αυτές είναι οι Umbrella-LTC διευθύνσεις σας για να λαμβάνετε πληρωμές. Δίνοντας μία ξεχωριστή διεύθυνση σε κάθε αποστολέα, θα μπορείτε να ελέγχετε ποιος σας πληρώνει.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -276,8 +276,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Umbrella-ltc will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
-        <translation>Το Umbrella-ltc θα κλεισει τώρα για να τελειώσει την διαδικασία κρυπτογραφησης. Θυμησου ότι κρυπτογραφώντας το πορτοφολι σου δεν μπορείς να προστατέψεις πλήρως τα umbrella-ltcs σου από κλοπή στην περίπτωση όπου μολυνθεί ο υπολογιστής σου με κακόβουλο λογισμικο.</translation>
+        <source>Umbrella-LTC will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your umbrella-ltcs from being stolen by malware infecting your computer.</source>
+        <translation>Το Umbrella-LTC θα κλεισει τώρα για να τελειώσει την διαδικασία κρυπτογραφησης. Θυμησου ότι κρυπτογραφώντας το πορτοφολι σου δεν μπορείς να προστατέψεις πλήρως τα umbrella-ltcs σου από κλοπή στην περίπτωση όπου μολυνθεί ο υπολογιστής σου με κακόβουλο λογισμικο.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -375,8 +375,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Umbrella-ltc</source>
-        <translation>Εμφάνισε πληροφορίες σχετικά με το Umbrella-ltc</translation>
+        <source>Show information about Umbrella-LTC</source>
+        <translation>Εμφάνισε πληροφορίες σχετικά με το Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -420,13 +420,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Umbrella-ltc address</source>
+        <source>Send coins to a Umbrella-LTC address</source>
         <translation>Στείλε νομισματα σε μια διεύθυνση umbrella-ltc</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Umbrella-ltc</source>
-        <translation>Επεργασία  ρυθμισεων επιλογών για το Umbrella-ltc</translation>
+        <source>Modify configuration options for Umbrella-LTC</source>
+        <translation>Επεργασία  ρυθμισεων επιλογών για το Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -456,8 +456,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Umbrella-ltc</source>
-        <translation>Umbrella-ltc</translation>
+        <source>Umbrella-LTC</source>
+        <translation>Umbrella-LTC</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -481,8 +481,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Umbrella-ltc</source>
-        <translation>&amp;Σχετικα:Umbrella-ltc</translation>
+        <source>&amp;About Umbrella-LTC</source>
+        <translation>&amp;Σχετικα:Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -501,13 +501,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Umbrella-ltc addresses to prove you own them</source>
+        <source>Sign messages with your Umbrella-LTC addresses to prove you own them</source>
         <translation>Υπογράψτε ένα μήνυμα για να βεβαιώσετε πως είστε ο κάτοχος αυτής της διεύθυνσης</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Umbrella-ltc addresses</source>
-        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως ανήκει μια συγκεκριμένη διεύθυνση Umbrella-ltc</translation>
+        <source>Verify messages to ensure they were signed with specified Umbrella-LTC addresses</source>
+        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως ανήκει μια συγκεκριμένη διεύθυνση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -537,13 +537,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Umbrella-ltc client</source>
-        <translation>Πελάτης Umbrella-ltc</translation>
+        <source>Umbrella-LTC client</source>
+        <translation>Πελάτης Umbrella-LTC</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Umbrella-ltc network</source>
-        <translation><numerusform>%n ενεργή σύνδεση στο δίκτυο Umbrella-ltc</numerusform><numerusform>%n ενεργές συνδέσεις στο δίκτυο Βitcoin</numerusform></translation>
+        <source>%n active connection(s) to Umbrella-LTC network</source>
+        <translation><numerusform>%n ενεργή σύνδεση στο δίκτυο Umbrella-LTC</numerusform><numerusform>%n ενεργές συνδέσεις στο δίκτυο Βitcoin</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -659,8 +659,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Umbrella-ltc address or malformed URI parameters.</source>
-        <translation>Το URI δεν μπορεί να αναλυθεί! Αυτό μπορεί να προκληθεί από μια μη έγκυρη διεύθυνση Umbrella-ltc ή ακατάλληλη παραμέτρο URI.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Umbrella-LTC address or malformed URI parameters.</source>
+        <translation>Το URI δεν μπορεί να αναλυθεί! Αυτό μπορεί να προκληθεί από μια μη έγκυρη διεύθυνση Umbrella-LTC ή ακατάλληλη παραμέτρο URI.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -674,8 +674,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Umbrella-ltc can no longer continue safely and will quit.</source>
-        <translation>Παρουσιάστηκε ανεπανόρθωτο σφάλμα. Το Umbrella-ltc δεν μπορεί πλέον να συνεχίσει με ασφάλεια και θα τερματισθει.</translation>
+        <source>A fatal error occurred. Umbrella-LTC can no longer continue safely and will quit.</source>
+        <translation>Παρουσιάστηκε ανεπανόρθωτο σφάλμα. Το Umbrella-LTC δεν μπορεί πλέον να συνεχίσει με ασφάλεια και θα τερματισθει.</translation>
     </message>
 </context>
 <context>
@@ -740,8 +740,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Umbrella-ltc address.</source>
-        <translation>Η διεύθυνση &quot;%1&quot; δεν είναι έγκυρη Umbrella-ltc διεύθυνση.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Umbrella-LTC address.</source>
+        <translation>Η διεύθυνση &quot;%1&quot; δεν είναι έγκυρη Umbrella-LTC διεύθυνση.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -759,7 +759,7 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Umbrella-ltc-Qt</source>
+        <source>Umbrella-LTC-Qt</source>
         <translation>umbrella-ltc-qt</translation>
     </message>
     <message>
@@ -822,12 +822,12 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Umbrella-ltc after logging in to the system.</source>
-        <translation>Αυτόματη εκκίνηση του Umbrella-ltc μετά την εισαγωγή στο σύστημα</translation>
+        <source>Automatically start Umbrella-LTC after logging in to the system.</source>
+        <translation>Αυτόματη εκκίνηση του Umbrella-LTC μετά την εισαγωγή στο σύστημα</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Umbrella-ltc on system login</source>
+        <source>&amp;Start Umbrella-LTC on system login</source>
         <translation>&amp;Έναρξη του Βιtcoin κατά την εκκίνηση του συστήματος</translation>
     </message>
     <message>
@@ -847,8 +847,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Umbrella-ltc client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Αυτόματο άνοιγμα των θυρών Umbrella-ltc στον δρομολογητή. Λειτουργεί μόνο αν ο δρομολογητής σας υποστηρίζει τη λειτουργία UPnP.</translation>
+        <source>Automatically open the Umbrella-LTC client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Αυτόματο άνοιγμα των θυρών Umbrella-LTC στον δρομολογητή. Λειτουργεί μόνο αν ο δρομολογητής σας υποστηρίζει τη λειτουργία UPnP.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -857,8 +857,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Umbrella-ltc network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Σύνδεση στο Umbrella-ltc δίκτυο μέσω διαμεσολαβητή SOCKS4 (π.χ. για σύνδεση μέσω Tor)</translation>
+        <source>Connect to the Umbrella-LTC network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Σύνδεση στο Umbrella-LTC δίκτυο μέσω διαμεσολαβητή SOCKS4 (π.χ. για σύνδεση μέσω Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -932,8 +932,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>Εδώ μπορεί να ρυθμιστεί η γλώσσα διεπαφής χρήστη. Αυτή η ρύθμιση θα ισχύσει μετά την επανεκκίνηση του Umbrella-ltc.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>Εδώ μπορεί να ρυθμιστεί η γλώσσα διεπαφής χρήστη. Αυτή η ρύθμιση θα ισχύσει μετά την επανεκκίνηση του Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -947,8 +947,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Umbrella-ltc addresses in the transaction list or not.</source>
-        <translation>Επιλέξτε αν θέλετε να εμφανίζονται οι διευθύνσεις Umbrella-ltc στη λίστα συναλλαγών.</translation>
+        <source>Whether to show Umbrella-LTC addresses in the transaction list or not.</source>
+        <translation>Επιλέξτε αν θέλετε να εμφανίζονται οι διευθύνσεις Umbrella-LTC στη λίστα συναλλαγών.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -999,8 +999,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Umbrella-ltc.</source>
-        <translation>Αυτή η ρύθμιση θα ισχύσει μετά την επανεκκίνηση του Umbrella-ltc.</translation>
+        <source>This setting will take effect after restarting Umbrella-LTC.</source>
+        <translation>Αυτή η ρύθμιση θα ισχύσει μετά την επανεκκίνηση του Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1018,8 +1018,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-ltc network after a connection is established, but this process has not completed yet.</source>
-        <translation>Οι πληροφορίες που εμφανίζονται μπορεί να είναι ξεπερασμένες. Το πορτοφόλι σας συγχρονίζεται αυτόματα με το δίκτυο Umbrella-ltc μετά από μια σύνδεση, αλλά αυτή η διαδικασία δεν έχει ακόμη ολοκληρωθεί. </translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Umbrella-LTC network after a connection is established, but this process has not completed yet.</source>
+        <translation>Οι πληροφορίες που εμφανίζονται μπορεί να είναι ξεπερασμένες. Το πορτοφόλι σας συγχρονίζεται αυτόματα με το δίκτυο Umbrella-LTC μετά από μια σύνδεση, αλλά αυτή η διαδικασία δεν έχει ακόμη ολοκληρωθεί. </translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1073,7 +1073,7 @@ Address: %4
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
         <source>Cannot start umbrella-ltc: click-to-pay handler</source>
-        <translation>Δεν είναι δυνατή η εκκίνηση του Umbrella-ltc: click-to-pay handler</translation>
+        <translation>Δεν είναι δυνατή η εκκίνηση του Umbrella-LTC: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1222,8 +1222,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Umbrella-ltc-Qt help message to get a list with possible Umbrella-ltc command-line options.</source>
-        <translation>Εμφανιση του Umbrella-ltc-Qt μήνυματος βοήθειας για να πάρετε μια λίστα με τις πιθανές επιλογές Umbrella-ltc γραμμής εντολών.</translation>
+        <source>Show the Umbrella-LTC-Qt help message to get a list with possible Umbrella-LTC command-line options.</source>
+        <translation>Εμφανιση του Umbrella-LTC-Qt μήνυματος βοήθειας για να πάρετε μια λίστα με τις πιθανές επιλογές Umbrella-LTC γραμμής εντολών.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1242,13 +1242,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Umbrella-ltc - Debug window</source>
-        <translation>Umbrella-ltc - Παράθυρο αποσφαλμάτωσης</translation>
+        <source>Umbrella-LTC - Debug window</source>
+        <translation>Umbrella-LTC - Παράθυρο αποσφαλμάτωσης</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Umbrella-ltc Core</source>
-        <translation>Umbrella-ltc Core</translation>
+        <source>Umbrella-LTC Core</source>
+        <translation>Umbrella-LTC Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1257,7 +1257,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Umbrella-ltc debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Umbrella-LTC debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Ανοίξτε το αρχείο καταγραφής εντοπισμού σφαλμάτων από τον τρέχοντα κατάλογο δεδομένων. Αυτό μπορεί να πάρει μερικά δευτερόλεπτα για τα μεγάλα αρχεία καταγραφής. </translation>
     </message>
     <message>
@@ -1267,8 +1267,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Umbrella-ltc RPC console.</source>
-        <translation>Καλώς ήρθατε στην Umbrella-ltc RPC κονσόλα.</translation>
+        <source>Welcome to the Umbrella-LTC RPC console.</source>
+        <translation>Καλώς ήρθατε στην Umbrella-LTC RPC κονσόλα.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1451,8 +1451,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Εισάγετε μια διεύθυνση Umbrella-ltc (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Εισάγετε μια διεύθυνση Umbrella-LTC (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
 </context>
 <context>
@@ -1475,7 +1475,7 @@ Address: %4
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Εισάγετε μια διεύθυνση Umbrella-ltc (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <translation>Εισάγετε μια διεύθυνση Umbrella-LTC (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1516,8 +1516,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Umbrella-ltc address</source>
-        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως σας ανήκει μια συγκεκριμένη διεύθυνση Umbrella-ltc</translation>
+        <source>Sign the message to prove you own this Umbrella-LTC address</source>
+        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως σας ανήκει μια συγκεκριμένη διεύθυνση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1548,12 +1548,12 @@ Address: %4
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Εισάγετε μια διεύθυνση Umbrella-ltc (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <translation>Εισάγετε μια διεύθυνση Umbrella-LTC (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Umbrella-ltc address</source>
-        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως υπογραφθηκε απο μια συγκεκριμένη διεύθυνση Umbrella-ltc</translation>
+        <source>Verify the message to ensure it was signed with the specified Umbrella-LTC address</source>
+        <translation>Υπογράψτε ένα μήνυμα για ν&apos; αποδείξετε πως υπογραφθηκε απο μια συγκεκριμένη διεύθυνση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1568,8 +1568,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Umbrella-ltc address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
-        <translation>Εισάγετε μια διεύθυνση Umbrella-ltc (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
+        <source>Enter a Umbrella-LTC address (e.g. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</source>
+        <translation>Εισάγετε μια διεύθυνση Umbrella-LTC (π.χ. XeNwffeYXbUQaJviqjy2x1Mswybcphx58E)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1578,8 +1578,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Umbrella-ltc signature</source>
-        <translation>Εισαγωγή υπογραφής Umbrella-ltc</translation>
+        <source>Enter Umbrella-LTC signature</source>
+        <translation>Εισαγωγή υπογραφής Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1652,8 +1652,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Umbrella-ltc developers</source>
-        <translation>Οι Umbrella-ltc προγραμματιστές </translation>
+        <source>The Umbrella-LTC developers</source>
+        <translation>Οι Umbrella-LTC προγραμματιστές </translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2190,8 +2190,8 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Umbrella-ltc version</source>
-        <translation>Έκδοση Umbrella-ltc</translation>
+        <source>Umbrella-LTC version</source>
+        <translation>Έκδοση Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2309,7 +2309,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </source>
         <translation>%s, you must set a rpcpassword in the configuration file:
 %s
@@ -2320,7 +2320,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Umbrella-LTC Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2335,8 +2335,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Umbrella-ltc is probably already running.</source>
-        <translation>Αδυναμία κλειδώματος του φακέλου δεδομένων %s. Πιθανώς το Umbrella-ltc να είναι ήδη ενεργό.</translation>
+        <source>Cannot obtain a lock on data directory %s. Umbrella-LTC is probably already running.</source>
+        <translation>Αδυναμία κλειδώματος του φακέλου δεδομένων %s. Πιθανώς το Umbrella-LTC να είναι ήδη ενεργό.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2381,8 +2381,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-ltc will not work properly.</source>
-        <translation>Προειδοποίηση: Παρακαλώ βεβαιωθείτε πως η ημερομηνία κι ώρα του συστήματός σας είναι σωστές. Αν το ρολόι του υπολογιστή σας πάει λάθος, ενδέχεται να μη λειτουργεί σωστά το Umbrella-ltc.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Umbrella-LTC will not work properly.</source>
+        <translation>Προειδοποίηση: Παρακαλώ βεβαιωθείτε πως η ημερομηνία κι ώρα του συστήματός σας είναι σωστές. Αν το ρολόι του υπολογιστή σας πάει λάθος, ενδέχεται να μη λειτουργεί σωστά το Umbrella-LTC.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2631,8 +2631,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Umbrella-ltc Wiki for SSL setup instructions)</source>
-        <translation>Ρυθμίσεις SSL: (ανατρέξτε στο Umbrella-ltc Wiki για οδηγίες ρυθμίσεων SSL)</translation>
+        <source>SSL options: (see the Umbrella-LTC Wiki for SSL setup instructions)</source>
+        <translation>Ρυθμίσεις SSL: (ανατρέξτε στο Umbrella-LTC Wiki για οδηγίες ρυθμίσεων SSL)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2821,13 +2821,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-ltc</source>
-        <translation>Σφάλμα φόρτωσης wallet.dat: Το Πορτοφόλι απαιτεί μια νεότερη έκδοση του Umbrella-ltc</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Umbrella-LTC</source>
+        <translation>Σφάλμα φόρτωσης wallet.dat: Το Πορτοφόλι απαιτεί μια νεότερη έκδοση του Umbrella-LTC</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Umbrella-ltc to complete</source>
-        <translation>Απαιτείται η επανεγγραφή του Πορτοφολιού, η οποία θα ολοκληρωθεί στην επανεκκίνηση του Umbrella-ltc</translation>
+        <source>Wallet needed to be rewritten: restart Umbrella-LTC to complete</source>
+        <translation>Απαιτείται η επανεγγραφή του Πορτοφολιού, η οποία θα ολοκληρωθεί στην επανεκκίνηση του Umbrella-LTC</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2886,8 +2886,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Umbrella-ltc Alert&quot; admin
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Umbrella-ltc is probably already running.</source>
-        <translation>Αδύνατη η σύνδεση με τη θύρα %s αυτού του υπολογιστή. Το Umbrella-ltc είναι πιθανώς ήδη ενεργό.</translation>
+        <source>Unable to bind to %s on this computer. Umbrella-LTC is probably already running.</source>
+        <translation>Αδύνατη η σύνδεση με τη θύρα %s αυτού του υπολογιστή. Το Umbrella-LTC είναι πιθανώς ήδη ενεργό.</translation>
     </message>
     <message>
         <location line="+64"/>

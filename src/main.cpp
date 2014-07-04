@@ -69,7 +69,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Umbrella-ltc Signed Message:\n";
+const string strMessageMagic = "Umbrella-LTC Signed Message:\n";
 
 double dHashesPerSec = 0.0;
 int64 nHPSTimerStart = 0;
@@ -361,7 +361,7 @@ unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans)
 
 bool CTxOut::IsDust() const
 {
-  // Umbrella-ltc: IsDust() detection disabled, allows any valid dust to be relayed.
+  // Umbrella-LTC: IsDust() detection disabled, allows any valid dust to be relayed.
   // The fees imposed on each dust txo is considered sufficient spam deterrant. 
   return false;
 }
@@ -681,7 +681,7 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
       nMinFee = 0;
   }
 
-  // Umbrella-ltc
+  // Umbrella-LTC
   // To limit dust spam, add nBaseFee for each output less than DUST_SOFT_LIMIT
   BOOST_FOREACH(const CTxOut& txout, vout)
     if (txout.nValue < DUST_SOFT_LIMIT)

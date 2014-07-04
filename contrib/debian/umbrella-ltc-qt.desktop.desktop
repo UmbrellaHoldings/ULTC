@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Umbrella-ltc
-Comment=Umbrella-ltc P2P Cryptocurrency
+Name=Umbrella-LTC
+Comment=Umbrella-LTC P2P Cryptocurrency
 Exec=/usr/bin/umbrella-ltc-qt %u
 Terminal=false
 Type=Application

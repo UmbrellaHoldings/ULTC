@@ -1,4 +1,4 @@
-Name Umbrella-ltc
+Name Umbrella-LTC
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -19,7 +19,7 @@ SetCompressor /SOLID lzma
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER Umbrella-ltc
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER Umbrella-LTC
 !define MUI_FINISHPAGE_RUN $INSTDIR\umbrella-ltc-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
@@ -46,13 +46,13 @@ Var StartMenuGroup
 
 # Installer attributes
 OutFile umbrella-ltc-5.1.5.1-win32-setup.exe
-InstallDir $PROGRAMFILES\Umbrella-ltc
+InstallDir $PROGRAMFILES\Umbrella-LTC
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion 5.1.5.1
-VIAddVersionKey ProductName Umbrella-ltc
+VIAddVersionKey ProductName Umbrella-LTC
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
@@ -87,8 +87,8 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Umbrella-ltc.lnk" $INSTDIR\umbrella-ltc-qt.exe -gen
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-ltc.lnk" $INSTDIR\uninstall.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk" $INSTDIR\umbrella-ltc-qt.exe -gen
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-LTC.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
@@ -99,7 +99,7 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     WriteRegStr HKCR "umbrella-ltc" "URL Protocol" ""
-    WriteRegStr HKCR "umbrella-ltc" "" "URL:Umbrella-ltc"
+    WriteRegStr HKCR "umbrella-ltc" "" "URL:Umbrella-LTC"
     WriteRegStr HKCR "umbrella-ltc\DefaultIcon" "" $INSTDIR\umbrella-ltc-qt.exe
     WriteRegStr HKCR "umbrella-ltc\shell\open\command" "" '"$INSTDIR\umbrella-ltc-qt.exe" "%1"'
 SectionEnd
@@ -129,9 +129,9 @@ SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-ltc.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Umbrella-ltc.lnk"
-    Delete /REBOOTOK "$SMSTARTUP\Umbrella-ltc.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-LTC.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk"
+    Delete /REBOOTOK "$SMSTARTUP\Umbrella-LTC.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
