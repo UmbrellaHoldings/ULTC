@@ -148,9 +148,9 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 76, // Umbrella-LTC addresses start with X
+        PUBKEY_ADDRESS = 68, // Umbrella-LTC addresses start with U
         SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 75,
+        PUBKEY_ADDRESS_TEST = 111,
         SCRIPT_ADDRESS_TEST = 196,
     };
 
