@@ -68,7 +68,7 @@ public:
   }
 
 protected:
-  scratchpad_base* scratchpad;
+  std::unique_ptr<scratchpad_base> scratchpad;
 };
 
 template<>
