@@ -39,6 +39,8 @@ namespace hash {
 class hasher
 {
 public:
+  virtual ~hasher() {}
+
   //! Returns new instance. NB not a singleton.
   static std::shared_ptr<hasher> instance(
     coin::times::block::time_point block_time

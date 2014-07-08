@@ -58,7 +58,7 @@ public:
     const std::string in(BEGIN(blk.nVersion), 80);
     uint256 hash;
 
-    auto* sp = dynamic_cast<scrypt::scratchpad<1024, 1, 1>*>(scratchpad);
+    auto* sp = dynamic_cast<scrypt::scratchpad<1024, 1, 1>*>(scratchpad.get());
     assert(sp);
     scrypt::scrypt_256_sp_templ<1024, 1, 1>(
       in, in, hash,
