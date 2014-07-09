@@ -15,6 +15,7 @@
 #include "util.h"
 #include "block.h"
 #include "btc_time.h"
+#include "key.h"
 
 namespace genesis {
 
@@ -131,6 +132,14 @@ using retarget_algorithm = kgw;
 constexpr auto min_difficulty_by_design = std::make_pair(
   0x1e07ffff, 0x1e6236f6
 );
+
+namespace coinbase {
+
+const CPubKey reward_collecting_pubkey(
+  ParseHex("0349c46ac2de536cd6cf07280049dd97ba94fae74ee1df36a3f894affc6200566f")
+);
+
+}
 
 } // pars
 
