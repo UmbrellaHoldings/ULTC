@@ -57,7 +57,7 @@ mkdir -p $CreateDeb_ROOT/usr/share/man/man5/
 cp $CreateDeb_OUT/src/contrib/debian/manpages/*.5 $CreateDeb_ROOT/usr/share/man/man5/
 
 
-deb_name=$name'-'$VERSION'.deb'
+deb_name=$name'_'$VERSION'.deb'
 mkdir -p $CreateDeb_OUT  || exit 1 
  
 dpkg -b $CreateDeb_ROOT $CreateDeb_OUT/$deb_name
