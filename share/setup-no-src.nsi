@@ -6,7 +6,7 @@ SetCompressor /SOLID lzma
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 0.8.6.2
-!define COMPANY "Cohorta LLC"
+!define COMPANY "Cohors LLC"
 !define URL http://cohors.bz/
 
 # MUI Symbol Definitions
