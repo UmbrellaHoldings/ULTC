@@ -654,7 +654,7 @@ Value getworkaux(const Array& params, bool fHelp)
             nStart = GetTime();
 
             // Create new block
-            pblocktemplate = CreateNewBlock(reservekey);
+            pblocktemplate = CreateNewBlockWithKey(reservekey);
             if (!pblocktemplate)
                 throw JSONRPCError(-7, "Out of memory");
             vNewBlockTemplate.push_back(pblocktemplate);
@@ -811,7 +811,7 @@ Value getauxblock(const Array& params, bool fHelp)
             nStart = GetTime();
 
             // Create new block with nonce = 0 and extraNonce = 1
-            pblocktemplate = CreateNewBlock(reservekey);
+            pblocktemplate = CreateNewBlockWithKey(reservekey);
             if (!pblocktemplate)
                 throw JSONRPCError(-7, "Out of memory");
 

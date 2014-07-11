@@ -4,7 +4,9 @@
 #ifndef BITCOIN_AUXPOW_H
 #define BITCOIN_AUXPOW_H
 
-#include "main.h"
+#include <vector>
+#include "transaction.h"
+#include "block.h"
 
 class CAuxPow : public CMerkleTx
 {
@@ -79,6 +81,12 @@ int ReadWriteAuxPow(Stream& s, boost::shared_ptr<CAuxPow>& auxpow, int nType, in
     }
 }
 
-extern void RemoveMergedMiningHeader(std::vector<unsigned char>& vchAux);
-extern CScript MakeCoinbaseWithAux(unsigned int nBits, unsigned int nExtraNonce, std::vector<unsigned char>& vchAux);
+void RemoveMergedMiningHeader(std::vector<unsigned char>& vchAux);
+
+CScript MakeCoinbaseWithAux(
+  compact_bignum_t nBits, 
+  unsigned int nExtraNonce, 
+  std::vector<unsigned char>& vchAux
+);
+
 #endif

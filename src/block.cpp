@@ -10,6 +10,8 @@
 #include "block.h"
 #include "hash/hash.h"
 #include "main.h"
+#include "auxpow.h"
+#include "txdb.h"
 
 extern int nBestHeight;
 
@@ -64,10 +66,25 @@ uint256 CTxOut::GetHash() const
   return SerializeHash(*this);
 }
 
+int CBlockHeader::GetChainID() const
+{
+  return nVersion / BLOCK_VERSION_CHAIN_START;
+}
 
 uint256 CBlockHeader::GetHash() const
 {
   return Hash(BEGIN(nVersion), END(nNonce));
+}
+
+void CBlockHeader::SetNull()
+{
+    nVersion = CBlockHeader::CURRENT_VERSION 
+      | (pars::mm::GetOurChainID() * BLOCK_VERSION_CHAIN_START);
+    hashPrevBlock = 0;
+    hashMerkleRoot = 0;
+    nTime = 0;
+    nBits = 0;
+    nNonce = 0;
 }
 
 uint256 CBlock::BuildMerkleTree() const
@@ -245,6 +262,16 @@ CDiskBlockPos CBlockIndex::GetUndoPos() const
 CBlockHeader CBlockIndex::GetBlockHeader() const
 {
   CBlockHeader block;
+
+  if (nVersion & BLOCK_VERSION_AUXPOW) {
+    CDiskBlockIndex diskblockindex;
+    // auxpow is not in memory, load CDiskBlockHeader
+    // from database to get it
+
+    pblocktree->ReadDiskBlockIndex(*phashBlock, diskblockindex);
+    block.auxpow = diskblockindex.auxpow;
+  }
+
   block.nVersion     = nVersion;
   if (pprev)
     block.hashPrevBlock = pprev->GetBlockHash();

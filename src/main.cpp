@@ -1281,7 +1281,7 @@ void CBlockHeader::UpdateTime(const CBlockIndex* pindexPrev)
   //  nBits = GetNextWorkRequired(pindexPrev, this);
 }
 
-uint256 CBlock::GetPoWHash() const
+uint256 CBlockHeader::GetPoWHash() const
 {
   return ::hash::hasher::instance(GetTimePoint())
     -> hash(*this);
@@ -1961,6 +1961,7 @@ bool CBlock::AddToBlockIndex(CValidationState &state, const CDiskBlockPos &pos)
   return true;
 }
 
+#if 0
 // to enable merged mining:
 // - set a block from which it will be enabled
 // - set a unique chain ID
@@ -1973,51 +1974,7 @@ int GetAuxPowStartBlock()
     else
         return INT_MAX; // never
 }
-
-int GetOurChainID()
-{
-    return 0x0000;
-}
-
-bool CBlockHeader::CheckProofOfWork(int nHeight) const
-{
-    if (nHeight >= GetAuxPowStartBlock())
-    {
-        // Prevent same work from being submitted twice:
-        // - this block must have our chain ID
-        // - parent block must not have the same chain ID (see CAuxPow::Check)
-        // - index of this chain in chain merkle tree must be pre-determined (see CAuxPow::Check)
-        if (!fTestNet && nHeight != INT_MAX && GetChainID() != GetOurChainID())
-            return error("CheckProofOfWork() : block does not have our chain ID");
-
-        if (auxpow.get() != NULL)
-        {
-            if (!auxpow->Check(GetHash(), GetChainID()))
-                return error("CheckProofOfWork() : AUX POW is not valid");
-            // Check proof of work matches claimed amount
-            if (!::CheckProofOfWork(auxpow->GetParentBlockHash(), nBits))
-                return error("CheckProofOfWork() : AUX proof of work failed");
-        } 
-        else
-        {
-            // Check proof of work matches claimed amount
-            if (!::CheckProofOfWork(GetPoWHash(), nBits))
-                return error("CheckProofOfWork() : proof of work failed");
-        }
-    }
-    else
-    {
-        if (auxpow.get() != NULL)
-        {
-            return error("CheckProofOfWork() : AUX POW is not allowed at this block");
-        }
-
-        // Check if proof of work marches claimed amount
-        if (!::CheckProofOfWork(GetPoWHash(), nBits))
-            return error("CheckProofOfWork() : proof of work failed");
-    }
-    return true;
-}
+#endif
 
 bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAddSize, unsigned int nHeight, uint64 nTime, bool fKnown = false)
 {
@@ -4776,12 +4733,6 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet)
     minerThreads->create_thread(
       boost::bind(&TheMiner, pwallet)
     );
-std::string CBlockIndex::ToString() const
-{
-    return strprintf("CBlockIndex(pprev=%p, pnext=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
-            pprev, pnext, nHeight,
-            hashMerkleRoot.ToString().substr(0,10).c_str(),
-            GetBlockHash().ToString().c_str());
 }
 
 std::string CDiskBlockIndex::ToString() const
@@ -4793,29 +4744,6 @@ std::string CDiskBlockIndex::ToString() const
         hashPrev.ToString().c_str(),
         (auxpow.get() != NULL) ? auxpow->GetParentBlockHash().ToString().substr(0,20).c_str() : "-");
     return str;
-}
-
-CBlockHeader CBlockIndex::GetBlockHeader() const
-{
-    CBlockHeader block;
-
-    if (nVersion & BLOCK_VERSION_AUXPOW) {
-        CDiskBlockIndex diskblockindex;
-        // auxpow is not in memory, load CDiskBlockHeader
-        // from database to get it
-
-        pblocktree->ReadDiskBlockIndex(*phashBlock, diskblockindex);
-        block.auxpow = diskblockindex.auxpow;
-    }
-
-    block.nVersion       = nVersion;
-    if (pprev)
-        block.hashPrevBlock = pprev->GetBlockHash();
-    block.hashMerkleRoot = hashMerkleRoot;
-    block.nTime          = nTime;
-    block.nBits          = nBits;
-    block.nNonce         = nNonce;
-    return block;
 }
 
 // Amount compression:

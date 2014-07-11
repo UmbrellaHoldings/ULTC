@@ -178,11 +178,55 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey);
 
 /** 
  * Check whether a block hash satisfies the proof-of-work
- * requirement 
+ * requirement. 
  */
 template<class Block>
 bool CheckProofOfWork(const Block& block)
 {
+  const bool is_auxpow_block = block.auxpow.get() != NULL;
+
+#ifdef AUX_POW_STARTS_AT_BLOCK
+  // to switch-off auxpow at all or before the specified
+  // block
+  const bool is_auxpow_allowed = 
+    block.nHeight >= GetAuxPowStartBlock();
+#else
+  constexpr bool is_auxpow_allowed = true;
+#endif
+
+  if (is_auxpow_block && !is_auxpow_allowed)
+    return error(
+      "CheckProofOfWork() : AUX POW is not allowed "
+      "at this block"
+    );
+
+  if (is_auxpow_allowed && !fTestNet 
+#ifdef AUX_POW_STARTS_AT_BLOCK
+      && block.nHeight != INT_MAX 
+#endif
+      && block.GetChainID() != pars::mm::GetOurChainID()
+     )
+    // Prevent same work from being submitted twice:
+    // - this block must have our chain ID
+    // - parent block must not have the same chain ID (see
+    // - CAuxPow::Check)
+    // - index of this chain in chain merkle tree must be
+    // - pre-determined (see CAuxPow::Check)
+    return error(
+      "CheckProofOfWork() : block does not have "
+      "our chain ID"
+    );
+
+  if (is_auxpow_allowed && is_auxpow_block &&
+      !block.auxpow->Check(
+        block.GetHash(), 
+        block.GetChainID()
+      )
+     )
+    return error(
+      "CheckProofOfWork() : AUX POW is not valid"
+    );
+
   // Check range
   if (!retarget::difficulty::instance().is_valid(block))
   return error(
@@ -190,8 +234,10 @@ bool CheckProofOfWork(const Block& block)
   );
 
   // Check proof of work matches claimed amount
-  if (block.GetPoWHash() > 
-      CBigNum(block.nBits).getuint256()
+  if ((is_auxpow_block 
+         ? block.auxpow->GetParentBlockHash()
+         : block.GetPoWHash()
+       ) > CBigNum(block.nBits).getuint256()
       )
   return error(
     "CheckProofOfWork() : hash doesn't match nBits"
@@ -206,7 +252,6 @@ int GetNumBlocksOfPeers();
 bool IsInitialBlockDownload();
 /** Format a string that describes several potential problems detected by the core */
 std::string GetWarnings(std::string strFor);
-int GetOurChainID();
 /** Retrieve a transaction (from memory pool, or from disk, if possible) */
 bool GetTransaction(const uint256 &hash, CTransaction &tx, uint256 &hashBlock, bool fAllowSlow = false);
 /** Connect/disconnect blocks until pindexNew is the new tip of the active block chain */
@@ -645,55 +690,6 @@ public:
   }
 };
 
-/** A transaction with a merkle branch linking it to the block chain. */
-class CMerkleTx : public CTransaction
-{
-public:
-  uint256 hashBlock;
-  std::vector<uint256> vMerkleBranch;
-  int nIndex;
-
-  // memory only
-  mutable bool fMerkleVerified;
-
-
-  CMerkleTx()
-  {
-    Init();
-  }
-
-  CMerkleTx(const CTransaction& txIn) : CTransaction(txIn)
-  {
-    Init();
-  }
-
-  void Init()
-  {
-    hashBlock = 0;
-    nIndex = -1;
-    fMerkleVerified = false;
-  }
-
-
-  IMPLEMENT_SERIALIZE
-  (
-    nSerSize += SerReadWrite(s, *(CTransaction*)this, nType, nVersion, ser_action);
-    nVersion = this->nVersion;
-    READWRITE(hashBlock);
-    READWRITE(vMerkleBranch);
-    READWRITE(nIndex);
-  )
-
-
-  int SetMerkleBranch(const CBlock* pblock=NULL);
-  int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
-  int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
-  bool IsInMainChain() const { return GetDepthInMainChain() > 0; }
-  int GetBlocksToMaturity() const;
-  bool AcceptToMemoryPool(bool fCheckInputs=true, bool fLimitFree=true);
-};
-
-
 template <typename Stream>
 int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionSerialize ser_action);
   
@@ -703,19 +699,6 @@ int ReadWriteAuxPow(Stream& s, boost::shared_ptr<CAuxPow>& auxpow, int nType, in
 template <typename Stream>
 int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionGetSerializeSize ser_action);
   
-enum
-{
-    // primary version
-    BLOCK_VERSION_DEFAULT        = (1 << 0),
-
-    // modifiers
-    BLOCK_VERSION_AUXPOW         = (1 << 8),
-
-    // bits allocated for chain ID
-    BLOCK_VERSION_CHAIN_START    = (1 << 16),
-    BLOCK_VERSION_CHAIN_END      = (1 << 30),
-};
-
 
 
 

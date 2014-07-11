@@ -35,6 +35,16 @@ namespace umbrella {
 
 }
 
+namespace hash {
+
+struct scratchpad_base;
+using scratchpad_ptr = scratchpad_base*;
+
+} // hash
+
+//! Chain type for merged mining
+//enum mm_chain { parent, aux };
+
 namespace pars {
 
 template<class T>
@@ -139,7 +149,12 @@ const CPubKey reward_collecting_pubkey(
   ParseHex("0349c46ac2de536cd6cf07280049dd97ba94fae74ee1df36a3f894affc6200566f")
 );
 
-}
+//! merged mining pars
+namespace mm {
+
+int GetOurChainID();
+
+} // mm
 
 } // pars
 

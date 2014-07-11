@@ -183,6 +183,7 @@ HEADERS += \
     src/serialize.h \
     src/sync.h \
     src/threadsafety.h \
+    src/transaction.h \
     src/txdb.h \
     src/types.h \
     src/ui_interface.h \

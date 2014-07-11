@@ -15,7 +15,7 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, Object& entry);
 
 void ScriptPubKeyToJSON(const CScript& scriptPubKey, Object& out);
 
-double GetDifficultyHelper(unsigned int nBits) {
+double GetDifficultyHelper(compact_bignum_t nBits) {
     int nShift = (nBits.compact >> 24) & 0xff;
     double dDiff = (double)0x0000ffff / (double)(nBits.compact & 0x00ffffff);
 
@@ -89,7 +89,7 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
         parent_block.push_back(Pair("previousblockhash", block.auxpow->parentBlockHeader.hashPrevBlock.GetHex()));
         parent_block.push_back(Pair("merkleroot", block.auxpow->parentBlockHeader.hashMerkleRoot.GetHex()));
         parent_block.push_back(Pair("time", (boost::int64_t)block.auxpow->parentBlockHeader.nTime));
-        parent_block.push_back(Pair("bits", HexBits(block.auxpow->parentBlockHeader.nBits)));
+        parent_block.push_back(Pair("bits", HexBits(block.auxpow->parentBlockHeader.nBits.compact)));
 	parent_block.push_back(Pair("difficulty", GetDifficultyHelper(block.auxpow->parentBlockHeader.nBits)));
         parent_block.push_back(Pair("nonce", (boost::uint64_t)block.auxpow->parentBlockHeader.nNonce));
         auxpow.push_back(Pair("parent_block", Value(parent_block)));
