@@ -884,7 +884,8 @@ public:
     auxpow.reset();
   }
 
-    explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) {
+  explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) 
+  {
     hashPrev = (pprev ? pprev->GetBlockHash() : 0);
         this->auxpow = auxpow;
   }
