@@ -59,6 +59,7 @@ HEADERS = $(wildcard *.h)
 OBJS= \
     leveldb/libleveldb.a \
     obj/addrman.o \
+    obj/auxpow.o \
     obj/alert.o \
     obj/allocators.o \
     obj/base58.o \
@@ -83,6 +84,7 @@ OBJS= \
     obj/net.o \
     obj/netbase.o \
     obj/noui.o \
+    obj/pars.o \
     obj/protocol.o \
     obj/retarget.o \
     obj/rpcblockchain.o \
@@ -95,6 +97,7 @@ OBJS= \
     obj/scrypt.o \
     obj/scrypt_generated.o \
     obj/sync.o \
+    obj/testmaxmoney.o \
     obj/txdb.o \
     obj/types.o \
     obj/uint256.o \
