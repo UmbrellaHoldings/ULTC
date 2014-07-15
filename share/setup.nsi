@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 5.1.19.1
+!define VERSION 5.1.20.1
 !define COMPANY "Cohors LLC"
 !define URL http://cohors.bz/
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile umbrella-ltc-5.1.19.1-win32-setup.exe
+OutFile umbrella-ltc-5.1.20.1-win32-setup.exe
 InstallDir $PROGRAMFILES\Umbrella-LTC
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 5.1.19.1
+VIProductVersion 5.1.20.1
 VIAddVersionKey ProductName Umbrella-LTC
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
