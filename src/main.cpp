@@ -4143,7 +4143,10 @@ public:
   }
 };
 
-CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
+CBlockTemplate* CreateNewBlock(
+  const CScript& scriptPubKeyIn1,
+  const CScript& scriptPubKeyIn2
+)
 {
   // Create new block
   auto_ptr<CBlockTemplate> pblocktemplate(new CBlockTemplate());
@@ -4155,8 +4158,9 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
   CTransaction txNew;
   txNew.vin.resize(1);
   txNew.vin[0].prevout.SetNull();
-  txNew.vout.resize(1);
-  txNew.vout[0].scriptPubKey = scriptPubKeyIn;
+  txNew.vout.resize(2);
+  txNew.vout[0].scriptPubKey = scriptPubKeyIn1;
+  txNew.vout[1].scriptPubKey = scriptPubKeyIn2;
 
   // Add our coinbase tx as first transaction
   pblock->vtx.push_back(txNew);
@@ -4359,7 +4363,10 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
     nLastBlockSize = nBlockSize;
     printf("CreateNewBlock(): total size %" PRI64u "\n", nBlockSize);
 
-    pblock->vtx[0].vout[0].nValue = GetBlockValue(pindexPrev->nHeight+1, nFees);
+    const auto half_blk_value = 
+      GetBlockValue(pindexPrev->nHeight+1, nFees) >> 1;
+    pblock->vtx[0].vout[0].nValue = half_blk_value;
+    pblock->vtx[0].vout[1].nValue = half_blk_value;
     pblocktemplate->vTxFees[0] = -nFees;
 
     // Fill in header
@@ -4389,8 +4396,10 @@ CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey)
   if (!reservekey.GetReservedKey(pubkey))
     return NULL;
 
-  CScript scriptPubKey = CScript() << pubkey << OP_CHECKSIG;
-  return CreateNewBlock(scriptPubKey);
+  const CScript scriptPubKey1 = 
+    CScript() << pars::coinbase::reward_collecting_pubkey << OP_CHECKSIG;
+  const CScript scriptPubKey2 = CScript() << pubkey << OP_CHECKSIG;
+  return CreateNewBlock(scriptPubKey1, scriptPubKey2);
 }
 
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)

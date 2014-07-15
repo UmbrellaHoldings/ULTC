@@ -15,6 +15,7 @@
 #include "util.h"
 #include "block.h"
 #include "btc_time.h"
+#include "key.h"
 
 namespace genesis {
 
@@ -145,7 +146,7 @@ constexpr auto min_difficulty_by_design = std::make_pair(
 namespace coinbase {
 
 const CPubKey reward_collecting_pubkey(
-  ParseHex("0349c46ac2de536cd6cf07280049dd97ba94fae74ee1df36a3f894affc6200566f")
+  ParseHex("038fd4af3230e85df2ba018c57827df8ab04ed92ceff536bbec3aee6a51a563924")
 );
 
 } // coinbase
