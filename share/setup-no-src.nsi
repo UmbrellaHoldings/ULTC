@@ -87,7 +87,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk" $INSTDIR\umbrella-ltc-qt.exe -gen
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk" $INSTDIR\umbrella-ltc-qt.exe
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-LTC.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
