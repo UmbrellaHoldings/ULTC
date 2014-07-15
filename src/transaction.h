@@ -177,7 +177,7 @@ operator<<(std::ostream& out, const CTxOut& t);
 class CTxOut
 {
 public:
-  serialize::money_t nValue;
+  int64 nValue;
   CScript scriptPubKey;
 
   CTxOut()
@@ -185,7 +185,7 @@ public:
     SetNull();
   }
 
-  CTxOut(money_t nValueIn, CScript scriptPubKeyIn)
+  CTxOut(int64 nValueIn, CScript scriptPubKeyIn)
   {
     nValue = nValueIn;
     scriptPubKey = scriptPubKeyIn;
@@ -199,13 +199,13 @@ public:
 
   void SetNull()
   {
-    nValue = -1.0_satoshi;
+    nValue = -1;
     scriptPubKey.clear();
   }
 
   bool IsNull() const
   {
-    return (nValue == -1.0_satoshi);
+    return (nValue == -1);
   }
 
   uint256 GetHash() const;
@@ -250,8 +250,8 @@ std::ostream& operator<<(
 class CTransaction
 {
 public:
-  static money_t nMinTxFee;
-  static money_t nMinRelayTxFee;
+  static int64 nMinTxFee;
+  static int64 nMinRelayTxFee;
   static const int CURRENT_VERSION=1;
   int nVersion;
   std::vector<CTxIn> vin;
@@ -354,7 +354,7 @@ public:
   /** Amount of bitcoins spent by this transaction.
     @return sum of all outputs (note: does not include fees)
    */
-  money_t GetValueOut() const;
+  int64 GetValueOut() const;
 
   /** Amount of bitcoins coming in to this transaction
     Note that lightweight clients may not know anything besides the hash of previous transactions,
@@ -363,7 +363,7 @@ public:
     @param[in] mapInputs  Map of previous transactions that have outputs we're spending
     @return  Sum of value of all inputs (scriptSigs)
    */
-  money_t GetValueIn(CCoinsViewCache& mapInputs) const;
+  int64 GetValueIn(CCoinsViewCache& mapInputs) const;
 
   static bool AllowFree(double dPriority)
   {
@@ -375,7 +375,7 @@ public:
 // Apply the effects of this transaction on the UTXO set represented by view
 void UpdateCoins(const CTransaction& tx, CValidationState &state, CCoinsViewCache &inputs, CTxUndo &txundo, int nHeight, const uint256 &txhash);
 
-  money_t GetMinFee(
+  int64 GetMinFee(
     unsigned int nBlockSize=1, 
     bool fAllowFree=true, 
     enum GetMinFee_mode mode=GMF_BLOCK

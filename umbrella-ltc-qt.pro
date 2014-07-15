@@ -275,6 +275,7 @@ SOURCES += \
     src/net.cpp \
     src/netbase.cpp \
     src/noui.cpp \
+    src/pars.cpp \
     src/protocol.cpp \
     src/rpcblockchain.cpp \
     src/rpcdump.cpp \

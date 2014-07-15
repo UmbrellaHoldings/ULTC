@@ -4551,7 +4551,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
   return true;
 }
 
-void static LitecoinMiner(CWallet *pwallet)
+void static TheMiner(CWallet *pwallet)
 {
   static int miner_id_ = 0;
   const int miner_id = ++miner_id_;

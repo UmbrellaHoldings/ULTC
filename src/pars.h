@@ -33,7 +33,7 @@ namespace umbrella {
   block* create_testnet(); 
 }
 
-}
+} // genesis
 
 namespace hash {
 
@@ -149,6 +149,8 @@ const CPubKey reward_collecting_pubkey(
   ParseHex("0349c46ac2de536cd6cf07280049dd97ba94fae74ee1df36a3f894affc6200566f")
 );
 
+} // coinbase
+
 //! merged mining pars
 namespace mm {
 
@@ -162,7 +164,7 @@ constexpr int64 MAX_MONEY = pars::MAX_MONEY;
 
 inline bool MoneyRange(int64 nValue) 
 { 
-  return (nValue >= 0 && nValue <= MAX_MONEY); 
+  return (nValue >= 0 && nValue <= pars::MAX_MONEY); 
 }
 
 #endif
