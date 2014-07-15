@@ -1,4 +1,4 @@
-Name Xxxxxxx
+Name Umbrella-LTC
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -10,7 +10,7 @@ SetCompressor /SOLID lzma
 !define URL http://cohors.bz/
 
 # MUI Symbol Definitions
-!define MUI_ICON "../share/pixmaps/xxxxxxx.ico"
+!define MUI_ICON "../share/pixmaps/umbrella-ltc.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
@@ -19,8 +19,8 @@ SetCompressor /SOLID lzma
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER Xxxxxxx
-!define MUI_FINISHPAGE_RUN $INSTDIR\xxxxxxx-qt.exe
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER Umbrella-LTC
+!define MUI_FINISHPAGE_RUN $INSTDIR\umbrella-ltc-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
@@ -45,14 +45,14 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile xxxxxxx-0.8.6.2-win32-setup.exe
-InstallDir $PROGRAMFILES\Xxxxxxx
+OutFile umbrella-ltc-0.8.6.2-win32-setup.exe
+InstallDir $PROGRAMFILES\Umbrella-LTC
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion 0.8.6.2
-VIAddVersionKey ProductName Xxxxxxx
+VIAddVersionKey ProductName Umbrella-LTC
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
@@ -66,18 +66,18 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File ../release/xxxxxxx-qt.exe
+    File ../release/umbrella-ltc-qt.exe
     File /oname=COPYING.txt ../COPYING
     File /oname=readme.txt ../doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File ../src/xxxxxxxd.exe
+    File ../src/umbrella-ltcd.exe
     # SetOutPath $INSTDIR\src
     # File /r /x *.exe /x *.o ../src\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-xxxxxxx executable and locales:
-    Delete /REBOOTOK $INSTDIR\xxxxxxx.exe
+    # Remove old wxwidgets-based-umbrella-ltc executable and locales:
+    Delete /REBOOTOK $INSTDIR\umbrella-ltc.exe
     RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
 
@@ -87,8 +87,8 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Xxxxxxx.lnk" $INSTDIR\xxxxxxx-qt.exe -gen
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Xxxxxxx.lnk" $INSTDIR\uninstall.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk" $INSTDIR\umbrella-ltc-qt.exe -gen
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-LTC.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
@@ -98,10 +98,10 @@ Section -post SEC0001
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" UninstallString $INSTDIR\uninstall.exe
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
-    WriteRegStr HKCR "xxxxxxx" "URL Protocol" ""
-    WriteRegStr HKCR "xxxxxxx" "" "URL:Xxxxxxx"
-    WriteRegStr HKCR "xxxxxxx\DefaultIcon" "" $INSTDIR\xxxxxxx-qt.exe
-    WriteRegStr HKCR "xxxxxxx\shell\open\command" "" '"$INSTDIR\xxxxxxx-qt.exe" "%1"'
+    WriteRegStr HKCR "umbrella-ltc" "URL Protocol" ""
+    WriteRegStr HKCR "umbrella-ltc" "" "URL:Umbrella-LTC"
+    WriteRegStr HKCR "umbrella-ltc\DefaultIcon" "" $INSTDIR\umbrella-ltc-qt.exe
+    WriteRegStr HKCR "umbrella-ltc\shell\open\command" "" '"$INSTDIR\umbrella-ltc-qt.exe" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -119,7 +119,7 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    Delete /REBOOTOK $INSTDIR\xxxxxxx-qt.exe
+    Delete /REBOOTOK $INSTDIR\umbrella-ltc-qt.exe
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
@@ -129,9 +129,9 @@ SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Xxxxxxx.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Xxxxxxx.lnk"
-    Delete /REBOOTOK "$SMSTARTUP\Xxxxxxx.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Umbrella-LTC.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Umbrella-LTC.lnk"
+    Delete /REBOOTOK "$SMSTARTUP\Umbrella-LTC.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
@@ -139,7 +139,7 @@ Section -un.post UNSEC0001
     DeleteRegValue HKCU "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKCU "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKCU "${REGKEY}"
-    DeleteRegKey HKCR "xxxxxxx"
+    DeleteRegKey HKCR "umbrella-ltc"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
     Push $R0
