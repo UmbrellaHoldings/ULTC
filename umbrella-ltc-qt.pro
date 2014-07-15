@@ -9,7 +9,7 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 
-QMAKE_CXXFLAGS += -g -O2 --std=c++11
+QMAKE_CXXFLAGS += --std=c++11
 macx {
   QMAKE_CXXFLAGS += -stdlib=libc++ -arch x86_64 
 } else:win32 {
