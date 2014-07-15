@@ -4509,7 +4509,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     return false;
 
   //// debug print
-  printf("LitecoinMiner:\n");
+  printf("TheMiner:\n");
   printf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex().c_str(), hashTarget.GetHex().c_str());
     }
     
@@ -4521,7 +4521,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
   {
     LOCK(cs_main);
     if (pblock->hashPrevBlock != hashBestChain)
-      return error("LitecoinMiner : generated block is stale");
+      return error("TheMiner : generated block is stale");
 
     // Remove key from key pool
     reservekey.KeepKey();
@@ -4535,7 +4535,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessBlock(state, NULL, pblock))
-      return error("LitecoinMiner : ProcessBlock, block not accepted");
+      return error("TheMiner : ProcessBlock, block not accepted");
   }
 
   return true;
@@ -4570,7 +4570,7 @@ void static LitecoinMiner(CWallet *pwallet)
   CBlock *pblock = &pblocktemplate->block;
   IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-  printf("Running LitecoinMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
+  printf("Running TheMiner with %" PRIszu " transactions in block (%u bytes)\n", pblock->vtx.size(),
      ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
   //
@@ -4705,7 +4705,7 @@ void static LitecoinMiner(CWallet *pwallet)
   } }
   catch (boost::thread_interrupted)
   {
-  printf("LitecoinMiner terminated\n");
+  printf("TheMiner terminated\n");
   throw;
   }
 }
