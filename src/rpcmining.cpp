@@ -617,10 +617,10 @@ Value getworkaux(const Array& params, bool fHelp)
             );
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "Litecoin is not connected!");
+        throw JSONRPCError(-9, "Umbrella-Ltc is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Litecoin is downloading blocks...");
+        throw JSONRPCError(-10, "Umbrella-Ltc is downloading blocks...");
 
     static map<uint256, pair<CBlock*, unsigned int> > mapNewBlock;
     static vector<CBlockTemplate*> vNewBlockTemplate;
@@ -778,10 +778,10 @@ Value getauxblock(const Array& params, bool fHelp)
             "the aux proof of work and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "Litecoin is not connected!");
+        throw JSONRPCError(-9, "Umbrella-Ltc is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Litecoin is downloading blocks...");
+        throw JSONRPCError(-10, "Umbrella-Ltc is downloading blocks...");
 
     static map<uint256, CBlock*> mapNewBlock;
     static vector<CBlockTemplate*> vNewBlockTemplate;
