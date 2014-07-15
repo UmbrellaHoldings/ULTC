@@ -20,6 +20,7 @@
 #include "btc_time.h"
 
 //#define LOG_BEST_HASH
+//#define DO_NOT_CALIBRATE_DIFFICULTY
 
 namespace {
 
@@ -106,6 +107,7 @@ void block::mine()
         LOG() << "(genesis mining) Best hash: " 
               << thash << std::endl;
 #endif
+#ifndef DO_NOT_CALIBRATE_DIFFICULTY
         const auto now = coin::times::block::clock::now();
         const auto passed = now - start;
         if (passed > block_period + block_period / 2) {
@@ -125,6 +127,7 @@ void block::mine()
           );
           break;
         }
+#endif
       }
       ++block.nNonce;
       if (block.nNonce == 0)
@@ -134,6 +137,7 @@ void block::mine()
       }
     }
     if (found) {
+#ifndef DO_NOT_CALIBRATE_DIFFICULTY
       const auto now = coin::times::block::clock::now();
       const auto passed = now - start;
       if (passed < block_period / 2) {
@@ -171,6 +175,7 @@ void block::mine()
         );
         found = false;
       }
+#endif
 #endif
     } 
   } while (!found);
