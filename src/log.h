@@ -176,6 +176,13 @@ void printf_basic_stream<CharT, Traits>
 
 } // lg
 
+//! Continues a log line
+inline lg::stream& LOG_()
+{
+  return lg::stream::instance();
+}
+
+//! Starts a log line
 inline lg::stream& LOG()
 {
   lg::stream& out = lg::stream::instance();
