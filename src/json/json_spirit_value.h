@@ -10,6 +10,7 @@
 # pragma once
 #endif
 
+#include <iostream>
 #include <vector>
 #include <map>
 #include <string>
@@ -89,6 +90,43 @@ namespace json_spirit
         Variant v_;
         bool is_uint64_;
     };
+
+} // json_spirit
+
+template<class Config>
+std::ostream& operator<<(
+  std::ostream& out, 
+  const json_spirit::Value_impl<Config>& v
+)
+{
+  using namespace json_spirit;
+
+  switch(v.type()) 
+  {
+    case obj_type:
+      return out << "*obj*";
+    case array_type:
+      return out << "*array*";
+    case str_type:
+      return out << '"' << v.get_str() << '"';
+    case bool_type:
+      return out << std::boolalpha << v.get_bool();
+    case int_type:
+      if (v.is_uint64())
+        return out << v.get_uint64();
+      else
+        return out << v.get_int64();
+    case real_type:
+      return out << v.get_real();
+    case null_type:
+      return out << "<null>";
+    default:
+      return out << "*invalid*";
+  }
+}
+
+
+namespace json_spirit {
 
     // vector objects
 

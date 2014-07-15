@@ -4505,8 +4505,11 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     }
     else
     {
-  if (hash > hashTarget)
+    if (hash > hashTarget) {
+      LOG() << "CheckWork(): hash > hashTarget (" 
+            << hash << " > " << hashTarget << std::endl;
     return false;
+    }
 
   //// debug print
   printf("TheMiner:\n");
@@ -4521,7 +4524,14 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
   {
     LOCK(cs_main);
     if (pblock->hashPrevBlock != hashBestChain)
-      return error("TheMiner : generated block is stale");
+    {
+      LOG() << "TheMiner : generated block is stale: "
+            << "pblock->hashPrevBlock = " 
+            << pblock->hashPrevBlock
+            << ", hashBestChain = " 
+            << hashBestChain << std::endl;
+      return false;
+    }
 
     // Remove key from key pool
     reservekey.KeepKey();

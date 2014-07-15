@@ -596,7 +596,7 @@ Value getworkaux(const Array& params, bool fHelp)
 {
   LOG() << "getworkaux";
   for(auto& p : params)
-    LOG_() << ' ' << p.get_str();
+    LOG_() << ' ' << p;
   LOG_() << std::endl;
 
     if (fHelp || params.size() < 1)
@@ -776,7 +776,7 @@ Value getauxblock(const Array& params, bool fHelp)
 {
   LOG() << "getauxblock";
   for(auto& p : params)
-    LOG_() << ' ' << p.get_str();
+    LOG_() << ' ' << p;
   LOG_() << std::endl;
 
     if (fHelp || (params.size() != 0 && params.size() != 2))
