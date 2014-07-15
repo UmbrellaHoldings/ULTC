@@ -24,7 +24,7 @@ namespace mm {
 //   merge mined together)
 int GetOurChainID()
 {
-  return 0x0000;
+  return 0x0001;
 }
 
 } // mm
