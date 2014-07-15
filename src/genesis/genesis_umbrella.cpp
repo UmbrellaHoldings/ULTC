@@ -29,12 +29,12 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0xd330a57952ee16c6a63367da4cbeffbb8221d4513ba8d8a293fb17d386e18a2c"
+  "0fa747de06cfe3ee7fd73eb06c85f4fc802d6fc1aed3572ad6b340a7ae5b3706"
 );
 extern const uint256 hash;  
 
 const uint256 hash_testnet = uint256(
-  "0x81ced9312c337c99a2d6c6108f09b1127a553f4ef84d83f60684c1523a8d18f6"
+  "45906cdafda66bb13095deef71b5e5b768eb037f91b556c0cb996e50c3303bb3"
 );
 extern const uint256 hash_testnet;
 
@@ -51,7 +51,7 @@ genesis::block* create()
     // time
     time,
     //nonce
-    1891240,
+    896043,
     // difficuly
     pars::min_difficulty_by_design.first,
     hash
@@ -95,7 +95,7 @@ genesis::block* create_testnet()
     // time
     time,
     //nonce
-    121881,
+    29495,
     // difficuly
     pars::min_difficulty_by_design.second,
     hash_testnet

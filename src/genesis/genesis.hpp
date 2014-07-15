@@ -53,7 +53,9 @@ public:
     vtx.push_back(txNew);
     hashPrevBlock = 0;
     hashMerkleRoot = BuildMerkleTree();
-    nVersion = 1;
+    nVersion = 1 | (pars::testnet_switch(pars::mm::chain_id) 
+         * BLOCK_VERSION_CHAIN_START
+         );
     nBits    = difficulty;
     nTime    = time;
     nNonce   = nonce;

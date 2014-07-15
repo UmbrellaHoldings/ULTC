@@ -154,7 +154,13 @@ const CPubKey reward_collecting_pubkey(
 //! merged mining pars
 namespace mm {
 
-int GetOurChainID();
+// to enable merged mining:
+// - set a unique chain ID
+//   each merged minable scrypt_1024_1_1_256 coin
+//   should have a different one
+//   (if two have the same ID, they can't be 
+//   merge mined together)
+constexpr auto chain_id = std::make_pair(1, 2);
 
 } // mm
 

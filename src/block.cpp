@@ -79,7 +79,9 @@ uint256 CBlockHeader::GetHash() const
 void CBlockHeader::SetNull()
 {
     nVersion = CBlockHeader::CURRENT_VERSION 
-      | (pars::mm::GetOurChainID() * BLOCK_VERSION_CHAIN_START);
+      | (pars::testnet_switch(pars::mm::chain_id) 
+         * BLOCK_VERSION_CHAIN_START
+         );
     hashPrevBlock = 0;
     hashMerkleRoot = 0;
     nTime = 0;

@@ -185,26 +185,8 @@ bool CheckProofOfWork(const Block& block)
 {
   const bool is_auxpow_block = block.auxpow.get() != NULL;
 
-#ifdef AUX_POW_STARTS_AT_BLOCK
-  // to switch-off auxpow at all or before the specified
-  // block
-  const bool is_auxpow_allowed = 
-    block.nHeight >= GetAuxPowStartBlock();
-#else
-  constexpr bool is_auxpow_allowed = true;
-#endif
-
-  if (is_auxpow_block && !is_auxpow_allowed)
-    return error(
-      "CheckProofOfWork() : AUX POW is not allowed "
-      "at this block"
-    );
-
-  if (is_auxpow_allowed && !fTestNet 
-#ifdef AUX_POW_STARTS_AT_BLOCK
-      && block.nHeight != INT_MAX 
-#endif
-      && block.GetChainID() != pars::mm::GetOurChainID()
+  if (block.GetChainID() != 
+      pars::testnet_switch(pars::mm::chain_id)
      )
     // Prevent same work from being submitted twice:
     // - this block must have our chain ID
@@ -217,7 +199,7 @@ bool CheckProofOfWork(const Block& block)
       "our chain ID"
     );
 
-  if (is_auxpow_allowed && is_auxpow_block &&
+  if (is_auxpow_block &&
       !block.auxpow->Check(
         block.GetHash(), 
         block.GetChainID()
