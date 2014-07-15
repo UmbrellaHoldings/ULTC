@@ -15,7 +15,6 @@
 #include "util.h"
 #include "block.h"
 #include "btc_time.h"
-#include "key.h"
 
 namespace genesis {
 
