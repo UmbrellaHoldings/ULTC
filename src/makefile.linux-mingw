@@ -97,7 +97,6 @@ OBJS= \
     obj/scrypt.o \
     obj/scrypt_generated.o \
     obj/sync.o \
-    obj/testmaxmoney.o \
     obj/txdb.o \
     obj/types.o \
     obj/uint256.o \
