@@ -16,6 +16,7 @@
 #include "block.h"
 #include "btc_time.h"
 #include "key.h"
+#include "types.h"
 
 namespace genesis {
 
@@ -48,7 +49,7 @@ using scratchpad_ptr = scratchpad_base*;
 namespace pars {
 
 template<class T>
-T testnet_switch(const std::pair<T, T>& par)
+T testnet_switch(const types::pair<T, T>& par)
 {
   const bool is_testnet = GetBoolArg("-testnet");
   return (is_testnet) ? par.second : par.first;
@@ -75,18 +76,10 @@ constexpr int64 BLOCK_REWARD = 10 * COIN;
 
 // genesis block
 
-inline genesis::block* create_genesis_block()
-{
-  return testnet_switch(
-    std::make_pair(
-      genesis::umbrella::create,
-      genesis::umbrella::create_testnet
-    )
-  )();
-}
+genesis::block* create_genesis_block();
 
 // the value second is for testnet
-constexpr auto block_period_by_design = std::make_pair(
+constexpr auto block_period_by_design = types::make_pair(
   coin::times::block::seconds(270),//for live
   coin::times::block::seconds(27)  //for testnet
 );
@@ -139,7 +132,7 @@ static_assert(
 using retarget_algorithm = kgw;
 
 // the value second is for testnet
-constexpr auto min_difficulty_by_design = std::make_pair(
+constexpr auto min_difficulty_by_design = types::make_pair(
   0x1e07ffff, 0x1e6236f6
 );
 
@@ -160,7 +153,7 @@ namespace mm {
 //   should have a different one
 //   (if two have the same ID, they can't be 
 //   merge mined together)
-constexpr auto chain_id = std::make_pair(1, 2);
+constexpr auto chain_id = types::make_pair(1, 2);
 
 } // mm
 

@@ -16,8 +16,8 @@
 #include <array>
 #include <cstdint>
 #include <iterator>
+#include <limits>
 #include <assert.h>
-#include "types/safe.h"
 
 namespace types {
 
@@ -225,6 +225,85 @@ private:
 
 typedef constexpr_basic_string<char> constexpr_string;
 typedef constexpr_basic_string<wchar_t> constexpr_wstring;
+
+/**
+ * It is usefull for parsing template literal operators.
+ */
+template <
+  class CharT,
+  class Traits = std::char_traits<CharT>,
+  CharT...
+> 
+class basic_meta_string;
+
+template <
+  class CharT,
+  class Traits
+> 
+class basic_meta_string<CharT, Traits>
+{
+public:
+  typedef uint16_t size_type;
+  typedef CharT value_type;
+  typedef Traits traits_type;
+
+  constexpr static size_type size() { return 0; }
+
+  operator std::string() const
+  {
+    return std::string();
+  }
+
+  template<class OutputIt>
+  static void copy_to(OutputIt out)
+  {
+  }
+};
+
+template <
+  class CharT,
+  class Traits,
+  CharT C0,
+  CharT... CS
+> 
+class basic_meta_string<CharT, Traits, C0, CS...>
+  : public basic_meta_string<CharT, Traits, CS...>
+{
+  using parent = basic_meta_string<CharT, Traits, CS...>;
+public:
+  typedef uint16_t size_type;
+  typedef CharT value_type;
+  typedef Traits traits_type;
+
+  constexpr static size_type size()
+  { 
+    return parent::size() + 1;
+  }
+
+  operator std::string() const
+  {
+    std::string res(size(), '\0');
+    copy_to(res.begin());
+    return res;
+  }
+
+  //! Copy the string to the output iterator
+  template<class OutputIt>
+  static void copy_to(OutputIt out)
+  {
+    *out++ = C0;
+    parent::copy_to(out);
+  }
+};
+
+template<char... cs>
+using meta_string = basic_meta_string
+  <char, std::char_traits<char>, cs...>;
+
+template<wchar_t... wcs>
+using meta_wstring = basic_meta_string
+  <wchar_t, std::char_traits<wchar_t>, wcs...>;
+
 
 template<
   class CharT,
@@ -481,7 +560,7 @@ protected:
   {
     using namespace std;
     const pos_type end_pos = this->egptr()- this->eback();
-    safe<off_type> abs_pos(0);
+    off_type abs_pos(0);
 
     switch((uint32_t)dir) {
       case ios_base::beg: 
@@ -495,7 +574,7 @@ protected:
         break;
     }
 
-    if (!(bool) abs_pos || abs_pos < safe<off_type>(0)) 
+    if (!(bool) abs_pos || abs_pos < 0) 
       // the rest will be checked in seekpos
       return pos_type(off_type(-1));
     
@@ -584,6 +663,38 @@ protected:
   const char_type *const ptr;
 };
 
+// for a basic_meta_string
+template<class CharT, class Traits, CharT... CS>
+struct len_t<basic_meta_string<CharT, Traits, CS...>&&>
+{
+  static constexpr size_t max_length = 
+    basic_meta_string<CharT, Traits, CS...>::size();
+};
+
+template<class OutIt, class CharT, class Traits, CharT... CS>
+class stringifier_t<
+  OutIt,
+  basic_meta_string<CharT, Traits, CS...>&&
+>
+{
+  using string = basic_meta_string<CharT, Traits, CS...>;
+public:
+  using char_type = typename OutIt::char_type;
+
+  stringifier_t(string) noexcept {}
+
+  void stringify(OutIt out, std::ios_base&) const noexcept
+  {
+    try {
+      const std::string s = string();
+      std::copy(s.begin(), s.end(), out);
+    }
+    catch(...) {
+      *out++ = '*';
+    }
+  }
+};
+
 // for long double
 // TODO enable_if(type class)
 template<>
@@ -639,8 +750,9 @@ public:
   using head = stringifier_t<OutIt, Arg0>;
   using tail = stringifier_t<OutIt, Args...>;
 
-  stringifier_t(Arg0 arg0, Args... args) noexcept
-    : head(arg0), tail(args...)
+  stringifier_t(Arg0&& arg0, Args&&... args) noexcept
+    : head(std::forward<Arg0>(arg0)), 
+      tail(std::forward<Args>(args)...)
   {}
 
   void stringify(OutIt out, std::ios_base& st) 

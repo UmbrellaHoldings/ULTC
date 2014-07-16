@@ -19,6 +19,7 @@
 #include "btc_time.h"
 #include "checkpoints.h"
 #include "main.h"
+#include "types.h"
 
 using namespace types;
 
@@ -73,8 +74,7 @@ class difficulty_impl<pars::digishield>
 {
 public:
   //! The limit parameter for dos_min_difficulty()
-  const coin::percent_t adjustment_by_design = 
-    coin::operator"" _pct(110);
+  const percent_t adjustment_by_design = 110.0_pct;
 
   compact_bignum_t next_block_difficulty(
     const duration desired_timespan,

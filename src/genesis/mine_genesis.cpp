@@ -42,7 +42,7 @@ void block::mine()
 
   // Set n cores will be used for other block mining here
   const int n_cores = pars::testnet_switch(
-    std::make_pair(6, 1)
+    types::make_pair(6, 1)
   );
 
   CBlock& block = *this;

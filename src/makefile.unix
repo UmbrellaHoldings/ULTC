@@ -139,6 +139,7 @@ OBJS= \
     obj/net.o \
     obj/netbase.o \
     obj/noui.o \
+    obj/pars.o \
     obj/protocol.o \
     obj/retarget.o \
     obj/rpcblockchain.o \

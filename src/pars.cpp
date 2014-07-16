@@ -10,3 +10,16 @@
 
 #include "pars.h"
 
+namespace pars {
+
+genesis::block* create_genesis_block()
+{
+  return testnet_switch(
+    types::make_pair(
+      genesis::umbrella::create,
+      genesis::umbrella::create_testnet
+    )
+  )();
+}
+
+} // pars

@@ -11,6 +11,7 @@
 #define COHORS_TYPES_FIXED_H_
 
 #include <ostream>
+#include <sstream>
 #include <iomanip>
 #include <string>
 #include <utility>
@@ -22,12 +23,45 @@
 #include "types/safe.h"
 #include "types/exception.h"
 
+#ifdef QT_GUI
+#  include <QMetaObject>
+#  include <QString>
+#endif
+
 namespace types {
 
 //! Unable represent the number 
 //! with the actual fixed_t type.
 //! E.g., it can be used in operator"".
 struct precision_lost : virtual std::exception {};
+
+template<class Rep, class Ratio>
+class fixed_t;
+
+template<
+  class CharT, 
+  class Rep,
+  class Ratio,
+  class Traits = std::char_traits<CharT>
+>
+std::basic_ostream<CharT, Traits>& 
+//
+operator<<( 
+  std::basic_ostream<CharT, Traits>& out,
+  fixed_t<Rep, Ratio> fx
+);
+
+template <
+  class CharT, 
+  class Rep,
+  class Ratio,
+  class Traits = std::char_traits<CharT>
+>
+std::basic_istream<CharT>& 
+operator>>(
+  std::basic_istream<CharT, Traits>& in, 
+  fixed_t<Rep, Ratio>& fx
+);
 
 /**
  * A fixed point type.
@@ -38,6 +72,9 @@ struct precision_lost : virtual std::exception {};
 template<class Rep, class Ratio>
 class fixed_t
 {
+  template<class Re2, class Ra2>
+  friend class fixed_t;
+
   template<class Re, class Ra>
   friend fixed_t operator*(Rep a, fixed_t b) noexcept;
 
@@ -51,21 +88,12 @@ class fixed_t
   template <class, class, class, class>
   friend class fixed_put;
 
-//  friend fixed_t operator "" _fx (long double p);
-
 public:
   typedef Rep modular_type;
   typedef Ratio ratio_type;
 
   static constexpr auto num = ratio_type::num;
   static constexpr auto den = ratio_type::den;
-
-#if 0
-  static constexpr double ratio_as_long_double = 
-    (double) ratio_type::num / ratio_type::den;
-  static constexpr double rev_ratio_as_long_double = 
-    (double) ratio_type::den / ratio_type::num;
-#endif
 
   static_assert( 
     std::is_signed<modular_type>::value, 
@@ -90,11 +118,21 @@ public:
     "fixed_t::ratio_type::num != 1"
   );
 
-  constexpr fixed_t() : rep(0) {}
+  constexpr fixed_t() : rep((Rep)0) {}
 
   constexpr fixed_t(std::chrono::duration<Rep, Ratio> d)
     : rep(d.count())
   {}
+
+#if 0
+#ifdef QT_GUI
+  fixed_t(const QVariant& v) 
+    // FIXME generic
+    : fixed_t(v.toLongLong())
+  {
+  }
+#endif
+#endif
 
   //! The maximal fixed_t value
   static constexpr fixed_t max() 
@@ -130,6 +168,23 @@ public:
     return fixed_t(1);
   }
 
+  //! Returns an overflow
+  static constexpr fixed_t overflow()
+  {
+    return fixed_t(safe<modular_type>());
+  }
+
+  //! Convert to another ratio
+  template<class Ra2>
+  explicit operator fixed_t<Rep, Ra2>() const
+  {
+    static_assert(
+      Ra2::num == 1, 
+      "unsupported fixed_t cast: Ra2::num != 1"
+    );
+    return fixed_t<Rep, Ra2>(rep);
+  }
+
   //! Convert to long double.
   //! Can loss precision. If lost_precision != nullptr set
   //! *lost_precision = true if either this operation loss
@@ -140,7 +195,7 @@ public:
   void to_long_double
     (long double& val, bool* lost_precision) const
   {
-    val = (long double) rep / num; //* ratio_as_long_double;
+    val = (long double) rep / den;
     if (lost_precision) // a recursion guard
       *lost_precision = 
         *this != from_long_double(val, nullptr)
@@ -156,7 +211,7 @@ public:
   static fixed_t from_long_double
     (long double d, bool* lost_precision) 
   {
-    fixed_t p(d * num/*rev_ratio_as_long_double*/);
+    fixed_t p(safe<modular_type>(d * den));
     if (lost_precision) { // a recursion guard
       long double d2;
       p.to_long_double(d2, nullptr);
@@ -165,9 +220,20 @@ public:
     return p;
   }
 
+  void clear_precision_lost()
+  {
+    rep = safe<modular_type>((Rep) rep);
+  }
+
+  //! Return an absolute value
+  fixed_t abs() const noexcept
+  {
+    return fixed_t(rep.abs());
+  }
+
   fixed_t operator - () const noexcept
   { 
-    return fixed_t(rep); 
+    return fixed_t(-rep); 
   }
 
   bool operator < (fixed_t p) const
@@ -225,6 +291,22 @@ public:
     return *this;
   }
 
+  template<class Ra2>
+  fixed_t& operator *= (fixed_t<Rep, Ra2> p) noexcept
+  {
+    const safe<Rep> copy = rep;
+    rep *= p.rep;
+    rep *= Ra2::num;
+    rep /= Ra2::den;
+    if (!rep /*&& (bool) copy*/) {
+      rep = copy;
+      rep /= Ra2::den;
+      rep *= Ra2::num;
+      rep *= p.rep;
+    }
+    return *this;
+  }
+
   fixed_t& operator /= (modular_type p) noexcept
   {
     rep /= p;
@@ -239,10 +321,20 @@ public:
     return *this;
   }
 
-  fixed_t& operator/=(fixed_t o) noexcept
+  template<class Ra2>
+  fixed_t& operator/=(fixed_t<Rep, Ra2> o) noexcept
   {
+    const safe<Rep> copy = rep;
+    rep *= Ra2::den;
+    rep /= Ra2::num;
     rep /= o.rep;
-    return *this;
+    if (!rep) {
+      rep = copy;
+      rep /= o.rep;
+      rep /= Ra2::num;
+      rep *= Ra2::den;
+    }
+     return *this;
   }
 
   fixed_t operator + (fixed_t p) const noexcept
@@ -265,6 +357,14 @@ public:
     noexcept
   {
     return fixed_t(rep * p);
+  }
+
+  template<class Rep2, class Rat2>
+  fixed_t operator * (fixed_t<Rep2, Rat2> p) const noexcept
+  {
+    fixed_t res(*this);
+    res *= p;
+    return res;
   }
 
   //! Divizion with truncation.
@@ -299,16 +399,32 @@ public:
   //! Truncates to an integer
   safe<modular_type> truncate() const noexcept
   {
-#if 1
     safe<modular_type> copy(rep);
     copy *= ratio_type::num;
     copy /= ratio_type::den;
     return copy;
-#else
-    // clang not compiles it
-    return rep * ratio_type::num / ratio_type::den;
-#endif
   }
+
+#ifdef QT_GUI
+  operator QGenericArgument() const
+  {
+    return Q_ARG(fixed_t, *this);
+  }
+
+#if 0
+  explicit operator QVariant() const
+  {
+    return QVariant((qint64) (Rep) rep);
+  }
+#endif
+
+  QString toQString() const
+  {
+    std::ostringstream str;
+    str << *this;
+    return QString(str.str().c_str());
+  }
+#endif
 
 protected:
   safe<modular_type> rep;
@@ -417,15 +533,17 @@ protected:
 
     if (frac < 0) {
 
-      fixed_t p2(v.rep);
+      fixed_t p2(v % fixed_t::one()); // fractional part only
       frac = 0;
 
       // checking overflow in p2 preventing from a possible
       // infinite loop
-      while((p2 *= 10) % fixed_t::one() != fixed_t::zero() 
+      while(p2 % fixed_t::one() != fixed_t::zero() 
             && (bool) p2
             )
-        ++frac;
+      {
+        ++frac; p2 *= 10;
+      }
 
       if (! (bool) p2) {
         // the error mark (four dots)
@@ -467,11 +585,78 @@ template <
 std::locale::id fixed_put<CharT, Rep, Ratio, OutputIt>
 ::id;
 
+template <
+  class CharT,
+  class Rep,
+  class Ratio,
+  class InputIt = std::istreambuf_iterator<CharT>
+>
+class fixed_get : public std::locale::facet
+{
+public:
+  typedef CharT char_type;
+  typedef std::istreambuf_iterator<CharT> iter_type;
+  
+  static std::locale::id id;
+
+  explicit fixed_get(size_t refs = 0) 
+    : std::locale::facet(refs)
+  {}
+
+  iter_type get(
+    iter_type in, 
+    iter_type end,
+    std::ios_base& str, 
+    std::ios_base::iostate& err, 
+    fixed_t<Rep, Ratio>& v 
+  ) const
+  {
+    return do_get(in, end, str, err, v);
+  }
+  
+protected:
+  ~fixed_get() {}
+
+  virtual iter_type do_get( 
+    iter_type in, 
+    iter_type end,
+    std::ios_base& str, 
+    std::ios_base::iostate& err, 
+    fixed_t<Rep, Ratio>& v 
+  ) const
+  {
+    long double ld;
+    const auto& numget =
+     std::use_facet<std::num_get<CharT, iter_type>>
+       (str.getloc());
+    const auto it = numget.get(in, end, str, err, ld);
+
+    if (err & std::ios_base::failbit)
+      return it;
+
+    bool lost_precision; // it is also set in v
+    v = fixed_t<Rep, Ratio>::from_long_double(
+      ld, 
+      &lost_precision 
+    );
+    return it;
+  }
+};
+
+template <
+  class CharT,
+  class Rep,
+  class Ratio,
+  class InputIt
+>
+std::locale::id fixed_get<CharT, Rep, Ratio, InputIt>
+::id;
+
 template<
   class CharT, 
   class Rep,
   class Ratio,
-  class Traits = std::char_traits<CharT>
+  class Traits// = std::char_traits<CharT>
 >
 std::basic_ostream<CharT, Traits>& 
 //
@@ -480,110 +665,72 @@ operator<<(
   fixed_t<Rep, Ratio> fx
 )
 {
-  using iterator = std::ostreambuf_iterator<CharT>;
+  using namespace std;
+  using iterator = ostreambuf_iterator<CharT, Traits>;
   using fixed_put = fixed_put<CharT, Rep, Ratio, iterator>;
-  std::locale locale(out.getloc(), new fixed_put);
-  const fixed_put& fp = std::use_facet<fixed_put>(locale);
 
-  const iterator end = fp.put(
-    iterator(out.rdbuf()), 
-    out, 
-    out.fill(), 
-    fx
-  );
+  try {
+    typename basic_ostream<CharT, Traits>::sentry s(out);
+    if (s) {
+      std::locale locale(out.getloc(), new fixed_put);
+      const fixed_put& fp = use_facet<fixed_put>(locale);
 
-  if (end.failed())
-    out.setstate(std::ios_base::badbit);
-
-  return out;
-}
-
-#if 0
-template <
-  class CharT, 
-  class Traits = std::char_traits<CharT>
->
-std::basic_ostream<CharT, Traits>& 
-//
-operator << 
-  (std::basic_ostream<CharT, Traits>& out, 
-   const put_price_type<gui::fmt::price>& p)
-{
-  using namespace ::types;
-  typedef std::basic_string<CharT, Traits> string_type;
-
-  if (! (bool) p.price ) {
-    const string_type ovf = 
-      std::use_facet<std::numpunct<CharT>>(out.getloc())
-      . curr_symbol();
-    out << ovf << ovf << ovf;
-    return out;
-  }
-
-  int frac = p.fmt.frac_digits();
-
-  // count the number of frac digits needed to represent
-  // without any loss
-
-  if (frac < 0) {
-
-    fixed_t p2(p.price);
-    frac = 0;
-
-    // checking overflow in p2 preventing from a possible
-    // infinite loop
-    while((p2 *= 10) % 1.0_usd != 0.0_usd && (bool) p2)
-      ++frac;
-
-    if (! (bool) p2) {
-      // the error mark (four dots)
-      out << std::showpoint << std::showpoint 
-          << std::showpoint << std::showpoint; 
-      return out;
+      const iterator end = fp.put(
+        iterator(out.rdbuf()), 
+        out, 
+        out.fill(), 
+        fx
+      );
+      if (end.failed())
+        out.setstate(ios_base::badbit);
     }
   }
-  
-  // NB the facet of the last operation is lived
-  // on the stream
-  out.imbue
-    (std::locale(out.getloc(), 
-     p.fmt.get_facet<wchar_t>(frac))); //NB wchar_t is here
-
-  long double ld;
-  bool lost_precision;
-  p.price.to_long_double(ld, &lost_precision);
-
-  // here is it!
-  out << std::put_money<long double>
-    (ld / fixed_t::cents_to_bucks);
-
-  if (lost_precision) {
-    // the error mark (two dots)
-    out << std::showpoint << std::showpoint; 
+  catch (...) {
+    out.setstate(ios_base::badbit);
   }
   return out;
 }
 
 template <
   class CharT, 
-  class Traits = std::char_traits<CharT>
+  class Rep,
+  class Ratio,
+  class Traits// = std::char_traits<CharT>
 >
 std::basic_istream<CharT>& 
-operator >> 
-  (std::basic_istream<CharT, Traits>& in, fixed_t& p)
+operator>>(
+  std::basic_istream<CharT, Traits>& in, 
+  fixed_t<Rep, Ratio>& fx
+)
 {
-  long double ld;
-  bool precision_loss_is_in_price_value;
+  using namespace std;
+  using iterator = istreambuf_iterator<CharT, Traits>;
+  using fixed_get = fixed_get<CharT, Rep, Ratio, iterator>;
 
-  in >> std::get_money<long double>(ld);
-  p = fixed_t::from_long_double
-    (ld, &precision_loss_is_in_price_value);
+  try {
+    typename basic_istream<CharT, Traits>::sentry s(in);
+    if (s) {
+      std::locale locale(in.getloc(), new fixed_get);
+      const fixed_get& fg = use_facet<fixed_get>(locale);
+      ios_base::iostate error = ios_base::goodbit;
+      const iterator end;
+  
+      const iterator it = fg.get(
+        iterator(in), 
+        end,
+        in, 
+        error,
+        fx
+      );
+      if (it.equal(end))
+        in.setstate(ios_base::eofbit);
+    }
+  }
+  catch (...) {
+    in.setstate(ios_base::badbit);
+  }
   return in;
 }
-#endif
-
-template<class Rep>
-using percent_t = fixed_t<Rep, std::ratio<1, 100>>;
 
 } // types
 

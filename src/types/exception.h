@@ -129,8 +129,9 @@ public:
     Pars...
   > message;
 
-  explicit exception_compound_message(Pars... pars)
-    : parent(), message(pars...)
+  explicit exception_compound_message(Pars&&... pars)
+    : parent(), 
+      message(std::forward<Pars>(pars)...)
   {
     auto it = std::ostreambuf_iterator<char>(&this->msg);
     message.stringify(
@@ -150,8 +151,9 @@ struct exception
   : Exception, 
     exception_compound_message<Args...> 
 {
-  exception(Args... args) 
-    : exception_compound_message<Args...>(args...) {}
+  exception(Args&&... args) 
+    : exception_compound_message<Args&&...>
+        (std::forward<Args>(args)...) {}
 };
 
 }
