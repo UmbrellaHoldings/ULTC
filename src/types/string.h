@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <iterator>
 #include <limits>
+#include <locale>
 #include <assert.h>
 
 namespace types {

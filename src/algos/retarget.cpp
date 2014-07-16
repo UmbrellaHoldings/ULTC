@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <numeric>
 #include <boost/thread.hpp>
 #include "types/fixed.h"
 #include "types/abstract_iterator.h"
