@@ -29,7 +29,7 @@ const constexpr_string pubkey =
 extern const constexpr_string pubkey;
 
 const uint256 hash = uint256(
-  "0fa747de06cfe3ee7fd73eb06c85f4fc802d6fc1aed3572ad6b340a7ae5b3706"
+  "9a98a4f35289dea592ba280952390698bf57918fd8cbbaf828843443187e953b"
 );
 extern const uint256 hash;  
 
@@ -40,7 +40,7 @@ extern const uint256 hash_testnet;
 
 genesis::block* create()
 {
-  constexpr unsigned time = 1403698060;
+  constexpr unsigned time = 1405801325;
 
   genesis::block* blk = new the_block<
     /* the coinbase */
@@ -51,7 +51,7 @@ genesis::block* create()
     // time
     time,
     //nonce
-    896043,
+    2596745,
     // difficuly
     pars::min_difficulty_by_design.first,
     hash
