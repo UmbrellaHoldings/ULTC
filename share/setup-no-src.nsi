@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 5.3.1.0
+!define VERSION 5.3.2.1
 !define COMPANY "Cohors LLC"
 !define URL http://cohors.bz/
 
@@ -51,7 +51,7 @@ CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 5.3.1.0
+VIProductVersion 5.3.2.1
 VIAddVersionKey ProductName Umbrella-LTC
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
