@@ -153,7 +153,7 @@ namespace mm {
 //   should have a different one
 //   (if two have the same ID, they can't be 
 //   merge mined together)
-constexpr auto chain_id = types::make_pair(1, 2);
+constexpr auto chain_id = types::make_pair(13804, 13807);
 
 } // mm
 
