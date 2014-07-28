@@ -12,16 +12,8 @@ Copyright (c) 2013-2014 Cohors LLC
 What is Umbrella-LTC?
 ----------------
 
-Umbrella-LTC is a lite version of Umbrella-LTC using scrypt-adaptive-N as a proof-of-work algorithm.
- - 8 minute block targets
- - block value halves in 75k blocks (~1 years)
- - 35 million total coins
- - 35 coins per block
- - Every block to retarget difficulty with DigiShield algorithm
-
 For more information, as well as an immediately useable, binary version of
-the Umbrella-LTC client sofware, see http://www.umbrella-ltccoin.com.
-
+the Umbrella-LTC client sofware, see http://www.umbrella.holdings
 License
 -------
 
