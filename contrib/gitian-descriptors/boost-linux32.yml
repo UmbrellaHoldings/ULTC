@@ -1,0 +1,66 @@
+---
+name: "boost-linux"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "unzip"
+- "pkg-config"
+- "libtool"
+- "faketime"
+- "bsdmainutils"
+- "zip"
+- "libz-dev"
+- "libc6-dev-i386"
+- "linux-libc-dev:i386"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "boost_1_55_0.tar.bz2"
+- "gcc-4.8.1-linux64.zip"
+script: |
+  #
+  mkdir gcc
+  cd gcc
+  unzip -q ../gcc-4.8.1-linux64.zip
+  ln -s gcc4.8 bin/gcc
+  ln -s g++4.8 bin/g++
+  export PATH=$(pwd)/bin:$PATH
+  cd ..
+  #
+  GCCVERSION=$(g++ -E -dM $(mktemp --suffix=.h) | grep __VERSION__ | cut -d ' ' -f 3 | cut -d '"' -f 2)
+  # Defines
+  STAGING="$HOME/install"
+  TEMPDIR="$HOME/tmp"
+  export LIBRARY_PATH="$STAGING/lib"
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  # Input Integrity Check
+  echo "cef9a0cc7084b1d639e06cd3bc34e4251524c840  boost_1_55_0.tar.bz2" | shasum -c
+
+  mkdir -p "$STAGING"
+  tar --warning=no-timestamp -xjf boost_1_55_0.tar.bz2
+  cd boost_1_55_0
+  # note: bjam with -d+2 reveals that -O3 is implied by default, no need to provide it in cxxflags
+  echo "using gcc : $GCCVERSION : g++
+        :
+        <cxxflags>\"-frandom-seed=boost1 -fPIC\"
+  ;" > user-config.jam
+
+  ./bootstrap.sh --without-icu
+
+  ./bjam toolset=gcc cxxflags='--std=c++11' address-model=32 architecture=x86 threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
+
+  # post-process all generated libraries to be deterministic
+  # extract them to a temporary directory then re-build them deterministically
+  for LIB in $(find $STAGING -name \*.a); do
+    rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+    ar xv $LIB | cut -b5- > /tmp/list.txt
+    rm $LIB
+    ar crsD $LIB $(cat /tmp/list.txt)
+  done
+  #
+  cd "$STAGING"
+  find | sort | zip -X@ $OUTDIR/boost-linux32-1.55.0.zip

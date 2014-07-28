@@ -1,0 +1,124 @@
+#!/bin/sh
+set -e
+
+SUITE=lucid
+ARCH=amd64
+MIRROR=http://${MIRROR_HOST:-127.0.0.1}:3142/archive.ubuntu.com/ubuntu
+SECURITY_MIRROR=http://${MIRROR_HOST:-127.0.0.1}:3142/security.ubuntu.com/ubuntu
+LXC=0
+VBOX=0
+PPA=ubuntu-toolchain-r/test 
+
+usage() {
+  echo "Usage: ${0##*/} [OPTION]..."
+  echo "Make a base client."
+  echo
+  cat << EOF
+  --help     display this help and exit
+  --suite U  build suite U instead of lucid
+  --arch A   build architecture A (e.g. i386) instead of amd64
+  --lxc      use lxc instead of kvm
+  --vbox     use VirtualBox instead of kvm
+
+  The MIRROR_HOST environment variable can be used to change the
+  apt-cacher host.  It should be something that the target VM can
+  resolve.  It may be set to 127.0.0.1, in which case it will be
+  changed to 10.0.2.2 on the guest.  10.0.2.2 is the host IP as visible
+  from the guest under qemu networking.
+EOF
+}
+
+if [ $# != 0 ] ; then
+  while true ; do
+    case "$1" in
+      --help|-h)
+        usage
+        exit 0
+        ;;
+      --suite|-s)
+        SUITE="$2"
+        shift 2
+        ;;
+      --arch|-a)
+        ARCH="$2"
+        shift 2
+        ;;
+      --lxc)
+        LXC=1
+        shift 1
+        ;;
+      --vbox)
+        VBOX=1
+        shift 1
+        ;;
+      --*)
+        echo "unrecognized option $1"
+        exit 1
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+fi
+
+mkdir -p var
+
+if [ ! -e var/id_dsa ]; then
+  ssh-keygen -t dsa -f var/id_dsa -N ""
+fi
+
+OUT=base-$SUITE-$ARCH
+FLAVOUR=virtual
+
+if [ $ARCH = "amd64" -a $SUITE = "hardy" ]; then
+  FLAVOUR=server
+fi
+
+addpkg=g++-4.8,openssh-server,pciutils,build-essential,git-core,subversion
+
+# Remove cron to work around vmbuilder issue when umounting /dev on target
+removepkg=cron
+
+if [ $VBOX = "1" ]; then
+  NAME="$SUITE-$ARCH"
+  if ! vagrant status | grep "$NAME" | grep "not created" > /dev/null; then
+    echo "Vagrant machine "$NAME" already exists, please remove it first (vagrant destroy "$NAME")"
+    exit 1
+  fi
+
+  vagrant up "$NAME"
+
+  vagrant ssh "$NAME" -c "sudo mkdir -p /root/.ssh && sudo chmod 700 /root/.ssh"
+  vagrant ssh "$NAME" -c "sudo sh -c 'cat >> /root/.ssh/authorized_keys'" < var/id_dsa.pub
+  vagrant ssh "$NAME" -c "sudo -u ubuntu mkdir -p /home/ubuntu/.ssh && sudo -u ubuntu chmod 700 /home/ubuntu/.ssh"
+  vagrant ssh "$NAME" -c "sudo sh -c 'cat >> /home/ubuntu/.ssh/authorized_keys'" < var/id_dsa.pub
+
+  VBoxManage snapshot "Gitian-$NAME" take "Gitian-Clean"
+  vagrant suspend "$NAME"
+
+  exit 0
+fi
+
+if [ -e $OUT.qcow2 ]; then
+  echo $OUT.qcow2 already exists, please remove it first
+  exit 1
+fi
+
+rm -rf $OUT
+sudo vmbuilder kvm ubuntu --debug --rootsize 10240 --arch=$ARCH --suite=$SUITE --addpkg=$addpkg --removepkg=$removepkg --ssh-key=var/id_dsa.pub --ssh-user-key=var/id_dsa.pub --mirror=$MIRROR --security-mirror=$SECURITY_MIRROR --ppa=$PPA --dest=$OUT --flavour=$FLAVOUR --firstboot=`pwd`/target-bin/bootstrap-fixup
+mv $OUT/*.qcow2 $OUT.qcow2
+rm -rf $OUT
+
+if [ $LXC = "1" ]; then
+    #sudo debootstrap --include=$addpkg --arch=$ARCH $SUITE $OUT-root $MIRROR
+    echo Extracting partition for lxc
+    qemu-img convert $OUT.qcow2 $OUT.raw
+    loop=`sudo kpartx -av $OUT.raw|sed -n '/loop.p1/{s/.*loop\(.\)p1.*/\1/;p}'`
+    sudo cp --sparse=always /dev/mapper/loop${loop}p1 $OUT
+    sudo chown $USER $OUT
+    sudo kpartx -d /dev/loop$loop
+    rm -f $OUT.raw
+    # bootstrap-fixup is done in libexec/make-clean-vm
+fi
+

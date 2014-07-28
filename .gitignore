@@ -1,0 +1,51 @@
+src/*.exe
+src/umbrella-ltc
+src/umbrella-ltcd
+src/xxxxxxxd
+src/umbrella-ltcKeyGen
+src/leveldb/build_config.mk
+src/test_umbrella-ltc
+src/show_n_factor
+.*.swp
+*#*
+*~*
+*.*~*
+*.bak
+*.kdev4
+*.rej
+*.orig
+*.o
+*.patch
+.umbrella-ltc
+nohup.out
+src/test/data/Mar12Fork.dat
+
+# Compilation and Qt preprocessor part
+*.qm
+Makefile
+umbrella-ltc-qt
+Umbrella-LTC-Qt.app
+
+# Unit-tests
+Makefile.test
+umbrella-ltc-qt_test
+
+# Resources cpp
+qrc_*.cpp
+
+# Qt creator
+*.pro.user
+
+# Mac specific
+.DS_Store
+build
+Info
+Umbrella-LTC-Qt.xcodeproj
+Umbrella-LTC-Qt.dmg
+
+!src/leveldb*/Makefile
+
+GPATH
+GRTAGS
+GSYMS
+GTAGS
