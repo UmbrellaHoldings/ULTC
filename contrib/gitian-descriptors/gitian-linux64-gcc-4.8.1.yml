@@ -16,7 +16,7 @@ packages:
 - "libz-dev"
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "trading.kogorta.dp.ua:USDollarCoin"
+- "url": "https://github.com/UmbrellaHoldings/ULTC.git"
   "dir": "umbrella-ltc"
 files:
 - "miniupnpc-1.6.tar.gz"
