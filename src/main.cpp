@@ -2098,6 +2098,25 @@ bool CBlock::CheckBlock(CValidationState &state, int nHeight, bool fCheckPOW, bo
     if (vtx[i].IsCoinBase())
       return state.DoS(100, error("CheckBlock() : more than one coinbase"));
 
+#if 0
+  // Umbrella: check 50% block reward to
+  // pars::coinbase::reward_collecting_pubkey
+  {
+    txnouttype outtype;
+    vector<vector<unsigned char>> keys;
+
+    if (!(vtx[0].vout.size() == 2
+          && vtx[0].vout[0].nValue == vtx[0].vout[1].nValue
+          && ( Solver(vtx[0].vout[0].scriptPubKey, outtype, keys),
+               (  outtype == TX_PUBKEY 
+               && CPubKey(keys.at(0)) == pars::coinbase::reward_collecting_pubkey
+               )
+             )
+       ))
+      return state.DoS(100, error("CheckBlock(): no 50%% reward collection"));
+  }
+#endif
+
   // Check transactions
   BOOST_FOREACH(const CTransaction& tx, vtx)
     if (!tx.CheckTransaction(state))

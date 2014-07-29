@@ -170,6 +170,11 @@ Value getmininginfo(const Array& params, bool fHelp)
 
 Value getworkex(const Array& params, bool fHelp)
 {
+    LOG() << "getworkex";
+    for(auto& p : params)
+      LOG_() << ' ' << p;
+    LOG_() << std::endl;
+
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "getworkex [data, coinbase]\n"
@@ -306,6 +311,11 @@ Value getworkex(const Array& params, bool fHelp)
 
 Value getwork(const Array& params, bool fHelp)
 {
+    LOG() << "getwork";
+    for(auto& p : params)
+      LOG_() << ' ' << p;
+    LOG_() << std::endl;
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getwork [data]\n"
@@ -420,6 +430,11 @@ Value getwork(const Array& params, bool fHelp)
 
 Value getblocktemplate(const Array& params, bool fHelp)
 {
+    LOG() << "getblocktemplate";
+    for(auto& p : params)
+      LOG_() << ' ' << p;
+    LOG_() << std::endl;
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getblocktemplate [params]\n"
@@ -487,6 +502,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             pblocktemplate = NULL;
         }
         CScript scriptDummy = CScript() << OP_TRUE;
+        LOG() << "rpcmining.cpp:490: CreateNewBlock()\n";
         pblocktemplate = CreateNewBlock(scriptDummy, scriptDummy);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
