@@ -2098,6 +2098,7 @@ bool CBlock::CheckBlock(CValidationState &state, int nHeight, bool fCheckPOW, bo
     if (vtx[i].IsCoinBase())
       return state.DoS(100, error("CheckBlock() : more than one coinbase"));
 
+#if 0
   // Umbrella: check 50% block reward to
   // pars::coinbase::reward_collecting_pubkey
   {
@@ -2114,6 +2115,7 @@ bool CBlock::CheckBlock(CValidationState &state, int nHeight, bool fCheckPOW, bo
        ))
       return state.DoS(100, error("CheckBlock(): no 50%% reward collection"));
   }
+#endif
 
   // Check transactions
   BOOST_FOREACH(const CTransaction& tx, vtx)
