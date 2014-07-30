@@ -61,4 +61,4 @@ script: |
   done
   #
   cd "$STAGING"
-  find | sort | zip -X@ $OUTDIR/boost-linux${GBUILD_BITS}-1.55.0.zip
+  find | sort | zip -X@ $OUTDIR/boost-linux64-1.55.0.zip
