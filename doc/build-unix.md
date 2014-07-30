@@ -19,7 +19,7 @@ To Build
 	export BOOST_INCLUDE_PATH=$(pwd)/include
 	export BOOST_LIB_PATH=$(pwd)/lib
 	export BOOST_LIB_SUFFIX=-mt
-   cd ..
+	cd ..
 	cd src/
 	make -f makefile.unix		# Headless umbrella-ltcd
 	cd ..
