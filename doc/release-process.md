@@ -62,7 +62,7 @@ Release Process
 	cd ..
 	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/gcc-4.8.1.yml
  	mv build/out/gcc-4.8.1-linux64.zip inputs/
-	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/boost.yml
+	./bin/gbuild ../umbrella-ltc/contrib/gitian-descriptors/boost-linux64-gcc-4.8.1.yml
 	mv build/out/boost-linux64-1.55.0.zip inputs/
 
 	#Windows
