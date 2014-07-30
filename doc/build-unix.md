@@ -1,4 +1,5 @@
 Copyright (c) 2009-2013 Bitcoin Developers
+Copyright (c) 2014 Cohors LLC
 
 Distributed under the MIT/X11 software license, see the accompanying
 file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -11,110 +12,19 @@ UNIX BUILD NOTES
 To Build
 ---------------------
 
+	cd ULTC
+	mkdir boost
+	cd boost
+	unzip ../contrib/precompiled/boost-linux64-1.55.0.zip
+	export BOOST_INCLUDE_PATH=$(pwd)/include
+	export BOOST_LIB_PATH=$(pwd)/lib
+	export BOOST_LIB_SUFFIX=-mt
+   cd ..
 	cd src/
-	make -f makefile.unix		# Headless umbrella-ltc
-
-See readme-qt.rst for instructions on building Umbrella-LTC-Qt, the graphical user interface.
-
-Dependencies
----------------------
-
- Library     Purpose           Description
- -------     -------           -----------
- libssl      SSL Support       Secure communications
- libdb4.8    Berkeley DB       Blockchain & wallet storage
- libboost    Boost             C++ Library
- miniupnpc   UPnP Support      Optional firewall-jumping support
-
-[miniupnpc](http://miniupnp.free.fr/) may be used for UPnP port mapping.  It can be downloaded from [here](
-http://miniupnp.tuxfamily.org/files/).  UPnP support is compiled in and
-turned off by default.  Set USE_UPNP to a different value to control this:
-
-	USE_UPNP=     No UPnP support miniupnp not required
-	USE_UPNP=0    (the default) UPnP support turned off by default at runtime
-	USE_UPNP=1    UPnP support turned on by default at runtime
-
-IPv6 support may be disabled by setting:
-
-	USE_IPV6=0    Disable IPv6 support
-
-Licenses of statically linked libraries:
- Berkeley DB   New BSD license with additional requirement that linked
-               software must be free open source
- Boost         MIT-like license
- miniupnpc     New (3-clause) BSD license
-
-- Versions used in this release:
--  GCC           4.3.3
--  OpenSSL       1.0.1e
--  Berkeley DB   4.8.30.NC
--  Boost         1.55
--  miniupnpc     1.6
-
-Dependency Build Instructions: Ubuntu & Debian
-----------------------------------------------
-Build requirements:
-
-	sudo apt-get install build-essential
-	sudo apt-get install libssl-dev
-
-for Ubuntu 12.04:
-
-	sudo apt-get install libboost-all-dev
-
- db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
-
- Ubuntu precise has packages for libdb5.1-dev and libdb5.1++-dev,
- but using these will break binary wallet compatibility, and is not recommended.
-
-for other Ubuntu & Debian:
-
-	sudo apt-get install libdb4.8-dev
-	sudo apt-get install libdb4.8++-dev
-	sudo apt-get install libboost1.37-dev
- (If using Boost 1.37, append -mt to the boost libraries in the makefile)
-
-Optional:
-
-	sudo apt-get install libminiupnpc-dev (see USE_UPNP compile flag)
-
-Level Db
---------
-Make sure to use +x for compilation of leveldb libraries.
-chmod +x src/leveldb/build_detect_platform
-
-
-Notes
------
-The release is built with GCC and then "strip bitcoind" to strip the debug
-symbols, which reduces the executable size by about 90%.
-
-
-miniupnpc
----------
-	tar -xzvf miniupnpc-1.6.tar.gz
-	cd miniupnpc-1.6
-	make
-	sudo su
-	make install
-
-
-Berkeley DB
------------
-You need Berkeley DB 4.8.  If you have to build Berkeley DB yourself:
-
-	../dist/configure --enable-cxx
-	make
-
-
-Boost
------
-If you need to build Boost yourself:
-
-	sudo su
-	./bootstrap.sh
-	./bjam install
-
+	make -f makefile.unix		# Headless umbrella-ltcd
+	cd ..
+	qmake BOOST_INCLUDE_PATH=$BOOST_INCLUDE_PATH BOOST_LIB_PATH=$BOOST_LIB_PATH BOOST_LIB_SUFFIX=$BOOST_LIB_SUFFIX USE_SSE2=1
+	make # Qt wallet
 
 Security
 --------
