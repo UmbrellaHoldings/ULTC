@@ -45,7 +45,7 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile umbrella-ltc-5.3.1.0-win32-setup.exe
+OutFile umbrella-ltc-5.3.3.8-win32-setup.exe
 InstallDir $PROGRAMFILES\Umbrella-LTC
 CRCCheck on
 XPStyle on
