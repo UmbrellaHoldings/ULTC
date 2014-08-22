@@ -74,6 +74,21 @@ constexpr int64 MAX_MONEY = 6000000 * COIN;
 constexpr int64 PREMINED_MONEY = 120000 * COIN;
 constexpr int64 BLOCK_REWARD = 10 * COIN;
 
+constexpr int64 over_money_limit =
+  1 + (MAX_MONEY - PREMINED_MONEY) / BLOCK_REWARD;
+
+// TODO add to testmaxmoney
+constexpr int64 GetMoneySupply(int height)
+{
+  return (height < 1)
+    ? 0
+    : (height == 1)
+    ? PREMINED_MONEY
+    : (height < over_money_limit)
+    ? PREMINED_MONEY + (height - 1) * BLOCK_REWARD
+    : PREMINED_MONEY + (over_money_limit - 1) *BLOCK_REWARD;
+} 
+
 // genesis block
 
 genesis::block* create_genesis_block();
