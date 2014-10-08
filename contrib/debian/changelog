@@ -1,3 +1,10 @@
+umbrella-ltc (5.3.6.17) jessie; urgency=medium
+
+  * New upstream release.
+
+
+ -- Oleksiy Ivanchuk <barjomet@barjomet.com>  Wed, 08 Oct 2014 11:13:36 +0000 
+
 bitcoin (0.8.1-natty3) natty; urgency=low
 
   * New pixmaps
