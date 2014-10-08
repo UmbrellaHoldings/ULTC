@@ -15,6 +15,8 @@ LINK:=$(CXX)
 
 DEFS=-DBOOST_SPIRIT_THREADSAFE -D_FILE_OFFSET_BITS=64
 
+BOOST_INCLUDE_PATH=/usr/include/boost1.55-c++11/
+
 DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
 LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
 
@@ -31,16 +33,19 @@ else
 	TESTDEFS += -DBOOST_TEST_DYN_LINK
 endif
 
+BOOST_VERSION=1.55
+BOOST_LIB_SUFFIX=-c++11
+
 # for boost 1.37, add -mt to the boost libraries
 LIBS += \
  -Wl,-B$(LMODE) \
-   -l boost_system$(BOOST_LIB_SUFFIX) \
-   -l boost_filesystem$(BOOST_LIB_SUFFIX) \
-   -l boost_program_options$(BOOST_LIB_SUFFIX) \
-   -l boost_thread$(BOOST_LIB_SUFFIX) \
+   -l boost_system$(BOOST_VERSION)$(BOOST_LIB_SUFFIX) \
+   -l boost_filesystem$(BOOST_VERSION)$(BOOST_LIB_SUFFIX) \
+   -l boost_program_options$(BOOST_VERSION)$(BOOST_LIB_SUFFIX) \
+   -l boost_thread$(BOOST_VERSION)$(BOOST_LIB_SUFFIX) \
    -l db_cxx$(BDB_LIB_SUFFIX) \
    -l ssl \
-   -l crypto
+   -l crypto 
 
 TESTLIBS += \
  -Wl,-B$(LMODE) \
@@ -114,7 +119,6 @@ xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 OBJS= \
     leveldb/libleveldb.a \
     obj/addrman.o \
-    obj/auxpow.o \
     obj/alert.o \
     obj/allocators.o \
     obj/base58.o \
@@ -125,9 +129,7 @@ OBJS= \
     obj/checkpoints.o \
     obj/crypter.o \
     obj/db.o \
-    obj/genesis_bitcoin.o \
-    obj/genesis_litecoin.o \
-    obj/genesis_umbrella.o \
+    obj/genesis_umbrella-ltc.o \
     obj/hash.o \
     obj/init.o \
     obj/key.o \
@@ -135,7 +137,6 @@ OBJS= \
     obj/leveldb.o \
     obj/main.o \
     obj/mine_genesis.o \
-    obj/n_factor.o \
     obj/net.o \
     obj/netbase.o \
     obj/noui.o \
@@ -150,8 +151,8 @@ OBJS= \
     obj/rpcwallet.o \
     obj/script.o \
     obj/scrypt.o \
-    obj/scrypt_generated.o \
     obj/sync.o \
+    obj/testmaxmoney.o \
     obj/txdb.o \
     obj/types.o \
     obj/uint256.o \
@@ -227,8 +228,8 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-umbrella-ltcd: $(OBJS:obj/%=obj/%)
-	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
+umbrella-ltcd: $(OBJS:obj/%=obj/%) 
+	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS) 
 
 KEYGENOBJS := obj/keygen.o obj/key.o obj/util_cmn.o \
               obj/allocators.o
@@ -245,7 +246,7 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 SHOWNFACTOROBJS := obj/show_n_factor.o obj/n_factor.o
 
 show_n_factor: $(SHOWNFACTOROBJS)
-	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) 
+	$(LINK) $(xCXXFLAGS) -lboost_system -o $@ $^ $(xLDFLAGS) 
 
 obj-test/%.o: test/%.cpp
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<

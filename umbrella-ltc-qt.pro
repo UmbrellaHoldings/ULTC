@@ -9,6 +9,7 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 
+QMAKE_CXX= g++-4.9
 QMAKE_CXXFLAGS += --std=c++11
 macx {
   QMAKE_CXXFLAGS += -stdlib=libc++ -arch x86_64 
@@ -29,6 +30,10 @@ macx {
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+
+BOOST_INCLUDE_PATH==/usr/include/boost1.55-c++11/
+BOOST_VERSION=1.55
+BOOST_LIB_SUFFIX=-c++11
 
 OBJECTS_DIR = build
 MOC_DIR = build
