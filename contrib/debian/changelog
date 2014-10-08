@@ -1,3 +1,10 @@
+umbrella-ltc (5.3.6.26) jessie; urgency=medium
+
+  * New upstream release.
+
+
+ -- Oleksiy Ivanchuk <barjomet@barjomet.com>  Wed, 08 Oct 2014 12:21:30 +0000 
+
 umbrella-ltc (5.3.6.24) jessie; urgency=medium
 
   * New upstream release.
