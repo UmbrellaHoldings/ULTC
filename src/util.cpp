@@ -1009,8 +1009,15 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-  boost::filesystem::path pathConfigFile(GetArg("-conf", "umbrella-ltc.conf"));
-  if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
+  using namespace boost::filesystem;
+
+  path pathConfigFile(GetArg("-conf", "umbrella-ltc.conf"));
+  if (!pathConfigFile.is_complete()) 
+#ifdef __linux__
+    pathConfigFile = path("/etc/umbrella-ltc.conf");
+#else
+    pathConfigFile = GetDataDir(false) / pathConfigFile;
+#endif
   return pathConfigFile;
 }
 

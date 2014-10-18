@@ -9,6 +9,7 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 
+QMAKE_CXX= g++-4.9
 QMAKE_CXXFLAGS += --std=c++11
 macx {
   QMAKE_CXXFLAGS += -stdlib=libc++ -arch x86_64 
@@ -29,6 +30,10 @@ macx {
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+
+BOOST_INCLUDE_PATH==/usr/include/boost1.55-c++11/
+BOOST_VERSION=1.55
+BOOST_LIB_SUFFIX=-c++11
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -480,7 +485,7 @@ LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 win32:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
+LIBS += -lboost_system$$BOOST_VERSION$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_VERSION$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_VERSION$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_VERSION$$BOOST_THREAD_LIB_SUFFIX
 win32:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
 macx:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
 
